@@ -18,5 +18,16 @@ function pr($data, $is_die = false){
 
 	if($is_die)
 	die;
-	
+}
+
+function userRoles() {
+    $roles = array();
+    $CI = & get_instance();
+    $data = $CI->user_model->viewAll(TBL_USERS_ROLES, '');
+//    echo '<pre>';
+//    print_r($data);
+//    exit;
+    foreach ($data as $val)
+        $roles[$val->name] = $val->id;
+    return $roles;
 }
