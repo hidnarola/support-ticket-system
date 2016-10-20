@@ -1,6 +1,6 @@
 <div class="content-wrapper">
     <div class="content pb-20">
-        <form method="post" class="form-validate">
+        <form method="post" class="form-validate" action='<?php echo base_url() . "login";?>'>
             <div class="panel panel-body login-form">
                 <div class="text-center">
                     <div class="icon-object login_logo">
