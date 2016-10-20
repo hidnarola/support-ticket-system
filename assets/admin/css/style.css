@@ -1,0 +1,184 @@
+.login_logo{
+    border-style: none;
+}
+.login_logo img{
+    max-width: 100%;
+}
+.navbar-top .navbar .navbar-header{
+	display: table !important;
+	background: #eeeded;
+	/*background: #55a747;*/
+	max-width: 100%;
+}
+.navbar .navbar-brand{
+ 	display: table-cell;
+    float: none;
+    vertical-align: middle;
+    padding: 0 10px;
+    width: 260px;
+}
+.navbar-brand > img {
+    height: auto;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.sidebar-user-material .category-content{
+	background: rgba(0, 0, 0, 0) url("../images/login_cover.jpg") no-repeat scroll center center / cover;
+}
+.sidebar-user-material-content > a{
+	background: #263238;
+}
+.popular_list td,
+.popular_list th{
+	text-align: left;
+}
+.popular_list td.action_td{
+	text-align: center;
+}
+.popular_list .list_logo{
+	display: inline-block;
+    padding: 0;
+	height: 40px;
+    margin-right: 15px;
+    width: 40px;
+}
+.popular_list .list_desc{
+	display: inline-block;
+	vertical-align: middle;
+}
+.popular_list .list_desc .company_address{
+ 	display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    white-space: pre-wrap;
+    width: 370px;
+}
+.popular_list .list_desc .list_logo{
+	height: 20px;
+    margin-right: 5px;
+    width: 20px;
+}
+.popular_list .list_logo img.img-xs{
+	max-width: 100% !important;
+	height: auto !important;
+	width: 100% !important;
+}
+.popular_list .list_desc span.badge{
+ 	background-color: #313131;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    margin: -3px 0 0 15px;
+    padding: 4px 12px;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+.sidebar-xs .header-highlight .navbar-header .navbar-brand{
+	background: rgba(0, 0, 0, 0) url("../images/icon.png") no-repeat scroll center center / auto 35px;
+    width: auto;
+}
+.login-form .alert{
+	padding: 15px;
+}
+.alert-dismissible .close{
+	right: -5px;
+}
+table th, 
+table td{
+	text-align: center;
+}
+.datatable-header, .datatable-footer{
+	padding: 0;
+}
+.translate_resume fieldset legend{
+	padding:5px 10px !important;
+	border-radius: 5px 5px 0 0;
+}
+.translate_resume fieldset legend i{
+	color: #fff;
+}
+.translate_resume .form-control{
+	border-color: transparent transparent #009688;
+}
+#pagination_div{
+    text-align: center;
+}
+.pagination{
+    box-shadow: none;
+}
+#pagination_div .pagination li a{
+    border: 1px solid #009688;
+    color: #009688;
+    outline: 0;
+}
+#pagination_div .pagination li a i{
+    font-size: 14px;
+    color: #009688;
+}
+#pagination_div .pagination li a:active,
+#pagination_div .pagination li a:active i,
+#pagination_div .pagination li a:hover,
+#pagination_div .pagination li a:hover i{
+    background: #009688;
+    color: #fff;
+}
+#pagination_div .pagination li.active a{
+    background: #009688;
+    color: #fff;
+}
+.candidates-list-item-profile-bar {
+    background-color: #e9e9e9;
+    border-radius: 5px;
+    display: block;
+    overflow: hidden;
+}
+.candidates-list-item-profile-bar span {
+    background-color: #55a747;
+    display: block;
+    height: 10px;
+}
+.candidates-list-item-profile-count {
+    color: #999;
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+.div_add_block {
+    border: 1px solid #009688;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+.div_add_block:last-child {
+    margin-bottom: 10px;
+}
+.dashboard_stats a{
+    color: #fff;
+}
+.alert .alert_error_msg{
+    margin: 0;
+}
+.page-header {
+    border-bottom: 1px solid #ddd;
+}
+.positions-list-item th,
+.positions-list-item td{
+	text-align: left;
+}
+.page-title{
+	padding: 20px 0;
+}
+.main_wrapper{
+	background: #fff;
+	padding: 25px;
+    border-radius: 5px;
+}
+@media (max-width: 768px) {
+	.navbar-top .navbar .navbar-header{
+		width: 100%;
+		background: #009688;
+	}
+}
