@@ -6,7 +6,7 @@
                     <div class="icon-object login_logo">
                         <img src="assets/img/logo.png">
                     </div>
-                    <h4 class="content-group">Login to your account</h4>
+                    <h4 class="content-group"><?php echo $title; ?></h4>
                     <?php
                     if ($this->session->flashdata('error_msg')) {
                     ?>

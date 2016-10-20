@@ -7,7 +7,18 @@ class Login extends CI_Controller {
         parent::__construct();
     }
 	public function index(){
-		$data['title'] = 'Login';
-		$this->template->load('admin_login', 'Admin/Users/login', $data);
+		$user_title = 'Tenant';
+		if($this->uri->segment(1)=='admin'){
+			$user_title = 'Admin';
+		}else if($this->uri->segment(1)=='staff'){
+			$user_title = 'Staff';
+		}
+
+		$data['title'] = $user_title.' Login';
+		if($user_title != 'Tenant'){
+			$this->template->load('admin_login', 'Admin/Users/login', $data);
+		}else{
+			echo 'load tenant template';
+		}
 	}
 }
