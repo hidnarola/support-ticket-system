@@ -55,4 +55,12 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['admin/login'] = "login";
 $route['staff/login'] = "login";
+$route['admin'] = "admin/dashboard";
+$route['admin/manage/roles'] = "admin/dashboard/manage/roles";
+$route['admin/manage/categories'] = "admin/dashboard/manage/categories";
+$route['admin/manage/departments'] = "admin/dashboard/manage/departments";
+$route['admin/manage/ticket_priorities'] = "admin/dashboard/manage/ticket_priorities";
+$route['admin/manage/ticket_statuses'] = "admin/dashboard/manage/ticket_statuses";
+$route['admin/manage/ticket_types'] = "admin/dashboard/manage/ticket_types";
+$route['admin/get_detail'] = "admin/dashboard/get_detail";
 

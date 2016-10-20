@@ -2,22 +2,21 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Dashboard extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->data = get_admin_data();
+        //$this->data = get_admin_data();
         $this->popular_limit = 5;
         $this->type_table = array(
-            'emirates' => 'emirates',
-            'fields' => 'job_fields',
-            'types' => 'job_types',
-            'job_status' => 'job_status',
-            'skills' => 'resume_skills',
-            'no_of_employees' => 'no_of_employees',
-            'disabilities' => 'disabilities',
-            'preferred_job_types' => 'preferred_job_types'
+            'roles' => 'roles',
+            'categories' => 'categories',
+            'departments' => 'departments',
+            'ticket_priorities' => 'ticket_priorities',
+            'ticket_statuses' => 'ticket_statuses',
+            'ticket_types' => 'ticket_types',
         );
+        $this->load->model('Admin_model');
     }
 
     public function index() {
@@ -42,17 +41,15 @@ class Home extends CI_Controller {
             $title = ucwords(str_replace('_', ' ', $table_name));
             $this->data['title'] = $this->data['page_header'] = $this->data['record_type'] = $title;
             $this->data['records'] = $this->Admin_model->get_records($table_name);
-            $this->form_validation->set_rules('english_name', 'English Name', 'trim|required', array('required' => 'Enter english name.'));
-            $this->form_validation->set_rules('arabic_name', 'Arabic Name', 'trim|required', array('required' => 'Enter arabic name.'));
+            $this->form_validation->set_rules('name', 'Name', 'trim|required', array('required' => 'Enter english name.'));
             
             if ($this->form_validation->run() == TRUE) {
                 
-                $english_name = $this->input->post('english_name');
-                $arabic_name = $this->input->post('arabic_name');
+                $name = $this->input->post('name');
                 $record_id = $this->input->post('record_id');
                 $record_array = array(
-                    'english_name' => $english_name,
-                    'arabic_name' => $arabic_name
+                    'name' => $name,
+                    'created' => date('Y-m-d H:i:s')
                 );
                 if ($record_id != '') {
                     $record_exist_condition = array(
@@ -80,7 +77,7 @@ class Home extends CI_Controller {
                     }
                 }
             }
-            $this->template->load('admin', 'Admin/Home/manage_record', $this->data);
+            $this->template->load('admin', 'Admin/Dashboard/manage_record', $this->data);
         } else {
             
             redirect('admin');
