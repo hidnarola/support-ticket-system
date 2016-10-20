@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Support Ticket - Admin Login</title>
-        <base href="<?php //echo base_url(); ?>">
+        <title>Support Ticket - <?php echo $title; ?></title>
+        <base href="<?php echo base_url(); ?>">
 
         <!-- Global stylesheets -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
