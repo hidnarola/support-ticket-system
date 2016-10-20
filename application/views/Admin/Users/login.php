@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="form-group has-feedback has-feedback-left">
-                    <input type="email" class="form-control" placeholder="Email Address" name="username" required="required">
+                    <input type="email" class="form-control" placeholder="Email Address" name="email" required="required">
                     <div class="form-control-feedback">
                         <i class="icon-user text-muted"></i>
                     </div>
