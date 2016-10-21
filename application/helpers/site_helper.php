@@ -19,26 +19,8 @@ function pr($data, $is_die = false) {
 
     if ($is_die)
         die;
-=======
-*	Print array/string.
-*	@data  = data that you want to print
-*	@is_die = if true. Excecution will stop after print. 
-* 	Author = Nv
-*/
-function pr($data, $is_die = false){
-
-	if(is_array($data)){
-		echo "<pre>";
-		print_r($data);
-		echo "</pre>";
-	}else{
-		echo $data;
-	}
-
-	if($is_die)
-		die;
->>>>>>> c05be10df8fb068edc1ae139cadb2d926b232ba0
 }
+
 
 /* To user roled from the database. 
  * @author : Reema  (Rep)
@@ -52,7 +34,7 @@ function userRoles() {
     return $roles;
 }
 
-<<<<<<< HEAD
+
 /* To check admin is logged in or not. 
  * @author : Reema  (Rep)
  */
@@ -130,10 +112,10 @@ function mail_config() {
     );
     return $configs;
 }
-=======
+
 function get_role_id($role){
 	$CI = & get_instance();
 	$data = $CI->user_model->get_role_id($role);
 	return $data['id'];
 }
->>>>>>> c05be10df8fb068edc1ae139cadb2d926b232ba0
+
