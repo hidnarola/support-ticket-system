@@ -17,17 +17,20 @@ function pr($data, $is_die = false){
 	}
 
 	if($is_die)
-	die;
+		die;
 }
 
 function userRoles() {
     $roles = array();
     $CI = & get_instance();
     $data = $CI->user_model->viewAll(TBL_USERS_ROLES, '');
-//    echo '<pre>';
-//    print_r($data);
-//    exit;
     foreach ($data as $val)
         $roles[$val->name] = $val->id;
     return $roles;
+}
+
+function get_role_id($role){
+	$CI = & get_instance();
+	$data = $CI->user_model->get_role_id($role);
+	return $data['id'];
 }

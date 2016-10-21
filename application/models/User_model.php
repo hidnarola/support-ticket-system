@@ -6,22 +6,15 @@ class User_model extends CI_Model {
 
     public function check($email, $password) {
 
-        $roles = userRoles();
-        $roleIDs = array($roles['admin'], $roles['staff'], $roles['tenant']);
         /* Get password and decrypt it */
-        $this->db->select('password');
         $this->db->where('email', $email);
+        $this->db->where('is_delete', 0);
         $q = $this->db->get(TBL_USERS);
         $data = $q->row_array();
         $passworddecrypted = $this->encrypt->decode($data['password']);
 
-        $this->db->select('*');
-        $this->db->where('is_delete', 0);
-        $this->db->where_in('role_id', $roleIDs);
-        $q_data = $this->db->get(TBL_USERS);
-        $data_user = $q_data->row_array();
         if ($password == $passworddecrypted) {
-            return $data_user;
+            return $data;
         } else {
             return FALSE;
         }
@@ -38,6 +31,13 @@ class User_model extends CI_Model {
         $query = "SELECT " . $select . " FROM " . $table . " " . $limit;
         $list = $this->db->query($query);
         return $list->result();
+    }
+
+    public function get_role_id($role){
+        $this->db->select('id');
+        $this->db->where('name',$role);
+        $q = $this->db->get(TBL_USERS_ROLES);
+        return $q->row_array();
     }
 
 }

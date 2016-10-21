@@ -21,16 +21,7 @@ class Dashboard extends CI_Controller {
 
     public function index() {
         $this->data['title'] = $this->data['page_header'] = 'Dashboard';
-        $this->data['total_users'] = $this->Admin_model->get_total_users(0);
-        $this->data['total_companies'] = $this->Admin_model->get_total_users(1);
-        $this->data['total_positions'] = $this->Position_model->get_total_positions();
-        $this->data['total_resumes'] = $this->Resume_model->get_total_resume();
-        $data['companies'] = $this->Company_model->filter_company(array(), 0, 0, $this->popular_limit, 1);
-        $data['is_popular'] = 1;
-        $this->data['company_list_html'] = $this->load->view('Admin/Users/company_list_block', $data, true);
-        $positions['positions'] = $this->Position_model->filter_position(array(), 0, 0, $this->popular_limit, 1);
-        $this->data['position_list_html'] = $this->load->view('Admin/Position/list_block', $positions, true);
-        $this->template->load('admin', 'Admin/Home/index', $this->data);
+        $this->template->load('admin', 'Admin/Dashboard/index', $this->data);
     }
 
     public function manage($type) {
@@ -41,7 +32,7 @@ class Dashboard extends CI_Controller {
             $title = ucwords(str_replace('_', ' ', $table_name));
             $this->data['title'] = $this->data['page_header'] = $this->data['record_type'] = $title;
             $this->data['records'] = $this->Admin_model->get_records($table_name);
-            $this->form_validation->set_rules('name', 'Name', 'trim|required', array('required' => 'Enter english name.'));
+            $this->form_validation->set_rules('name', 'Name', 'trim|required', array('required' => 'Enter Name.'));
             
             if ($this->form_validation->run() == TRUE) {
                 
@@ -79,7 +70,6 @@ class Dashboard extends CI_Controller {
             }
             $this->template->load('admin', 'Admin/Dashboard/manage_record', $this->data);
         } else {
-            
             redirect('admin');
         }
     }
@@ -109,6 +99,27 @@ class Dashboard extends CI_Controller {
             );
         }
         echo json_encode($return_array);
+    }
+
+    public function delete(){
+        $id = $this->input->post('id');
+        $table_name = $this->input->post('type');
+        if($id!=''){
+            $record_id = base64_decode($id);
+            if($this->Admin_model->delete($table_name, $record_id)){
+                $msg = 'Record deleted successfully';
+                $status = 1;
+            }else{
+                $msg = 'Unable to delete the record.';
+                $status = 0;
+            }
+            $return_array = array(
+                'status' => $status,
+                'msg'=>$msg,
+                'id'=>$id
+                );
+            echo json_encode($return_array);
+        }
     }
 
 }
