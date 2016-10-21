@@ -17,15 +17,31 @@
         <link href="assets/admin/css/colors.css" rel="stylesheet" type="text/css">
         <!--<link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">-->
         <link href="assets/admin/css/style.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">
+        <link href="assets/admin/css/common.css" rel="stylesheet" type="text/css" id="style-primary">
         <!-- /global stylesheets -->
 
         <!-- Core JS files -->
         <script type="text/javascript" src="assets/admin/js/plugins/loaders/pace.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/libraries/jquery.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/libraries/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.validate.js"></script>
+        <!--<script type="text/javascript" src="assets/js/jquery.validate.js"></script>-->
+        <script type="text/javascript" src="assets/admin/js/plugins/forms/validation/validate.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/forms/styling/uniform.min.js"></script>
+
+        <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
+        <script type="text/javascript" src="assets/admin/js/pages/login_validation.js"></script>
+
+        <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
+
         <!-- /core JS files -->
+<!--        <script>
+            window.setTimeout(function () {
+                $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                    $(this).remove();
+                });
+            }, 7000);
+        </script>-->
     </head>
 
     <body class="navbar-top">
@@ -49,7 +65,11 @@
                 </ul>
 
                 <div class="navbar-right">
-                    <p class="navbar-text">Hello Admin!</p>
+                    <p class="navbar-text">Hello <?php
+                        if ($this->session->userdata('admin_logged_in')) {
+                            echo $this->session->userdata('admin_logged_in')['fname'];
+                        }
+                        ?>!</p>
                 </div>
             </div>
         </div>
@@ -63,7 +83,12 @@
                                 <div class="sidebar-user-material-content">
                                     <a href="admin">
                                         <img src="assets/images/no_photo.png" class="img-circle img-responsive" alt=""></a>
-                                     <h6>Hello Admin!</h6>
+                                    <h6>Hello <?php
+                                        if ($this->session->userdata('admin_logged_in')) {
+                                            echo $this->session->userdata('admin_logged_in')['fname'];
+                                        }
+//                                        pr($this->session->userdata('admin_logged_in'),1);
+                                        ?> !</h6>
                                 </div>
 
                                 <div class="sidebar-user-material-menu">
@@ -83,19 +108,23 @@
                             <div class="category-content no-padding">
                                 <ul class="navigation navigation-main navigation-accordion">
                                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
+                                    <?php $action = $this->uri->segment(2); ?>
+
                                     <li><a href="admin"><i class="icon-home2"></i> <span>Dashboard</span></a></li>
+                                    <li><a href="admin/users/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
+                                    <li><a href="admin/users/staffs"><i class="icon-people"></i> <span>Staffs</span></a></li>
                                     <li><a href="admin/manage/categories"><i class="icon-magazine"></i> <span>Categories</span></a></li>
                                     <li><a href="admin/manage/departments"><i class="icon-pin"></i> <span>Departments</span></a></li>
                                     <li>
-                                    <a href="#">Settings</a>
-                                    <ul>
-                                        <li><a href="admin/manage/roles"><i class="icon-magazine"></i> <span>Roles</span></a></li>
-                                        <li><a href="admin/manage/ticket_priorities"><i class="icon-pin"></i> <span>Ticket Priorities</span></a></li>
-                                        <li><a href="admin/manage/ticket_statuses"><i class="icon-pin"></i> <span>Ticket Statuses</span></a></li>
-                                        <li><a href="admin/manage/ticket_types"><i class="icon-pin"></i> <span>Ticket Types</span></a></li>
-                                    </ul>
-                                </li>
-                                    
+                                        <a href="#">Settings</a>
+                                        <ul>
+                                            <li><a href="admin/manage/roles"><i class="icon-magazine"></i> <span>Roles</span></a></li>
+                                            <li><a href="admin/manage/ticket_priorities"><i class="icon-pin"></i> <span>Ticket Priorities</span></a></li>
+                                            <li><a href="admin/manage/ticket_statuses"><i class="icon-pin"></i> <span>Ticket Statuses</span></a></li>
+                                            <li><a href="admin/manage/ticket_types"><i class="icon-pin"></i> <span>Ticket Types</span></a></li>
+                                        </ul>
+                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -136,7 +165,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="content">
                         <?php echo $body; ?>
@@ -154,7 +183,8 @@
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
 
         <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script>
-       
+
         <!-- /theme JS files -->
+        
     </body>
 </html>

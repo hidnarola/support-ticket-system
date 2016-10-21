@@ -28,7 +28,9 @@
 
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/login_validation.js"></script>
+        <script type="text/javascript" src="assets/admin/js/pages/form_validation.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/forms/validation/validate.min.js"></script>
         <!-- /theme JS files -->
 
     </head>

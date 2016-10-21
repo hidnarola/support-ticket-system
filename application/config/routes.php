@@ -64,3 +64,5 @@ $route['admin/manage/ticket_statuses'] = "admin/dashboard/manage/ticket_statuses
 $route['admin/manage/ticket_types'] = "admin/dashboard/manage/ticket_types";
 $route['admin/get_detail'] = "admin/dashboard/get_detail";
 
+$route['admin/users/staffs'] = "admin/users";
+$route['admin/users/tenants'] = "admin/users";

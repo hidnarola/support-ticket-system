@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller {
     public function __construct() {
         parent::__construct();
         //$this->data = get_admin_data();
+        check_isvalidated();
         $this->popular_limit = 5;
         $this->type_table = array(
             'roles' => 'roles',
@@ -21,16 +22,11 @@ class Dashboard extends CI_Controller {
 
     public function index() {
         $this->data['title'] = $this->data['page_header'] = 'Dashboard';
-        $this->data['total_users'] = $this->Admin_model->get_total_users(0);
-        $this->data['total_companies'] = $this->Admin_model->get_total_users(1);
-        $this->data['total_positions'] = $this->Position_model->get_total_positions();
-        $this->data['total_resumes'] = $this->Resume_model->get_total_resume();
-        $data['companies'] = $this->Company_model->filter_company(array(), 0, 0, $this->popular_limit, 1);
-        $data['is_popular'] = 1;
-        $this->data['company_list_html'] = $this->load->view('Admin/Users/company_list_block', $data, true);
-        $positions['positions'] = $this->Position_model->filter_position(array(), 0, 0, $this->popular_limit, 1);
-        $this->data['position_list_html'] = $this->load->view('Admin/Position/list_block', $positions, true);
-        $this->template->load('admin', 'Admin/Home/index', $this->data);
+        $this->data['total_departments'] = $this->Admin_model->get_total(TBL_DEPARTMENTS);
+        $this->data['total_tenants'] = $this->Admin_model->get_total_users(1);
+        $this->data['total_staffs'] = $this->Admin_model->get_total_users(2);
+        $this->data['total_tickets'] = $this->Admin_model->get_total(TBL_TICKETS);
+        $this->template->load('admin', 'Admin/Dashboard/index', $this->data);       
     }
 
     public function manage($type) {

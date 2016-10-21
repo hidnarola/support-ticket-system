@@ -40,4 +40,36 @@ class User_model extends CI_Model {
         return $list->result();
     }
 
+    public function get_users_records($table_name,$role_id) {
+        $this->db->where('role_id!=', 3);
+        if ($role_id == 1) {
+            $this->db->where('role_id', $role_id);
+        } elseif ($role_id == 2) {
+            $this->db->where('role_id', $role_id);
+        }
+        $this->db->where('is_delete', 0);
+        $records = $this->db->get($table_name);
+        $rec =  $records->result_array();
+        $users = array(); 
+        foreach ($rec as $key => $value) {
+            $users[$key]=$value;
+            $passworddecrypted = $this->encrypt->decode($value['password']);
+            $users[$key]['password'] =  $passworddecrypted;
+        }
+        return $users;
+    }
+    
+    /**
+     *  Check if the value is unique
+     */
+    public function isUnique($field, $value, $table, $cnd = "", $id = '') {
+        if ($id != '')
+            $condition = "AND id!= $id";
+        else
+            $condition = $cnd;
+        $query = "SELECT * FROM " . $table . " WHERE " . $field . "='" . $value . "'" . $condition;
+        $result = $this->db->query($query);
+        return $result->row();
+    }
+
 }

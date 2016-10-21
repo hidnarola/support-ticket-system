@@ -87,3 +87,11 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 define('TBL_USERS', 'users');
 define('TBL_USERS_ROLES', 'roles');
+define('TBL_DEPARTMENTS', 'departments');
+define('TBL_TICKETS', 'tickets');
+
+/*  |	set upload folder constants */
+
+define('USER_PROFILE_IMAGE', 'uploads/user_profile_image');
+define('PROFILE_THUMB_IMAGE', 'uploads/user_profile_image/thumb');
+define('PROFILE_MEDIUM_IMAGE', 'uploads/user_profile_image/medium');
