@@ -17,6 +17,9 @@ class Home extends CI_Controller {
         $val = explode('=', $decode);
         $this->data['email'] = $val[1];
 //        $this->data['title'] = $this->data['page_header'] = 'Tenants / Add Tenant';
+        
+        
+        
         $this->template->load('admin_login', 'Admin/Users/password_recovery', $this->data);
     }
 

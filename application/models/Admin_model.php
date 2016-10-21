@@ -44,6 +44,7 @@ class Admin_model extends CI_Model {
         }
     }
 
+
     public function get_total($tablename) {
         $this->db->select('*');
         $this->db->from($tablename);
@@ -75,4 +76,16 @@ class Admin_model extends CI_Model {
         }
     }
 
+
+
+    public function delete($table_name, $record_id){
+    	$record_array = array('is_delete'=>1);
+    	$this->db->where('id', $record_id);
+    	if($this->db->update($table_name, $record_array)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }
+

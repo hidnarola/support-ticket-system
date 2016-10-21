@@ -62,7 +62,8 @@
                                                 <a id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-pencil7"></i></a>
                                             </li>
                                             <li class="text-danger-600">
-                                                <a id="delete_<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
+                                                <?php $url = urlencode("admin/delete/".$this->uri->segment(3)."/". base64_encode($record['id'])); ?>
+                                                <a data-record="<?php echo base64_encode($record['id']); ?>" id="delete_<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
                                             </li>
                                         </ul>
                                     </td>
@@ -101,19 +102,26 @@
     });
     $(document).on('click', '.delete', function () {
         var id = $(this).attr('id').replace('delete_', '');
-        var url = base_url + controller + '/delete/' + id;
+        var url = base_url + 'delete';
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: url,
             async: false,
             dataType: 'JSON',
+            data:{id:id, type: type },
             success: function (data) {
+                console.log("data",data);
+                console.log(data.status);
+                console.log(data.msg);
+                console.log(data.id);
                 if (data.status == 1) {
-                    var record = data.record[0];
-                    console.clear();
-                    $('#record_name').val(record.record_name);
-                    $('#record_id').val(record.id);
+                    $("div.div_alert_error").addClass('alert-success');
+                    $('a.delete[data-record="'+data.id+'"]').closest('tr').remove();
+                }else if(data.status == 0){
+                    $("div.div_alert_error").addClass('alert-danger');
                 }
+                $("p.alert_error_msg").text(data.msg);
+                $("div.div_alert_error").show();
             }
         });
     });

@@ -23,11 +23,12 @@ class Login extends CI_Controller {
             echo 'load tenant template';
         }
         if ($_POST) {
+
             $email = $this->input->post('email');
             $password = $this->input->post('password');
 
             $result = $this->user_model->check($email, $password);
-//        print_r($result);
+       		
             if ($result) {
                 if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1) {
                     //success
@@ -36,7 +37,8 @@ class Login extends CI_Controller {
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0) {
                     // Give error msg for user is not approved by admin
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1) {
-                    
+                    $userdata = $this->session->set_userdata('staffed_logged_in', $result);
+                    redirect('staff/dashboard');
                 } elseif ($result['role_id'] == 3) {
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
                     redirect('admin/dashboard');

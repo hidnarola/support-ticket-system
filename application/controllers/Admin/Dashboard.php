@@ -22,11 +22,13 @@ class Dashboard extends CI_Controller {
 
     public function index() {
         $this->data['title'] = $this->data['page_header'] = 'Dashboard';
+
         $this->data['total_departments'] = $this->Admin_model->get_total(TBL_DEPARTMENTS);
         $this->data['total_tenants'] = $this->Admin_model->get_total_users(1);
         $this->data['total_staffs'] = $this->Admin_model->get_total_users(2);
         $this->data['total_tickets'] = $this->Admin_model->get_total(TBL_TICKETS);
         $this->template->load('admin', 'Admin/Dashboard/index', $this->data);       
+
     }
 
     public function manage($type) {
@@ -37,7 +39,7 @@ class Dashboard extends CI_Controller {
             $title = ucwords(str_replace('_', ' ', $table_name));
             $this->data['title'] = $this->data['page_header'] = $this->data['record_type'] = $title;
             $this->data['records'] = $this->Admin_model->get_records($table_name);
-            $this->form_validation->set_rules('name', 'Name', 'trim|required', array('required' => 'Enter english name.'));
+            $this->form_validation->set_rules('name', 'Name', 'trim|required', array('required' => 'Enter Name.'));
             
             if ($this->form_validation->run() == TRUE) {
                 
@@ -75,7 +77,6 @@ class Dashboard extends CI_Controller {
             }
             $this->template->load('admin', 'Admin/Dashboard/manage_record', $this->data);
         } else {
-            
             redirect('admin');
         }
     }
@@ -105,6 +106,27 @@ class Dashboard extends CI_Controller {
             );
         }
         echo json_encode($return_array);
+    }
+
+    public function delete(){
+        $id = $this->input->post('id');
+        $table_name = $this->input->post('type');
+        if($id!=''){
+            $record_id = base64_decode($id);
+            if($this->Admin_model->delete($table_name, $record_id)){
+                $msg = 'Record deleted successfully';
+                $status = 1;
+            }else{
+                $msg = 'Unable to delete the record.';
+                $status = 0;
+            }
+            $return_array = array(
+                'status' => $status,
+                'msg'=>$msg,
+                'id'=>$id
+                );
+            echo json_encode($return_array);
+        }
     }
 
 }
