@@ -32,7 +32,6 @@ class Users extends CI_Controller {
             $user['role_id'] = 2;
         $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
         $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
-//        $this->form_validation->set_rules('email', 'Email', 'trim|required');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . TBL_USERS . '.email]', array('is_unique' => 'Email already exist!'));
         $this->form_validation->set_rules('contactno', 'Contact Number', 'trim|required');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');

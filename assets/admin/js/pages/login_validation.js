@@ -71,7 +71,10 @@ $(function () {
             },
             password: {
                 minlength: 5
-            }
+            },
+             repeat_password: {
+                equalTo: "#password"
+            },
         },
         messages: {
             username: {
@@ -81,6 +84,10 @@ $(function () {
             password: {
                 required: "Enter your password.",
                 minlength: jQuery.validator.format("At least {0} characters required.")
+            },
+            repeat_password:{
+                required: "Enter confirm password",
+            	minlength: jQuery.validator.format("At least {0} characters required")
             }
         }
     });

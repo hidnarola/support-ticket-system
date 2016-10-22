@@ -178,7 +178,11 @@ $(function() {
             custom: {
                 required: "This is a custom error message",
             },
-            agree: "Please accept our policy"
+            agree: "Please accept our policy",
+            repeat_password:{
+                required: "Enter confirm password",
+            	minlength: jQuery.validator.format("At least {0} characters required")
+            }
         }
     });
 

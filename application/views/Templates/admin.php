@@ -167,7 +167,7 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div>                                       
                     <div class="content">
                         <?php echo $body; ?>
                     </div>
@@ -182,7 +182,7 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_select.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
-
+<script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script>
 
         <!-- /theme JS files -->

@@ -6,7 +6,7 @@ class Login extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('User_model');
     }
 
     public function index() {
@@ -22,12 +22,10 @@ class Login extends CI_Controller {
         } else {
             echo 'load tenant template';
         }
-        if ($_POST) {
-
+        if ($this->input->post()) {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
-
-            $result = $this->user_model->check($email, $password);
+            $result = $this->User_model->check($email, $password);
        		
             if ($result) {
                 if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1) {
@@ -49,15 +47,4 @@ class Login extends CI_Controller {
             }
         }
     }
-
-    public function login() {
-        $user_title = 'Tenant';
-        if ($this->uri->segment(1) == 'admin') {
-            $user_title = 'Admin';
-        } else if ($this->uri->segment(1) == 'staff') {
-            $user_title = 'Staff';
-        }
-        $data['title'] = $user_title . ' Login';
-    }
-
 }

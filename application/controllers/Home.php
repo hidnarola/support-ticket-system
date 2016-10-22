@@ -16,11 +16,36 @@ class Home extends CI_Controller {
         $decode = urldecode($key);
         $val = explode('=', $decode);
         $this->data['email'] = $val[1];
-//        $this->data['title'] = $this->data['page_header'] = 'Tenants / Add Tenant';
-        
-        
-        
-        $this->template->load('admin_login', 'Admin/Users/password_recovery', $this->data);
+        $check = $this->User_model->passwordExist($this->data['email']);
+        if ($check) {
+            $this->session->set_flashdata('error_msg', 'You have alread setup password. You can login Now!');
+            redirect('staff/login');
+            
+        } else {
+            $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
+        }
+    }
+
+    public function verifyPassword() {
+        $email = $this->data = $this->input->post('email_hidden');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('repeat_password', 'Confirm Password', 'trim|required|matches[password]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
+        } else {
+            $password = $this->input->post('password');
+            $encryptPassword = $this->encrypt->encode($password);
+            $data = array(
+                'password' => $encryptPassword,
+                'status' => 0,
+            );
+            $rec = $this->User_model->edit($data, TBL_USERS, 'email', $email);
+            if ($rec) {
+                $this->session->set_flashdata('success_msg', 'Your password is changed succesfully. You can login Now!');
+                redirect('staff/login');
+            }
+        }
     }
 
 }
