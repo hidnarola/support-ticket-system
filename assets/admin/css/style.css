@@ -176,6 +176,14 @@ table td{
 	padding: 25px;
     border-radius: 5px;
 }
+
+.dataTables_paginate {   
+    margin-top: 10px;
+}
+.icon-object {
+    margin-top: 1px;
+    padding: 13px;
+}
 @media (max-width: 768px) {
 	.navbar-top .navbar .navbar-header{
 		width: 100%;

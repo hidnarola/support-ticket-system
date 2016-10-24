@@ -18,6 +18,16 @@
                         <?php
                     }
                     ?>
+                    <?php
+                    if ($this->session->flashdata('success_msg')) {
+                        ?>
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <?php echo $this->session->flashdata('success_msg'); ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
 
                 <div class="form-group has-feedback has-feedback-left">
