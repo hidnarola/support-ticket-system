@@ -184,6 +184,7 @@ table td{
     margin-top: 1px;
     padding: 13px;
 }
+#user_add .user_profile_pic .filename{display: none;}
 @media (max-width: 768px) {
 	.navbar-top .navbar .navbar-header{
 		width: 100%;

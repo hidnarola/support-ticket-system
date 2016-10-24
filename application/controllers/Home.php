@@ -17,10 +17,9 @@ class Home extends CI_Controller {
         $val = explode('=', $decode);
         $this->data['email'] = $val[1];
         $check = $this->User_model->passwordExist($this->data['email']);
-        if ($check) {
+        if ($check == 1) {
             $this->session->set_flashdata('error_msg', 'You have alread setup password. You can login Now!');
             redirect('staff/login');
-            
         } else {
             $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
         }

@@ -25,11 +25,16 @@
         <script type="text/javascript" src="assets/admin/js/core/libraries/jquery.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/libraries/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.validate.js"></script>
+
         <script type="text/javascript" src="assets/admin/js/pages/login_validation.js"></script>
+
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
         <!-- /core JS files -->
 
+        
+        <script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>
+        
         <!-- /core JS files -->
 <!--        <script>
             window.setTimeout(function () {
@@ -70,8 +75,10 @@
             </div>
         </div>
         <?php
-            $current_page = $this->uri->segment(3);
-            $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
+        $current_page = $this->uri->segment(3);
+        $page = $this->uri->segment(2);
+        $users = $page.'/'.$current_page;
+        $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
         ?>
         <div class="page-container">
             <div class="page-content">
@@ -107,22 +114,24 @@
                             <div class="category-content no-padding">
                                 <ul class="navigation navigation-main navigation-accordion">
                                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
+
                                     <li><a href="admin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                                     <li><a href="admin/users/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
                                     <li><a href="admin/users/staffs"><i class="icon-people"></i> <span>Staffs</span></a></li>
                                     <li class="<?php echo ($current_page=='categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page=='departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a>
                                     </li>
+
                                     <li class="<?php echo (in_array($current_page, $settings)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-gear"></i><span>Settings</span></a>
                                         <ul>
-                                            <li class="<?php echo ($current_page=='roles') ? 'active' : ''; ?>"><a href="admin/manage/roles"><i class="icon-vcard"></i> <span>Roles</span></a></li>
-                                            <li class="<?php echo ($current_page=='ticket_priorities') ? 'active' : ''; ?>"><a href="admin/manage/ticket_priorities"><i class="icon-list-numbered"></i> <span>Ticket Priorities</span></a></li>
-                                            <li class="<?php echo ($current_page=='ticket_statuses') ? 'active' : ''; ?>"><a href="admin/manage/ticket_statuses"><i class="icon-stats-bars2"></i> <span>Ticket Statuses</span></a></li>
-                                            <li class="<?php echo ($current_page=='ticket_types') ? 'active' : ''; ?>"><a href="admin/manage/ticket_types"><i class="icon-grid-alt"></i> <span>Ticket Types</span></a></li>
+                                            <li class="<?php echo ($current_page == 'roles') ? 'active' : ''; ?>"><a href="admin/manage/roles"><i class="icon-vcard"></i> <span>Roles</span></a></li>
+                                            <li class="<?php echo ($current_page == 'ticket_priorities') ? 'active' : ''; ?>"><a href="admin/manage/ticket_priorities"><i class="icon-list-numbered"></i> <span>Ticket Priorities</span></a></li>
+                                            <li class="<?php echo ($current_page == 'ticket_statuses') ? 'active' : ''; ?>"><a href="admin/manage/ticket_statuses"><i class="icon-stats-bars2"></i> <span>Ticket Statuses</span></a></li>
+                                            <li class="<?php echo ($current_page == 'ticket_types') ? 'active' : ''; ?>"><a href="admin/manage/ticket_types"><i class="icon-grid-alt"></i> <span>Ticket Types</span></a></li>
                                         </ul>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </div>
@@ -177,12 +186,14 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/ui/nicescroll.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+
         <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
+
         <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script>
 
         <!-- /theme JS files -->
-        
+
     </body>
 </html>

@@ -1,4 +1,10 @@
-<?php $segment = $this->uri->segment(3); ?>
+<?php
+$segment = $this->uri->segment(3);
+if ($segment == 'tenants')
+    $seg = 'tenant';
+else
+    $seg = 'staff';
+?>
 <!-- Table header styling -->
 <div class="panel panel-flat">
     <div class="panel-heading">
@@ -17,9 +23,9 @@
 
     </div>
     <div class="panel-body">
-        
+
         <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped  datatable-basic">
+            <table class="table table-bordered table-hover table-striped  datatable-basic" id="datatable-basic">
                 <thead>
                     <tr class="bg-teal">
                         <th>#</th>
@@ -29,6 +35,7 @@
                         <!--<th>Password</th>-->
                         <th>Address</th>
                         <th>Action</th>
+                        <th>Quick Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,10 +52,25 @@
                             <td>
                                 <ul class="icons-list">
                                     <li class="text-teal-600">
-                                        <a id="edit_<?php //echo base64_encode($record['id']);     ?>" class="edit"><i class="icon-pencil7"></i></a>
+                                        <a href="<?php echo base_url() . 'admin/users/edit/' . $seg . '/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-pencil7"></i></a>
                                     </li>
                                     <li class="text-danger-600">
-                                        <a id="delete_<?php //echo base64_encode($record['id']);     ?>" class="delete"><i class="icon-trash"></i></a>
+                                        <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="text-center">
+                                <ul class="icons-list">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-menu9"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" ><i class="icon-file-pdf"></i> Change Password</a></li>
+                                            <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
+                                            <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </td>
@@ -58,8 +80,154 @@
                     ?>
                 </tbody>
             </table>
-            
+
         </div>
     </div>
 </div>
 <!-- /table header styling -->
+
+<!-- Success modal -->
+<div id="modal_theme_success" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal-400">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Change Password</h6>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group has-feedback">
+                    <!--<label>User's Password: </label>-->
+                    <button type="button" id='show_pwd_btn' class="btn btn-primary legitRipple">Show Password</button>
+                    <!--<input placeholder="Your password" style="display: none" class="form-control user_password" value="" id='user_password' type="text" disabled="">-->
+                    <!--<div class="user_password" id='user_password' style="display: none">-->
+                        <label style="display: none" id='labelpaas'></label>
+                    <!--</div>-->
+                </div>
+
+                <div class="form-group has-feedback">
+                    <label>Password: </label>
+                    <input placeholder="Your password" class="form-control" type="password">
+                    <div class="form-control-feedback">
+                        <i class="icon-lock text-muted"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                <button type="button" class="btn bg-teal legitRipple">Save changes <i class="icon-arrow-right14 position-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /success modal -->
+<!--<script>
+window.setTimeout(function () {
+$(".alert").fadeTo(500, 0).slideUp(500, function () {
+$(this).remove();
+});
+}, 5000);
+</script>-->
+
+<script type="text/javascript">
+    var jconfirm = function (message, callback) {
+        var options = {
+            message: message
+        };
+        options.buttons = {
+            cancel: {
+                label: "No",
+                className: "btn-default",
+                callback: function (result) {
+                    callback(false);
+                }
+            },
+            main: {
+                label: "Yes",
+                className: "btn-primary",
+                callback: function (result) {
+                    callback(true);
+                }
+            }
+        };
+        bootbox.dialog(options);
+    };
+
+
+    var base_url = '<?php echo base_url(); ?>admin/';
+    var type = '<?php echo $this->uri->segment(2); ?>';
+    $(document).ready(function () {
+//        $(".datatable-basic").dataTable({
+////            'iDisplayLength': 5,
+////            'bLengthChange': false,
+//            "bDestroy": true,
+//            'aaSorting': []
+//        });
+    });
+    $(document).on('click', '.delete', function () {
+        var id = $(this).attr('id').replace('delete_', '');
+        var url = base_url + 'delete';
+        jconfirm("Do you really want to delete this record?", function (r) {
+            if (r) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    async: false,
+                    dataType: 'JSON',
+                    data: {id: id, type: type},
+                    success: function (data) {
+                        console.log("data", data);
+                        console.log(data.status);
+                        console.log(data.msg);
+                        console.log(data.id);
+                        if (data.status == 1) {
+                            $("div.div_alert_error").addClass('alert-success');
+                            $('a.delete[data-record="' + data.id + '"]').closest('tr').remove();
+//                    $(".datatable-basic").dataTable().fnDraw();
+
+//                    return false;
+//                                        $('.datatable-basic').destroy();
+//                    $(".datatable-basic").dataTable({
+////                        'iDisplayLength': 5,
+////                        'bLengthChange': false,
+//                        "bDestroy": false,
+//                        'aaSorting': []});
+                        } else if (data.status == 0) {
+                            $("div.div_alert_error").addClass('alert-danger');
+                        }
+                        $("p.alert_error_msg").text(data.msg);
+                        $("div.div_alert_error").show();
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).on('click', 'a.chang_pwdd', function () {
+        var id = $(this).attr('id').replace('changepwd_', '');
+        var url = base_url + 'users/getPassword';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            async: false,
+            dataType: 'JSON',
+            data: {id: id},
+            success: function (data) {
+                console.log(data);
+                if (data != 'error') {
+//                    $('#labelpaas').val(data);     
+                    $('#labelpaas').html(data);
+                } else {
+//                    $('.modal-body').remove();
+                    $('.modal-body').replaceWith('This User has not set the password!');
+                }
+                $('#show_pwd_btn').on('click', function () {
+                    $('#labelpaas').show();
+                });
+            }
+        });
+    });
+
+
+</script>

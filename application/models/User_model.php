@@ -69,14 +69,20 @@ class User_model extends CI_Model {
      * @return type
      * @author : Reema  (Rep)
      */
-    public function isUnique($field, $value, $table, $cnd = "", $id = '') {
+    public function isUnique($field, $value, $table, $id = '', $cnd = "") {
         if ($id != '')
-            $condition = "AND id!= $id";
+            $condition = " AND id!= $id";
         else
             $condition = $cnd;
-        $query = "SELECT * FROM " . $table . " WHERE " . $field . "='" . $value . "'" . $condition;
+        $query = "SELECT * FROM " . $table . " WHERE " . $field . "='" . $value . "'" . $condition;       
         $result = $this->db->query($query);
         return $result->row();
+    }
+
+    function check_email($email) {
+        $this->db->select('email');
+        $query = $this->db->get_where('users', array('is_delete !=' => 1, 'email' => $email));
+        return $query->row_array();
     }
 
     public function get_role_id($role) {
@@ -116,15 +122,30 @@ class User_model extends CI_Model {
     }
 
     public function passwordExist($email) {
-        $this->db->select('password');
+        $this->db->select('*');
         $this->db->where('email', $email);
+        $this->db->where('password', '');
         $result = $this->db->get(TBL_USERS);
-        $data = $result->row();
-        if ($result->num_rows() > 0) {
-            return TRUE;
+        $data = $result->row_array();
+        if ($data['password'] == '') {
+            return 0;
         } else {
-            return FALSE;
+            return 1;
         }
+    }
+
+    /**
+     * Common View by Id function
+     * @param type $id
+     * @param type $table
+     * @return type
+     * @author : Reema  (Rep)
+     */
+    public function view($id, $table, $select = '*') {
+        $this->db->select($select);
+        $this->db->where('id', $id);
+        $list = $this->db->get($table);
+        return $list->row();
     }
 
 }

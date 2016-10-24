@@ -87,5 +87,16 @@ class Admin_model extends CI_Model {
             return 0;
         }
     }
+    /**
+     * Get field by Id
+     * @author : Reema  (Rep)
+     */
+    public function getFieldById($id, $field, $table) {
+        $this->db->select($field);
+        $this->db->where('id', $id);
+        $result = $this->db->get($table);
+//        echo $this->db->last_query();
+        return $result->row();
+    }
 }
 
