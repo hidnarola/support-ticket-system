@@ -9,7 +9,7 @@
                     <div class="icon-object border-white text-white"><i class="icon-collaboration"></i></div>
                 </div>
                 <h3 class="no-margin"><?php echo $total_departments; ?></h3>
-                Departments
+                <?php echo ($total_departments==1) ? 'Department' : 'Departments'; ?>
                 <!--<div class="text-muted text-size-small">489 avg</div>-->
             </div>
             <div class="container-fluid">
@@ -27,7 +27,7 @@
                     <div class="icon-object border-white text-white"><i class="icon-users"></i></div>
                 </div>
                 <h3 class="no-margin"><?php echo $total_tenants;?></h3>
-                Staff
+                <?php echo ($total_tenants==1) ? 'Tenant' : 'Tenants'; ?>
                 <!--<div class="text-muted text-size-small">489 avg</div>-->
             </div>
             <div class="container-fluid">
@@ -46,7 +46,7 @@
                     
                 </div>
                 <h3 class="no-margin"><?php echo $total_staffs;?></h3>
-                Tenants
+                Staff
                 <!--<div class="text-muted text-size-small">489 avg</div>-->
             </div>
             <div class="container-fluid">
@@ -66,7 +66,7 @@
                 </div>
                 <h3 class="no-margin"><?php echo $total_tickets;?></h3>
                 <h3 class="no-margin">10</h3>
-                Tickets
+                <?php echo ($total_tickets==1) ? 'Ticket' : 'Tickets'; ?>
                 <!--<div class="text-muted text-size-small">489 avg</div>-->
             </div>
             <div class="container-fluid">

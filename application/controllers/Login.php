@@ -47,4 +47,15 @@ class Login extends CI_Controller {
             }
         }
     }
+
+    public function logout(){
+        $this->session->sess_destroy();
+        if ($this->uri->segment(1) == 'admin') {
+            redirect('admin');
+        } else if ($this->uri->segment(1) == 'staff') {
+            redirect('staff');
+        }else{
+            redirect('login');
+        }
+    }
 }

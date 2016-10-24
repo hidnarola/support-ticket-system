@@ -85,10 +85,19 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 
-define('TBL_USERS', 'users');
-define('TBL_USERS_ROLES', 'roles');
-define('TBL_DEPARTMENTS', 'departments');
-define('TBL_TICKETS', 'tickets');
+define('TBL_ARTICLES','articles');
+define('TBL_CATEGORIES','categories');
+define('TBL_DEPARTMENTS','departments');
+define('TBL_FAQ','faq');
+define('TBL_NEWS_ANNOUNCEMENTS','news_announcements');
+define('TBL_ROLES','roles');
+define('TBL_STAFF','staff');
+define('TBL_TICKET_CONVERSATION','ticket_conversation');
+define('TBL_TICKET_PRIORITIES','ticket_priorities');
+define('TBL_TICKET_STATUSES','ticket_statuses');
+define('TBL_TICKET_TYPES','ticket_types');
+define('TBL_TICKETS','tickets');
+define('TBL_USERS','users');
 
 /*  |	set upload folder constants */
 

@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['admin/login'] = "login";
 $route['staff/login'] = "login";
+$route['admin/logout'] = "login/logout";
 $route['admin'] = "admin/dashboard";
 $route['admin/manage/roles'] = "admin/dashboard/manage/roles";
 $route['admin/manage/categories'] = "admin/dashboard/manage/categories";
@@ -67,3 +68,6 @@ $route['admin/delete'] = "admin/dashboard/delete";
 
 $route['admin/users/staffs'] = "admin/users";
 $route['admin/users/tenants'] = "admin/users";
+
+$route['staff/tickets'] = "tickets/staff_index";
+
