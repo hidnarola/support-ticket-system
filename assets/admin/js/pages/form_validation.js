@@ -1,15 +1,15 @@
 /* ------------------------------------------------------------------------------
-*
-*  # Form validation
-*
-*  Specific JS code additions for form_validation.html page
-*
-*  Version: 1.3
-*  Latest update: Feb 5, 2016
-*
-* ---------------------------------------------------------------------------- */
+ *
+ *  # Form validation
+ *
+ *  Specific JS code additions for form_validation.html page
+ *
+ *  Version: 1.3
+ *  Latest update: Feb 5, 2016
+ *
+ * ---------------------------------------------------------------------------- */
 
-$(function() {
+$(function () {
 
 
     // Form components
@@ -17,7 +17,7 @@ $(function() {
 
     // Switchery toggles
     var elems = Array.prototype.slice.call(document.querySelectorAll('.switchery'));
-    elems.forEach(function(html) {
+    elems.forEach(function (html) {
         var switchery = new Switchery(html);
     });
 
@@ -49,7 +49,7 @@ $(function() {
 
 
     // Styled checkboxes, radios
-    $(".styled, .multiselect-container input").uniform({ radioClass: 'choice' });
+    $(".styled, .multiselect-container input").uniform({radioClass: 'choice'});
 
 
     // Styled file input
@@ -67,44 +67,43 @@ $(function() {
         ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
         errorClass: 'validation-error-label',
         successClass: 'validation-valid-label',
-        highlight: function(element, errorClass) {
+        highlight: function (element, errorClass) {
             $(element).removeClass(errorClass);
         },
-        unhighlight: function(element, errorClass) {
+        unhighlight: function (element, errorClass) {
             $(element).removeClass(errorClass);
         },
-
         // Different components require proper error label placement
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
 
             // Styled checkboxes, radios, bootstrap switch
-            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
-                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
-                    error.appendTo( element.parent().parent().parent().parent() );
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container')) {
+                if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo(element.parent().parent().parent().parent());
                 }
-                 else {
-                    error.appendTo( element.parent().parent().parent().parent().parent() );
+                else {
+                    error.appendTo(element.parent().parent().parent().parent().parent());
                 }
             }
 
             // Unstyled checkboxes, radios
             else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
-                error.appendTo( element.parent().parent().parent() );
+                error.appendTo(element.parent().parent().parent());
             }
 
             // Input with icons and Select2
             else if (element.parents('div').hasClass('has-feedback') || element.hasClass('select2-hidden-accessible')) {
-                error.appendTo( element.parent() );
+                error.appendTo(element.parent());
             }
 
             // Inline checkboxes, radios
             else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
-                error.appendTo( element.parent().parent() );
+                error.appendTo(element.parent().parent());
             }
 
             // Input group, styled file input
             else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
-                error.appendTo( element.parent().parent() );
+                error.appendTo(element.parent().parent());
             }
 
             else {
@@ -112,7 +111,7 @@ $(function() {
             }
         },
         validClass: "validation-valid-label",
-        success: function(label) {
+        success: function (label) {
             label.addClass("validation-valid-label").text("Success.")
         },
         rules: {
@@ -172,6 +171,9 @@ $(function() {
             },
             switch_group: {
                 minlength: 2
+            }, 
+            contactno: {
+                matches: "[0-9\-\(\)\s]+."
             }
         },
         messages: {
@@ -179,16 +181,19 @@ $(function() {
                 required: "This is a custom error message",
             },
             agree: "Please accept our policy",
-            repeat_password:{
+            repeat_password: {
                 required: "Enter confirm password",
-            	minlength: jQuery.validator.format("At least {0} characters required")
+                minlength: jQuery.validator.format("At least {0} characters required")
+            },
+             contactno: {
+                matches: "Please enter valid contact number"
             }
         }
     });
 
 
     // Reset form
-    $('#reset').on('click', function() {
+    $('#reset').on('click', function () {
         validator.resetForm();
     });
 

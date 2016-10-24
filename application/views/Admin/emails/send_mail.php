@@ -48,7 +48,7 @@
 
             <div style="padding:30px; margin:0; text-align:center; background:#ddd;" >
                 <p style="font-family:Arial, Helvetica, sans-serif; color:#666; font-size:13px; font-weight:400; line-height:16px; padding:0; margin:0 0 15px;">
-                    CheckDaa 	&copy; 2016
+                    Support Ticket System 	&copy; 2016
                 </p>
             </div>
         </div>

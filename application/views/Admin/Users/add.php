@@ -2,13 +2,23 @@
     <div class="col-md-12">
         <?php
         $segment = $this->uri->segment(4);
-        if ($segment == 'tenant') {
-            $action = base_url() . "admin/users/add/tenant";
+        $edit_segment = $this->uri->segment(3);
+
+        if (isset($user)) {
+            if ($edit_segment == 'edit' && $segment == 'tenant') {
+                $action = base_url() . "admin/users/edit/tenatnt/" . base64_encode($user->id);
+            } else {
+                $action = base_url() . "admin/users/edit/staff/" . base64_encode($user->id);
+            }
         } else {
-            $action = base_url() . "admin/users/add/staff";
+            if ($segment == 'tenant' && $edit_segment == 'add') {
+                $action = base_url() . "admin/users/add/tenant";
+            } else {
+                $action = base_url() . "admin/users/add/staff";
+            }
         }
         ?>
-        <form class="form-horizontal form-validate" method="post" enctype="multipart/form-data" action="<?php echo $action ?>" >            
+        <form class="form-horizontal form-validate" method="post" id="user_add" enctype="multipart/form-data" action="<?php echo $action ?>" >            
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-flat">
@@ -18,15 +28,15 @@
                                 ?>
                                 <h5 class="panel-title"><?php echo (isset($user)) ? 'Edit Tenant' : 'Add Tenant' ?></h5>
                             <?php } else { ?>
-                                <h5 class="panel-title"><?php echo (isset($user)) ? 'Edit Staff' : 'Add Staff' ?>Staff</h5>
+                                <h5 class="panel-title"><?php echo (isset($user)) ? 'Edit Staff' : 'Add Staff' ?></h5>
                             <?php } ?>
-                            <div class="heading-elements">
+<!--                            <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
                                     <li><a data-action="reload"></a></li>
                                     <li><a data-action="close"></a></li>
                                 </ul>
-                            </div>
+                            </div>-->
                         </div>
 
                         <div class="panel-body">
@@ -98,21 +108,24 @@
                                 </div>
                             </div>                            
 
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Attach screenshot:</label>
+                            <div class="form-group user_profile_pic">
+                                <label class="col-lg-3 control-label">User Profile:</label>
                                 <div class="col-lg-9">
-                                    <input type="file" name="profile_pic" class="file-styled">
+                                    <input type="file" name="profile_pic" class="file-styled" onchange="readURL(this)">
                                     <!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->
                                 </div>
-                                <div id="imgpreview" style="margin-top: 10px;">
-                                    <?php
-                                    if (isset($user)) {
-                                        if (trim($user->profile_pic) != '')
-                                            echo "<img src='" . base_url() . USER_PROFILE_IMAGE . '/' . $user->profile_pic . "' height='73px' width='73px'>"; //                                               
-                                    }
-                                    ?>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-9">
+                                    <div id="imgpreview" style="margin-top: 10px;">
+                                        <?php
+                                        if (isset($user)) {
+                                            if (trim($user->profile_pic) != '')
+                                                echo "<img src='" . base_url() . USER_PROFILE_IMAGE . '/' . $user->profile_pic . "' height='73px' width='73px'>"; //                                               
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
-
                             </div>
 
                             <div class="form-group">
@@ -134,7 +147,7 @@
                             </div>
 
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" class="btn bg-teal">Save <?php echo $segment; ?>  <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -154,7 +167,6 @@
                 $('#imgpreview').html(html);
 //            $('#imgpreview').attr('src', e.target.result);
             };
-
             reader.readAsDataURL(input.files[0]);
         }
     }

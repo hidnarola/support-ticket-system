@@ -75,6 +75,12 @@ $(function () {
              repeat_password: {
                 equalTo: "#password"
             },
+            contactno: {
+                required: true,
+                minlength: 9,
+                maxlength: 10,
+                number: true
+            },
         },
         messages: {
             username: {
@@ -88,7 +94,9 @@ $(function () {
             repeat_password:{
                 required: "Enter confirm password",
             	minlength: jQuery.validator.format("At least {0} characters required")
-            }
+            },
+            contactno:  "Please enter valid contact number"
+           
         }
     });
 
