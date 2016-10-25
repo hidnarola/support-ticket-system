@@ -27,7 +27,7 @@ function pr($data, $is_die = false) {
 function userRoles() {
     $roles = array();
     $CI = & get_instance();
-    $data = $CI->user_model->viewAll(TBL_USERS_ROLES, '');
+    $data = $CI->user_model->viewAll(TBL_ROLES, '');
     foreach ($data as $val)
         $roles[$val->name] = $val->id;
     return $roles;

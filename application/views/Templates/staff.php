@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Support Ticket - Admin</title>
+        <title>Support Ticket - Staff</title>
         <base href="<?php echo base_url(); ?>">
 
         <!-- Global stylesheets -->
@@ -17,8 +17,7 @@
         <link href="assets/admin/css/colors.css" rel="stylesheet" type="text/css">
         <!--<link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">-->
         <link href="assets/admin/css/style.css" rel="stylesheet" type="text/css">
-        <!--<link href="assets/admin/css/common.css" rel="stylesheet" type="text/css" id="style-primary">-->
-
+        <link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">
         <!-- /global stylesheets -->
 
         <!-- Core JS files -->
@@ -26,16 +25,11 @@
         <script type="text/javascript" src="assets/admin/js/core/libraries/jquery.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/libraries/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.validate.js"></script>
-
         <script type="text/javascript" src="assets/admin/js/pages/login_validation.js"></script>
-
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
         <!-- /core JS files -->
 
-        
-        <script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>
-        
         <!-- /core JS files -->
 <!--        <script>
             window.setTimeout(function () {
@@ -68,18 +62,16 @@
 
                 <div class="navbar-right">
                     <p class="navbar-text">Hello <?php
-                        if ($this->session->userdata('admin_logged_in')) {
-                            echo $this->session->userdata('admin_logged_in')['fname'];
+                        if ($this->session->userdata('staffed_logged_in')) {
+                            echo $this->session->userdata('staffed_logged_in')['fname'];
                         }
                         ?>!</p>
                 </div>
             </div>
         </div>
         <?php
-        $current_page = $this->uri->segment(3);
-        $page = $this->uri->segment(2);
-        $users = $page.'/'.$current_page;
-        $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
+            $current_page = $this->uri->segment(3);
+            $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
         ?>
         <div class="page-container">
             <div class="page-content">
@@ -91,8 +83,8 @@
                                     <a href="admin">
                                         <img src="assets/images/no_photo.png" class="img-circle img-responsive" alt=""></a>
                                     <h6>Hello <?php
-                                        if ($this->session->userdata('admin_logged_in')) {
-                                            echo $this->session->userdata('admin_logged_in')['fname'];
+                                        if ($this->session->userdata('staffed_logged_in')) {
+                                            echo $this->session->userdata('staffed_logged_in')['fname'];
                                         }
 //                                        pr($this->session->userdata('admin_logged_in'),1);
                                         ?> !</h6>
@@ -115,33 +107,8 @@
                             <div class="category-content no-padding">
                                 <ul class="navigation navigation-main navigation-accordion">
                                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
-
-<<<<<<< HEAD
-                                    <li class="<?php echo ($page == '') ? 'active' : ''; ?>"><a href="admin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-                                    <li class="<?php echo ($users == 'users/tenants') ? 'active' : ''; ?>"><a href="admin/users/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
-                                    <li class="<?php echo ($users == 'users/staffs') ? 'active' : ''; ?>"><a href="admin/users/staffs"><i class="icon-people"></i> <span>Staffs</span></a></li>
-                                    <li class="<?php echo ($page == 'tickets') ? 'active' : ''; ?>"><a href="admin/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
-                                    <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
-                                    <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
-=======
-                                    <li><a href="admin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-                                    <li><a href="admin/users/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
-                                    <li><a href="admin/users/staffs"><i class="icon-people"></i> <span>Staffs</span></a></li>
-                                    <li class="<?php echo ($current_page=='categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
-                                    <li class="<?php echo ($current_page=='departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a>
-                                    </li>
->>>>>>> 7384f06816844d68c62e197b2b25fffdb9f886fa
-
-                                    <li class="<?php echo (in_array($current_page, $settings)) ? 'active' : ''; ?>">
-                                        <a href="#"><i class="icon-gear"></i><span>Settings</span></a>
-                                        <ul>
-                                            <li class="<?php echo ($current_page == 'roles') ? 'active' : ''; ?>"><a href="admin/manage/roles"><i class="icon-vcard"></i> <span>Roles</span></a></li>
-                                            <li class="<?php echo ($current_page == 'ticket_priorities') ? 'active' : ''; ?>"><a href="admin/manage/ticket_priorities"><i class="icon-list-numbered"></i> <span>Ticket Priorities</span></a></li>
-                                            <li class="<?php echo ($current_page == 'ticket_statuses') ? 'active' : ''; ?>"><a href="admin/manage/ticket_statuses"><i class="icon-stats-bars2"></i> <span>Ticket Statuses</span></a></li>
-                                            <li class="<?php echo ($current_page == 'ticket_types') ? 'active' : ''; ?>"><a href="admin/manage/ticket_types"><i class="icon-grid-alt"></i> <span>Ticket Types</span></a></li>
-                                        </ul>
-                                    </li>
-
+                                    <li><a href="staff/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                                    <li><a href="staff/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -196,14 +163,12 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/ui/nicescroll.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-
         <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
-        <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
-
+        <!-- <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script> -->
         <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script>
 
         <!-- /theme JS files -->
-
+        
     </body>
 </html>

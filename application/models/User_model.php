@@ -92,7 +92,7 @@ class User_model extends CI_Model {
     public function get_role_id($role) {
         $this->db->select('id');
         $this->db->where('name', $role);
-        $q = $this->db->get(TBL_USERS_ROLES);
+        $q = $this->db->get(TBL_ROLES);
         return $q->row_array();
     }
 
