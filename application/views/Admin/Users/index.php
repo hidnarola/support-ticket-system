@@ -32,8 +32,19 @@ else
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <!--<th>Password</th>-->
-                        <th>Address</th>
+                        <?php
+                        $user = '';
+                        foreach ($users as $key => $record) {
+                            $user = $record['role_id'];
+                        }
+                        if ($user == 2) {
+                            ?>
+                            <th>Department</th>
+                        <?php } else { ?>
+
+                            <th>Address</th>
+                        <?php } ?>
+                        <th>Verified</th>
                         <th>Action</th>
                         <th>Quick Action</th>
                     </tr>
@@ -47,15 +58,24 @@ else
                             <td><?php echo $record['fname']; ?></td>
                             <td><?php echo $record['lname']; ?></td>
                             <td><?php echo $record['email']; ?></td>
-                            <!--<td><?php echo $record['password']; ?></td>-->
-                            <td><?php echo $record['address']; ?></td>
+                            <?php if ($record['role_id'] == 2) { ?>
+                                <td><?php echo $record['name']; ?></td> 
+                            <?php } else { ?>
+                                <td><?php echo $record['address']; ?></td>
+                            <?php } ?>
+                            <td><?php if ($record['is_verified'] == 0) { ?>
+                                    <span class="label label-danger">Not Verified</span>
+                                <?php } else { ?>
+                                    <span class="label label-success">Verified</span> 
+                                <?php }
+                                ?></td>
                             <td>
                                 <ul class="icons-list">
                                     <li class="text-teal-600">
-                                        <a href="<?php echo base_url() . 'admin/users/edit/' . $seg . '/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-pencil7"></i></a>
+                                        <a href="<?php echo base_url() . 'admin/users/edit/' . $seg . '/' . base64_encode($record['uid']) ?>" id="edit_<?php echo base64_encode($record['uid']); ?>" class="edit"><i class="icon-pencil7"></i></a>
                                     </li>
                                     <li class="text-danger-600">
-                                        <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
+                                        <a id="delete_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" class="delete"><i class="icon-trash"></i></a>
                                     </li>
                                 </ul>
                             </td>
@@ -67,9 +87,9 @@ else
                                         </a>
 
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" ><i class="icon-file-pdf"></i> Change Password</a></li>
-                                            <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                            <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-file-pdf"></i> Change Password</a></li>
+    <!--                                            <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
+                                            <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>-->
                                         </ul>
                                     </li>
                                 </ul>
@@ -94,41 +114,72 @@ else
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h6 class="modal-title">Change Password</h6>
             </div>
-
-            <div class="modal-body">
-                <div class="form-group has-feedback">
-                    <!--<label>User's Password: </label>-->
-                    <button type="button" id='show_pwd_btn' class="btn btn-primary legitRipple">Show Password</button>
-                    <!--<input placeholder="Your password" style="display: none" class="form-control user_password" value="" id='user_password' type="text" disabled="">-->
-                    <!--<div class="user_password" id='user_password' style="display: none">-->
-                        <label style="display: none" id='labelpaas'></label>
-                    <!--</div>-->
-                </div>
-
-                <div class="form-group has-feedback">
-                    <label>Password: </label>
-                    <input placeholder="Your password" class="form-control" type="password">
-                    <div class="form-control-feedback">
-                        <i class="icon-lock text-muted"></i>
+            <form id="change_transaction"  method="post" action="admin/users/changePasswordAdmin">
+                <div id='ret'></div>
+                <div class="modal-body panel-body login-form" id="password_form">
+                    <div class="form-group has-feedback">
+                        <!--<label>User's Password: </label>-->
+                        <button type="button" id='show_pwd_btn' class="btn btn-primary legitRipple">Show Password</button>
+                        <!--<div class="user_password" id='user_password' style="display: none">-->
+                        <label class="lblpassword" style="display: none" id='labelpaas'></label>
+                        <!--</div>-->
                     </div>
+                    <div class="form-group has-feedback">
+                        <input value=""id="user_id" name='user_id' type="hidden">
+                        <label>Password: </label>
+                        <input class="form-control" name="password" required="required" id="password_field" type="password">
+                        <div class="form-control-feedback">
+                            <i class="icon-lock text-muted"></i>
+                        </div>
+                    </div>               
+                    <div class="form-group login-options">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="checkbox-inline">
+                                    <!--<input type="checkbox" class="styled" id="show_password" name="remember_me" value="1">-->
+                                    <input type="checkbox" id="show_password" class="styled" onchange="document.getElementById('password_field').type = this.checked ? 'text' : 'password'">
+                                    Show Password
+                                </label>
+                            </div>
+                        </div>
+                    </div>  
                 </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                <button type="button" class="btn bg-teal legitRipple">Save changes <i class="icon-arrow-right14 position-right"></i></button>
-            </div>
+                <div class="pass-set">This User is not verified Yet!</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn bg-teal legitRipple" id="save_pasword">Save changes <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 <!-- /success modal -->
-<!--<script>
-window.setTimeout(function () {
-$(".alert").fadeTo(500, 0).slideUp(500, function () {
-$(this).remove();
-});
-}, 5000);
-</script>-->
+<script>
+    $(function () {
+        $("#change_transaction").submit(function (event) {
+            var url = $(this).attr('action');
+            var pwd = $('#password_field').val();
+//            if (pwd == '') {
+//                return false;
+//            } else {
+                $.ajax({
+                    url: url,
+                    data: {form: $('#change_transaction').serialize()},
+                    type: $(this).attr('method')
+                }).done(function (data) {
+                    if (data = 'success') {
+                        $('#modal_theme_success').modal('hide');
+                        $('#password_field').val('');
+                        $('#labelpaas').hide();
+                    } else {
+
+                    }
+                });
+//            }
+            event.preventDefault();
+        });
+
+    });</script>
 
 <script type="text/javascript">
     var jconfirm = function (message, callback) {
@@ -153,8 +204,6 @@ $(this).remove();
         };
         bootbox.dialog(options);
     };
-
-
     var base_url = '<?php echo base_url(); ?>admin/';
     var type = '<?php echo $this->uri->segment(2); ?>';
     $(document).ready(function () {
@@ -203,7 +252,6 @@ $(this).remove();
             }
         });
     });
-
     $(document).on('click', 'a.chang_pwdd', function () {
         var id = $(this).attr('id').replace('changepwd_', '');
         var url = base_url + 'users/getPassword';
@@ -216,11 +264,14 @@ $(this).remove();
             success: function (data) {
                 console.log(data);
                 if (data != 'error') {
-//                    $('#labelpaas').val(data);     
+                    $('#password_form').show();
+                    $('#save_pasword').show();
                     $('#labelpaas').html(data);
+                    $('#user_id').val(id);
                 } else {
-//                    $('.modal-body').remove();
-                    $('.modal-body').replaceWith('This User has not set the password!');
+                    $('#password_form').hide();
+                    $('.pass-set').show();
+                    $('#save_pasword').hide();
                 }
                 $('#show_pwd_btn').on('click', function () {
                     $('#labelpaas').show();
@@ -228,6 +279,4 @@ $(this).remove();
             }
         });
     });
-
-
 </script>

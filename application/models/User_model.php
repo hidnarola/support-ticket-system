@@ -41,15 +41,19 @@ class User_model extends CI_Model {
      * @author : Reema  (Rep)
      */
     public function get_users_records($table_name, $role_id) {
-        $this->db->where('role_id!=', 3);
+         $this->db->select('*,users.id as uid');
+        $this->db->where('users.role_id!=', 3);
         if ($role_id == 1) {
-            $this->db->where('role_id', $role_id);
+            $this->db->where('users.role_id', $role_id);
         } elseif ($role_id == 2) {
-            $this->db->where('role_id', $role_id);
+            $this->db->where('users.role_id', $role_id);
         }
-        $this->db->where('is_delete', 0);
+        $this->db->join('staff as s', 's.user_id = users.id', 'left');
+        $this->db->join('departments as d', 'd.id = s.dept_id', 'left');
+        $this->db->where('users.is_delete', 0);
         $records = $this->db->get($table_name);
         $rec = $records->result_array();
+       
         $users = array();
         foreach ($rec as $key => $value) {
             $users[$key] = $value;
@@ -124,12 +128,12 @@ class User_model extends CI_Model {
     public function passwordExist($email) {
         $this->db->select('*');
         $this->db->where('email', $email);
-        $this->db->where('password', '');
+//        $this->db->where('password', '');
         $result = $this->db->get(TBL_USERS);
-        $data = $result->row_array();
-        if ($data['password'] == '') {
+        $data = $result->row_array();      
+        if ($data['password'] == '') {          
             return 0;
-        } else {
+        } else {           
             return 1;
         }
     }
@@ -141,10 +145,11 @@ class User_model extends CI_Model {
      * @return type
      * @author : Reema  (Rep)
      */
-    public function view($id, $table, $select = '*') {
-        $this->db->select($select);
-        $this->db->where('id', $id);
-        $list = $this->db->get($table);
+    public function viewUser($id, $table, $select ='*') {
+        $this->db->select('*,users.id as uid');
+        $this->db->join('staff as s', 's.user_id = users.id', 'left');
+        $this->db->where('users.id', $id);
+        $list = $this->db->get($table);       
         return $list->row();
     }
 

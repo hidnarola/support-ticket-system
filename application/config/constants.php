@@ -99,6 +99,7 @@ define('TBL_TICKET_TYPES','ticket_types');
 define('TBL_TICKETS','tickets');
 define('TBL_USERS','users');
 
+
 /*  |	set upload folder constants */
 
 define('USER_PROFILE_IMAGE', 'uploads/user_profile_image');

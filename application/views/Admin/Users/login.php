@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="form-group login-options">
+<!--                <div class="form-group login-options">
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="checkbox-inline">
@@ -57,7 +57,7 @@
                             <a href="#">Forgot password?</a>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <button type="submit" class="btn bg-pink-400 btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>

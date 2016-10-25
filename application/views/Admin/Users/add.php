@@ -6,9 +6,9 @@
 
         if (isset($user)) {
             if ($edit_segment == 'edit' && $segment == 'tenant') {
-                $action = base_url() . "admin/users/edit/tenatnt/" . base64_encode($user->id);
+                $action = base_url() . "admin/users/edit/tenatnt/" . base64_encode($user->uid);
             } else {
-                $action = base_url() . "admin/users/edit/staff/" . base64_encode($user->id);
+                $action = base_url() . "admin/users/edit/staff/" . base64_encode($user->uid);
             }
         } else {
             if ($segment == 'tenant' && $edit_segment == 'add') {
@@ -30,13 +30,13 @@
                             <?php } else { ?>
                                 <h5 class="panel-title"><?php echo (isset($user)) ? 'Edit Staff' : 'Add Staff' ?></h5>
                             <?php } ?>
-<!--                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                    <li><a data-action="reload"></a></li>
-                                    <li><a data-action="close"></a></li>
-                                </ul>
-                            </div>-->
+                            <!--                            <div class="heading-elements">
+                                                            <ul class="icons-list">
+                                                                <li><a data-action="collapse"></a></li>
+                                                                <li><a data-action="reload"></a></li>
+                                                                <li><a data-action="close"></a></li>
+                                                            </ul>
+                                                        </div>-->
                         </div>
 
                         <div class="panel-body">
@@ -92,19 +92,37 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-lg-3 control-label">Department:</label>
+                                <div class="col-lg-9">                                  
+                                    <select class="select" name="dept_id">
+                                        <option selected="" value="">Select Department</option> 
+                                        <?php
+                                        foreach ($departments as $row) {
+                                            if ($user->dept_id == $row['id']) {
+                                                echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
+                                            } else {
+                                                echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
                                 <label class="col-lg-3 control-label">Contact Number:</label>
                                 <div class="col-lg-9">
                                     <input type="text" name="contactno" class="form-control" placeholder="Contact Number" required="required" value="<?php
-                                    if (isset($user)) {
-                                        echo trim($user->contactno);
-                                    } else {
-                                        if ($this->input->post('contactno')) {
-                                            echo $this->input->post('contactno');
+                                        if (isset($user)) {
+                                            echo trim($user->contactno);
                                         } else {
-                                            echo '';
+                                            if ($this->input->post('contactno')) {
+                                                echo $this->input->post('contactno');
+                                            } else {
+                                                echo '';
+                                            }
                                         }
-                                    }
-                                    ?>">
+                                        ?>">
                                 </div>
                             </div>                            
 
@@ -142,7 +160,7 @@
                                             }
                                         }
                                         ?></textarea>
-                                    <?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
+                                        <?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
                                 </div>
                             </div>
 
