@@ -65,8 +65,6 @@
                     <div class="icon-object border-white text-white"><i class=" icon-ticket"></i></div>
                 </div>
                 <h3 class="no-margin"><?php echo $total_tickets;?></h3>
-
-                <h3 class="no-margin">10</h3>
                 <?php echo ($total_tickets==1) ? 'Ticket' : 'Tickets'; ?>
 
                 <!--<div class="text-muted text-size-small">489 avg</div>-->

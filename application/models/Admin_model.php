@@ -98,5 +98,12 @@ class Admin_model extends CI_Model {
 //        echo $this->db->last_query();
         return $result->row();
     }
+
+    public function get_profile($id){
+        $this->db->where('id', $id);
+        $this->db->where('is_delete',0);
+        $result = $this->db->get(TBL_USERS);
+        return $result->row_array();
+    }
 }
 

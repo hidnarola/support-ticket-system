@@ -20,6 +20,16 @@ class Dashboard extends CI_Controller {
         $this->template->load('staff', 'Staff/Dashboard/index', $this->data);       
     }
 
+    public function profile(){
+        $this->data['title'] = $this->data['page_header'] = 'My Profile';
+        $id = $this->session->userdata('staffed')['id'];
+        $profile = $this->Staff_model->get_profile($id);
+       // pr($profile,1);
+        $this->data['profile'] = $profile;
+        $this->template->load('staff', 'Staff/Dashboard/profile', $this->data);
+
+    }
+
     
     
    
