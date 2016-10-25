@@ -17,7 +17,7 @@
         <link href="assets/admin/css/colors.css" rel="stylesheet" type="text/css">
         <!--<link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">-->
         <link href="assets/admin/css/style.css" rel="stylesheet" type="text/css">
-        <link href="assets/admin/css/common.css" rel="stylesheet" type="text/css" id="style-primary">
+        <!--<link href="assets/admin/css/common.css" rel="stylesheet" type="text/css" id="style-primary">-->
         <!-- /global stylesheets -->
 
         <!-- Core JS files -->
@@ -122,6 +122,7 @@
                                     <li class="<?php echo ($page == '') ? 'active' : ''; ?>"><a href="admin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                                     <li class="<?php echo ($users == 'users/tenants') ? 'active' : ''; ?>"><a href="admin/users/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
                                     <li class="<?php echo ($users == 'users/staffs') ? 'active' : ''; ?>"><a href="admin/users/staffs"><i class="icon-people"></i> <span>Staffs</span></a></li>
+                                    <li class="<?php echo ($page == 'tickets') ? 'active' : ''; ?>"><a href="admin/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
 

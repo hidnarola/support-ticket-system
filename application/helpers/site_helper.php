@@ -1,7 +1,6 @@
 <?php
 
 /**
-<<<<<<< HEAD
  * 	Print array/string.
  * 	@data  = data that you want to print
  * 	@is_die = if true. Excecution will stop after print. 

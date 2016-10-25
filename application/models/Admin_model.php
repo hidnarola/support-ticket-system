@@ -44,6 +44,16 @@ class Admin_model extends CI_Model {
         }
     }
 
+    /**
+     * Get Last Inserted Id
+     * @param type $table
+     * @return type
+     * @author Reema (rep)
+     */
+    public function getLastInsertId($table) {
+        $insert_id = $this->db->insert_id($table);
+        return $insert_id;
+    }
 
     public function get_total($tablename) {
         $this->db->select('*');
@@ -76,17 +86,16 @@ class Admin_model extends CI_Model {
         }
     }
 
-
-
-    public function delete($table_name, $record_id){
-    	$record_array = array('is_delete'=>1);
-    	$this->db->where('id', $record_id);
-    	if($this->db->update($table_name, $record_array)) {
+    public function delete($table_name, $record_id) {
+        $record_array = array('is_delete' => 1);
+        $this->db->where('id', $record_id);
+        if ($this->db->update($table_name, $record_array)) {
             return 1;
         } else {
             return 0;
         }
     }
+
     /**
      * Get field by Id
      * @author : Reema  (Rep)
@@ -98,5 +107,27 @@ class Admin_model extends CI_Model {
 //        echo $this->db->last_query();
         return $result->row();
     }
-}
+    
+    /**
+     * @author : Reema  (Rep)
+     * @return type
+     */
+     public function get_tickets($limit=null){
+    	$this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, category.name as category_name');
+    	$this->db->where('tickets.is_delete',0);
+    	if($limit != null){
+    		$this->db->limit(10);
+    	}
+		$this->db->from(TBL_TICKETS);
+		$this->db->join(TBL_DEPARTMENTS.' dept', 'dept.id = tickets.dept_id', 'left');
+		$this->db->join(TBL_TICKET_TYPES.' type', 'type.id = tickets.ticket_type_id', 'left');
+		$this->db->join(TBL_TICKET_PRIORITIES.' priority', 'priority.id = tickets.priority_id', 'left');
+		$this->db->join(TBL_TICKET_STATUSES.' status', 'status.id = tickets.status_id', 'left');
+		$this->db->join(TBL_USERS.' user', 'user.id = tickets.user_id', 'left');
+		$this->db->join(TBL_CATEGORIES.' category', 'category.id = tickets.category_id', 'left');
+		$query = $this->db->get();
+//                pr($query->result_array());exit;
+    	return $query->result_array();
+    }
 
+}

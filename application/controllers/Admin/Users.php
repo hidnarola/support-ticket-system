@@ -38,7 +38,7 @@ class Users extends CI_Controller {
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|callback_check_email[' . $useremail . ']');
         $this->form_validation->set_rules('contactno', 'Contact Number', 'trim|required');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
-
+        $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         if ($this->form_validation->run() == FALSE) {
             if ($user_type == 'tenant') {
                 $this->data['title'] = $this->data['page_header'] = 'Tenants / Add Tenant';
@@ -93,12 +93,20 @@ class Users extends CI_Controller {
                         'profile_pic' => $profile_pic,
                         'contactno' => $this->input->post('contactno'),
                         'address' => $this->input->post('address'),
-                        'is_verified' => 1,
+                        'is_verified' => 0,
                         'is_delete' => 0,
                         'created' => date('Y-m-d H:i:s'),
                     );
 //                    pr($data, 1);
                     $this->Admin_model->manage_record($this->table, $data);
+                    $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
+                    if ($user['role_id'] == 2) {
+                        $staff_array = array(
+                            'user_id' => $lastUserId,
+                            'dept_id' => $this->input->post('dept_id')
+                        );
+                        $this->Admin_model->manage_record(TBL_STAFF, $staff_array);
+                    }
 
                     /* To send mail to the user */
                     $configs = mail_config();
@@ -154,8 +162,11 @@ class Users extends CI_Controller {
     public function edit($user_type, $id = NULL) {
         if ($id != '') {
             $record_id = base64_decode($id);
-            $this->data['user'] = $this->User_model->view($record_id, $this->table);
+            $this->data['user'] = $this->User_model->viewUser($record_id, $this->table);
+//            echo '<pre>';
+//            print_r($this->data['user']);exit;
             $image = $this->Admin_model->getFieldById($record_id, 'profile_pic', $this->table);
+            $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
             $profile_pic = $image->profile_pic;
             $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
             $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
@@ -216,7 +227,12 @@ class Users extends CI_Controller {
                         );
 //                        pr($data, 1);
                         $this->Admin_model->manage_record($this->table, $data, $record_id);
-
+                        if ($this->data['user']->role_id == 2) {
+                            $staff_array = array(
+                                'dept_id' => $this->input->post('dept_id')
+                            );
+                            $this->User_model->edit($staff_array, TBL_STAFF, 'user_id', $record_id);
+                        }
                         if ($user_type == 'tenant') {
                             $this->session->set_flashdata('success_msg', 'Tenant updated succesfully..!!');
                             redirect('admin/users/tenants');
@@ -247,15 +263,40 @@ class Users extends CI_Controller {
         $id = $this->input->post('id');
         if ($id != '') {
             $id = base64_decode($id);
-            $userPassword = $this->Admin_model->getFieldById($id,'password',TBL_USERS);
-           if($userPassword->password != NULL){
-               $decodePwd = $this->encrypt->decode($userPassword->password); 
-              $data = $decodePwd;
-           }else{
-               $data = 'error';
-           }
-           echo json_encode($data);
+            $userPassword = $this->Admin_model->getFieldById($id, 'password', TBL_USERS);
+            if ($userPassword->password != NULL) {
+                $decodePwd = $this->encrypt->decode($userPassword->password);
+                $data = $decodePwd;
+            } else {
+                $data = 'error';
+            }
+            echo json_encode($data);
         }
+    }
+
+    public function changePasswordAdmin() {
+        $form = $this->input->get_post('form');
+
+        $form = explode('&', $form);
+//        pr($form, false);
+        $form['password'] = explode('=', $form[0]);
+        $form['user_id'] = explode('=', $form[1]);
+        $id = $form['user_id'][1];
+        $user_id = base64_decode($id);
+
+        $password = $form['password'][1];
+        $encrypt_password = $this->encrypt->encode($password);
+        $array = array(
+            'password' => $encrypt_password,
+        );
+        $result = $this->User_model->edit($array, $this->table, 'id', $user_id);
+        if ($result) {
+            $data = 'success';
+        } else {
+            $data = 'error';
+        }
+        echo json_encode($data);
+        exit;
     }
 
 }

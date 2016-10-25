@@ -27,6 +27,7 @@ class Dashboard extends CI_Controller {
         $this->data['total_tenants'] = $this->Admin_model->get_total_users(1);
         $this->data['total_staffs'] = $this->Admin_model->get_total_users(2);
         $this->data['total_tickets'] = $this->Admin_model->get_total(TBL_TICKETS);
+        $this->data['tickets'] = $this->Admin_model->get_tickets();
         $this->template->load('admin', 'Admin/Dashboard/index', $this->data);       
 
     }
