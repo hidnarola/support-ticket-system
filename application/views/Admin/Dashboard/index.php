@@ -56,6 +56,7 @@
         </div>
         <!-- /members online -->
     </div>
+
     <?php if ($total_tickets != 0) { ?>
         <div class="col-lg-3">
             <!-- Members online -->
@@ -73,11 +74,11 @@
                 <div class="container-fluid">
                     <div id="members-online"></div>
                 </div>
+
             </div>
-            <!-- /members online -->
         </div>
     <?php } ?>
-</div>
+    
 
 <div class="panel">
     <div class="panel-body">

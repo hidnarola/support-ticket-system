@@ -104,7 +104,7 @@
 
                             <div class="navigation-wrapper collapse" id="user-nav">
                                 <ul class="navigation">
-                                    <li><a href="#"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
+                                    <li><a href="admin/profile"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
                                     <li><a href="admin/logout"><i class="icon-switch2"></i> <span>Logout</span></a></li>
                                 </ul>
                             </div>
@@ -115,12 +115,14 @@
                                 <ul class="navigation navigation-main navigation-accordion">
                                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
 
+
                                     <li class="<?php echo ($page == '') ? 'active' : ''; ?>"><a href="admin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                                     <li class="<?php echo ($users == 'users/tenants') ? 'active' : ''; ?>"><a href="admin/users/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
                                     <li class="<?php echo ($users == 'users/staffs') ? 'active' : ''; ?>"><a href="admin/users/staffs"><i class="icon-people"></i> <span>Staff</span></a></li>
                                     <li class="<?php echo ($page == 'tickets') ? 'active' : ''; ?>"><a href="admin/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
+
 
                                     <li class="<?php echo (in_array($current_page, $settings)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-gear"></i><span>Settings</span></a>

@@ -98,7 +98,7 @@
                             <div class="navigation-wrapper collapse" id="user-nav">
                                 <ul class="navigation">
                                     <li><a href="#"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
-                                    <li><a href="admin/logout"><i class="icon-switch2"></i> <span>Logout</span></a></li>
+                                    <li><a href="staff/logout"><i class="icon-switch2"></i> <span>Logout</span></a></li>
                                 </ul>
                             </div>
                         </div>

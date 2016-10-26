@@ -107,6 +107,16 @@ class Admin_model extends CI_Model {
 //        echo $this->db->last_query();
        return $result->row()->password;
     }
+
+
+    public function get_profile($id){
+        $this->db->where('id', $id);
+        $this->db->where('is_delete',0);
+        $result = $this->db->get(TBL_USERS);
+        return $result->row_array();
+    }
+
+
     
     /**
      * @author : Reema  (Rep)
@@ -129,5 +139,6 @@ class Admin_model extends CI_Model {
 //                pr($query->result_array());exit;
     	return $query->result_array();
     }
+
 
 }

@@ -6,7 +6,7 @@ class Dashboard extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        //$this->data = get_admin_data();
+        $this->data = array();
         check_isvalidated();
         $this->popular_limit = 5;
         $this->type_table = array(
@@ -132,6 +132,15 @@ class Dashboard extends CI_Controller {
                 );
             echo json_encode($return_array);
         }
+    }
+
+    public function profile(){
+        $this->data['title'] = $this->data['page_header'] = 'My Profile';
+        $id = $this->session->userdata('admin_logged_in')['id'];
+        $profile = $this->Admin_model->get_profile($id);
+       // pr($profile,1);
+        $this->data['profile'] = $profile;
+        $this->template->load('admin', 'Admin/Dashboard/profile', $this->data);
     }
 
 }
