@@ -34,6 +34,7 @@ class Users extends CI_Controller {
         $useremail = $this->input->post('email');
         $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
         $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
+        $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
 //        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . TBL_USERS . '.email]', array('is_unique' => 'Email already exist!'));
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|callback_check_email[' . $useremail . ']');
         $this->form_validation->set_rules('contactno', 'Contact Number', 'trim|required');
@@ -264,8 +265,8 @@ class Users extends CI_Controller {
         if ($id != '') {
             $id = base64_decode($id);
             $userPassword = $this->Admin_model->getFieldById($id, 'password', TBL_USERS);
-            if ($userPassword->password != NULL) {
-                $decodePwd = $this->encrypt->decode($userPassword->password);
+            if ($userPassword) {
+                $decodePwd = $this->encrypt->decode($userPassword);
                 $data = $decodePwd;
             } else {
                 $data = 'error';
@@ -275,17 +276,18 @@ class Users extends CI_Controller {
     }
 
     public function changePasswordAdmin() {
-        $form = $this->input->get_post('form');
-
-        $form = explode('&', $form);
-//        pr($form, false);
-        $form['password'] = explode('=', $form[0]);
-        $form['user_id'] = explode('=', $form[1]);
-        $id = $form['user_id'][1];
+//        $form = $this->input->get_post('form');
+//
+//        $form = explode('&', $form);
+//
+//        $form['password'] = explode('=', $form[0]);
+//        $form['user_id'] = explode('=', $form[1]);
+//        $id = $form['user_id'][1];
+        $id = $this->input->post('id');
+        $password = $this->input->post('pwd');
         $user_id = base64_decode($id);
-
-        $password = $form['password'][1];
         $encrypt_password = $this->encrypt->encode($password);
+
         $array = array(
             'password' => $encrypt_password,
         );
@@ -297,6 +299,26 @@ class Users extends CI_Controller {
         }
         echo json_encode($data);
         exit;
+    }
+    public function delete(){
+        $id = $this->input->post('id');
+        $table_name = $this->input->post('type');
+        if($id!=''){
+            $record_id = base64_decode($id);
+            if($this->Admin_model->delete($table_name, $record_id)){
+                $this->session->set_flashdata('success_msg', 'Record deleted successfully!');  
+                $status = 1;
+            }else{  
+                $this->session->set_flashdata('error_msg', 'Unable to delete the record.');               
+                $status = 0;
+            }
+            $return_array = array(
+                'status' => $status,
+                
+                'id'=>$id
+                );
+            echo json_encode($return_array);
+        }
     }
 
 }

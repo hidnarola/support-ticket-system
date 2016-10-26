@@ -6,6 +6,8 @@ else
     $seg = 'staff';
 ?>
 <!-- Table header styling -->
+<script type="text/javascript" src="assets/admin/js/plugins/notifications/pnotify.min.js"></script>	
+<script type="text/javascript" src="assets/admin/js/pages/components_notifications_pnotify.js"></script>
 <div class="panel panel-flat">
     <div class="panel-heading">
         <h5 class="panel-title"><?php echo $user_type; ?> List</h5>
@@ -125,7 +127,7 @@ else
                         <!--</div>-->
                     </div>
                     <div class="form-group has-feedback">
-                        <input value=""id="user_id" name='user_id' type="hidden">
+                        <input value="" id="user_id" name='user_id' type="hidden">
                         <label>Password: </label>
                         <input class="form-control" name="password" required="required" id="password_field" type="password">
                         <div class="form-control-feedback">
@@ -155,32 +157,29 @@ else
 </div>
 <!-- /success modal -->
 <script>
+    /* change password form (modal) submit */
     $(function () {
         $("#change_transaction").submit(function (event) {
             var url = $(this).attr('action');
             var pwd = $('#password_field').val();
-//            if (pwd == '') {
-//                return false;
-//            } else {
-                $.ajax({
-                    url: url,
-                    data: {form: $('#change_transaction').serialize()},
-                    type: $(this).attr('method')
-                }).done(function (data) {
-                    if (data = 'success') {
-                        $('#modal_theme_success').modal('hide');
-                        $('#password_field').val('');
-                        $('#labelpaas').hide();
-                    } else {
+            var id = $('#user_id').val();
+            $.ajax({
+                url: url,
+                data: {pwd: pwd, id: id},
+                type: $(this).attr('method')
+            }).done(function (data) {
+                if (data = 'success') {
+                    $('#modal_theme_success').modal('hide');
+                    $('#password_field').val('');
+                    $('#labelpaas').hide();
+                } else {
 
-                    }
-                });
-//            }
+                }
+            });
             event.preventDefault();
         });
-
-    });</script>
-
+    });
+</script>
 <script type="text/javascript">
     var jconfirm = function (message, callback) {
         var options = {
@@ -206,17 +205,11 @@ else
     };
     var base_url = '<?php echo base_url(); ?>admin/';
     var type = '<?php echo $this->uri->segment(2); ?>';
-    $(document).ready(function () {
-//        $(".datatable-basic").dataTable({
-////            'iDisplayLength': 5,
-////            'bLengthChange': false,
-//            "bDestroy": true,
-//            'aaSorting': []
-//        });
-    });
+
+    /* delete record function */
     $(document).on('click', '.delete', function () {
         var id = $(this).attr('id').replace('delete_', '');
-        var url = base_url + 'delete';
+        var url = base_url + 'users/delete';
         jconfirm("Do you really want to delete this record?", function (r) {
             if (r) {
                 $.ajax({
@@ -231,29 +224,22 @@ else
                         console.log(data.msg);
                         console.log(data.id);
                         if (data.status == 1) {
-                            $("div.div_alert_error").addClass('alert-success');
+                            window.location.reload();
+//                            $("div.div_alert_error").addClass('alert-success');
                             $('a.delete[data-record="' + data.id + '"]').closest('tr').remove();
-//                    $(".datatable-basic").dataTable().fnDraw();
-
-//                    return false;
-//                                        $('.datatable-basic').destroy();
-//                    $(".datatable-basic").dataTable({
-////                        'iDisplayLength': 5,
-////                        'bLengthChange': false,
-//                        "bDestroy": false,
-//                        'aaSorting': []});
                         } else if (data.status == 0) {
-                            $("div.div_alert_error").addClass('alert-danger');
+//                            $("div.div_alert_error").addClass('alert-danger');
                         }
-                        $("p.alert_error_msg").text(data.msg);
-                        $("div.div_alert_error").show();
                     }
                 });
             }
         });
     });
+    
+    /* open modal click on quick action and get user's password */ 
     $(document).on('click', 'a.chang_pwdd', function () {
         var id = $(this).attr('id').replace('changepwd_', '');
+        $('#user_id').val(id);
         var url = base_url + 'users/getPassword';
         $.ajax({
             type: 'POST',
@@ -267,7 +253,7 @@ else
                     $('#password_form').show();
                     $('#save_pasword').show();
                     $('#labelpaas').html(data);
-                    $('#user_id').val(id);
+//                    $('#user_id').val(id);
                 } else {
                     $('#password_form').hide();
                     $('.pass-set').show();

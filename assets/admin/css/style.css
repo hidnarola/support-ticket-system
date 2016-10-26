@@ -187,6 +187,7 @@ table td{
 #user_add .user_profile_pic .filename{display: none;}
 .lblpassword{ font-size: 16px;margin-left: 12px;}
 .pass-set{font-size: 16px;margin-left: 25px;margin-top: 20px;display: none;}
+.cancel-btn{height: 40px;}
 @media (max-width: 768px) {
 	.navbar-top .navbar .navbar-header{
 		width: 100%;

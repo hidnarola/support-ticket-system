@@ -1,6 +1,8 @@
 <?php
 $segment = $this->uri->segment(3);
 ?>
+<script type="text/javascript" src="assets/admin/js/plugins/notifications/pnotify.min.js"></script>	
+<script type="text/javascript" src="assets/admin/js/pages/components_notifications_pnotify.js"></script>
 <!-- Table header styling -->
 <div class="panel panel-flat">
     <div class="panel-heading">
@@ -17,16 +19,19 @@ $segment = $this->uri->segment(3);
     <div class="panel-body">
         <div class="row">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover table-striped datatable-basic">
+                <table class="table table-bordered table-hover table-striped datatable-basic" id="ticket_table">
                     <thead>
                         <tr class="bg-teal">
                             <th>#</th>
+                            <th>Assign To</th>
                             <th>Title</th>
                             <th>Tenant</th>
+                            <th>Department</th>
                             <th>Type</th>
                             <th>Priority</th>
                             <th>Status</th>
                             <th>Created At</th>
+                             <th>State</th>
                             <th>Actions</th>
                             <th>Quick Actions</th>
                         </tr>
@@ -37,19 +42,25 @@ $segment = $this->uri->segment(3);
                             ?>
                             <tr>
                                 <td><?php echo $key + 1; ?></td>
+                                  <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
                                 <td><?php echo $record['title']; ?></td>
                                 <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
+                                <td><?php echo $record['dept_name'];?></td>
                                 <td><?php echo $record['type_name']; ?></td>
                                 <td><?php echo $record['priority_name']; ?></td>
                                 <td><?php echo $record['status_name']; ?></td>
                                 <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
+                                 <td><span class="label label-warning">Unread</span></td>
                                 <td>
                                     <ul class="icons-list">
                                         <li class="text-teal-600">
-                                            <a href="<?php echo base_url() . 'admin/tickets/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-pencil7"></i></a>
+                                            <a href="<?php echo base_url() . 'admin/tickets/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" title='Edit Ticket' class="edit"><i class="icon-pencil7"></i></a>
                                         </li>
-                                        <li class="text-danger-600">
-                                            <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
+                                        <li class="text-purple-700">
+                                            <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i></a>
+                                        </li>
+                                         <li class="text-danger-600">
+                                            <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Ticket' class="delete"><i class="icon-trash"></i></a>
                                         </li>
                                     </ul>
                                 </td>
@@ -61,11 +72,11 @@ $segment = $this->uri->segment(3);
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="dept" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                       data-href="admin/tickets/changeAction" data-modal-title="Change Department"><i class="icon-collaboration"></i>Change department</a></li>
-                                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="status" class="chang_pwdd" id="changestatus_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"
-                                                       data-href="admin/tickets/changeAction" data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
-                                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changepriority_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                       data-href="admin/tickets/changeAction" data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
+                                                       data-modal-title="Change Department"><i class="icon-collaboration"></i>Change department</a></li>
+                                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="status" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"
+                                                       data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
+                                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
+                                                       data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
                                                 <!--                                               <li class="divider"></li>
                                                                                                 <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" ><i class="icon-file-pdf"></i>Change priority</a></li>-->
                                             </ul>
@@ -93,12 +104,15 @@ $segment = $this->uri->segment(3);
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h6 class="modal-title"></h6>
             </div>
-            <form id="change_department" class="form-validate" method="post">
+            <form id="change_action" class="form-validate" method="post" action="admin/tickets/changeAction">
+                <input type="hidden" id="hidden_value" name="hidden_value" value=""/>
+                <input type="hidden" id="select_type" name="select_type" value=""/>
+                <input type="hidden" id="hidden_id" name="hidden_id" value=""/>
                 <div id='ret'></div>
                 <div class="modal-body panel-body login-form" id="password_form" >
                     <div class="form-group" id="dept_id" style="display:none">
-                        <select class="select"  name="dept_id" required="">
-                            <option selected="" value="">Select Department</option> 
+                        <select class="select" id="dept_val" name="dept_id" required="">
+                            <option value="">Select Department</option> 
                             <?php
                             foreach ($departments as $row) {
                                 echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>";
@@ -107,8 +121,8 @@ $segment = $this->uri->segment(3);
                         </select>
                     </div>   
                     <div class="form-group" id="status_id" style="display:none">
-                        <select class="select"  name="status_id" required="">
-                            <option selected="" value="">Select Status</option> 
+                        <select class="select" id="status_val" name="status_id" required="">
+                            <option value="">Select Status</option> 
                             <?php
                             foreach ($statuses as $row) {
                                 echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>";
@@ -117,8 +131,8 @@ $segment = $this->uri->segment(3);
                         </select>
                     </div>
                     <div class="form-group" id="priority_id" style="display:none">
-                        <select class="select"  name="priority_id" required="">
-                            <option selected="" value="">Select Priority</option> 
+                        <select class="select" id="priority_val" name="priority_id" required="">
+                            <option value="">Select Priority</option> 
                             <?php
                             foreach ($priorities as $row) {
                                 echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>";
@@ -140,72 +154,37 @@ $segment = $this->uri->segment(3);
         $(document).on('click', 'a.chang_pwdd', function () {
             var modal_title = $(this).attr('data-modal-title');
             var action = $(this).attr('data-act');
+            var url = base_url + 'tickets/changeAction';
+            var id = $(this).attr('id').replace('changedept_', '');
+            $('#hidden_id').val(id);
             if (action == 'dept') {
                 $('#dept_id').show();
                 $('#priority_id').hide();
                 $('#status_id').hide();
-                var url = $(this).attr('data-href');
-                var id = $(this).attr('id').replace('changedept_', '');
-                var action_type = 'dept';
+//                var id = $(this).attr('id').replace('changedept_', '');
+                var action_type = 'dept_id';
                 $('.validation-error-label').hide();
-//                $("#save_action").live('click', function(){
-//                    $.ajax({
-//                        type: 'POST',
-//                        url: url,
-//                        async: false,
-//                        dataType: 'JSON',
-//                        data: {id: id, action_type: action_type},
-//                        success: function (data) {
-//                            console.log(data);
-//
-//                        }
-//                    });
-//                });
-
+                var card = document.getElementById("dept_val");
+                var select_data = card.selectedIndex;
 
             } else if (action == 'status') {
                 $('#dept_id').hide();
                 $('#priority_id').hide();
                 $('#status_id').show();
-                var url = $(this).attr('data-href');
-                var id = $(this).attr('id').replace('changestatus_', '');
-                var action_type = 'status';
+                var card = document.getElementById("status_val");
+                var select_data = card.selectedIndex;
+//                var id = $(this).attr('id').replace('changestatus_', '');
+                var action_type = 'status_id';
                 $('.validation-error-label').hide();
-//                $("#save_action").live('click', function(){
-//                    $.ajax({
-//                        type: 'POST',
-//                        url: url,
-//                        async: false,
-//                        dataType: 'JSON',
-//                        data: {id: id, action_type: action_type},
-//                        success: function (data) {
-//                            console.log(data);
-//
-//                        }
-//                    });
-//                });
             } else if (action == 'priority') {
                 $('#priority_id').show();
                 $('#status_id').hide();
                 $('#dept_id').hide();
-                var url = $(this).attr('data-href');
-                var id = $(this).attr('id').replace('changepriority_', '');
-                var action_type = 'priority';
+                var card = document.getElementById("priority_val");
+                var select_data = card.selectedIndex;
+//                var id = $(this).attr('id').replace('changepriority_', '');
+                var action_type = 'priority_id';
                 $('.validation-error-label').hide();
-//                $("#save_action").live('click', function(){
-//                    $.ajax({
-//                        type: 'POST',
-//                        url: url,
-//                        async: false,
-//                        dataType: 'JSON',
-//                        data: {id: id, action_type: action_type},
-//                        success: function (data) {
-//                            console.log(data);
-//
-//                        }
-//                    });
-//                });
-
             } else {
                 $('#dept_id').hide();
                 $('#priority_id').hide();
@@ -213,52 +192,72 @@ $segment = $this->uri->segment(3);
             }
 
             $('.modal-title').html(modal_title);
-//            $("#change_department").submit(function (event) {
-//               
-//                $.ajax({
-//                    type: 'POST',
-//                    url: url,
-//                    async: false,
-//                    dataType: 'JSON',
-//                    data: {id: id, action_type: action_type},
-//                    success: function (data) {
-//                        console.log(data);
-//
-//                    }
-//                });
-////            }
-//                event.preventDefault();
+            var select = card.selectedIndex;
+            var hidden_val = select;
+            $('#hidden_value').val(hidden_val);
+            $('#select_type').val(action_type);
+
+
+//            $("#save_action").click(function () {
+//                console.log('in btn');
+
+//                if (card.selectedIndex == 0) {
+////                    alert(card.selectedIndex);
+//                }
+//                else {
+//                    var selectedText = card.options[card.selectedIndex].text;
+//                    var select = card.selectedIndex;
+//                    $.ajax({
+//                        type: 'POST',
+//                        url: url,
+//                        async: false,
+//                        dataType: 'JSON',
+//                        data: {id: id, action_type: action_type, select_data: select},
+//                        success: function (data) {
+//                            console.log(data);
+//                            if (data=='success') {
+//                                $('#modal_theme_success').modal('hide');
+////                            $('#pnotify-solid-styled-left').on('click', function () {
+//                               var notify =  new PNotify({
+//                                    title: 'Success',
+//                                    text: 'Data is updated successfully!.',
+//                                    icon: 'icon-checkmark3',
+//                                    type: 'success'
+//                                });
+//                            }else{
+//                                
+//                            }
+////                            });
+//                        }
+//                    });
+//                }
 //            });
 
-            $("#save_action").click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    async: false,
-                    dataType: 'JSON',
-                    data: {id: id, action_type: action_type},
-                    success: function (data) {
-                        console.log(data);
-
-                    }
-                });
-            });
         });
-        
-        
-        
+
         $(function () {
-            $("#change_transaction").submit(function (event) {
+            $("#change_action").submit(function (event) {
                 var url = $(this).attr('action');
                 $.ajax({
                     url: url,
-                    data: {form: $('#change_transaction').serialize()},
+                    data: {form: $('#change_action').serialize()},
                     type: $(this).attr('method')
                 }).done(function (data) {
                     if (data = 'success') {
                         $('#modal_theme_success').modal('hide');
-                        $('#password_field').val('');
-                        $('#labelpaas').hide();
+                        $('#change_action')[0].reset();
+                        $('#ticket_table').dataTable();
+//                       $("#dept_val option[value='']").attr('selected', true)
+                        $('#dept_val').val('');
+                        $('#status_val').val('');
+                        $('#priority_val').val('');
+                        window.location.reload();
+//                        var notify = new PNotify({
+//                            title: 'Success',
+//                            text: 'Data is updated successfully!.',
+//                            icon: 'icon-checkmark3',
+//                            type: 'success'
+//                        });
                     } else {
 
                     }

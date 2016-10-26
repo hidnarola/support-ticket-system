@@ -25,15 +25,14 @@
         <script type="text/javascript" src="assets/admin/js/plugins/loaders/pace.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/libraries/jquery.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/libraries/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/loaders/blockui.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.validate.js"></script>
-
+<script type="text/javascript" src="assets/admin/js/core/app.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/login_validation.js"></script>
 
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
         <!-- /core JS files -->
-
-        
         <script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>
         
         <!-- /core JS files -->
@@ -189,7 +188,7 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_select.min.js"></script>
 
         <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
-        <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
+        
         <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
 
         <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script>
