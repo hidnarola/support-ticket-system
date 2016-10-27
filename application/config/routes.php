@@ -63,6 +63,7 @@ $route['admin'] = "admin/dashboard";
 $route['staff'] = "staff/dashboard";
 
 $route['admin/profile'] = "admin/dashboard/profile";
+$route['staff/profile'] = "staff/dashboard/profile";
 
 $route['admin/manage/roles'] = "admin/dashboard/manage/roles";
 $route['admin/manage/categories'] = "admin/dashboard/manage/categories";

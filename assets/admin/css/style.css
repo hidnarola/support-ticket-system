@@ -185,11 +185,13 @@ table td{
     padding: 13px;
 }
 
-.profile_frm .form-group input{ padding-left: 20px; }
+.profile_page .form-group input, .profile_page .form-group textarea{ padding-left: 20px; }
+
 
 #user_add .user_profile_pic .filename{display: none;}
 .lblpassword{ font-size: 16px;margin-left: 12px;}
 .pass-set{font-size: 16px;margin-left: 25px;margin-top: 20px;display: none;}
+
 .cancel-btn{ padding: 7px 15px;}
 .user_table .table > tbody > tr > td{padding: 11px 17px;}
  .ticket_table  .table > tbody > tr > td{padding: 9px 11px;}
@@ -215,6 +217,9 @@ table td{
    background-color: #e0f2f1 !important;
 /*    border-color: #00897b;*/
 }
+
+.cancel-btn{height: 40px;}
+
 @media (max-width: 768px) {
 	.navbar-top .navbar .navbar-header{
 		width: 100%;

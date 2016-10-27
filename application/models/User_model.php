@@ -153,4 +153,11 @@ class User_model extends CI_Model {
         return $list->row();
     }
 
+    public function get_password($id){
+        $this->db->select('password');
+        $this->db->where('id', $id);
+        $list = $this->db->get(TBL_USERS);       
+        return $list->row_array();
+    }
+
 }

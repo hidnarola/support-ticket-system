@@ -20,6 +20,7 @@
                 </div>
                 <!-- /members online -->
             </div>
+
             <div class="col-lg-3">
                 <!-- Members online -->
                 <div class="panel bg-pink-400">
@@ -38,6 +39,25 @@
                     </div>
                 </div>
                 <!-- /members online -->
+
+        </div>
+        <!-- /members online -->
+    </div>
+    <div class="col-lg-3">
+        <!-- Members online -->
+        <div class="panel bg-pink-400">
+            <div class="panel-body">
+                <div class="heading-elements icon-dasboard">
+                    <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
+                    <div class="icon-object border-white text-white"><i class="icon-users"></i></div>
+                </div>
+                <h3 class="no-margin"><?php echo $total_tenants; ?></h3>
+                <?php echo ($total_tenants == 1) ? 'Tenant' : 'Tenants'; ?>
+            <!--<div class="text-muted text-size-small">489 avg</div>-->
+            </div>
+            <div class="container-fluid">
+                <div id="members-online"></div>
+
             </div>
             <div class="col-lg-3">
                 <!-- Members online -->

@@ -26,24 +26,35 @@ class Login extends CI_Controller {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
             $result = $this->User_model->check($email, $password);
-       		
+            $flag = 0;
+            
             if ($result) {
-                if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1) {
+                if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1 && $user_title=='Tenant') {
                     //success
-                } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0) {
+                } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $user_title=='Tenant') {
                     // Give error mesg for verify link
-                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0) {
+                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title=='Staff') {
                     // Give error msg for user is not approved by admin
-                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1) {
+                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title=='Staff') {
                     $userdata = $this->session->set_userdata('staffed_logged_in', $result);
-                    redirect('staff/dashboard');
-                } elseif ($result['role_id'] == 3) {
+                    redirect('staff');
+                } elseif ($result['role_id'] == 3 && $user_title=='Admin') {
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
-                    redirect('admin/dashboard');
+                    redirect('admin');
+                }else{
+                    $flag = 1;
                 }
-            } else {
-                $this->session->set_flashdata('error_msg', 'Invalid username or password!');
-                $this->template->load('admin_login', 'Admin/Users/login', $data);
+            }else{
+                $flag = 1;
+            }
+            if($flag==1){
+                $this->session->set_flashdata('error_msg', 'Invalid email or password!');
+                if($this->uri->segment(1)=='login' || $this->uri->segment(1)==''){
+                    redirect('login');
+                }
+                else{
+                    redirect($this->uri->segment(1).'/login');
+                }
             }
         }
     }
@@ -51,9 +62,9 @@ class Login extends CI_Controller {
     public function logout(){
         $this->session->sess_destroy();
         if ($this->uri->segment(1) == 'admin') {
-            redirect('admin');
+            redirect('admin/login');
         } else if ($this->uri->segment(1) == 'staff') {
-            redirect('staff');
+            redirect('staff/login');
         }else{
             redirect('login');
         }
