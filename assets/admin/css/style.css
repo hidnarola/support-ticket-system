@@ -190,7 +190,31 @@ table td{
 #user_add .user_profile_pic .filename{display: none;}
 .lblpassword{ font-size: 16px;margin-left: 12px;}
 .pass-set{font-size: 16px;margin-left: 25px;margin-top: 20px;display: none;}
-.cancel-btn{height: 40px;}
+.cancel-btn{ padding: 7px 15px;}
+.user_table .table > tbody > tr > td{padding: 11px 17px;}
+ .ticket_table  .table > tbody > tr > td{padding: 9px 11px;}
+ .ticket-view-panel .panel .panel-heading {
+        background: #4f5b66 url("../img/bg.png") repeat scroll 0 0;
+        color: #ffffff;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .panel-title {
+        color: inherit;
+        font-size: 16px;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+    .ticket-view table th, table td {
+        text-align: left;
+    }
+    .ticket-view table th {
+         width: 35%;
+    }
+.alpha-teal {
+   background-color: #e0f2f1 !important;
+/*    border-color: #00897b;*/
+}
 @media (max-width: 768px) {
 	.navbar-top .navbar .navbar-header{
 		width: 100%;

@@ -1,89 +1,93 @@
-<div class="row">
-    <div class="col-lg-3">
-        <!-- Members online -->
-        <div class="panel bg-indigo-300">
-            <div class="panel-body">
-                <div class="heading-elements icon-dasboard">
-                    <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
-                    <!--<div class="media-left"><a href="#" class="btn border-success text-success btn-flat btn-icon btn-rounded btn-sm"><i class="icon-checkmark3"></i></a></div>-->
-                    <div class="icon-object border-white text-white"><i class="icon-collaboration"></i></div>
-                </div>
-                <h3 class="no-margin"><?php echo $total_departments; ?></h3>
-                <?php echo ($total_departments == 1) ? 'Department' : 'Departments'; ?>
-                <!--<div class="text-muted text-size-small">489 avg</div>-->
-            </div>
-            <div class="container-fluid">
-                <div id="members-online"></div>
-            </div>
-        </div>
-        <!-- /members online -->
-    </div>
-    <div class="col-lg-3">
-        <!-- Members online -->
-        <div class="panel bg-pink-400">
-            <div class="panel-body">
-                <div class="heading-elements icon-dasboard">
-                    <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
-                    <div class="icon-object border-white text-white"><i class="icon-users"></i></div>
-                </div>
-                <h3 class="no-margin"><?php echo $total_tenants; ?></h3>
-                <?php echo ($total_tenants == 1) ? 'Tenant' : 'Tenants'; ?>
-
-                <!--<div class="text-muted text-size-small">489 avg</div>-->
-            </div>
-            <div class="container-fluid">
-                <div id="members-online"></div>
-            </div>
-        </div>
-        <!-- /members online -->
-    </div>
-    <div class="col-lg-3">
-        <!-- Members online -->
-        <div class="panel bg-slate-400">
-            <div class="panel-body">
-                <div class="heading-elements icon-dasboard">
-                    <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
-                    <div class="icon-object border-white text-white"><i class="icon-people"></i></div>
-
-                </div>
-                <h3 class="no-margin"><?php echo $total_staffs; ?></h3>
-                Staff
-                <!--<div class="text-muted text-size-small">489 avg</div>-->
-            </div>
-            <div class="container-fluid">
-                <div id="members-online"></div>
-            </div>
-        </div>
-        <!-- /members online -->
-    </div>
-
-    <?php if ($total_tickets != 0) { ?>
-        <div class="col-lg-3">
-            <!-- Members online -->
-            <div class="panel bg-warning-400">
-                <div class="panel-body">
-                    <div class="heading-elements icon-dasboard">
-                        <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
-                        <div class="icon-object border-white text-white"><i class=" icon-ticket"></i></div>
+<div class="panel">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-3">
+                <!-- Members online -->
+                <div class="panel bg-indigo-300">
+                    <div class="panel-body">
+                        <div class="heading-elements icon-dasboard">
+                            <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
+                            <!--<div class="media-left"><a href="#" class="btn border-success text-success btn-flat btn-icon btn-rounded btn-sm"><i class="icon-checkmark3"></i></a></div>-->
+                            <div class="icon-object border-white text-white"><i class="icon-collaboration"></i></div>
+                        </div>
+                        <h3 class="no-margin"><?php echo $total_departments; ?></h3>
+                        <?php echo ($total_departments == 1) ? 'Department' : 'Departments'; ?>
+                        <!--<div class="text-muted text-size-small">489 avg</div>-->
                     </div>
-                    <h3 class="no-margin"><?php echo $total_tickets; ?></h3>
-                    <?php echo ($total_tickets == 1) ? 'Ticket' : 'Tickets'; ?>
-
-                    <!--<div class="text-muted text-size-small">489 avg</div>-->
+                    <div class="container-fluid">
+                        <div id="members-online"></div>
+                    </div>
                 </div>
-                <div class="container-fluid">
-                    <div id="members-online"></div>
-                </div>
-
+                <!-- /members online -->
             </div>
+            <div class="col-lg-3">
+                <!-- Members online -->
+                <div class="panel bg-pink-400">
+                    <div class="panel-body">
+                        <div class="heading-elements icon-dasboard">
+                            <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
+                            <div class="icon-object border-white text-white"><i class="icon-users"></i></div>
+                        </div>
+                        <h3 class="no-margin"><?php echo $total_tenants; ?></h3>
+                        <?php echo ($total_tenants == 1) ? 'Tenant' : 'Tenants'; ?>
+
+                        <!--<div class="text-muted text-size-small">489 avg</div>-->
+                    </div>
+                    <div class="container-fluid">
+                        <div id="members-online"></div>
+                    </div>
+                </div>
+                <!-- /members online -->
+            </div>
+            <div class="col-lg-3">
+                <!-- Members online -->
+                <div class="panel bg-slate-400">
+                    <div class="panel-body">
+                        <div class="heading-elements icon-dasboard">
+                            <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
+                            <div class="icon-object border-white text-white"><i class="icon-people"></i></div>
+
+                        </div>
+                        <h3 class="no-margin"><?php echo $total_staffs; ?></h3>
+                        Staff
+                        <!--<div class="text-muted text-size-small">489 avg</div>-->
+                    </div>
+                    <div class="container-fluid">
+                        <div id="members-online"></div>
+                    </div>
+                </div>
+                <!-- /members online -->
+            </div>
+
+            <?php if ($total_tickets != 0) { ?>
+                <div class="col-lg-3">
+                    <!-- Members online -->
+                    <div class="panel bg-warning-400">
+                        <div class="panel-body">
+                            <div class="heading-elements icon-dasboard">
+                                <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
+                                <div class="icon-object border-white text-white"><i class=" icon-ticket"></i></div>
+                            </div>
+                            <h3 class="no-margin"><?php echo $total_tickets; ?></h3>
+                            <?php echo ($total_tickets == 1) ? 'Ticket' : 'Tickets'; ?>
+
+                            <!--<div class="text-muted text-size-small">489 avg</div>-->
+                        </div>
+                        <div class="container-fluid">
+                            <div id="members-online"></div>
+                        </div>
+
+                    </div>
+                </div>
+            <?php } ?>
+
         </div>
-    <?php } ?>
-    
+    </div>
+</div>
 
 <div class="panel">
     <div class="panel-body">
         <div class="row">
-
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped datatable-basic">
@@ -100,6 +104,7 @@
                             <th>Created At</th>
                             <th>State</th>                            
                             <th>Actions</th>
+                            <th>Quick Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,15 +113,29 @@
                             ?>
                             <tr>
                                 <td><?php echo $key + 1; ?></td>
-                                  <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
+                                <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
                                 <td><?php echo $record['title']; ?></td>
                                 <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
-                                 <td><?php echo $record['dept_name'];?></td>
+                                <td><?php echo $record['dept_name']; ?></td>
                                 <td><?php echo $record['type_name']; ?></td>
                                 <td><?php echo $record['priority_name']; ?></td>
                                 <td><?php echo $record['status_name']; ?></td>
                                 <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                                <td><span class="label label-warning">Unread</span></td>
+                               <?php 
+                                 if($record['is_read'] == 0 ){ ?>
+                                 <td><span class="label label-warning">Unread</span></td>
+                                 <?php } else{  ?>
+                                 <td><span class="label label-success">Read</span></td>
+                                 <?php } ?>
+                                 <td>
+                                    <ul class="icons-list">
+                                        
+                                        <li class="text-white">
+                                            <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view label bg-slate"><i class="icon-eye"></i> View</a>
+                                        </li>
+                                       
+                                    </ul>
+                                </td>
                                 <td class="text-center">
                                     <ul class="icons-list">
                                         <li class="dropdown">
