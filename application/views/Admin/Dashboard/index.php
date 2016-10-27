@@ -27,11 +27,9 @@
                     <div class="icon-object border-white text-white"><i class="icon-users"></i></div>
                 </div>
                 <h3 class="no-margin"><?php echo $total_tenants;?></h3>
-<<<<<<< HEAD
-                Tenants
-=======
+
                 <?php echo ($total_tenants==1) ? 'Tenant' : 'Tenants'; ?>
->>>>>>> 7384f06816844d68c62e197b2b25fffdb9f886fa
+
                 <!--<div class="text-muted text-size-small">489 avg</div>-->
             </div>
             <div class="container-fluid">

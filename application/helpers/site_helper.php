@@ -52,6 +52,20 @@ function check_isvalidated() {
     }
 }
 
+function check_if_staff_validated() {
+    $ci = & get_instance();
+    if (!$ci->session->userdata('staffed_logged_in')) {
+        $ci->session->set_flashdata('error_msg', "You are not authorized to access this page. Please login first!");
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $redirect_to = str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
+        } else {
+            $redirect_to = $ci->uri->uri_string();
+        }
+//        redirect('home?redirect=' . base64_encode($redirect_to));
+        redirect('staff/login');
+    }
+}
+
 /** @method : medium_image_user
  * @uses : Resise the image to medium_image
  * @param type $src

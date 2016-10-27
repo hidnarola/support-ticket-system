@@ -1,6 +1,6 @@
 <div class="content-wrapper">
     <div class="content pb-20">
-        <form method="post" class="form-validate" action='<?php echo base_url() . "login"; ?>'>
+        <form method="post" class="form-validate">
             <div class="panel panel-body login-form">
                 <div class="text-center">
                     <!--                    <div class="icon-object login_logo">
@@ -9,7 +9,7 @@
                     <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
                     <h4 class="content-group"><?php echo $title; ?></h4>
                     <?php
-                    if ($this->session->flashdata('error_msg')) {
+                    if ($this->session->flashdata('error_msg') && $this->session->flashdata('error_msg')!='') {
                         ?>
                         <div class="alert alert-danger alert-dismissible" role="alert">
                             <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

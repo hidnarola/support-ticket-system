@@ -40,4 +40,16 @@ class Staff_model extends CI_Model {
 
     	return $query->result_array();
     }
+
+    public function get_profile($id){
+    	$this->db->select('users.*, dept.id as dept_id, dept.name as dept_name,');
+    	$this->db->where('users.id', $id);
+        $this->db->where('users.is_delete',0);
+        $result = $this->db->from(TBL_USERS);
+		$this->db->join(TBL_STAFF.' staff', 'staff.user_id = users.id');
+		$this->db->join(TBL_DEPARTMENTS.' dept', 'dept.id = staff.dept_id');
+		$query = $this->db->get();
+		return $query->row_array();
+    }
+
 }
