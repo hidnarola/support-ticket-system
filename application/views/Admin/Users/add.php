@@ -94,7 +94,7 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Department:</label>
                                 <div class="col-lg-9">                                  
-                                    <select class="select" name="dept_id">
+                                    <select class="select" name="dept_id" required="">
                                         <option selected="" value="">Select Department</option> 
                                         <?php
                                         foreach ($departments as $row) {
@@ -106,6 +106,7 @@
                                         }
                                         ?>
                                     </select>
+                                    <?php echo '<label id="dept_id-error" class="validation-error-label" for="dept_id">' . form_error('dept_id') . '</label>'; ?>
                                 </div>
 
                             </div>
@@ -164,7 +165,8 @@
                                 </div>
                             </div>
 
-                            <div class="text-right">
+                            <div class="text-right">                                
+                                <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
                                 <button type="submit" class="btn bg-teal">Save <?php echo $segment; ?>  <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>

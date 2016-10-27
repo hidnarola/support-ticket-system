@@ -28,6 +28,10 @@ class Dashboard extends CI_Controller {
         $this->data['total_staffs'] = $this->Admin_model->get_total_users(2);
         $this->data['total_tickets'] = $this->Admin_model->get_total(TBL_TICKETS);
         $this->data['tickets'] = $this->Admin_model->get_tickets();
+//        $this->data['tickets'] = $this->Admin_model->get_tickets($this->table, 1);
+        $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
+        $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
+        $this->data['priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
         $this->template->load('admin', 'Admin/Dashboard/index', $this->data);       
 
     }

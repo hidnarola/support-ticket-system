@@ -105,7 +105,7 @@ class Admin_model extends CI_Model {
         $this->db->where('id', $id);
         $result = $this->db->get($table);
 //        echo $this->db->last_query();
-        return $result->row();
+       return $result->row()->password;
     }
 
 
