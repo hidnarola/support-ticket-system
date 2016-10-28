@@ -115,7 +115,7 @@ class Dashboard extends CI_Controller {
                     'status' => 0
                 );
             }
-        } else {
+        } else {        
             $return_array = array(
                 'status' => 0
             );
@@ -155,4 +155,23 @@ class Dashboard extends CI_Controller {
         $this->template->load('admin', 'Admin/Dashboard/profile', $this->data);
     }
 
+    public function company(){
+        $this->data['title'] = $this->data['page_header'] = 'Company Details';
+        $company_details = $this->Admin_model->get_company_details();
+        $keys = array_column($company_details, 'key');
+        $values = array_column($company_details, 'value');
+        $combined = array_combine($keys, $values);
+        $this->data['company'] = $combined;
+        $this->template->load('admin', 'Admin/Dashboard/company', $this->data);
+        if($this->input->post()){
+            $company_data = $this->input->post();
+            if($this->Admin_model->save_company_details($company_data)){
+                $this->session->set_flashdata('success_msg', 'Successfully Updated Company Details');
+            }else{
+                $this->session->set_flashdata('error_msg', 'Unable to update Company Details.');
+            }
+            redirect('admin/manage/company');
+            //pr($company_data,1);
+        }
+    }
 }
