@@ -16,4 +16,17 @@ class Tickets extends CI_Controller {
     	$this->template->load('staff', 'Staff/Tickets/index', $this->data);
     }
 
+    
+    public function reply($id) {
+        if ($id != '') {
+            $record_id = base64_decode($id);
+            $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
+            $this->data['ticket_coversation'] = $this->Staff_model->get_ticket_conversation($record_id);
+            $this->data['title'] = $this->data['page_header'] = 'Tickets / Replies';
+            $this->template->load('staff', 'Staff/Tickets/reply', $this->data);
+        } else {
+            $data['view'] = 'admin/404_notfound';
+            $this->load->view('admin/error/404_notfound', $data);
+        }
+    }
 }

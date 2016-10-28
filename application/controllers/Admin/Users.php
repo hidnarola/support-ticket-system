@@ -17,8 +17,10 @@ class Users extends CI_Controller {
         $segment = $this->uri->segment(3);
         if ($segment == 'tenants') {
             $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tenants';
+             $this->data['icon_class'] = 'icon-users';
             $this->data['users'] = $this->User_model->get_users_records($this->table, 1);
         } else {
+             $this->data['icon_class'] = 'icon-people';
             $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Staffs';
             $this->data['users'] = $this->User_model->get_users_records($this->table, 2);
         }
@@ -43,8 +45,10 @@ class Users extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             if ($user_type == 'tenant') {
                 $this->data['title'] = $this->data['page_header'] = 'Tenants / Add Tenant';
+                $this->data['icon_class'] = 'icon-users';
                 $this->template->load('admin', 'Admin/Users/add', $this->data);
             } else {
+                  $this->data['icon_class'] = 'icon-people';
                 $this->data['title'] = $this->data['page_header'] = 'Staffs / Add staff';
                 $this->template->load('admin', 'Admin/Users/add', $this->data);
             }
@@ -166,9 +170,10 @@ class Users extends CI_Controller {
             $this->data['user'] = $this->User_model->viewUser($record_id, $this->table);
 //            echo '<pre>';
 //            print_r($this->data['user']);exit;
-            $image = $this->Admin_model->getFieldById($record_id, 'profile_pic', $this->table);
+            $image = $this->User_model->getFieldById($record_id, 'profile_pic', $this->table);
             $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
             $profile_pic = $image->profile_pic;
+//            exit;
             $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
             $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
 //            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . TBL_USERS . '.email]', array('is_unique' => 'Email already exist!'));
@@ -176,9 +181,11 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('address', 'Address', 'trim|required');
             if ($this->form_validation->run() == FALSE) {
                 if ($user_type == 'tenant') {
+                    $this->data['icon_class'] = 'icon-users';
                     $this->data['title'] = $this->data['page_header'] = 'Tenants / Edit ';
                     $this->template->load('admin', 'Admin/Users/add', $this->data);
                 } else {
+                    $this->data['icon_class'] = 'icon-people';
                     $this->data['title'] = $this->data['page_header'] = 'Staffs / Edit ';
                     $this->template->load('admin', 'Admin/Users/add', $this->data);
                 }
@@ -314,7 +321,6 @@ class Users extends CI_Controller {
             }
             $return_array = array(
                 'status' => $status,
-                
                 'id'=>$id
                 );
             echo json_encode($return_array);

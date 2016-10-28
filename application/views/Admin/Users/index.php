@@ -89,7 +89,7 @@ else
                                         </a>
 
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-file-pdf"></i> Change Password</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Password</a></li>
     <!--                                            <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
                                             <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>-->
                                         </ul>
@@ -226,7 +226,7 @@ else
                         if (data.status == 1) {
                             window.location.reload();
 //                            $("div.div_alert_error").addClass('alert-success');
-                            $('a.delete[data-record="' + data.id + '"]').closest('tr').remove();
+//                            $('a.delete[data-record="' + data.id + '"]').closest('tr').remove();
                         } else if (data.status == 0) {
 //                            $("div.div_alert_error").addClass('alert-danger');
                         }
