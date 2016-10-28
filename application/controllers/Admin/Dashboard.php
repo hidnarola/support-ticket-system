@@ -18,6 +18,7 @@ class Dashboard extends CI_Controller {
             'ticket_types' => 'ticket_types',
         );
         $this->load->model('Admin_model');
+        $this->load->model('User_model');
     }
 
     public function index() {
@@ -75,7 +76,7 @@ class Dashboard extends CI_Controller {
                         $this->session->set_flashdata('success_msg', 'Detail saved successfully.');
                         redirect('admin/manage/' . $type);
                     } else {
-                        $this->session->set_flashdata('error_msg', 'Issue to save detail. Please try again..!!');
+                        $this->session->set_flashdata('error_msg', 'Unable to save detail. Please try again..!!');
                         redirect('admin/manage/' . $type);
                     }
                 }
@@ -85,8 +86,6 @@ class Dashboard extends CI_Controller {
             redirect('admin');
         }
     }
-    
-    
     
     public function get_detail(){
         $type = strtolower($this->input->post('type'));
@@ -138,9 +137,23 @@ class Dashboard extends CI_Controller {
         $this->data['title'] = $this->data['page_header'] = 'My Profile';
         $id = $this->session->userdata('admin_logged_in')['id'];
         $profile = $this->Admin_model->get_profile($id);
-        // pr($profile,1);
         $this->data['profile'] = $profile;
         $this->template->load('admin', 'Admin/Dashboard/profile', $this->data);
+        if($this->input->post()){
+            $profile_data = array(
+                'fname' => $this->input->post('fname'),
+                'lname' => $this->input->post('lname'),
+                'contactno' => $this->input->post('contact_no'),
+                'address' => $this->input->post('address'),
+            );
+
+            if($this->User_model->edit($profile_data, TBL_USERS, 'id', $id)){
+                $this->session->set_flashdata('success_msg', 'Profile updated successfully');
+            }else{
+                $this->session->set_flashdata('error_msg', 'Unable to update the profile');
+            }
+            redirect('admin/profile');
+        }
     }
 
     public function company(){
