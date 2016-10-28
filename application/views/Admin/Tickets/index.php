@@ -10,7 +10,7 @@ $segment = $this->uri->segment(3);
 
         <div class="heading-elements">
             <ul class="icons-list">               
-                <button type="button" class="btn bg-pink-400" onclick="window.location = 'admin/tickets/add'"><i class="icon-user-plus position-left"></i>Add New Ticket</button>
+                <button type="button" class="btn bg-pink-400" onclick="window.location = 'admin/tickets/add'"><i class="icon-plus-circle2 position-left"></i>Add New Ticket</button>
                 <!--<li><a data-action="collapse"></a></li>-->
             </ul>
         </div>
@@ -18,7 +18,7 @@ $segment = $this->uri->segment(3);
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="table-responsive">
+            <div class="table-responsive ticket_table">
                 <table class="table table-bordered table-hover table-striped datatable-basic" id="ticket_table">
                     <thead>
                         <tr class="bg-teal">
@@ -33,7 +33,7 @@ $segment = $this->uri->segment(3);
                             <th>Created At</th>
                              <th>State</th>
                             <th>Actions</th>
-                            <th>Quick Actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +42,7 @@ $segment = $this->uri->segment(3);
                             ?>
                             <tr>
                                 <td><?php echo $key + 1; ?></td>
-                                  <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
+                                <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
                                 <td><?php echo $record['title']; ?></td>
                                 <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
                                 <td><?php echo $record['dept_name'];?></td>
@@ -50,14 +50,23 @@ $segment = $this->uri->segment(3);
                                 <td><?php echo $record['priority_name']; ?></td>
                                 <td><?php echo $record['status_name']; ?></td>
                                 <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                                 <td><span class="label label-warning">Unread</span></td>
-                                <td>
+                                <!--<td>ABC</td>-->
+                                <?php 
+                                 if($record['is_read'] == 0 ){ ?>
+                                 <td class="text-center"><span class="label label-warning">Unread</span></td>
+                                 <?php } else{  ?>
+                                 <td  class="text-center"><span class="label label-success">Read</span></td>
+                                 <?php } ?>
+                                <td class="text-center">
                                     <ul class="icons-list">
                                         <li class="text-teal-600">
                                             <a href="<?php echo base_url() . 'admin/tickets/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" title='Edit Ticket' class="edit"><i class="icon-pencil7"></i></a>
                                         </li>
                                         <li class="text-purple-700">
                                             <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i></a>
+                                        </li>
+                                        <li class="text-grey">
+                                            <a href="<?php echo base_url() . 'admin/tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Reply' class="view"><i class="icon-reply"></i></a>
                                         </li>
                                          <li class="text-danger-600">
                                             <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Ticket' class="delete"><i class="icon-trash"></i></a>

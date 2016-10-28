@@ -120,19 +120,21 @@ class Admin_model extends CI_Model {
      * @author : Reema  (Rep)
      * @return type
      */
-     public function get_tickets($limit=null){
-    	$this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, category.name as category_name');
+     public function get_tickets(){
+    	$this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, category.name as category_name, staff.fname as staff_fname ,staff.lname as staff_lname');
     	$this->db->where('tickets.is_delete',0);
-    	if($limit != null){
-    		$this->db->limit(10);
-    	}
+
 		$this->db->from(TBL_TICKETS);
 		$this->db->join(TBL_DEPARTMENTS.' dept', 'dept.id = tickets.dept_id', 'left');
 		$this->db->join(TBL_TICKET_TYPES.' type', 'type.id = tickets.ticket_type_id', 'left');
 		$this->db->join(TBL_TICKET_PRIORITIES.' priority', 'priority.id = tickets.priority_id', 'left');
 		$this->db->join(TBL_TICKET_STATUSES.' status', 'status.id = tickets.status_id', 'left');
-        $this->db->join(TBL_USERS.' user', 'user.id = tickets.user_id', 'left');
-        $this->db->join(TBL_CATEGORIES.' category', 'category.id = tickets.category_id', 'left');
+
+		$this->db->join(TBL_USERS.' user', 'user.id = tickets.user_id', 'left');
+                 $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
+		$this->db->join(TBL_CATEGORIES.' category', 'category.id = tickets.category_id', 'left');
+                $this->db->order_by("tickets.id", "desc");
+
 		$query = $this->db->get();
 //                pr($query->result_array());exit;
     	return $query->result_array();

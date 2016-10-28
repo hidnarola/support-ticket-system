@@ -153,7 +153,7 @@
 
                                 <div class="text-right">
                                     <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
-                                    <button type="submit" class="btn bg-teal">Save <?php echo $segment; ?>  <i class="icon-arrow-right14 position-right"></i></button>
+                                    <button type="submit" class="btn bg-teal">Save Ticket  <i class="icon-arrow-right14 position-right"></i></button>
                                 </div>
                             </div>
                         </div>

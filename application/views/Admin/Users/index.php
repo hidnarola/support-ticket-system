@@ -26,7 +26,7 @@ else
     </div>
     <div class="panel-body">
 
-        <div class="table-responsive">
+        <div class="table-responsive user_table">
             <table class="table table-bordered table-hover table-striped  datatable-basic" id="datatable-basic">
                 <thead>
                     <tr class="bg-teal">
@@ -71,7 +71,7 @@ else
                                     <span class="label label-success">Verified</span> 
                                 <?php }
                                 ?></td>
-                            <td>
+                            <td class="text-center">
                                 <ul class="icons-list">
                                     <li class="text-teal-600">
                                         <a href="<?php echo base_url() . 'admin/users/edit/' . $seg . '/' . base64_encode($record['uid']) ?>" id="edit_<?php echo base64_encode($record['uid']); ?>" class="edit"><i class="icon-pencil7"></i></a>
