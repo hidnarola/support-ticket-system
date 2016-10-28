@@ -1,5 +1,5 @@
 <?php
-$segment = $this->uri->segment(3);
+$segment = $this->uri->segment(1);
 ?>
 <script type="text/javascript" src="assets/admin/js/plugins/notifications/pnotify.min.js"></script>	
 <script type="text/javascript" src="assets/admin/js/pages/components_notifications_pnotify.js"></script>
@@ -31,7 +31,7 @@ $segment = $this->uri->segment(3);
                             <th>Priority</th>
                             <th>Status</th>
                             <th>Created At</th>
-                             <th>State</th>
+                            <th>State</th>
                             <th>Actions</th>
                             <th>Actions</th>
                         </tr>
@@ -42,33 +42,36 @@ $segment = $this->uri->segment(3);
                             ?>
                             <tr>
                                 <td><?php echo $key + 1; ?></td>
-                                <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
+                                <?php if ($record['staff_fname'] != '' && $record['staff_lname'] != '') { ?>
+                                    <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
+                                <?php } else { ?>
+                                    <td class="text-center"><span class="label label-success">Free</span></td>
+                                <?php } ?>
                                 <td><?php echo $record['title']; ?></td>
                                 <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
-                                <td><?php echo $record['dept_name'];?></td>
+                                <td><?php echo $record['dept_name']; ?></td>
                                 <td><?php echo $record['type_name']; ?></td>
                                 <td><?php echo $record['priority_name']; ?></td>
                                 <td><?php echo $record['status_name']; ?></td>
                                 <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
                                 <!--<td>ABC</td>-->
-                                <?php 
-                                 if($record['is_read'] == 0 ){ ?>
-                                 <td class="text-center"><span class="label label-warning">Unread</span></td>
-                                 <?php } else{  ?>
-                                 <td  class="text-center"><span class="label label-success">Read</span></td>
-                                 <?php } ?>
+                                <?php if ($record['is_read'] == 0) { ?>
+                                    <td class="text-center"><span class="label label-warning">Unread</span></td>
+                                <?php } else { ?>
+                                    <td  class="text-center"><span class="label label-success">Read</span></td>
+                                <?php } ?>
                                 <td class="text-center">
                                     <ul class="icons-list">
                                         <li class="text-teal-600">
                                             <a href="<?php echo base_url() . 'admin/tickets/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" title='Edit Ticket' class="edit"><i class="icon-pencil7"></i></a>
                                         </li>
                                         <li class="text-purple-700">
-                                            <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i></a>
+                                            <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) . '/' . $segment ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i></a>
                                         </li>
                                         <li class="text-grey">
                                             <a href="<?php echo base_url() . 'admin/tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Reply' class="view"><i class="icon-reply"></i></a>
                                         </li>
-                                         <li class="text-danger-600">
+                                        <li class="text-danger-600">
                                             <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Ticket' class="delete"><i class="icon-trash"></i></a>
                                         </li>
                                     </ul>
@@ -273,8 +276,8 @@ $segment = $this->uri->segment(3);
                 });
                 event.preventDefault();
             });
-        });</script>
-
+        });
+    </script>
     <script type="text/javascript">
         var jconfirm = function (message, callback) {
             var options = {
@@ -302,7 +305,7 @@ $segment = $this->uri->segment(3);
         var type = '<?php echo $this->uri->segment(2); ?>';
         $(document).on('click', '.delete', function () {
             var id = $(this).attr('id').replace('delete_', '');
-            var url = base_url + 'delete';
+            var url = base_url + 'tickets/delete';
             jconfirm("Do you really want to delete this record?", function (r) {
                 if (r) {
                     $.ajax({
@@ -317,13 +320,14 @@ $segment = $this->uri->segment(3);
                             console.log(data.msg);
                             console.log(data.id);
                             if (data.status == 1) {
-                                $("div.div_alert_error").addClass('alert-success');
-                                $('a.delete[data-record="' + data.id + '"]').closest('tr').remove();
+                                window.location.reload();
+//                                $("div.div_alert_error").addClass('alert-success');
+//                                $('a.delete[data-record="' + data.id + '"]').closest('tr').remove();
                             } else if (data.status == 0) {
-                                $("div.div_alert_error").addClass('alert-danger');
+//                                $("div.div_alert_error").addClass('alert-danger');
                             }
-                            $("p.alert_error_msg").text(data.msg);
-                            $("div.div_alert_error").show();
+//                            $("p.alert_error_msg").text(data.msg);
+//                            $("div.div_alert_error").show();
                         }
                     });
                 }

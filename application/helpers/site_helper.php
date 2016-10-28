@@ -52,6 +52,7 @@ function check_isvalidated() {
     }
 }
 
+
 function check_if_staff_validated() {
     $ci = & get_instance();
     if (!$ci->session->userdata('staffed_logged_in')) {

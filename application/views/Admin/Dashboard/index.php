@@ -40,25 +40,10 @@
                 </div>
                 <!-- /members online -->
 
-        </div>
-        <!-- /members online -->
-    </div>
-    <div class="col-lg-3">
-        <!-- Members online -->
-        <div class="panel bg-pink-400">
-            <div class="panel-body">
-                <div class="heading-elements icon-dasboard">
-                    <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
-                    <div class="icon-object border-white text-white"><i class="icon-users"></i></div>
-                </div>
-                <h3 class="no-margin"><?php echo $total_tenants; ?></h3>
-                <?php echo ($total_tenants == 1) ? 'Tenant' : 'Tenants'; ?>
-            <!--<div class="text-muted text-size-small">489 avg</div>-->
             </div>
-            <div class="container-fluid">
-                <div id="members-online"></div>
+            <!-- /members online -->
 
-            </div>
+
             <div class="col-lg-3">
                 <!-- Members online -->
                 <div class="panel bg-slate-400">
@@ -104,7 +89,6 @@
         </div>
     </div>
 </div>
-
 <div class="panel">
     <div class="panel-body">
         <div class="row">
@@ -124,7 +108,7 @@
                             <th>Created At</th>
                             <th>State</th>                            
                             <th>Actions</th>
-                            <th>Quick Actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,7 +117,11 @@
                             ?>
                             <tr>
                                 <td><?php echo $key + 1; ?></td>
-                                <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
+                               <?php if ($record['staff_fname'] != '' && $record['staff_lname'] != '') { ?>
+                                    <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
+                                <?php } else { ?>
+                                    <td class="text-center"><span class="label label-success">Free</span></td>
+                                <?php } ?>
                                 <td><?php echo $record['title']; ?></td>
                                 <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
                                 <td><?php echo $record['dept_name']; ?></td>
@@ -141,19 +129,21 @@
                                 <td><?php echo $record['priority_name']; ?></td>
                                 <td><?php echo $record['status_name']; ?></td>
                                 <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                               <?php 
-                                 if($record['is_read'] == 0 ){ ?>
-                                 <td><span class="label label-warning">Unread</span></td>
-                                 <?php } else{  ?>
-                                 <td><span class="label label-success">Read</span></td>
-                                 <?php } ?>
-                                 <td>
+                                <?php if ($record['is_read'] == 0) { ?>
+                                    <td><span class="label label-warning">Unread</span></td>
+                                <?php } else { ?>
+                                    <td><span class="label label-success">Read</span></td>
+                                <?php } ?>
+                                    <td class="text-center">
                                     <ul class="icons-list">
-                                        
-                                        <li class="text-white">
-                                            <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view label bg-slate"><i class="icon-eye"></i> View</a>
+
+                                        <li class="text-purple-700">
+                                            <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i> </a>
                                         </li>
-                                       
+                                        <li class="text-grey">
+                                            <a href="<?php echo base_url() . 'admin/tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Reply' class="view"><i class="icon-reply"></i> </a>
+                                        </li>
+
                                     </ul>
                                 </td>
                                 <td class="text-center">

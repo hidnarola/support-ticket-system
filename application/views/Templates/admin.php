@@ -27,14 +27,14 @@
         <script type="text/javascript" src="assets/admin/js/core/libraries/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/loaders/blockui.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.validate.js"></script>
-<script type="text/javascript" src="assets/admin/js/core/app.js"></script>
+        <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/login_validation.js"></script>
 
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
         <!-- /core JS files -->
         <script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>
-        
+
         <!-- /core JS files -->
 <!--        <script>
             window.setTimeout(function () {
@@ -43,6 +43,24 @@
                 });
             }, 7000);
         </script>-->
+        <style>
+            .page-title {
+                color: #333;
+                height: 50px;
+                line-height: 50px;
+                padding: 5px 20px;
+            }
+            .page-header-content {
+                background-color: inherit;
+                padding: 0;
+                position: relative;
+            }
+
+            .navbar-nav {
+                margin-left: 5px;
+                width: 50px;
+            }
+        </style>
     </head>
 
     <body class="navbar-top">
@@ -77,7 +95,7 @@
         <?php
         $current_page = $this->uri->segment(3);
         $page = $this->uri->segment(2);
-        $users = $page.'/'.$current_page;
+        $users = $page . '/' . $current_page;
         $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
         ?>
         <div class="page-container">
@@ -87,7 +105,7 @@
                         <div class="sidebar-user-material">
                             <div class="category-content">
                                 <div class="sidebar-user-material-content">
-                                    <a href="admin">
+                                    <a href="admin" class="legitRipple">
                                         <img src="assets/images/no_photo.png" class="img-circle img-responsive" alt=""></a>
                                     <h6>Hello <?php
                                         if ($this->session->userdata('admin_logged_in')) {
@@ -122,6 +140,7 @@
                                     <li class="<?php echo ($page == 'tickets') ? 'active' : ''; ?>"><a href="admin/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
+                                    <li class="<?php echo ($current_page == 'faq') ? 'active' : ''; ?>"><a href="admin/faq"><i class="icon-question3"></i> <span>FAQ'S</span></a></li>
 
 
                                     <li class="<?php echo (in_array($current_page, $settings)) ? 'active' : ''; ?>">
@@ -144,7 +163,9 @@
                     <div class="">
                         <div class="page-header-content">
                             <div class="page-title">
-                                <h2><span class="text-semibold"><?php echo $page_header; ?></span></h2>
+                                <h2 style="line-height: 40px;">
+                                    <i class="<?php echo $icon_class; ?>" style="padding-right: 15px;"></i>
+                                    <span class="text-semibold" style="border-left: 1px solid #333;padding-left: 15px;"><?php echo $page_header; ?></span></h2>
                             </div>
                             <?php
                             if ($this->session->flashdata('success_msg')) {
@@ -190,7 +211,7 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_select.min.js"></script>
 
         <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
-        
+
         <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
 
         <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script>

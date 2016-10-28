@@ -85,10 +85,9 @@ class Ticket_model extends CI_Model {
         $this->db->join(TBL_TICKETS . ' tickets', 'tickets.id = ticket_conversation.ticket_id', 'left');
         $this->db->join(TBL_USERS . ' user', 'user.id = ticket_conversation.sent_from', 'left');
         $this->db->where('tickets.id', $id);
+        $this->db->order_by("ticket_conversation.created", "asc");
         $q = $this->db->get();
         $originalArray = $q->result_array();
-//         echo '<pre>';
-//        print_r($originalArray);
         $new_arr=array();
         foreach ($originalArray as $key => $part) {
 //            $date=date('Y-m-d',strtotime($part['created_date']));
@@ -96,9 +95,6 @@ class Ticket_model extends CI_Model {
             $new_arr[$date][]=$part;
         }
         return $new_arr;
-//         echo '<pre>';
-//        print_r($new_arr);
-//        exit;
     }
 
 }

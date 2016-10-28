@@ -6,7 +6,7 @@ class Tickets extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        check_isvalidated();
+//        check_isvalidated();
         $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->load->model('Ticket_model');
@@ -14,6 +14,8 @@ class Tickets extends CI_Controller {
     }
 
     public function index() {
+        $segment = $this->uri->segment(1);
+        $this->data['icon_class'] = 'icon-ticket';
         $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tickets';
         $this->data['tickets'] = $this->Admin_model->get_tickets();
 //        echo '<pre>';
@@ -22,7 +24,10 @@ class Tickets extends CI_Controller {
         $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
         $this->data['priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
-        $this->template->load('admin', 'Admin/Tickets/index', $this->data);
+        if ($segment == 'admin')
+            $this->template->load('admin', 'Admin/Tickets/index', $this->data);
+        else
+            $this->template->load('staff', 'Admin/Tickets/index', $this->data);
     }
 
     public function add() {
@@ -42,6 +47,7 @@ class Tickets extends CI_Controller {
         $this->form_validation->set_rules('category_id', 'Category', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
+            $this->data['icon_class'] = 'icon-ticket';
             $this->data['title'] = $this->data['page_header'] = 'Tickets / Add ticket';
             $this->template->load('admin', 'Admin/Tickets/add', $this->data);
         } else {
@@ -85,6 +91,7 @@ class Tickets extends CI_Controller {
             $this->form_validation->set_rules('category_id', 'Category', 'trim|required');
             $this->form_validation->set_rules('description', 'Description', 'trim|required');
             if ($this->form_validation->run() == FALSE) {
+                $this->data['icon_class'] = 'icon-ticket';
                 $this->data['title'] = $this->data['page_header'] = 'Tickets / Edit ticket';
                 $this->template->load('admin', 'Admin/Tickets/add', $this->data);
             } else {
@@ -153,10 +160,17 @@ class Tickets extends CI_Controller {
 
     public function view($id) {
         if ($id != '') {
+            $segment = $this->uri->segment(1);
+//            echo $segment; exit;
             $record_id = base64_decode($id);
             $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
             $this->data['title'] = $this->data['page_header'] = 'Tickets / View ticket';
-            $this->template->load('admin', 'Admin/Tickets/view', $this->data);
+            $this->data['icon_class'] = 'icon-ticket';
+            if ($segment == 'admin')
+                $this->template->load('admin', 'Admin/Tickets/view', $this->data);
+            else
+                $this->template->load('staff', 'Staff/Tickets/view', $this->data);
+//            $this->template->load('admin', 'Admin/Tickets/view', $this->data);
             /* check ticket is read or not */
             $check = $this->Ticket_model->isTicketRead($record_id);
             if ($check == 0) {
@@ -167,6 +181,7 @@ class Tickets extends CI_Controller {
                 $this->Admin_model->manage_record(TBL_TICKETS, $data, $record_id);
             }
         } else {
+            
             $data['view'] = 'admin/404_notfound';
             $this->load->view('admin/error/404_notfound', $data);
         }
@@ -177,7 +192,7 @@ class Tickets extends CI_Controller {
             $record_id = base64_decode($id);
             $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
             $this->data['ticket_coversation'] = $this->Ticket_model->get_ticket_conversation($record_id);
-            
+$this->data['icon_class'] = 'icon-ticket';
             $this->data['title'] = $this->data['page_header'] = 'Tickets / Replies';
             $this->template->load('admin', 'Admin/Tickets/reply', $this->data);
         } else {
@@ -185,5 +200,26 @@ class Tickets extends CI_Controller {
             $this->load->view('admin/error/404_notfound', $data);
         }
     }
+    
+     public function delete(){
+        $id = $this->input->post('id');
+        $table_name = $this->input->post('type');
+        if($id!=''){
+            $record_id = base64_decode($id);
+            if($this->Admin_model->delete($table_name, $record_id)){
+                $this->session->set_flashdata('success_msg', 'Record deleted successfully!');  
+                $status = 1;
+            }else{  
+                $this->session->set_flashdata('error_msg', 'Unable to delete the record.');               
+                $status = 0;
+            }
+            $return_array = array(
+                'status' => $status,
+                'id'=>$id
+                );
+            echo json_encode($return_array);
+        }
+    }
+
 
 }
