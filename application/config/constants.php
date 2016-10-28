@@ -98,6 +98,7 @@ define('TBL_TICKET_STATUSES','ticket_statuses');
 define('TBL_TICKET_TYPES','ticket_types');
 define('TBL_TICKETS','tickets');
 define('TBL_USERS','users');
+define('TBL_SETTINGS','settings');
 
 
 /*  |	set upload folder constants */

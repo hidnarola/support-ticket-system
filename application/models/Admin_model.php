@@ -116,8 +116,6 @@ class Admin_model extends CI_Model {
         return $result->row_array();
     }
 
-
-    
     /**
      * @author : Reema  (Rep)
      * @return type
@@ -133,12 +131,32 @@ class Admin_model extends CI_Model {
 		$this->db->join(TBL_TICKET_TYPES.' type', 'type.id = tickets.ticket_type_id', 'left');
 		$this->db->join(TBL_TICKET_PRIORITIES.' priority', 'priority.id = tickets.priority_id', 'left');
 		$this->db->join(TBL_TICKET_STATUSES.' status', 'status.id = tickets.status_id', 'left');
-		$this->db->join(TBL_USERS.' user', 'user.id = tickets.user_id', 'left');
-		$this->db->join(TBL_CATEGORIES.' category', 'category.id = tickets.category_id', 'left');
+        $this->db->join(TBL_USERS.' user', 'user.id = tickets.user_id', 'left');
+        $this->db->join(TBL_CATEGORIES.' category', 'category.id = tickets.category_id', 'left');
 		$query = $this->db->get();
 //                pr($query->result_array());exit;
     	return $query->result_array();
     }
 
+    public function get_company_details(){
+        $this->db->from(TBL_SETTINGS);
+        $this->db->like('key', 'company');
+        return $this->db->get()->result_array();
+    }
 
+    public function save_company_details($company_data){
+        $data = array();
+        foreach ($company_data as $key => $value) {
+            $arr = array(
+                'key' => $key,
+                'value' => $value
+                );
+            $data[] = $arr;
+        }
+        if($this->db->update_batch(TBL_SETTINGS, $data, 'key')){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

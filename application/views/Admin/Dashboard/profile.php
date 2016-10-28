@@ -1,6 +1,5 @@
-<div class="panel">
-	<div class="panel-body">
-		<div class="row">
+
+		<div class="row profile_page">
 			<div class="col-md-12">
 
 							<!-- Basic layout-->
@@ -54,5 +53,4 @@
 
 						</div>
 		</div>
-	</div>
-</div>
+	

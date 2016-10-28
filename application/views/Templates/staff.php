@@ -70,7 +70,7 @@
             </div>
         </div>
         <?php
-            $current_page = $this->uri->segment(3);
+            $current_page = $this->uri->segment(2);
             $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
         ?>
         <div class="page-container">
@@ -97,7 +97,7 @@
 
                             <div class="navigation-wrapper collapse" id="user-nav">
                                 <ul class="navigation">
-                                    <li><a href="#"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
+                                    <li class="<?php echo ($current_page == 'profile') ? 'active' : ''; ?>"><a href="staff/profile"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
                                     <li><a href="staff/logout"><i class="icon-switch2"></i> <span>Logout</span></a></li>
                                 </ul>
                             </div>
@@ -107,8 +107,8 @@
                             <div class="category-content no-padding">
                                 <ul class="navigation navigation-main navigation-accordion">
                                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
-                                    <li><a href="staff/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-                                    <li><a href="staff/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
+                                    <li class="<?php echo ($current_page == 'dashboard') ? 'active' : ''; ?>"><a href="staff/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                                    <li class="<?php echo ($current_page == 'tickets') ? 'active' : ''; ?>"><a href="staff/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
                                 </ul>
                             </div>
                         </div>
