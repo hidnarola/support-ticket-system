@@ -5,13 +5,13 @@
     max-width: 100%;
 }
 .navbar-top .navbar .navbar-header{
-	display: table !important;
-	/*background: #eeeded;*/
-	/*background: #55a747;*/
-	max-width: 100%;
+    display: table !important;
+    /*background: #eeeded;*/
+    /*background: #55a747;*/
+    max-width: 100%;
 }
 .navbar .navbar-brand{
- 	display: table-cell;
+    display: table-cell;
     float: none;
     vertical-align: middle;
     padding: 0 10px;
@@ -23,48 +23,48 @@
     max-width: 100%;
 }
 .sidebar-user-material .category-content{
-	background: rgba(0, 0, 0, 0) url("../images/login_cover.jpg") no-repeat scroll center center / cover;
+    background: rgba(0, 0, 0, 0) url("../images/login_cover.jpg") no-repeat scroll center center / cover;
 }
 .sidebar-user-material-content > a{
-	background: #263238;
+    background: #263238;
 }
 .popular_list td,
 .popular_list th{
-	text-align: left;
+    text-align: left;
 }
 .popular_list td.action_td{
-	text-align: center;
+    text-align: center;
 }
 .popular_list .list_logo{
-	display: inline-block;
+    display: inline-block;
     padding: 0;
-	height: 40px;
+    height: 40px;
     margin-right: 15px;
     width: 40px;
 }
 .popular_list .list_desc{
-	display: inline-block;
-	vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
 }
 .popular_list .list_desc .company_address{
- 	display: inline-block;
+    display: inline-block;
     overflow: hidden;
     vertical-align: top;
     white-space: pre-wrap;
     width: 370px;
 }
 .popular_list .list_desc .list_logo{
-	height: 20px;
+    height: 20px;
     margin-right: 5px;
     width: 20px;
 }
 .popular_list .list_logo img.img-xs{
-	max-width: 100% !important;
-	height: auto !important;
-	width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    width: 100% !important;
 }
 .popular_list .list_desc span.badge{
- 	background-color: #313131;
+    background-color: #313131;
     border-radius: 3px;
     color: #fff;
     display: inline-block;
@@ -77,31 +77,31 @@
     vertical-align: middle;
 }
 .sidebar-xs .header-highlight .navbar-header .navbar-brand{
-	/*background: rgba(0, 0, 0, 0) url("../images/icon.png") no-repeat scroll center center / auto 35px;*/
+    /*background: rgba(0, 0, 0, 0) url("../images/icon.png") no-repeat scroll center center / auto 35px;*/
     width: auto;
 }
 .login-form .alert{
-	padding: 15px;
+    padding: 15px;
 }
 .alert-dismissible .close{
-	right: -5px;
+    right: -5px;
 }
 table th, 
 table td{
-	text-align: center;
+    text-align: center;
 }
 .datatable-header, .datatable-footer{
-	padding: 0;
+    padding: 0;
 }
 .translate_resume fieldset legend{
-	padding:5px 10px !important;
-	border-radius: 5px 5px 0 0;
+    padding:5px 10px !important;
+    border-radius: 5px 5px 0 0;
 }
 .translate_resume fieldset legend i{
-	color: #fff;
+    color: #fff;
 }
 .translate_resume .form-control{
-	border-color: transparent transparent #009688;
+    border-color: transparent transparent #009688;
 }
 #pagination_div{
     text-align: center;
@@ -166,14 +166,14 @@ table td{
 }
 .positions-list-item th,
 .positions-list-item td{
-	text-align: left;
+    text-align: left;
 }
 .page-title{
-	padding: 20px 0;
+    padding: 20px 0;
 }
 .main_wrapper{
-	background: #fff;
-	padding: 25px;
+    background: #fff;
+    padding: 25px;
     border-radius: 5px;
 }
 
@@ -184,9 +184,7 @@ table td{
     margin-top: 1px;
     padding: 13px;
 }
-
 .profile_page .form-group input, .profile_page .form-group textarea{ padding-left: 20px; }
-
 
 #user_add .user_profile_pic .filename{display: none;}
 .lblpassword{ font-size: 16px;margin-left: 12px;}
@@ -194,35 +192,18 @@ table td{
 
 .cancel-btn{ padding: 7px 15px;}
 .user_table .table > tbody > tr > td{padding: 11px 17px;}
- .ticket_table  .table > tbody > tr > td{padding: 9px 11px;}
- .ticket-view-panel .panel .panel-heading {
-        background: #4f5b66 url("../img/bg.png") repeat scroll 0 0;
-        color: #ffffff;
-        padding-bottom: 10px;
-        padding-top: 10px;
-    }
-    .panel-title {
-        color: inherit;
-        font-size: 16px;
-        margin-bottom: 0;
-        margin-top: 0;
-    }
-    .ticket-view table th, table td {
-        text-align: left;
-    }
-    .ticket-view table th {
-         width: 35%;
-    }
-.alpha-teal {
-   background-color: #e0f2f1 !important;
-/*    border-color: #00897b;*/
-}
-
+.ticket_table  .table > tbody > tr > td{padding: 9px 11px;}
+.ticket-view-panel .panel .panel-heading {background: #4f5b66 url("../img/bg.png") repeat scroll 0 0;color: #ffffff;padding-bottom: 10px;padding-top: 10px;}
+.panel-title {color: inherit;font-size: 16px;margin-bottom: 0;margin-top: 0;}
+.ticket-view table th, table td {text-align: left;}
+.ticket-view table th {width: 35%;}
+.alpha-teal {background-color: #e0f2f1 !important;/*    border-color: #00897b;*/}
+.alert{margin-right: 20px;margin-left:20px;}
 .cancel-btn{height: 40px;}
 
 @media (max-width: 768px) {
-	.navbar-top .navbar .navbar-header{
-		width: 100%;
-		background: #009688;
-	}
+    .navbar-top .navbar .navbar-header{
+        width: 100%;
+        background: #009688;
+    }
 }

@@ -12,146 +12,88 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-
             <!-- Questions list -->
             <div class="panel-group panel-group-control panel-group-control-right">
-                <div class="panel panel-white">
-                    <div class="panel-heading">
-                        <h6 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" href="#question1">
-                                <i class="icon-help position-left text-slate"></i> A without walking some objective?
-                            </a>
-                        </h6>
-                    </div>
+                <?php foreach ($faq as $value) { ?>
 
-                    <div id="question1" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            She exposed painted fifteen are noisier mistake led waiting. Surprise not wandered speedily husbands although yet end. Are court tiled cease young built fat one man taken. We highest ye friends is exposed equally in. Ignorant had too strictly followed. Astonished as travelling assistance or unreserved oh pianoforte ye. Five with seen put need tore add neat.
+                    <div class="panel panel-white">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" href="<?php echo "#question" . $value['id'] ?>">
+                                    <i class="icon-help position-left text-slate"></i> <?php echo $value['question']; ?>
+                                </a>
+                                <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($value['id']); ?>" data-record="<?php echo base64_encode($value['id']); ?>"><i class="icon-trash"></i></a>
+                                <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/faq/edit/' . base64_encode($value['id']) ?>" id="edit_<?php echo base64_encode($value['id']); ?>"><i class="icon-pencil7"></i></a>
+                            </h6>
                         </div>
 
-                        <div class="panel-footer panel-footer-transparent">
-                            <div class="heading-elements">
-                                <span class="text-muted heading-text">Latest update: May 25, 2015</span>
+                        <div id="<?php echo "question" . $value['id'] ?>" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <?php echo $value['answer']; ?>
+                            </div>
 
-                                <ul class="list-inline list-inline-condensed heading-text pull-right">
-                                    <li><a href="#" class="text-primary"><i class="icon-thumbs-up2 position-left"></i></a> 320</li>
-                                    <li><a href="#" class="text-muted"><i class="icon-thumbs-down2 position-left"></i></a> 14</li>
-                                </ul>
+                            <div class="panel-footer panel-footer-transparent">
+                                <div class="heading-elements">
+                                    <span class="text-muted heading-text">Latest update: <?php echo date('M d, Y', strtotime($value['created'])); ?></span>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="panel panel-white">
-                    <div class="panel-heading">
-                        <h6 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" href="#question2">
-                                <i class="icon-help position-left text-slate"></i> She exposed painted fifteen are noisier?
-                            </a>
-                        </h6>
-                    </div>
-
-                    <div id="question2" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            There worse by an of miles civil. Manner before lively wholly am mr indeed expect. Among every merry his yet has her. You mistress get dashwood children off. Met whose marry under the merit. In it do continual consulted no listening. Devonshire sir sex motionless travelling six themselves. So colonel as greatly shewing herself observe ashamed.
-                        </div>
-
-                        <div class="panel-footer panel-footer-transparent">
-                            <div class="heading-elements">
-                                <span class="text-muted heading-text">Latest update: May 22, 2015</span>
-
-                                <ul class="list-inline list-inline-condensed heading-text pull-right">
-                                    <li><a href="#" class="text-primary"><i class="icon-thumbs-up2 position-left"></i></a> 278</li>
-                                    <li><a href="#" class="text-muted"><i class="icon-thumbs-down2 position-left"></i></a> 25</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-white">
-                    <div class="panel-heading">
-                        <h6 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" href="#question3">
-                                <i class="icon-help position-left text-slate"></i> Surprise not wandered speedily?
-                            </a>
-                        </h6>
-                    </div>
-
-                    <div id="question3" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            Do ashamed assured on related offence at equally totally. Use mile her whom they its. Kept hold an want as he bred of. Was dashwood landlord cheerful husbands two. Estate why theirs indeed him polite old settle though she. In as at regard easily narrow roused adieus. Parlors visited noisier how explain pleased his see suppose. He oppose at thrown desire.
-                        </div>
-
-                        <div class="panel-footer panel-footer-transparent">
-                            <div class="heading-elements">
-                                <span class="text-muted heading-text">Latest update: May 12, 2015</span>
-
-                                <ul class="list-inline list-inline-condensed heading-text pull-right">
-                                    <li><a href="#" class="text-primary"><i class="icon-thumbs-up2 position-left"></i></a> 438</li>
-                                    <li><a href="#" class="text-muted"><i class="icon-thumbs-down2 position-left"></i></a> 16</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-white">
-                    <div class="panel-heading">
-                        <h6 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" href="#question4">
-                                <i class="icon-help position-left text-slate"></i> Are court tiled cease young built fat?
-                            </a>
-                        </h6>
-                    </div>
-
-                    <div id="question4" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            Additions in conveying or collected objection in. Suffer few desire wonder her object hardly nearer. Abroad no chatty others my silent an. Fat way appear denote who wholly narrow gay settle. Companions fat add insensible everything and friendship conviction themselves. Theirs months ten had add narrow own. By spite about do of do allow blush before lively wholly.
-                        </div>
-
-                        <div class="panel-footer panel-footer-transparent">
-                            <div class="heading-elements">
-                                <span class="text-muted heading-text">Latest update: May 9, 2015</span>
-
-                                <ul class="list-inline list-inline-condensed heading-text pull-right">
-                                    <li><a href="#" class="text-primary"><i class="icon-thumbs-up2 position-left"></i></a> 583</li>
-                                    <li><a href="#" class="text-muted"><i class="icon-thumbs-down2 position-left"></i></a> 21</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-white">
-                    <div class="panel-heading">
-                        <h6 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" href="#question5">
-                                <i class="icon-help position-left text-slate"></i> Announcing of invitation principles in?
-                            </a>
-                        </h6>
-                    </div>
-
-                    <div id="question5" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            Wished he entire esteem mr oh by. Possible bed you pleasure civility boy elegance ham. He prevent request by if in pleased. Picture too and concern has was comfort. Ten difficult resembled eagerness nor. Same park bore on be. Warmth his law design say are person. Pronounce suspected in belonging conveying ye repulsive. Whole every miles as tiled at seven concern.
-                        </div>
-
-                        <div class="panel-footer panel-footer-transparent">
-                            <div class="heading-elements">
-                                <span class="text-muted heading-text">Latest update: May 6, 2015</span>
-
-                                <ul class="list-inline list-inline-condensed heading-text pull-right">
-                                    <li><a href="#" class="text-primary"><i class="icon-thumbs-up2 position-left"></i></a> 642</li>
-                                    <li><a href="#" class="text-muted"><i class="icon-thumbs-down2 position-left"></i></a> 26</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
             <!-- /questions list -->
         </div>
     </div>
 </div>
 <!-- /questions area -->
+<script type="text/javascript">
+    var jconfirm = function (message, callback) {
+        var options = {
+            message: message
+        };
+        options.buttons = {
+            cancel: {
+                label: "No",
+                className: "btn-default",
+                callback: function (result) {
+                    callback(false);
+                }
+            },
+            main: {
+                label: "Yes",
+                className: "btn-primary",
+                callback: function (result) {
+                    callback(true);
+                }
+            }
+        };
+        bootbox.dialog(options);
+    };
+    var base_url = '<?php echo base_url(); ?>admin/';
+    var type = '<?php echo $this->uri->segment(2); ?>';
+
+    /* delete record function */
+    $(document).on('click', '.delete', function () {
+        var id = $(this).attr('id').replace('delete_', '');
+        var url = base_url + 'faq/delete';
+        jconfirm("Do you really want to delete this record?", function (r) {
+            if (r) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    async: false,
+                    dataType: 'JSON',
+                    data: {id: id, type: type},
+                    success: function (data) {
+                        if (data.status == 1) {
+                            window.location.reload();
+                        } else if (data.status == 0) {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>

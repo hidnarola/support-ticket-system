@@ -4,8 +4,8 @@
         $segment = $this->uri->segment(4);
         $edit_segment = $this->uri->segment(3);
 
-        if (isset($ticket)) {
-            $action = base_url() . "admin/faq/edit/" . base64_encode($faq->id);
+        if (isset($faq)) {
+            $action = base_url() . "admin/faq/edit/" . base64_encode($faq[0]['id']);
         } else {
             $action = base_url() . "admin/faq/add";
         }
@@ -25,7 +25,7 @@
                                     <div class="col-lg-9">
                                         <textarea rows="5" cols="5" name="question" class="form-control" required="required" placeholder="Question Here" aria-required="true" aria-invalid="true"><?php
                                             if (isset($faq)) {
-                                                echo trim($faq['question']);
+                                                echo trim($faq[0]['question']);
                                             } else {
                                                 if ($this->input->post('question')) {
                                                     echo $this->input->post('question');
@@ -44,7 +44,7 @@
                                     <div class="col-lg-9">
                                         <textarea rows="10" cols="10" name="answer" class="form-control" required="required" placeholder="Answer Here" aria-required="true" aria-invalid="true"><?php
                                             if (isset($faq)) {
-                                                echo trim($faq['answer']);
+                                                echo trim($faq[0]['answer']);
                                             } else {
                                                 if ($this->input->post('answer')) {
                                                     echo $this->input->post('answer');
@@ -69,7 +69,3 @@
         </form>
     </div>
 </div>
-
-<script>
-
-</script>
