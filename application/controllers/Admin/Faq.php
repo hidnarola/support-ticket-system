@@ -14,7 +14,15 @@ class Faq extends CI_Controller {
     public function index() {
         $this->data['title'] = $this->data['page_header'] = 'FAQ';
         $this->data['icon_class'] = 'icon-question3';
-        $this->data['faq'] = $this->Admin_model->get_records(TBL_FAQ);
+        $faqs = $this->Admin_model->get_records(TBL_FAQ);
+        $search_text = '';
+        if($this->input->post()){
+            $search_text = $this->input->post('search_text');
+            $faqs = $this->Admin_model->search_faq($search_text);
+        }
+        
+        $this->data['faq'] = $faqs;
+        $this->data['search_text'] = $search_text;
         $this->template->load('admin', 'Admin/Faq/index', $this->data);
     }
 
@@ -83,5 +91,7 @@ class Faq extends CI_Controller {
             echo json_encode($return_array);
         }
     }
+
+   
 
 }

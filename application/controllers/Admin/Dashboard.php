@@ -19,9 +19,28 @@ class Dashboard extends CI_Controller {
         );
         $this->load->model('Admin_model');
         $this->load->model('User_model');
+        $this->data['icon_class'] = 'icon-user-plus';
     }
 
     public function index() {
+        $maxDays=date('t');
+        $clients_arr = $tickets_arr = array();
+        for ($i=0; $i <= $maxDays; $i++) { 
+            $clients_arr[$i] = 0;
+            $tickets_arr[$i] = 0;
+        }
+       
+        
+        $clients_this_month = $this->Admin_model->get_clients_this_month();
+        $tickets_this_month = $this->Admin_model->get_tickets_this_month();
+
+        foreach ($clients_this_month as $client) {
+            $clients_arr[$client['day']-1] = (int)$client['clients'];
+        }
+        foreach ($tickets_this_month as $ticket) {
+            $tickets_arr[$ticket['day']-1] = (int)$ticket['tickets'];
+        }
+
         $this->data['title'] = $this->data['page_header'] = 'Dashboard';
         $this->data['icon_class'] = 'icon-home4';
         $this->data['total_departments'] = $this->Admin_model->get_total(TBL_DEPARTMENTS);
@@ -29,6 +48,8 @@ class Dashboard extends CI_Controller {
         $this->data['total_staffs'] = $this->Admin_model->get_total_users(2);
         $this->data['total_tickets'] = $this->Admin_model->get_total(TBL_TICKETS);
         $this->data['tickets'] = $this->Admin_model->get_tickets();
+        $this->data['clients_chart'] = $clients_arr;
+        $this->data['tickets_chart'] = $tickets_arr;
 //        $this->data['tickets'] = $this->Admin_model->get_tickets($this->table, 1);
         $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
@@ -187,7 +208,6 @@ class Dashboard extends CI_Controller {
                 $this->session->set_flashdata('error_msg', 'Unable to update Company Details.');
             }
             redirect('admin/manage/company');
-            //pr($company_data,1);
         }
     }
 }

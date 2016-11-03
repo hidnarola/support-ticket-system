@@ -136,7 +136,7 @@ class Admin_model extends CI_Model {
                 $this->db->order_by("tickets.id", "desc");
 
 		$query = $this->db->get();
-//                pr($query->result_array());exit;
+
     	return $query->result_array();
     }
 
@@ -160,5 +160,32 @@ class Admin_model extends CI_Model {
         }else{
             return false;
         }
+    }
+
+    public function get_clients_this_month(){
+        $this->db->select('Day(created) as day, count(id) as clients');
+        $this->db->where('MONTH(created)',date('j'));
+        $this->db->group_by('Date(created)');
+        $result = $this->db->get(TBL_USERS);
+        return $result->result_array();
+    }
+
+    public function get_tickets_this_month(){
+        $this->db->select('Day(created) as day, count(id) as tickets');
+        $this->db->where('MONTH(created)',date('j'));
+        $this->db->group_by('Date(created)');
+        $result = $this->db->get(TBL_TICKETS);
+        return $result->result_array();
+    }
+
+    public function search_faq($text){
+        $this->db->where('is_delete',0);
+        $this->db->group_start();
+        $this->db->like('question', $text);
+        $this->db->or_like('answer', $text);
+        $this->db->group_end();
+        $result = $this->db->get(TBL_FAQ);
+        echo $this->db->last_query();
+        return $result->result_array();
     }
 }

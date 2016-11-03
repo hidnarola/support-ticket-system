@@ -54,18 +54,11 @@ $route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['admin/login'] = "login";
-$route['staff/login'] = "login";
 $route['admin/logout'] = "login/logout";
-$route['staff/logout'] = "login/logout";
 $route['logout'] = "login/logout";
-
+$route['admin/login'] = "login";
 $route['admin'] = "admin/dashboard";
-$route['staff'] = "staff/dashboard";
-
 $route['admin/profile'] = "admin/dashboard/profile";
-$route['staff/profile'] = "staff/dashboard/profile";
-
 $route['admin/manage/roles'] = "admin/dashboard/manage/roles";
 $route['admin/manage/categories'] = "admin/dashboard/manage/categories";
 $route['admin/manage/departments'] = "admin/dashboard/manage/departments";
@@ -75,12 +68,16 @@ $route['admin/manage/ticket_types'] = "admin/dashboard/manage/ticket_types";
 $route['admin/manage/company'] = "admin/dashboard/company";
 $route['admin/get_detail'] = "admin/dashboard/get_detail";
 $route['admin/delete'] = "admin/dashboard/delete";
-
 $route['admin/users/staffs'] = "admin/users";
 $route['admin/users/tenants'] = "admin/users";
+$route['admin/news_announcements'] = "admin/news";
+
+
+$route['staff/login'] = "login";
+$route['staff/logout'] = "login/logout";
+$route['staff'] = "staff/dashboard";
+$route['staff/profile'] = "staff/dashboard/profile";
 $route['staff/tickets/view/(:any)'] = 'admin/tickets/view/$1'; //--- Add Icp route 
-
-
 $route['staff/tickets'] = "tickets/staff_index";
 $route['staff/tickets/reply/(:any)'] = "tickets/reply/$1";
 
