@@ -177,6 +177,16 @@ class Admin_model extends CI_Model {
         $result = $this->db->get(TBL_TICKETS);
         return $result->result_array();
     }
+    
+    public function customQuery($query, $option) {
+        $result = $this->db->query($query);
+        if ($option == 1) {
+            return $result->row();
+        } else if ($option == 2) {
+            return $result->result_array();
+        } else
+            return $result->result();
+    }
 
     public function search_faq($text){
         $this->db->where('is_delete',0);
@@ -185,7 +195,7 @@ class Admin_model extends CI_Model {
         $this->db->or_like('answer', $text);
         $this->db->group_end();
         $result = $this->db->get(TBL_FAQ);
-        echo $this->db->last_query();
+//        echo $this->db->last_query();
         return $result->result_array();
     }
 }

@@ -9,20 +9,61 @@ class Faq extends CI_Controller {
         check_isvalidated();
         $this->load->model('Admin_model');
         $this->table = TBL_FAQ;
+        $this->perpageSuffix = "";
+        $this->filterSuffix = "";
+
+        if ($this->input->get('perpage'))
+            $this->perpageSuffix = "?perpage=" . $this->input->get('perpage');
+
+        if ($this->input->get('keyword')) {
+            $this->filterSuffix = "?keyword=" . $this->input->get('keyword');
+            if ($this->input->get('perpage'))
+                $this->perpageSuffix = "&perpage=" . $this->input->get('perpage');
+        }
+
+        $this->suffix = $this->filterSuffix . $this->perpageSuffix;
     }
 
     public function index() {
         $this->data['title'] = $this->data['page_header'] = 'FAQ';
         $this->data['icon_class'] = 'icon-question3';
-        $faqs = $this->Admin_model->get_records(TBL_FAQ);
-        $search_text = '';
-        if($this->input->post()){
-            $search_text = $this->input->post('search_text');
-            $faqs = $this->Admin_model->search_faq($search_text);
+        $query = '';
+        $config = init_pagination();
+
+        if ($this->input->get('perpage')) {
+            $config['per_page'] = $this->input->get('perpage');
+            $config['first_url'] = base_url() . "admin/faq/index" . $this->perpageSuffix;
         }
-        
-        $this->data['faq'] = $faqs;
-        $this->data['search_text'] = $search_text;
+        if ($this->input->get('keyword'))
+            $config['first_url'] = base_url() . "admin/faq/index" . $this->suffix;
+
+        $config['suffix'] = $this->suffix;
+        $config['base_url'] = base_url() . "admin/faq/index";
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+
+        $query = "select * from " . $this->table . " Where is_delete =0";
+        $keyword = '';
+        if ($this->input->get('keyword')) {
+            $keyword = $this->input->get('keyword');           
+            $keyword = str_replace("'", "''", $keyword);
+            $query.= " AND (question like '%$keyword%'";
+            $query.=" OR ";
+            $query.= "answer like '%$keyword%')";
+        }
+
+        $config['total_rows'] = count($this->Admin_model->customQuery($query, 2));
+        $this->pagination->initialize($config);
+        $num_pages = (int) ceil($this->pagination->total_rows / $this->pagination->per_page);
+        $v = $num_pages + $this->pagination->per_page;
+        if ($v == $page) {
+            $config['next_tag_open'] = '<li class="disabled">';
+        } else {
+            $config['next_tag_open'] = '<li>';
+        }
+        $this->pagination->initialize($config);
+        $this->data["links"] = $this->pagination->create_links();
+        $this->data['faq'] = $this->Admin_model->customQuery($query . ' Limit ' . $page . ', ' . $config['per_page'], 2);
+        $this->data['keyword'] = $keyword;
         $this->template->load('admin', 'Admin/Faq/index', $this->data);
     }
 
@@ -91,7 +132,5 @@ class Faq extends CI_Controller {
             echo json_encode($return_array);
         }
     }
-
-   
 
 }

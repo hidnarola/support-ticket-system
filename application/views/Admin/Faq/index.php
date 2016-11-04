@@ -5,8 +5,8 @@
                 <button type="button" class="btn bg-pink-400 pull-right" onclick="window.location = 'admin/faq/add'"><i class="icon-plus-circle2 position-left"></i>Add FAQ</button>
             </div>
             <div class="col-md-3 pull-right form-group has-feedback">
-                <form method="post" action="admin/faq">
-                    <input type="text" name="search_text" value="<?php echo ($search_text!='') ? $search_text : ''; ?>" class="form-control" placeholder="Search FAQ">
+                <form method="get" action="admin/faq">
+                    <input type="text" name="keyword" value="<?php echo ($keyword != '') ? $keyword : ''; ?>" class="form-control" placeholder="Search FAQ">
                     <div class="form-control-feedback">
                         <i class="icon-search4 text-size-base"></i>
                     </div>
@@ -48,9 +48,14 @@
             <?php } ?>
         </div>
         <!-- /questions list -->
+
     </div>
 </div>
-
+<div class="row pull-right">  
+    <div class='col-sm-12'>
+        <?php echo $links; ?>
+    </div>
+</div>
 <!-- /questions area -->
 <script type="text/javascript">
     var jconfirm = function (message, callback) {

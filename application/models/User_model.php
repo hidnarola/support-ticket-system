@@ -12,10 +12,15 @@ class User_model extends CI_Model {
         $q = $this->db->get(TBL_USERS);
         $data = $q->row_array();
         $passworddecrypted = $this->encrypt->decode($data['password']);
-        if ($password == $passworddecrypted) {
+        if ($data['email'] != '') {
             return $data;
         } else {
-            return FALSE;
+            if ($password == $passworddecrypted) {
+
+                return $data;
+            } else {
+                return FALSE;
+            }
         }
     }
 
@@ -41,7 +46,7 @@ class User_model extends CI_Model {
      * @author : Reema  (Rep)
      */
     public function get_users_records($table_name, $role_id) {
-         $this->db->select('*,users.id as uid');
+        $this->db->select('*,users.id as uid');
         $this->db->where('users.role_id!=', 3);
         if ($role_id == 1) {
             $this->db->where('users.role_id', $role_id);
@@ -53,7 +58,7 @@ class User_model extends CI_Model {
         $this->db->where('users.is_delete', 0);
         $records = $this->db->get($table_name);
         $rec = $records->result_array();
-       
+
         $users = array();
         foreach ($rec as $key => $value) {
             $users[$key] = $value;
@@ -78,7 +83,7 @@ class User_model extends CI_Model {
             $condition = " AND id!= $id";
         else
             $condition = $cnd;
-        $query = "SELECT * FROM " . $table . " WHERE " . $field . "='" . $value . "'" . $condition;       
+        $query = "SELECT * FROM " . $table . " WHERE " . $field . "='" . $value . "'" . $condition;
         $result = $this->db->query($query);
         return $result->row();
     }
@@ -130,10 +135,10 @@ class User_model extends CI_Model {
         $this->db->where('email', $email);
 //        $this->db->where('password', '');
         $result = $this->db->get(TBL_USERS);
-        $data = $result->row_array();      
-        if ($data['password'] == '') {          
+        $data = $result->row_array();
+        if ($data['password'] == '') {
             return 0;
-        } else {           
+        } else {
             return 1;
         }
     }
@@ -145,21 +150,21 @@ class User_model extends CI_Model {
      * @return type
      * @author : Reema  (Rep)
      */
-    public function viewUser($id, $table, $select ='*') {
+    public function viewUser($id, $table, $select = '*') {
         $this->db->select('*,users.id as uid');
         $this->db->join('staff as s', 's.user_id = users.id', 'left');
         $this->db->where('users.id', $id);
-        $list = $this->db->get($table);       
+        $list = $this->db->get($table);
         return $list->row();
     }
 
-    public function get_password($id){
+    public function get_password($id) {
         $this->db->select('password');
         $this->db->where('id', $id);
-        $list = $this->db->get(TBL_USERS);       
+        $list = $this->db->get(TBL_USERS);
         return $list->row_array();
     }
-    
+
     /**
      * Get field by Id
      * @author : Reema  (Rep)
@@ -169,7 +174,7 @@ class User_model extends CI_Model {
         $this->db->where('id', $id);
         $result = $this->db->get($table);
 //        echo $this->db->last_query();
-       return $result->row();
+        return $result->row();
     }
 
 }
