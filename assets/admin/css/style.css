@@ -200,6 +200,8 @@ table td{
 .alpha-teal {background-color: #e0f2f1 !important;/*    border-color: #00897b;*/}
 .alert{margin-right: 20px;margin-left:20px;}
 .cancel-btn{height: 40px;}
+.filter{ margin-right: 20px; }
+
 
 @media (max-width: 768px) {
     .navbar-top .navbar .navbar-header{

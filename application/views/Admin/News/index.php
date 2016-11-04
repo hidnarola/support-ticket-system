@@ -3,15 +3,21 @@
         <!-- <h5 class="panel-title"> -->
         <div class="row">
             <div class="col-md-3 form-group has-feedback">
-                <form method="post" action="admin/faq">
+                <form method="get">
                     <input type="text" name="search_text" value="<?php echo ($search_text!='') ? $search_text : ''; ?>" class="form-control" placeholder="Search">
                     <div class="form-control-feedback">
                         <i class="icon-search4 text-size-base"></i>
                     </div>
                 </form>
             </div>
-            <div class="col-md-9">           
+            <div class="col-md-9"> 
                 <button type="button" class="btn bg-pink-400 pull-right" onclick="window.location = 'admin/news/add'"><i class="icon-plus-circle2 position-left"></i>Add New</button>
+                <?php $current = $this->uri->segment(4); ?>
+                <select class="pull-right selectpicker filter" onchange="load_news(this.value);">
+                    <option <?php echo ($current=='') ? 'selected' : ''; ?> value="">Both</option>
+                    <option <?php echo ($current=='1') ? 'selected' : ''; ?> value="1">News</option>
+                    <option <?php echo ($current=='0') ? 'selected' : ''; ?> value="0">Announcements</option>
+                </select>
             </div>
         </div>
         <!-- </h5> -->
@@ -24,19 +30,23 @@
                             
             <?php foreach ($data as $news) { ?>
         <div class="col-md-12">
-                <div class="panel panel-body">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a title="<?php echo ($news['is_news']==1) ? 'News' : 'Announcement'; ?>"><i class="<?php echo ($news['is_news']==1) ? 'icon-newspaper2' : 'icon-megaphone'; ?> text-success-400 icon-2x no-edge-top mt-5"></i></a>
-                                    </div>
+            <div class="panel panel-body">
+                <div class="media">
+                    <div class="media-left">
+                        <a title="<?php echo ($news['is_news']==1) ? 'News' : 'Announcement'; ?>"><i class="<?php echo ($news['is_news']==1) ? 'icon-newspaper2' : 'icon-megaphone'; ?> text-success-400 icon-2x no-edge-top mt-5"></i></a>
+                    </div>
 
-                                    <div class="media-body">
-                                        <h6 class="media-heading text-semibold"><a href="#" class="text-default"><?php echo $news['title']; ?></a></h6>
-                                        <?php echo $news['description'] ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="media-body">
+                        <h6 class="media-heading text-semibold"><a href="admin/news/view/<?php echo $news['is_news'].'/'.base64_encode($news['id']); ?>" class="text-default"><?php echo $news['title']; ?></a></h6>
+                        <?php echo word_limiter($news['description'], 4); ?>
+                    </div>
+
+                    <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($news['id']); ?>" data-record="<?php echo base64_encode($news['id']); ?>"><i class="icon-trash"></i></a>
+                <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/news/edit/' . base64_encode($news['id']) ?>" id="edit_<?php echo base64_encode($news['id']); ?>"><i class="icon-pencil7"></i></a>
+                </div>
+                
+            </div>
+        </div>
             <?php } ?>
         
         <!-- /questions list -->
@@ -68,12 +78,12 @@
         bootbox.dialog(options);
     };
     var base_url = '<?php echo base_url(); ?>admin/';
-    var type = '<?php echo $this->uri->segment(2); ?>';
+    //var type = '<?php echo $this->uri->segment(2); ?>';
 
     /* delete record function */
     $(document).on('click', '.delete', function () {
         var id = $(this).attr('id').replace('delete_', '');
-        var url = base_url + 'faq/delete';
+        var url = base_url + 'news/delete';
         jconfirm("Do you really want to delete this record?", function (r) {
             if (r) {
                 $.ajax({
@@ -81,7 +91,7 @@
                     url: url,
                     async: false,
                     dataType: 'JSON',
-                    data: {id: id, type: type},
+                    data: {id: id},
                     success: function (data) {
                         if (data.status == 1) {
                             window.location.reload();
@@ -93,4 +103,12 @@
             }
         });
     });
+
+    function load_news(val){
+        if(val==''){
+             window.location="admin/news";
+        }else{
+             window.location="admin/news/index/"+val;
+        }
+    }
 </script>

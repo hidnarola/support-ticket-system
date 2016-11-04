@@ -8,8 +8,11 @@ class News_model extends CI_Model {
         parent::__construct();
     }
 
-    function get_data(){
+    function get_data($type){
     	$this->db->where('is_delete', 0);
+    	if($type!=null){
+    		$this->db->where('is_news', $type);
+    	}
     	$this->db->order_by('modified', 'desc');
     	$result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
     	return $result->result_array();
@@ -28,6 +31,29 @@ class News_model extends CI_Model {
         } else {
             return 0;
         }
+    }
+
+    function edit($data, $id){
+	 	$this->db->where('id', $id);
+        if ($this->db->update(TBL_NEWS_ANNOUNCEMENTS, $data)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function search_news($text, $type){
+    	$this->db->where('is_delete', 0);
+    	if($type!=null){
+    		$this->db->where('is_news', $type);
+    	}
+    	$this->db->group_start();
+        $this->db->like('title', $text);
+        $this->db->or_like('description', $text);
+        $this->db->group_end();
+    	$this->db->order_by('modified', 'desc');
+    	$result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
+    	return $result->result_array();
     }
 
 }
