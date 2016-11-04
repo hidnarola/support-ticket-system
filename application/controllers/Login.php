@@ -52,6 +52,7 @@ class Login extends CI_Controller {
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     redirect('staff');
+                    
                 } elseif ($result['role_id'] == 3 && $user_title == 'Admin') {
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
