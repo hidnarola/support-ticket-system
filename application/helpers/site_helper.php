@@ -20,10 +20,10 @@ function pr($data, $is_die = false) {
         die;
 }
 
-
 /* To user roled from the database. 
  * @author : Reema  (Rep)
  */
+
 function userRoles() {
     $roles = array();
     $CI = & get_instance();
@@ -32,7 +32,6 @@ function userRoles() {
         $roles[$val->name] = $val->id;
     return $roles;
 }
-
 
 /* To check admin is logged in or not. 
  * @author : Reema  (Rep)
@@ -51,7 +50,6 @@ function check_isvalidated() {
         redirect('admin/login');
     }
 }
-
 
 function check_if_staff_validated() {
     $ci = & get_instance();
@@ -127,9 +125,76 @@ function mail_config() {
     return $configs;
 }
 
-function get_role_id($role){
-	$CI = & get_instance();
-	$data = $CI->user_model->get_role_id($role);
-	return $data['id'];
+function get_role_id($role) {
+    $CI = & get_instance();
+    $data = $CI->user_model->get_role_id($role);
+    return $data['id'];
 }
 
+function p($data, $status = 0) {
+    echo "<pre>";
+    print_r($data);
+    echo "</pre>";
+    if ($status == 1) {
+        exit;
+    }
+}
+
+/**
+ * For pagination configuration
+ * @return boolean
+ * @author : Reema  (Rep)
+ */
+function init_pagination() {
+    $config = array();
+    $CI = & get_instance();
+    $settings = $CI->session->userdata('settings');
+//    pr($settings,1);
+    $per_page = "";
+    foreach ($settings as $row) {
+//        echo $row->key;
+        if (trim($row->key) == 'records-per-page') {
+
+            $per_page = $row->value;
+            break;
+        }
+    }
+    $segment = $CI->uri->segment(4);
+    $config['per_page'] = $per_page;
+    $config['uri_segment'] = 4;
+    //config for bootstrap pagination class integration
+    $config['full_tag_open'] = '<ul class="pagination">';
+    $config['full_tag_close'] = '</ul>';
+    $config['first_link'] = false;
+    $config['last_link'] = false;
+    $config['first_tag_open'] = '<li>';
+    $config['first_tag_close'] = '</li>';
+    $config['prev_link'] = '←';
+    if ($segment == '') {
+        $config['prev_tag_open'] = '<li class="prev disabled">';
+    } else {
+        $config['prev_tag_open'] = '<li class="prev">';
+    }
+    $config['prev_tag_close'] = '</li>';
+    $config['next_link'] = '→';
+    $config['next_tag_open'] = '<li>';
+    $config['next_tag_close'] = '</li>';
+    $config['last_tag_open'] = '<li>';
+    $config['last_tag_close'] = '</li>';
+
+//    $config['cur_tag_open'] = '<li class="active"><a href="#">';
+//    $config['cur_tag_close'] = '</a></li>';
+
+    $config['cur_tag_open'] = '<li class="active"><a style="background-color:#455a64;color:#ffffff;">';
+    $config['cur_tag_close'] = '</a></li>';
+
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_close'] = '</li>';
+    $config['num_links'] = 2;
+    $config['display_prev_link'] = TRUE;
+    $config['display_next_link'] = TRUE;
+//    $config['use_page_numbers'] = TRUE;
+    $config['enable_query_strings'] = TRUE;
+
+    return $config;
+}

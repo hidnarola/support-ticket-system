@@ -11,6 +11,12 @@ class Home extends CI_Controller {
         $this->load->model('User_model');
     }
 
+    public function index() {
+//        $this->load->view('Frontend/home');
+       $data['title'] = 'Home | Support-Ticket-System';
+        $this->template->load('frontend/home', 'Frontend/home', $data);
+    }
+
     public function verify() {
         $key = $this->input->get('key');
         $decode = urldecode($key);

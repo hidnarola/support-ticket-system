@@ -10,6 +10,8 @@ class Login extends CI_Controller {
     }
 
     public function index() {
+//        if($_POST)
+//            p($_POST);
         $user_title = 'Tenant';
         if ($this->uri->segment(1) == 'admin') {
             $user_title = 'Admin';
@@ -20,53 +22,68 @@ class Login extends CI_Controller {
         if ($user_title != 'Tenant') {
             $this->template->load('admin_login', 'Admin/Users/login', $data);
         } else {
-            echo 'load tenant template';
+            $data['title'] = 'Login | Support-Ticket-System';
+            $this->template->load('frontend/page', 'Frontend/login_register', $data);
         }
         if ($this->input->post()) {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
             $result = $this->User_model->check($email, $password);
             $flag = 0;
-            
+
             if ($result) {
-                if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1 && $user_title=='Tenant') {
+//                p($result,1);
+                if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1 && $user_title == 'Tenant') {
                     //success
-                } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $user_title=='Tenant') {
+                    $userdata = $this->session->set_userdata('user_logged_in', $result);
+                    redirect('user_details');
+                } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $user_title == 'Tenant') {
                     // Give error mesg for verify link
-                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title=='Staff') {
+                    $this->session->set_flashdata('error_msg', 'Please verify your link before login!');
+                    redirect('user_details');
+                } elseif ($result['role_id'] == 1 && $result['status'] == 0 && $user_title == 'Tenant') {
+                    // login sucess Give error mesg for unapproved user
+                    $this->session->set_flashdata('error_msg', 'You are approved user by the admin!');
+                    redirect('login');
+                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title == 'Staff') {
                     // Give error msg for user is not approved by admin
-                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title=='Staff') {
+                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title == 'Staff') {
                     $userdata = $this->session->set_userdata('staffed_logged_in', $result);
+                    $settings = $this->User_model->viewAll('settings', "");
+                    $this->session->set_userdata('settings', $settings);
                     redirect('staff');
-                } elseif ($result['role_id'] == 3 && $user_title=='Admin') {
+                    
+                } elseif ($result['role_id'] == 3 && $user_title == 'Admin') {
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
+                    $settings = $this->User_model->viewAll('settings', "");
+                    $this->session->set_userdata('settings', $settings);
                     redirect('admin');
-                }else{
+                } else {
                     $flag = 1;
                 }
-            }else{
+            } else {
                 $flag = 1;
             }
-            if($flag==1){
+            if ($flag == 1) {
                 $this->session->set_flashdata('error_msg', 'Invalid email or password!');
-                if($this->uri->segment(1)=='login' || $this->uri->segment(1)==''){
+                if ($this->uri->segment(1) == 'login' || $this->uri->segment(1) == '') {
                     redirect('login');
-                }
-                else{
-                    redirect($this->uri->segment(1).'/login');
+                } else {
+                    redirect($this->uri->segment(1) . '/login');
                 }
             }
         }
     }
 
-    public function logout(){
+    public function logout() {
         $this->session->sess_destroy();
         if ($this->uri->segment(1) == 'admin') {
             redirect('admin/login');
         } else if ($this->uri->segment(1) == 'staff') {
             redirect('staff/login');
-        }else{
+        } else {
             redirect('login');
         }
     }
+
 }
