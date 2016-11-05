@@ -23,7 +23,7 @@
 
         <!-- Document Title
         ============================================= -->
-        <title>Login - Layout 3 | Canvas</title>
+        <title><?php echo $title; ?></title>
 
     </head>
 

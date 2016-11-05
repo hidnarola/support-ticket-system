@@ -34,6 +34,7 @@ class News extends CI_Controller {
 
     public function add(){
         $this->data['title'] = $this->data['page_header'] = 'Add News/Announcement';
+        $this->data['page'] = 'News/Announcement';
         $this->data['icon_class'] = 'icon-newspaper';
         if($this->input->post()){
            $data = array(
@@ -55,7 +56,8 @@ class News extends CI_Controller {
         if ($id != '') {
             $record_id = base64_decode($id);
         }
-        $this->data['title'] = $this->data['page_header'] = 'Add News/Announcement';
+        $this->data['title'] = $this->data['page_header'] = 'Edit News/Announcement';
+        $this->data['page'] = 'News/Announcement';
         $this->data['icon_class'] = 'icon-newspaper';
 
         if($this->input->post()){

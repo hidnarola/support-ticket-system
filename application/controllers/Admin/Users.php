@@ -17,10 +17,10 @@ class Users extends CI_Controller {
         $segment = $this->uri->segment(3);
         if ($segment == 'tenants') {
             $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tenants';
-             $this->data['icon_class'] = 'icon-users';
+            $this->data['icon_class'] = 'icon-users';
             $this->data['users'] = $this->User_model->get_users_records($this->table, 1);
         } else {
-             $this->data['icon_class'] = 'icon-people';
+            $this->data['icon_class'] = 'icon-people';
             $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Staffs';
             $this->data['users'] = $this->User_model->get_users_records($this->table, 2);
         }
@@ -44,12 +44,14 @@ class Users extends CI_Controller {
         $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         if ($this->form_validation->run() == FALSE) {
             if ($user_type == 'tenant') {
-                $this->data['title'] = $this->data['page_header'] = 'Tenants / Add Tenant';
+                $this->data['title'] = $this->data['page_header'] = 'Add Tenant';
+                $this->data['page'] = 'Tenants';
                 $this->data['icon_class'] = 'icon-users';
                 $this->template->load('admin', 'Admin/Users/add', $this->data);
             } else {
-                  $this->data['icon_class'] = 'icon-people';
-                $this->data['title'] = $this->data['page_header'] = 'Staffs / Add staff';
+                $this->data['icon_class'] = 'icon-people';
+                 $this->data['page'] = 'Staff';
+                $this->data['title'] = $this->data['page_header'] = 'Add Staff';
                 $this->template->load('admin', 'Admin/Users/add', $this->data);
             }
         } else {
@@ -182,11 +184,13 @@ class Users extends CI_Controller {
             if ($this->form_validation->run() == FALSE) {
                 if ($user_type == 'tenant') {
                     $this->data['icon_class'] = 'icon-users';
-                    $this->data['title'] = $this->data['page_header'] = 'Tenants / Edit ';
+                    $this->data['title'] = $this->data['page_header'] = ' Edit Tenant';
+                     $this->data['page'] = 'Tenants';
                     $this->template->load('admin', 'Admin/Users/add', $this->data);
                 } else {
                     $this->data['icon_class'] = 'icon-people';
-                    $this->data['title'] = $this->data['page_header'] = 'Staffs / Edit ';
+                     $this->data['page'] = 'Staff';
+                    $this->data['title'] = $this->data['page_header'] = 'Edit Staff';
                     $this->template->load('admin', 'Admin/Users/add', $this->data);
                 }
             } else {
@@ -307,23 +311,43 @@ class Users extends CI_Controller {
         echo json_encode($data);
         exit;
     }
-    public function delete(){
+
+    public function delete() {
         $id = $this->input->post('id');
         $table_name = $this->input->post('type');
-        if($id!=''){
+        if ($id != '') {
             $record_id = base64_decode($id);
-            if($this->Admin_model->delete($table_name, $record_id)){
-                $this->session->set_flashdata('success_msg', 'Record deleted successfully!');  
+            if ($this->Admin_model->delete($table_name, $record_id)) {
+                $this->session->set_flashdata('success_msg', 'Record deleted successfully!');
                 $status = 1;
-            }else{  
-                $this->session->set_flashdata('error_msg', 'Unable to delete the record.');               
+            } else {
+                $this->session->set_flashdata('error_msg', 'Unable to delete the record.');
                 $status = 0;
             }
             $return_array = array(
                 'status' => $status,
-                'id'=>$id
-                );
+                'id' => $id
+            );
             echo json_encode($return_array);
+        }
+    }
+
+    public function changeUserStatus() {
+        $id = $this->input->post('id');
+        $status = $this->input->post('status');
+        if ($id != null) {
+            $record_id = base64_decode($id);
+            $status = $this->User_model->getFieldById($record_id, 'status', $this->table);
+            $this->User_model->updateField('id', $record_id, 'status', ($status->status == 0) ? 1 : 0, $this->table);
+            if ($status->status == 0) {
+                $this->session->set_flashdata('success_msg', 'User has been approved!');
+                $data['status'] = 1;
+            } else {
+                $this->session->set_flashdata('success_msg', 'User has been Unapproved!');
+                $data['status'] = 0;
+            }
+            echo json_encode($data);
+            exit;
         }
     }
 

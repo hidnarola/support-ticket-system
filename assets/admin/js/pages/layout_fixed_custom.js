@@ -1,15 +1,15 @@
 /* ------------------------------------------------------------------------------
- *
- *  # Sticky sidebar with custom scrollbar
- *
- *  Specific JS code additions for layout_sidebar_sticky_custom.html page
- *
- *  Version: 1.0
- *  Latest update: Aug 1, 2015
- *
- * ---------------------------------------------------------------------------- */
+*
+*  # Sticky sidebar with custom scrollbar
+*
+*  Specific JS code additions for layout_sidebar_sticky_custom.html page
+*
+*  Version: 1.0
+*  Latest update: Aug 1, 2015
+*
+* ---------------------------------------------------------------------------- */
 
-$(function () {
+$(function() {
 
 
     // Mini sidebar
@@ -49,30 +49,30 @@ $(function () {
     // Nice scroll
     // ------------------------------
 
-    // Setup
-    function initScroll() {
-        $(".sidebar-fixed .sidebar-content").niceScroll({
-            mousescrollstep: 100,
-            cursorcolor: '#ccc',
-            cursorborder: '',
-            cursorwidth: 3,
-            hidecursordelay: 100,
-            autohidemode: 'scroll',
-            horizrailenabled: false,
-            preservenativescrolling: false,
-            railpadding: {
-                right: 0.5,
-                top: 1.5,
-                bottom: 1.5
-            }
-        });
-    }
+	// Setup
+	function initScroll() {
+	    $(".sidebar-fixed .sidebar-content").niceScroll({
+	        mousescrollstep: 100,
+	        cursorcolor: '#ccc',
+	        cursorborder: '',
+	        cursorwidth: 3,
+	        hidecursordelay: 100,
+	        autohidemode: 'scroll',
+	        horizrailenabled: false,
+	        preservenativescrolling: false,
+	        railpadding: {
+	        	right: 0.5,
+	        	top: 1.5,
+	        	bottom: 1.5
+	        }
+	    });
+	}
 
-    // Remove
-    function removeScroll() {
-        $(".sidebar-fixed .sidebar-content").getNiceScroll().remove();
-        $(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
-    }
+	// Remove
+	function removeScroll() {
+		$(".sidebar-fixed .sidebar-content").getNiceScroll().remove();
+		$(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
+	}
 
     // Initialize
     initScroll();
@@ -80,9 +80,9 @@ $(function () {
 
 
     // Remove scrollbar on mobile
-    $(window).on('resize', function () {
-        setTimeout(function () {
-            if ($(window).width() <= 768) {
+    $(window).on('resize', function() {
+        setTimeout(function() {            
+            if($(window).width() <= 768) {
 
                 // Remove nicescroll on mobiles
                 removeScroll();

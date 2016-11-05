@@ -1,108 +1,129 @@
-<?php
-$segment = $this->uri->segment(3);
-if ($segment == 'tenants')
-    $seg = 'tenant';
-else
-    $seg = 'staff';
-?>
-<!-- Table header styling -->
-<script type="text/javascript" src="assets/admin/js/plugins/notifications/pnotify.min.js"></script>	
-<script type="text/javascript" src="assets/admin/js/pages/components_notifications_pnotify.js"></script>
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title"><?php echo $user_type; ?> List</h5>
-
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <?php if ($segment == 'tenants') { ?>
-                    <button type="button" class="btn bg-pink-400" onclick="window.location = 'admin/users/add/tenant'"><i class="icon-user-plus position-left"></i>Add New Tenant</button>
-                <?php } else { ?>
-                    <button type="button" class="btn bg-pink-400" onclick="window.location = 'admin/users/add/staff'"><i class="icon-user-plus position-left"></i>Add New Staff</button> 
-                <?php } ?>
-                <!--<li><a data-action="collapse"></a></li>-->
-            </ul>
+<div class="page-header page-header-default">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4><i class="<?php echo $icon_class;?> position-left"></i> <span class="text-semibold"><?php echo $title; ?></span></h4>
         </div>
-
     </div>
-    <div class="panel-body">
+    <div class="breadcrumb-line">
+        <ul class="breadcrumb">
+            <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
+            <li class="active"><?php echo $title;; ?></li>
+        </ul>
+    </div>
+</div>
 
-        <div class="table-responsive user_table">
-            <table class="table table-bordered table-hover table-striped  datatable-basic" id="datatable-basic">
-                <thead>
-                    <tr class="bg-teal">
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <?php
-                        $user = '';
-                        foreach ($users as $key => $record) {
-                            $user = $record['role_id'];
-                        }
-                        if ($user == 2) {
-                            ?>
-                            <th>Department</th>
-                        <?php } else { ?>
+<div class="content">
 
-                            <th>Address</th>
-                        <?php } ?>
-                        <th>Verified</th>
-                        <th>Action</th>
-                        <th>Quick Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($users as $key => $record) {
-                        ?>
-                        <tr>
-                            <td><?php echo $key + 1; ?></td>
-                            <td><?php echo $record['fname']; ?></td>
-                            <td><?php echo $record['lname']; ?></td>
-                            <td><?php echo $record['email']; ?></td>
-                            <?php if ($record['role_id'] == 2) { ?>
-                                <td><?php echo $record['name']; ?></td> 
+    <?php
+    $segment = $this->uri->segment(3);
+    if ($segment == 'tenants')
+        $seg = 'tenant';
+    else
+        $seg = 'staff';
+    ?>
+    <!-- Table header styling -->
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <?php if ($segment == 'tenants') { ?>
+                        <a onclick="window.location = 'admin/users/add/tenant'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add new Tenant</a>
+                           <!--<button type="button" class="btn bg-success" onclick="window.location = 'admin/users/add/tenant'"><i class="icon-user-plus position-left"></i>Add New Tenant</button>-->
+                    <?php } else { ?>
+                        <a onclick="window.location = 'admin/users/add/staff'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add new Staff</a>
+                           <!--<button type="button" class="btn bg-success" onclick="window.location = 'admin/users/add/staff'"><i class="icon-user-plus position-left"></i>Add New Staff</button>--> 
+                    <?php } ?>
+                    <!--<li><a data-action="collapse"></a></li>-->
+                </ul>
+            </div>
+
+        </div>
+        <div class="panel-body">
+
+            <div class="table-responsive user_table">
+                <table class="table datatable-basic" id="datatable-basic">
+                    <thead>
+                        <tr class="bg-teal">
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <?php
+                            $user = '';
+                            foreach ($users as $key => $record) {
+                                $user = $record['role_id'];
+                            }
+                            if ($user == 2) {
+                                ?>
+                                <th>Department</th>
                             <?php } else { ?>
-                                <td><?php echo $record['address']; ?></td>
+
+                                <th>Address</th>
                             <?php } ?>
-                            <td><?php if ($record['is_verified'] == 0) { ?>
-                                    <span class="label label-danger">Not Verified</span>
-                                <?php } else { ?>
-                                    <span class="label label-success">Verified</span> 
-                                <?php }
-                                ?></td>
-                            <td class="text-center">
-                                <ul class="icons-list">
-                                    <li class="text-teal-600">
-                                        <a href="<?php echo base_url() . 'admin/users/edit/' . $seg . '/' . base64_encode($record['uid']) ?>" id="edit_<?php echo base64_encode($record['uid']); ?>" class="edit"><i class="icon-pencil7"></i></a>
-                                    </li>
-                                    <li class="text-danger-600">
-                                        <a id="delete_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" class="delete"><i class="icon-trash"></i></a>
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="text-center">
-                                <ul class="icons-list">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
-
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Password</a></li>
-    <!--                                            <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                            <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>-->
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </td>
+                            <th>Verified</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th>Action</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
+                        foreach ($users as $key => $record) {
+                            ?>
+                            <tr>
+                                <td><?php echo $key + 1; ?></td>
+                                <td><?php echo $record['fname']; ?></td>
+                                <td><?php echo $record['lname']; ?></td>
+                                <td><?php echo $record['email']; ?></td>
+                                <?php if ($record['role_id'] == 2) { ?>
+                                    <td><?php echo $record['name']; ?></td> 
+                                <?php } else { ?>
+                                    <td><?php echo $record['address']; ?></td>
+                                <?php } ?>
+                                <td><?php if ($record['is_verified'] == 0) { ?>
+                                        <span class="label label-danger">Not Verified</span>
+                                    <?php } else { ?>
+                                        <span class="label label-success">Verified</span> 
+                                    <?php }
+                                    ?></td>
+                                <td><?php if ($record['status'] == 0) { ?>
+                                        <span class="label bg-orange-600">Unapproved</span>
+                                    <?php } else { ?>
+                                        <span class="label bg-green-600">Approved</span> 
+                                    <?php }
+                                    ?></td>
+                                <td class="text-center">
+                                    <ul class="icons-list">
+                                        <li class="text-teal-600">
+                                            <a href="<?php echo base_url() . 'admin/users/edit/' . $seg . '/' . base64_encode($record['uid']) ?>" id="edit_<?php echo base64_encode($record['uid']); ?>" class="edit"><i class="icon-pencil7"></i></a>
+                                        </li>
+                                        <li class="text-danger-600">
+                                            <a id="delete_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" class="delete"><i class="icon-trash"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td class="text-center">
+                                    <ul class="icons-list">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="icon-menu9"></i>
+                                            </a>
 
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Password</a></li>
+                                                <li><a class="chang_status" data-status="<?php echo $record['status']; ?>" id="changestatus_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Status</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
 </div>
@@ -155,6 +176,7 @@ else
         </div>
     </div>
 </div>
+
 <!-- /success modal -->
 <script>
     /* change password form (modal) submit */
@@ -235,8 +257,8 @@ else
             }
         });
     });
-    
-    /* open modal click on quick action and get user's password */ 
+
+    /* open modal click on quick action and get user's password */
     $(document).on('click', 'a.chang_pwdd', function () {
         var id = $(this).attr('id').replace('changepwd_', '');
         $('#user_id').val(id);
@@ -261,6 +283,26 @@ else
                 }
                 $('#show_pwd_btn').on('click', function () {
                     $('#labelpaas').show();
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.chang_status', function () {
+        var id = $(this).attr('id').replace('changestatus_', '');
+        var status = $(this).attr('data-status');
+        var url = base_url + 'users/changeUserStatus';
+        jconfirm("Do you really want to change the status of this user?", function (r) {
+            if (r) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    async: false,
+                    dataType: 'JSON',
+                    data: {id: id, status: status},
+                    success: function (data) {
+                        window.location.reload();
+                    }
                 });
             }
         });

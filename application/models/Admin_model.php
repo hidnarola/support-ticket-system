@@ -105,13 +105,12 @@ class Admin_model extends CI_Model {
         $this->db->where('id', $id);
         $result = $this->db->get($table);
 //        echo $this->db->last_query();
-       return $result->row()->password;
+        return $result->row()->password;
     }
 
-
-    public function get_profile($id){
+    public function get_profile($id) {
         $this->db->where('id', $id);
-        $this->db->where('is_delete',0);
+        $this->db->where('is_delete', 0);
         $result = $this->db->get(TBL_USERS);
         return $result->row_array();
     }
@@ -120,64 +119,66 @@ class Admin_model extends CI_Model {
      * @author : Reema  (Rep)
      * @return type
      */
-     public function get_tickets(){
-    	$this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, category.name as category_name, staff.fname as staff_fname ,staff.lname as staff_lname');
-    	$this->db->where('tickets.is_delete',0);
+    public function get_tickets($type) {
+        $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, category.name as category_name, staff.fname as staff_fname ,staff.lname as staff_lname');
+        $this->db->where('tickets.is_delete', 0);
+        if ($type != null) {
+            $this->db->where('status_id', $type);
+        }
+        $this->db->from(TBL_TICKETS);
+        $this->db->join(TBL_DEPARTMENTS . ' dept', 'dept.id = tickets.dept_id', 'left');
+        $this->db->join(TBL_TICKET_TYPES . ' type', 'type.id = tickets.ticket_type_id', 'left');
+        $this->db->join(TBL_TICKET_PRIORITIES . ' priority', 'priority.id = tickets.priority_id', 'left');
+        $this->db->join(TBL_TICKET_STATUSES . ' status', 'status.id = tickets.status_id', 'left');
 
-		$this->db->from(TBL_TICKETS);
-		$this->db->join(TBL_DEPARTMENTS.' dept', 'dept.id = tickets.dept_id', 'left');
-		$this->db->join(TBL_TICKET_TYPES.' type', 'type.id = tickets.ticket_type_id', 'left');
-		$this->db->join(TBL_TICKET_PRIORITIES.' priority', 'priority.id = tickets.priority_id', 'left');
-		$this->db->join(TBL_TICKET_STATUSES.' status', 'status.id = tickets.status_id', 'left');
+        $this->db->join(TBL_USERS . ' user', 'user.id = tickets.user_id', 'left');
+        $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
+        $this->db->join(TBL_CATEGORIES . ' category', 'category.id = tickets.category_id', 'left');
+        $this->db->order_by("tickets.id", "desc");
 
-		$this->db->join(TBL_USERS.' user', 'user.id = tickets.user_id', 'left');
-                 $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
-		$this->db->join(TBL_CATEGORIES.' category', 'category.id = tickets.category_id', 'left');
-                $this->db->order_by("tickets.id", "desc");
+        $query = $this->db->get();
 
-		$query = $this->db->get();
-
-    	return $query->result_array();
+        return $query->result_array();
     }
 
-    public function get_company_details(){
+    public function get_company_details() {
         $this->db->from(TBL_SETTINGS);
         $this->db->like('key', 'company');
         return $this->db->get()->result_array();
     }
 
-    public function save_company_details($company_data){
+    public function save_company_details($company_data) {
         $data = array();
         foreach ($company_data as $key => $value) {
             $arr = array(
                 'key' => $key,
                 'value' => $value
-                );
+            );
             $data[] = $arr;
         }
-        if($this->db->update_batch(TBL_SETTINGS, $data, 'key')){
+        if ($this->db->update_batch(TBL_SETTINGS, $data, 'key')) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function get_clients_this_month(){
+    public function get_clients_this_month() {
         $this->db->select('Day(created) as day, count(id) as clients');
-        $this->db->where('MONTH(created)',date('j'));
+        $this->db->where('MONTH(created)', date('j'));
         $this->db->group_by('Date(created)');
         $result = $this->db->get(TBL_USERS);
         return $result->result_array();
     }
 
-    public function get_tickets_this_month(){
+    public function get_tickets_this_month() {
         $this->db->select('Day(created) as day, count(id) as tickets');
-        $this->db->where('MONTH(created)',date('j'));
+        $this->db->where('MONTH(created)', date('j'));
         $this->db->group_by('Date(created)');
         $result = $this->db->get(TBL_TICKETS);
         return $result->result_array();
     }
-    
+
     public function customQuery($query, $option) {
         $result = $this->db->query($query);
         if ($option == 1) {
@@ -188,8 +189,8 @@ class Admin_model extends CI_Model {
             return $result->result();
     }
 
-    public function search_faq($text){
-        $this->db->where('is_delete',0);
+    public function search_faq($text) {
+        $this->db->where('is_delete', 0);
         $this->db->group_start();
         $this->db->like('question', $text);
         $this->db->or_like('answer', $text);
@@ -198,4 +199,5 @@ class Admin_model extends CI_Model {
 //        echo $this->db->last_query();
         return $result->result_array();
     }
+
 }

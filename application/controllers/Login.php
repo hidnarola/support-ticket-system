@@ -32,19 +32,22 @@ class Login extends CI_Controller {
             $flag = 0;
 
             if ($result) {
-//                p($result,1);
+//                p($result);
                 if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1 && $user_title == 'Tenant') {
+//                    echo 'in if1'; exit;  
                     //success
                     $userdata = $this->session->set_userdata('user_logged_in', $result);
-                    redirect('user_details');
+                    redirect('profile');
                 } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $user_title == 'Tenant') {
+//                    echo 'in if2'; exit;
                     // Give error mesg for verify link
                     $this->session->set_flashdata('error_msg', 'Please verify your link before login!');
-                    redirect('user_details');
-                } elseif ($result['role_id'] == 1 && $result['status'] == 0 && $user_title == 'Tenant') {
+                    redirect('login');
+                } elseif ($result['role_id'] == 1 && $result['status'] == 0 && $result['is_verified'] == 1 && $user_title == 'Tenant') {
+//                    echo 'in if3'; exit;
                     // login sucess Give error mesg for unapproved user
                     $this->session->set_flashdata('error_msg', 'You are approved user by the admin!');
-                    redirect('login');
+                    redirect('profile');
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title == 'Staff') {
                     // Give error msg for user is not approved by admin
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title == 'Staff') {
@@ -52,7 +55,6 @@ class Login extends CI_Controller {
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     redirect('staff');
-                    
                 } elseif ($result['role_id'] == 3 && $user_title == 'Admin') {
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");

@@ -356,6 +356,7 @@
         .noui-slider,
         .input-group,
         .selectboxit-container .selectboxit-options,
+        .uploader,
         .heading-form .form-control {
             width: 220px;
         }
@@ -392,16 +393,16 @@
 
         // Floating buttons
         .btn-float {
-            margin-top: (((@input-height-base - ((@btn-float-padding * 2) + @icon-font-size)) / 2)); // Difference between base height and button height
+            margin-top: (((@input-height-base - ((@btn-float-padding * 2) + @icon-font-size + 2)) / 2) - 1); // Difference between base height and button height
 
             // If has text
             &.has-text {
-                margin-top: (((@input-height-base - ((@btn-float-padding * 2) + @icon-font-size + @line-height-computed + 5)) / 2)); // Difference between base height and button height with text
+                margin-top: (((@input-height-base - ((@btn-float-padding * 2) + @icon-font-size + @line-height-computed + 5)) / 2) - 1); // Difference between base height and button height with text
             }
 
             // If float link
             &.btn-link {
-                margin-top: (((@input-height-base - (@icon-font-size + @line-height-computed + (@btn-float-padding * 2) - 6)) / 2));
+                margin-top: (((@input-height-base - (@icon-font-size + @line-height-computed + (@btn-float-padding * 2) - 6)) / 2) - 1);
             }
         }
 
@@ -612,10 +613,8 @@
                 background-color: @body-bg;
                 left: 0;
                 right: 0;
-                border-color: darken(@body-bg, 5%);
-                border-bottom-width: 0;
+                border-color: darken(@body-bg, 10%);
                 z-index: (@zindex-navbar + 2);
-                .box-shadow(@shadow-depth1);
             }
         }
         
@@ -650,7 +649,11 @@
         background-color: inherit;
         padding: 0;
         z-index: 9;
-        border-width: 0;
-        .box-shadow(@shadow-depth1);
+        border-width: 1px 0;
+        
+        // Inside component
+        .breadcrumb-line-component & {
+            border-width: 1px;
+        }
     }
 }

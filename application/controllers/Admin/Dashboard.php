@@ -22,7 +22,7 @@ class Dashboard extends CI_Controller {
         $this->data['icon_class'] = 'icon-user-plus';
     }
 
-    public function index() {
+    public function index($type=NULL) {
         $maxDays=date('t');
         $clients_arr = $tickets_arr = array();
         for ($i=0; $i <= $maxDays; $i++) { 
@@ -47,7 +47,7 @@ class Dashboard extends CI_Controller {
         $this->data['total_tenants'] = $this->Admin_model->get_total_users(1);
         $this->data['total_staffs'] = $this->Admin_model->get_total_users(2);
         $this->data['total_tickets'] = $this->Admin_model->get_total(TBL_TICKETS);
-        $this->data['tickets'] = $this->Admin_model->get_tickets();
+        $this->data['tickets'] = $this->Admin_model->get_tickets($type);
         $this->data['clients_chart'] = $clients_arr;
         $this->data['tickets_chart'] = $tickets_arr;
 //        $this->data['tickets'] = $this->Admin_model->get_tickets($this->table, 1);
@@ -194,6 +194,8 @@ class Dashboard extends CI_Controller {
 
     public function company(){
         $this->data['title'] = $this->data['page_header'] = 'Company Details';
+        $this->data['icon_class'] = 'icon-office';
+        
         $company_details = $this->Admin_model->get_company_details();
         $keys = array_column($company_details, 'key');
         $values = array_column($company_details, 'value');

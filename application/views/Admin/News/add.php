@@ -1,3 +1,20 @@
+<div class="page-header page-header-default">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4><i class="<?php echo $icon_class; ?> position-left"></i> <span class="text-semibold"><?php echo $title; ?></h4>
+        </div>
+    </div>
+    <div class="breadcrumb-line">
+        <ul class="breadcrumb">
+            <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
+            <li><a href="<?php echo site_url('admin/news'); ?>"><i class="<?php echo $icon_class; ?> position-left"></i><?php echo $page; ?></a></li>
+            <li class="active"><?php echo $title; ?></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+
 <div class="row">
     <div class="col-md-12">
         <?php

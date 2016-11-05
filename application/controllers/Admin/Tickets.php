@@ -13,17 +13,16 @@ class Tickets extends CI_Controller {
         $this->table = TBL_TICKETS;
     }
 
-    public function index() {
+    public function index($type = NULL) {
         $segment = $this->uri->segment(1);
         $this->data['icon_class'] = 'icon-ticket';
-        $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tickets';
-        $this->data['tickets'] = $this->Admin_model->get_tickets();
-//        echo '<pre>';
-//        print_r($this->data['tickets']);
-//        exit;
+        $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tickets';       
+        
+        $this->data['tickets'] = $this->Admin_model->get_tickets($type);
         $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
         $this->data['priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
+        
         if ($segment == 'admin')
             $this->template->load('admin', 'Admin/Tickets/index', $this->data);
         else
@@ -48,7 +47,7 @@ class Tickets extends CI_Controller {
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
             $this->data['icon_class'] = 'icon-ticket';
-            $this->data['title'] = $this->data['page_header'] = 'Tickets / Add ticket';
+            $this->data['title'] = $this->data['page_header'] = 'Add ticket';
             $this->template->load('admin', 'Admin/Tickets/add', $this->data);
         } else {
 
@@ -92,7 +91,7 @@ class Tickets extends CI_Controller {
             $this->form_validation->set_rules('description', 'Description', 'trim|required');
             if ($this->form_validation->run() == FALSE) {
                 $this->data['icon_class'] = 'icon-ticket';
-                $this->data['title'] = $this->data['page_header'] = 'Tickets / Edit ticket';
+                $this->data['title'] = $this->data['page_header'] = 'Edit ticket';
                 $this->template->load('admin', 'Admin/Tickets/add', $this->data);
             } else {
 
@@ -181,7 +180,7 @@ class Tickets extends CI_Controller {
                 $this->Admin_model->manage_record(TBL_TICKETS, $data, $record_id);
             }
         } else {
-            
+
             $data['view'] = 'admin/404_notfound';
             $this->load->view('admin/error/404_notfound', $data);
         }
@@ -192,7 +191,7 @@ class Tickets extends CI_Controller {
             $record_id = base64_decode($id);
             $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
             $this->data['ticket_coversation'] = $this->Ticket_model->get_ticket_conversation($record_id);
-$this->data['icon_class'] = 'icon-ticket';
+            $this->data['icon_class'] = 'icon-ticket';
             $this->data['title'] = $this->data['page_header'] = 'Tickets / Replies';
             $this->template->load('admin', 'Admin/Tickets/reply', $this->data);
         } else {
@@ -200,26 +199,25 @@ $this->data['icon_class'] = 'icon-ticket';
             $this->load->view('admin/error/404_notfound', $data);
         }
     }
-    
-     public function delete(){
+
+    public function delete() {
         $id = $this->input->post('id');
         $table_name = $this->input->post('type');
-        if($id!=''){
+        if ($id != '') {
             $record_id = base64_decode($id);
-            if($this->Admin_model->delete($table_name, $record_id)){
-                $this->session->set_flashdata('success_msg', 'Record deleted successfully!');  
+            if ($this->Admin_model->delete($table_name, $record_id)) {
+                $this->session->set_flashdata('success_msg', 'Record deleted successfully!');
                 $status = 1;
-            }else{  
-                $this->session->set_flashdata('error_msg', 'Unable to delete the record.');               
+            } else {
+                $this->session->set_flashdata('error_msg', 'Unable to delete the record.');
                 $status = 0;
             }
             $return_array = array(
                 'status' => $status,
-                'id'=>$id
-                );
+                'id' => $id
+            );
             echo json_encode($return_array);
         }
     }
-
 
 }

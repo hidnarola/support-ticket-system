@@ -73,6 +73,7 @@ class Faq extends CI_Controller {
         $this->form_validation->set_rules('answer', 'Answer', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
             $this->data['title'] = $this->data['page_header'] = 'FAQ';
+            $this->data['page'] = 'Add FAQ';
             $this->data['icon_class'] = 'icon-question3';
             $this->template->load('admin', 'Admin/Faq/add', $this->data);
         } else {
@@ -96,6 +97,7 @@ class Faq extends CI_Controller {
             $this->form_validation->set_rules('answer', 'Answer', 'trim|required');
             if ($this->form_validation->run() == FALSE) {
                 $this->data['title'] = $this->data['page_header'] = 'FAQ';
+                $this->data['page'] = 'Edit FAQ';
                 $this->data['icon_class'] = 'icon-question3';
                 $this->template->load('admin', 'Admin/Faq/add', $this->data);
             } else {

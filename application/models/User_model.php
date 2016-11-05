@@ -176,5 +176,16 @@ class User_model extends CI_Model {
 //        echo $this->db->last_query();
         return $result->row();
     }
+    
+     /**
+     * Get field by Id
+     * @author : Reema  (Rep)
+     */
+    public function getUserById($id) {
+        $this->db->select('*');
+        $this->db->where('id', $id);
+        $q = $this->db->get(TBL_USERS);
+        return $q->row_array();
+    }
 
 }

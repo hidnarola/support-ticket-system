@@ -31,8 +31,6 @@
 // Container
 .wysihtml5-sandbox {
     width: 100%!important;
-    border-top-width: 0!important;
-    padding-top: 0!important;
 }
 
 // Modals
@@ -49,10 +47,10 @@
 
 .wysihtml5-toolbar {
     margin: 0;
-    padding: @content-padding-large;
-    padding-top: 0;
+    padding: @content-padding-base @content-padding-large;
+    padding-bottom: 0;
     display: block;
-    background-color: @panel-bg;
+    background-color: @panel-footer-bg;
     border: 1px solid @panel-default-border;
     border-bottom: 0;
     .border-top-radius(@border-radius-base);
@@ -61,7 +59,7 @@
     > li {
         display: inline-block;
         list-style: none;
-        margin: @content-padding-large @content-padding-large 0 0;
+        margin: 0 @content-padding-base @content-padding-base 0;
     }
 
     // Dropdown menu

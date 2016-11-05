@@ -9,16 +9,12 @@
 
         <!-- Global stylesheets -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-        <!--<link href="assets/admin/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css">-->
         <link href="assets/admin/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/core.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/components.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/colors.css" rel="stylesheet" type="text/css">
-        <!--<link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">-->
         <link href="assets/admin/css/style.css" rel="stylesheet" type="text/css">
-        <!--<link href="assets/admin/css/common.css" rel="stylesheet" type="text/css" id="style-primary">-->
-
         <!-- /global stylesheets -->
 
         <!-- Core JS files -->
@@ -26,52 +22,35 @@
         <script type="text/javascript" src="assets/admin/js/core/libraries/jquery.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/libraries/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/loaders/blockui.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.validate.js"></script>
-  >
+        <!-- /core JS files -->
+
+        <!-- Theme JS files -->
+<!--        <script type="text/javascript" src="assets/admin/js/plugins/visualization/d3/d3.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/visualization/d3/d3_tooltip.js"></script>-->
+        <script type="text/javascript" src="assets/admin/js/plugins/forms/styling/switchery.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/forms/styling/uniform.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/ui/moment/moment.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/pickers/daterangepicker.js"></script>
+
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
-        <script type="text/javascript" src="assets/admin/js/pages/login_validation.js"></script>
-
-        <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
-        <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
-        <!-- /core JS files -->
+        <!--<script type="text/javascript" src="assets/admin/js/pages/dashboard.js"></script>-->
         <script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
+        <!--<script type="text/javascript" src="assets/admin/js/pages/form_validation.js"></script>-->
+        <!-- /theme JS files -->
 
-        <!-- /core JS files -->
-<!--        <script>
-            window.setTimeout(function () {
-                $(".alert").fadeTo(500, 0).slideUp(500, function () {
-                    $(this).remove();
-                });
-            }, 7000);
-        </script>-->
-        <style>
-            .page-title {
-                color: #333;
-                height: 50px;
-                line-height: 50px;
-                padding: 5px 20px;
-            }
-            .page-header-content {
-                background-color: inherit;
-                padding: 0;
-                position: relative;
-            }
-
-            .navbar-nav {
-                margin-left: 5px;
-                width: 50px;
-            }
-        </style>
     </head>
 
-    <body class="navbar-top">
+    <body>
 
-        <div class="navbar navbar-inverse bg-teal navbar-fixed-top header-highlight">
-            <!--<div class="navbar navbar-default navbar-fixed-top header-highlight">-->
+        <!-- Main navbar -->
+        <div class="navbar navbar-inverse">
             <div class="navbar-header">
-                <a class="navbar-brand" href="admin">
-                    <!-- <img src="assets/img/logo.png" alt=""> -->
-                </a>
+                <a class="navbar-brand" href="index.html"><img src="assets/admin/images/logo_light.png" alt=""></a>
 
                 <ul class="nav navbar-nav visible-xs-block">
                     <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -82,56 +61,85 @@
             <div class="navbar-collapse collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav">
                     <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
-                </ul>
 
-                <div class="navbar-right">
-                    <p class="navbar-text">Hello <?php
-                        if ($this->session->userdata('admin_logged_in')) {
-                            echo $this->session->userdata('admin_logged_in')['fname'];
-                        }
-                        ?>!</p>
-                </div>
+                </ul>               
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/admin/images/placeholder.jpg" alt="">
+                            <span><?php
+                                if ($this->session->userdata('admin_logged_in')) {
+                                    echo $this->session->userdata('admin_logged_in')['fname'];
+                                }
+//                                        pr($this->session->userdata('admin_logged_in'),1);
+                                ?> !</span>
+                            <i class="caret"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="admin/profile"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
+                            <li><a href="admin/logout"><i class="icon-switch2"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
-        <?php
-        $current_page = $this->uri->segment(3);
-        $page = $this->uri->segment(2);
-        $users = $page . '/' . $current_page;
-        $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
-        ?>
+        <!-- /main navbar -->
+
+
+        <!-- Page container -->
         <div class="page-container">
+
+            <!-- Page content -->
             <div class="page-content">
-                <div class="sidebar sidebar-main sidebar-fixed">
+
+                <!-- Main sidebar -->
+                <div class="sidebar sidebar-main">
                     <div class="sidebar-content">
-                        <div class="sidebar-user-material">
+
+                        <!-- User menu -->
+                        <div class="sidebar-user">
                             <div class="category-content">
-                                <div class="sidebar-user-material-content">
-                                    <a href="admin" class="legitRipple">
-                                        <img src="assets/images/no_photo.png" class="img-circle img-responsive" alt=""></a>
-                                    <h6>Hello <?php
-                                        if ($this->session->userdata('admin_logged_in')) {
-                                            echo $this->session->userdata('admin_logged_in')['fname'];
-                                        }
+                                <div class="media">
+                                    <a href="#" class="media-left"><img src="assets/admin/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
+                                    <div class="media-body">
+                                        <span class="media-heading text-semibold"><?php
+                                            if ($this->session->userdata('admin_logged_in')) {
+                                                echo $this->session->userdata('admin_logged_in')['fname'] . " " . $this->session->userdata('admin_logged_in')['lname'];
+                                            }
 //                                        pr($this->session->userdata('admin_logged_in'),1);
-                                        ?> !</h6>
-                                </div>
+                                            ?> !</span>
+<!--                                        <div class="text-size-mini text-muted">
+                                            <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
+                                        </div>-->
+                                    </div>
 
-                                <div class="sidebar-user-material-menu">
-                                    <a href="#user-nav" data-toggle="collapse"><span>My account</span> <i class="caret"></i></a>
+<!--                                    <div class="media-right media-middle">
+                                        <ul class="icons-list">
+                                            <li>
+                                                <a href="#"><i class="icon-cog3"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>-->
                                 </div>
-                            </div>
-
-                            <div class="navigation-wrapper collapse" id="user-nav">
-                                <ul class="navigation">
-                                    <li><a href="admin/profile"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
-                                    <li><a href="admin/logout"><i class="icon-switch2"></i> <span>Logout</span></a></li>
-                                </ul>
                             </div>
                         </div>
+                        <!-- /user menu -->
 
+
+                        <?php
+                        $current_page = $this->uri->segment(3);
+                        $page = $this->uri->segment(2);
+                        $users = $page . '/' . $current_page;
+                        $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
+                        ?>
+                        <!-- Main navigation -->
                         <div class="sidebar-category sidebar-category-visible">
                             <div class="category-content no-padding">
                                 <ul class="navigation navigation-main navigation-accordion">
+
+                                    <!-- Main -->
                                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
 
 
@@ -156,70 +164,36 @@
                                         </ul>
                                     </li>
 
+
+
+                                    <!-- /page kits -->
+
                                 </ul>
                             </div>
                         </div>
+                        <!-- /main navigation -->
+
                     </div>
                 </div>
+                <!-- /main sidebar -->
 
+
+                <!-- Main content -->
                 <div class="content-wrapper">
-                    <div class="">
-                        <div class="page-header-content">
-                            <div class="page-title">
-                                <h2 style="line-height: 40px;">
-                                    <i class="<?php echo $icon_class; ?>" style="padding-right: 15px;"></i>
-                                    <span class="text-semibold" style="border-left: 1px solid #333;padding-left: 15px;"><?php echo $page_header; ?></span></h2>
-                            </div>
-                            <?php
-                            if ($this->session->flashdata('success_msg')) {
-                                ?>
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <?php echo $this->session->flashdata('success_msg'); ?>
-                                </div>
-                                <?php
-                            }
-                            ?>
-                            <?php
-                            if ($this->session->flashdata('error_msg')) {
-                                ?>
-                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <?php echo $this->session->flashdata('error_msg'); ?>
-                                </div>
-                                <?php
-                            }
-                            ?>
-
-                            <div class="alert alert-dismissible div_alert_error" role="alert" style="display: none;">
-                                <button type="button" class="close alert_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <div id="error_msg_div">
-                                    <p class="alert_error_msg"></p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>                                       
-                    <div class="content">
-                        <?php echo $body; ?>
-                    </div>
+                    <!-- Page header -->
+                    <?php echo $body; ?>
                 </div>
+                <!-- /main content -->
+
             </div>
+            <!-- /page content -->
+
         </div>
-        <!-- Theme JS files -->
-        <script type="text/javascript" src="assets/admin/js/plugins/forms/styling/switchery.min.js"></script>
-        <script type="text/javascript" src="assets/admin/js/plugins/forms/styling/uniform.min.js"></script>
-        <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-        <script type="text/javascript" src="assets/admin/js/plugins/ui/nicescroll.min.js"></script>
-        <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-
-        <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
-
-        <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
-
-        <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script>
-
-        <!-- /theme JS files -->
+        <!-- /page container -->
 
     </body>
 </html>
+
+
+
+
