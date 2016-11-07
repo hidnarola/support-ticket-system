@@ -10,6 +10,11 @@ class Tickets extends CI_Controller {
         $this->load->model('Ticket_model');
     }
 
+    public function index(){
+        $data['title'] = 'Tickets | Support-Ticket-System';
+        $this->template->load('frontend/page', 'Frontend/Tickets/index', $data);
+    }
+    
     public function staff_index(){
     	$this->data['title'] = $this->data['page_header'] = 'Tickets';
     	$this->data['tickets'] = $this->Staff_model->get_tickets($this->session->userdata('staffed_logged_in')['id']);

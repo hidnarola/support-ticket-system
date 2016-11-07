@@ -34,19 +34,17 @@ class Login extends CI_Controller {
             if ($result) {
 //                p($result);
                 if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1 && $user_title == 'Tenant') {
-//                    echo 'in if1'; exit;  
                     //success
                     $userdata = $this->session->set_userdata('user_logged_in', $result);
-                    redirect('profile');
+                    redirect('home');
                 } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $user_title == 'Tenant') {
-//                    echo 'in if2'; exit;
                     // Give error mesg for verify link
                     $this->session->set_flashdata('error_msg', 'Please verify your link before login!');
                     redirect('login');
                 } elseif ($result['role_id'] == 1 && $result['status'] == 0 && $result['is_verified'] == 1 && $user_title == 'Tenant') {
-//                    echo 'in if3'; exit;
                     // login sucess Give error mesg for unapproved user
-                    $this->session->set_flashdata('error_msg', 'You are approved user by the admin!');
+                    $userdata = $this->session->set_userdata('user_logged_in', $result);
+                    $this->session->set_flashdata('error_msg', 'You are not approved user by the admin!');
                     redirect('profile');
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title == 'Staff') {
                     // Give error msg for user is not approved by admin
@@ -77,6 +75,24 @@ class Login extends CI_Controller {
         }
     }
 
+    public function signup() {
+
+        $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
+        $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
+        $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
+//        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . TBL_USERS . '.email]', array('is_unique' => 'Email already exist!'));
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|callback_check_email[' . $useremail . ']');
+        $this->form_validation->set_rules('contactno', 'Contact Number', 'trim|required');
+        $this->form_validation->set_rules('address', 'Address', 'trim|required');
+        $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = 'Signup | Support-Ticket-System';
+            $this->template->load('frontend/page', 'Frontend/login_register', $data);
+        } else {
+            
+        }
+    }
+
     public function logout() {
         $this->session->sess_destroy();
         if ($this->uri->segment(1) == 'admin') {
@@ -84,7 +100,7 @@ class Login extends CI_Controller {
         } else if ($this->uri->segment(1) == 'staff') {
             redirect('staff/login');
         } else {
-            redirect('login');
+            redirect('home');
         }
     }
 

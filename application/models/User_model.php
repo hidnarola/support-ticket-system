@@ -12,7 +12,7 @@ class User_model extends CI_Model {
         $q = $this->db->get(TBL_USERS);
         $data = $q->row_array();
         $passworddecrypted = $this->encrypt->decode($data['password']);
-        if ($data['email'] != '') {
+        if ($data['email'] != '' && $data['password'] == '') {
             return $data;
         } else {
             if ($password == $passworddecrypted) {

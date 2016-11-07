@@ -1,3 +1,5 @@
+<script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
