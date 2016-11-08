@@ -9,7 +9,7 @@
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
             <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
-            <li class="active"><?php echo $title;; ?></li>
+            <li class="active"><?php echo $title; ?></li>
         </ul>
     </div>
 </div>
@@ -43,7 +43,7 @@
         <div class="panel-body">
 
             <div class="table-responsive user_table">
-                <table class="table datatable-basic" id="datatable-basic">
+                <table class="table datatable-basic" id="datatable-basic-users">
                     <thead>
                         <tr class="bg-teal">
                             <th>#</th>
@@ -181,6 +181,10 @@
 
 <!-- /success modal -->
 <script>
+    
+    $(function() {
+        $('#datatable-basic-users').DataTable();
+    });
     /* change password form (modal) submit */
     $(function () {
         $("#change_transaction").submit(function (event) {
@@ -293,8 +297,14 @@
     $(document).on('click', '.chang_status', function () {
         var id = $(this).attr('id').replace('changestatus_', '');
         var status = $(this).attr('data-status');
+        var jconmessage = '';
+       if(status == 1){
+           jconmessage = "Do you really want to Unapprove this user?";
+       }else{
+           jconmessage = "Do you really want to Approve this user?";
+       }
         var url = base_url + 'users/changeUserStatus';
-        jconfirm("Do you really want to change the status of this user?", function (r) {
+        jconfirm(jconmessage, function (r) {
             if (r) {
                 $.ajax({
                     type: 'POST',

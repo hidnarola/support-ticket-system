@@ -5,8 +5,8 @@ $page = $this->uri->segment(1);
 
     <div class="list-group">
         <a  href="profile" class="list-group-item clearfix <?php echo ($page == 'profile') ? 'active' : ''; ?>">Profile <i class="icon-user pull-right"></i></a>
-        <?php if ($this->session->userdata('user_logged_in')['status'] != 0) { ?>
-            <a href="tickets" class="list-group-item clearfix">My Tickets <i class="icon-laptop2 pull-right"></i></a>
+        <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
+            <a href="tickets" class="list-group-item clearfix <?php echo ($page == 'tickets') ? 'active' : ''; ?>">My Tickets <i class="icon-laptop2 pull-right"></i></a>
         <?php } ?>
         <a href="login/logout" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
     </div>

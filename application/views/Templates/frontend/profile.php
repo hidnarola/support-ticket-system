@@ -19,7 +19,7 @@
         <!--<link rel="stylesheet" href="assets/frontend/css/components/bs-filestyle.css" type="text/css" />-->
         <link rel="stylesheet" href="assets/frontend/css/responsive.css" type="text/css" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+        <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
 
         <!--[if lt IE 9]>
                 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -69,14 +69,21 @@
                         ============================================= -->
                         <nav id="primary-menu">
 
+                             <?php $page = $this->uri->segment(1); ?>
                             <ul>
-                                <li><a href="home"><div>Home</div></a></li>
-                                <?php if ($this->session->userdata('user_logged_in')['status']!=0) { ?>
-                                    <li><a href="tickets"><div>Tickets</div></a></li>
+                                <li <?php echo ($page == 'home') ? 'current' : ''; ?>><a href="home"><div>Home</div></a></li>
+                                <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
+                                    <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
+                                <?php } ?>
+                                <li class="mega-menu"><a href="login"><div>About us</div></a></li>
+                                <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>
+                                <li class="mega-menu"><a href="login"><div>Services</div></a></li>
+                                <li class="mega-menu"><a href="login"><div>Communities</div></a></li>
+                                <li class="mega-menu"><a href="login"><div>Gallery</div></a></li>
+                                <?php if ($this->session->userdata('user_logged_in') == '') { ?>
+                                    <li class="mega-menu <?php echo ($page == 'login') ? 'current' : ''; ?>"><a href="login"><div>Login</div></a></li>
                                 <?php } ?>
                             </ul>
-
-
 
                             <!-- Top Search
                             ============================================= -->
@@ -339,7 +346,7 @@
 
         <!-- External JavaScripts
         ============================================= -->
-      
+
         <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
 
         <!-- Bootstrap File Upload Plugin -->

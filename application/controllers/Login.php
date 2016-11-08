@@ -7,6 +7,8 @@ class Login extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->model('Admin_model');
+        $this->table = TBL_USERS;
     }
 
     public function index() {
@@ -22,7 +24,10 @@ class Login extends CI_Controller {
         if ($user_title != 'Tenant') {
             $this->template->load('admin_login', 'Admin/Users/login', $data);
         } else {
+            $userid = $this->session->userdata('user_logged_in')['id'];
+            $data['user'] = $this->User_model->getUserByID($userid);
             $data['title'] = 'Login | Support-Ticket-System';
+            $data['header_title'] = 'Login';
             $this->template->load('frontend/page', 'Frontend/login_register', $data);
         }
         if ($this->input->post()) {
@@ -38,6 +43,10 @@ class Login extends CI_Controller {
                     $userdata = $this->session->set_userdata('user_logged_in', $result);
                     redirect('home');
                 } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $user_title == 'Tenant') {
+                    // Give error mesg for verify link
+                    $this->session->set_flashdata('error_msg', 'Please verify your link before login!');
+                    redirect('login');
+                } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $result['password'] != '' && $user_title == 'Tenant') {
                     // Give error mesg for verify link
                     $this->session->set_flashdata('error_msg', 'Please verify your link before login!');
                     redirect('login');
@@ -76,20 +85,68 @@ class Login extends CI_Controller {
     }
 
     public function signup() {
-
+        $useremail = $this->input->post('email');
         $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
         $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
-        $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
-//        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . TBL_USERS . '.email]', array('is_unique' => 'Email already exist!'));
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|callback_check_email[' . $useremail . ']');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_check_email[' . $useremail . ']');
         $this->form_validation->set_rules('contactno', 'Contact Number', 'trim|required');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|matches[conpassword]');
+        $this->form_validation->set_rules('conpassword', 'Confirm Password', 'trim|required');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
-        $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
+
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = 'Signup | Support-Ticket-System';
+            $data['header_title'] = 'Signup';
+            $userid = $this->session->userdata('user_logged_in')['id'];
+            $data['user'] = $this->User_model->getUserByID($userid);
             $this->template->load('frontend/page', 'Frontend/login_register', $data);
         } else {
-            
+            $password = $this->encrypt->encode($this->input->post('password'));
+            $data = array(
+                'fname' => $this->input->post('fname'),
+                'lname' => $this->input->post('lname'),
+                'email' => $useremail,
+                'role_id' => 1,
+                'contactno' => $this->input->post('contactno'),
+                'password' => $password,
+                'address' => $this->input->post('address'),
+                'is_verified' => 0,
+                'status' => 0,
+                'is_delete' => 0,
+                'created' => date('Y-m-d H:i:s'),
+            );
+//            p($data, 1);
+            $this->Admin_model->manage_record($this->table, $data);
+            /* To send mail to the user */
+            $configs = mail_config();
+            $this->load->library('email', $configs);
+            $this->email->initialize($configs);
+            $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+            $this->email->to($useremail);
+
+            //--- set email template
+            $data_array = array(
+                'firstname' => $this->input->post('fname'),
+                'lastname' => $this->input->post('lname'),
+                'email' => $useremail,
+            );
+            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
+            $this->email->subject('Your account is registed for dev.supportticket.com');
+            $this->email->message($msg);
+            $this->email->send();
+            $this->email->print_debugger();
+            $this->session->set_flashdata('success_msg', 'Registration success! now please verify link on your email address.');
+            redirect('login');
+        }
+    }
+
+    function check_email($email) {
+        $return_value = $this->User_model->check_email($email);
+        if ($return_value) {
+            $this->form_validation->set_message('check_email', 'Sorry, This email is already Exists..!');
+            return FALSE;
+        } else {
+            return TRUE;
         }
     }
 

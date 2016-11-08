@@ -17,6 +17,8 @@
         <link rel="stylesheet" href="assets/frontend/css/magnific-popup.css" type="text/css" />
         <!-- Bootstrap File Upload CSS -->
         <!--<link rel="stylesheet" href="assets/frontend/css/components/bs-filestyle.css" type="text/css" />-->
+        	<!-- Bootstrap Data Table Plugin -->
+        <link rel="stylesheet" href="assets/frontend/css/components/bs-datatable.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/responsive.css" type="text/css" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
@@ -70,55 +72,22 @@
                         <!-- Primary Navigation
                         ============================================= -->
                         <nav id="primary-menu">
-                            <?php
-                            $page = $this->uri->segment(1);
-                            ?>
+                            <?php $page = $this->uri->segment(1); ?>
                             <ul>
-                                <li <?php echo ($page == 'home') ? 'active' : ''; ?>><a href="home"><div>Home</div></a></li>
-                                <?php if ($this->session->userdata('user_logged_in')) { ?>
-                                    <li class="mega-menu"><a href="#"><div>Tickets</div></a></li>
+                                <li <?php echo ($page == 'home') ? 'current' : ''; ?>><a href="home"><div>Home</div></a></li>
+                                <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
+                                    <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
+                                <?php } ?>
+                                <li class="mega-menu"><a href="login"><div>About us</div></a></li>
+                                <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>
+                                <li class="mega-menu"><a href="login"><div>Services</div></a></li>
+                                <li class="mega-menu"><a href="login"><div>Communities</div></a></li>
+                                <li class="mega-menu"><a href="login"><div>Gallery</div></a></li>
+                                <?php if ($this->session->userdata('user_logged_in') == '') { ?>
+                                    <li class="mega-menu <?php echo ($page == 'login') ? 'current' : ''; ?>"><a href="login"><div>Login</div></a></li>
                                 <?php } ?>
                             </ul>
 
-                            <!-- Top Cart
-                            ============================================= -->
-                            <!--                            <div id="top-cart">
-                                                            <a href="#" id="top-cart-trigger"><i class="icon-shopping-cart"></i><span>5</span></a>
-                                                            <div class="top-cart-content">
-                                                                <div class="top-cart-title">
-                                                                    <h4>Shopping Cart</h4>
-                                                                </div>
-                                                                <div class="top-cart-items">
-                                                                    <div class="top-cart-item clearfix">
-                                                                        <div class="top-cart-item-image">
-                                                                            <a href="#"><img src="images/shop/small/1.jpg" alt="Blue Round-Neck Tshirt" /></a>
-                                                                        </div>
-                                                                        <div class="top-cart-item-desc">
-                                                                            <a href="#">Blue Round-Neck Tshirt</a>
-                                                                            <span class="top-cart-item-price">$19.99</span>
-                                                                            <span class="top-cart-item-quantity">x 2</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="top-cart-item clearfix">
-                                                                        <div class="top-cart-item-image">
-                                                                            <a href="#"><img src="images/shop/small/6.jpg" alt="Light Blue Denim Dress" /></a>
-                                                                        </div>
-                                                                        <div class="top-cart-item-desc">
-                                                                            <a href="#">Light Blue Denim Dress</a>
-                                                                            <span class="top-cart-item-price">$24.99</span>
-                                                                            <span class="top-cart-item-quantity">x 3</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="top-cart-action clearfix">
-                                                                    <span class="fleft top-checkout-price">$114.95</span>
-                                                                    <button class="button button-3d button-small nomargin fright">View Cart</button>
-                                                                </div>
-                                                            </div>
-                                                        </div> #top-cart end -->
-
-                            <!-- Top Search
-                            ============================================= -->
                             <div id="top-search">
                                 <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
                                 <form action="search.html" method="get">
@@ -139,7 +108,7 @@
             <section id="page-title">
 
                 <div class="container clearfix">
-                    <h1>My Account</h1>
+                    <h1><?php echo $header_title; ?></h1>
                     <ol class="breadcrumb">
                         <li><a href="home">Home</a></li>
                         <li><a href="#">Pages</a></li>
@@ -393,9 +362,10 @@
 
         <!-- External JavaScripts
         ============================================= -->
-<script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+        <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
         <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
-
+	<!-- Bootstrap Data Table Plugin -->
+	<script type="text/javascript" src="assets/frontend/js/components/bs-datatable.js"></script>
         <!-- Bootstrap File Upload Plugin -->
         <!--<script type="text/javascript" src="assets/frontend/js/components/bs-filestyle.js"></script>-->
         <!-- Footer Scripts

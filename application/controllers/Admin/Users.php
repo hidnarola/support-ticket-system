@@ -36,7 +36,9 @@ class Users extends CI_Controller {
         $useremail = $this->input->post('email');
         $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
         $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
-        $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
+        if ($user_type == 'staff') {
+            $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
+        }
 //        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . TBL_USERS . '.email]', array('is_unique' => 'Email already exist!'));
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|callback_check_email[' . $useremail . ']');
         $this->form_validation->set_rules('contactno', 'Contact Number', 'trim|required');
@@ -50,7 +52,7 @@ class Users extends CI_Controller {
                 $this->template->load('admin', 'Admin/Users/add', $this->data);
             } else {
                 $this->data['icon_class'] = 'icon-people';
-                 $this->data['page'] = 'Staff';
+                $this->data['page'] = 'Staff';
                 $this->data['title'] = $this->data['page_header'] = 'Add Staff';
                 $this->template->load('admin', 'Admin/Users/add', $this->data);
             }
@@ -100,6 +102,7 @@ class Users extends CI_Controller {
                         'profile_pic' => $profile_pic,
                         'contactno' => $this->input->post('contactno'),
                         'address' => $this->input->post('address'),
+                        'status' => 0,
                         'is_verified' => 0,
                         'is_delete' => 0,
                         'created' => date('Y-m-d H:i:s'),
@@ -185,11 +188,11 @@ class Users extends CI_Controller {
                 if ($user_type == 'tenant') {
                     $this->data['icon_class'] = 'icon-users';
                     $this->data['title'] = $this->data['page_header'] = ' Edit Tenant';
-                     $this->data['page'] = 'Tenants';
+                    $this->data['page'] = 'Tenants';
                     $this->template->load('admin', 'Admin/Users/add', $this->data);
                 } else {
                     $this->data['icon_class'] = 'icon-people';
-                     $this->data['page'] = 'Staff';
+                    $this->data['page'] = 'Staff';
                     $this->data['title'] = $this->data['page_header'] = 'Edit Staff';
                     $this->template->load('admin', 'Admin/Users/add', $this->data);
                 }

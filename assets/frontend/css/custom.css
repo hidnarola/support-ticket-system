@@ -11,3 +11,12 @@
 form label.error {display: inline-block !important;}
 label.error {margin-top: 2px;text-transform: lowercase;}
 label.error::first-letter {text-transform: uppercase;}
+#register-form .col_full{margin-bottom: 1px;}
+/*#login-form .col_full{margin-bottom: 1px;}*/
+#register-form .validation-error-label p{  margin-bottom: 0;text-transform: lowercase;color: #e42c3e;font-weight: 400;}
+#register-form .validation-error-label p::first-letter{text-transform: uppercase;}
+.list-group-item.active { background-color: #1ABC9C;border-color: #1ABC9C;}
+
+#datatable1 [class^="icon-trash"]{color: #e42c3e}
+#datatable1 [class^="icon-eye-open"]{color: #6262FF}
+#datatable1 a{margin-left: 5px;}

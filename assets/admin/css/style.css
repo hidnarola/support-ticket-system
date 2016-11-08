@@ -9,3 +9,7 @@ and open the template in the editor.
 */
 
 .dashboard_layout .dash-icon{margin-top: -5px;}
+.user_table .dataTables_length > label > span:first-child {float: left;margin: 0 15px 8px 0;}
+.user_table .dataTables_filter{margin: 0}
+#ticket_table_wrapper .datatable-header {padding: 0 !important;}
+#ticket_table_wrapper .dataTables_length > label > span:first-child {float: left;margin: 0 15px 8px 0;}
