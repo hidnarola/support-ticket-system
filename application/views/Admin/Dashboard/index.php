@@ -98,6 +98,23 @@
     <div class="row">
         <div class="col-md-12">
             <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <div class="panel container-fluid">
+                <div class="row text-center">
+                    <div class="col-md-6">
+                        <div class="content-group">
+                            <h5 class="text-semibold no-margin"><i class="icon-ticket position-left text-primary"></i> <?php echo $total_tickets; ?></h5>
+                            <span class="text-muted text-size-small">Total Tickets this month</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="content-group">
+                            <h5 class="text-semibold no-margin"><i class="icon-users position-left text-danger"></i> <?php echo $total_clients; ?></h5>
+                            <span class="text-muted text-size-small">Total Clients this month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <br>
@@ -284,13 +301,15 @@
                     name: 'Clients',
                     pointInterval: 24 * 3600 * 1000,
                     pointStart: Date.UTC(current_year, current_month, 01, 0, 0, 0, 0),
-                    data: <?php echo json_encode($clients_chart); ?>
+                    data: <?php echo json_encode($clients_chart); ?>,
+
                 },
                 {
                     name: 'Tickets',
                     pointInterval: 24 * 3600 * 1000,
                     pointStart: Date.UTC(current_year, current_month, 01, 0, 0, 0, 0),
-                    data: <?php echo json_encode($tickets_chart); ?>
+                    data: <?php echo json_encode($tickets_chart); ?>,
+                    color:'#F44336'
                 }
             ]
 

@@ -40,13 +40,13 @@
         </script>-->
     </head>
 
-    <body class="navbar-top">
+    <body>
 
-        <div class="navbar navbar-inverse bg-teal navbar-fixed-top header-highlight">
+        <div class="navbar navbar-inverse">
             <!--<div class="navbar navbar-default navbar-fixed-top header-highlight">-->
             <div class="navbar-header">
-                <a class="navbar-brand" href="admin">
-                    <!-- <img src="assets/img/logo.png" alt=""> -->
+                <a class="navbar-brand" href="staff">
+                    <img src="assets/admin/images/logo_light.png" alt="">
                 </a>
 
                 <ul class="nav navbar-nav visible-xs-block">
@@ -58,15 +58,28 @@
             <div class="navbar-collapse collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav">
                     <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
-                </ul>
 
-                <div class="navbar-right">
-                    <p class="navbar-text">Hello <?php
-                        if ($this->session->userdata('staffed_logged_in')) {
-                            echo $this->session->userdata('staffed_logged_in')['fname'];
-                        }
-                        ?>!</p>
-                </div>
+                </ul>               
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/admin/images/placeholder.jpg" alt="">
+                            <span><?php
+                                if ($this->session->userdata('staffed_logged_in')) {
+                                    echo $this->session->userdata('staffed_logged_in')['fname'];
+                                }
+//                                        pr($this->session->userdata('admin_logged_in'),1);
+                                ?> !</span>
+                            <i class="caret"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="staff/profile"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
+                            <li><a href="staff/logout"><i class="icon-switch2"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
         <?php
@@ -75,31 +88,32 @@
         ?>
         <div class="page-container">
             <div class="page-content">
-                <div class="sidebar sidebar-main sidebar-fixed">
+                <div class="sidebar sidebar-main">
                     <div class="sidebar-content">
-                        <div class="sidebar-user-material">
+                        <div class="sidebar-user">
                             <div class="category-content">
-                                <div class="sidebar-user-material-content">
-                                    <a href="admin">
-                                        <img src="assets/images/no_photo.png" class="img-circle img-responsive" alt=""></a>
-                                    <h6>Hello <?php
-                                        if ($this->session->userdata('staffed_logged_in')) {
-                                            echo $this->session->userdata('staffed_logged_in')['fname'];
-                                        }
+                                <div class="media">
+                                    <a href="#" class="media-left"><img src="assets/admin/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
+                                    <div class="media-body">
+                                        <span class="media-heading text-semibold"><?php
+                                            if ($this->session->userdata('staffed_logged_in')) {
+                                                echo $this->session->userdata('staffed_logged_in')['fname'];
+                                            }
 //                                        pr($this->session->userdata('admin_logged_in'),1);
-                                        ?> !</h6>
-                                </div>
+                                            ?> !</span>
+<!--                                        <div class="text-size-mini text-muted">
+                                            <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
+                                        </div>-->
+                                    </div>
 
-                                <div class="sidebar-user-material-menu">
-                                    <a href="#user-nav" data-toggle="collapse"><span>My account</span> <i class="caret"></i></a>
+<!--                                    <div class="media-right media-middle">
+                                        <ul class="icons-list">
+                                            <li>
+                                                <a href="#"><i class="icon-cog3"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>-->
                                 </div>
-                            </div>
-
-                            <div class="navigation-wrapper collapse" id="user-nav">
-                                <ul class="navigation">
-                                    <li class="<?php echo ($current_page == 'profile') ? 'active' : ''; ?>"><a href="staff/profile"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
-                                    <li><a href="staff/logout"><i class="icon-switch2"></i> <span>Logout</span></a></li>
-                                </ul>
                             </div>
                         </div>
 

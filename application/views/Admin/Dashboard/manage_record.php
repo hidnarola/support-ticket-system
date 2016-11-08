@@ -55,7 +55,46 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover datatable-basic">
+                    <table id="example" class="table table-bordered table-hover" cellspacing="0" width="100%">
+        <thead>
+            <tr class="bg-teal">
+                <th>#</th>
+                <th><?php echo $record_type . ' Name'; ?></th>
+                <th>Action</th>
+                
+            </tr>
+        </thead>
+        
+        <tbody>
+            <?php
+    foreach ($records as $key => $record) {
+        ?>
+        <tr>
+            <td><?php echo $key + 1; ?></td>
+            <td><?php echo $record['name']; ?></td>
+            <td>
+                <ul class="icons-list">
+                    <li class="text-teal-600">
+                        <a id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-pencil7"></i></a>
+                    </li>
+                    <li class="text-danger-600">
+                        <?php $url = urlencode("admin/delete/" . $this->uri->segment(3) . "/" . base64_encode($record['id'])); ?>
+                        <a data-record="<?php echo base64_encode($record['id']); ?>" id="delete_<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
+                    </li>
+                </ul>
+            </td>
+            <!-- <td></td>
+            <td></td>
+            <td></td> -->
+
+        </tr>
+        <?php
+    }
+    ?>
+
+        </tbody>
+    </table>
+                        <?php /*<table class="table table-bordered table-hover datatable-basic">
                             <thead>
                                 <tr class="bg-teal">
                                     <th>#</th>
@@ -89,13 +128,14 @@
                                 }
                                 ?>
                             </tbody>
-                        </table>
+                        </table> */ ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <script type="text/javascript">
     var base_url = '<?php echo base_url(); ?>admin/';
     var type = '<?php echo $this->uri->segment(3); ?>';
@@ -142,5 +182,8 @@
                 $("div.div_alert_error").show();
             }
         });
+    });
+    $(function() {
+        $('#example').DataTable();
     });
 </script>

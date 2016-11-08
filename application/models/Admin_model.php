@@ -165,7 +165,7 @@ class Admin_model extends CI_Model {
 
     public function get_clients_this_month() {
         $this->db->select('Day(created) as day, count(id) as clients');
-        $this->db->where('MONTH(created)', date('j'));
+        $this->db->where('MONTH(created)', 10);
         $this->db->group_by('Date(created)');
         $result = $this->db->get(TBL_USERS);
         return $result->result_array();
@@ -173,7 +173,8 @@ class Admin_model extends CI_Model {
 
     public function get_tickets_this_month() {
         $this->db->select('Day(created) as day, count(id) as tickets');
-        $this->db->where('MONTH(created)', date('j'));
+        $this->db->where('MONTH(created)', 10);
+        // $this->db->where('MONTH(created)', date('j'));
         $this->db->group_by('Date(created)');
         $result = $this->db->get(TBL_TICKETS);
         return $result->result_array();

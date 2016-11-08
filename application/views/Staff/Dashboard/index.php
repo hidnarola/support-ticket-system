@@ -9,7 +9,7 @@ $segment = $this->uri->segment(1);
                 <!-- Members online -->
                 <div class="panel bg-warning-400">
                     <div class="panel-body">
-                        <div class="heading-elements icon-dasboard">
+                        <div class="heading-elements icon-dasboard" style="margin-top: 0px;">
                             <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
                             <div class="icon-object border-white text-white"><i class=" icon-ticket"></i></div>
                         </div>
@@ -29,7 +29,7 @@ $segment = $this->uri->segment(1);
                 <!-- Members online -->
                 <div class="panel bg-slate-400">
                     <div class="panel-body">
-                        <div class="heading-elements icon-dasboard">
+                        <div class="heading-elements icon-dasboard" style="margin-top: 0px;">
                             <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
                             <div class="icon-object border-white text-white"><i class=" icon-reply"></i></div>
 
@@ -137,9 +137,5 @@ $segment = $this->uri->segment(1);
 
             </div>
         </div>
-
-
-
-
     </div>
 </div>

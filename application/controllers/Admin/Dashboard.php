@@ -34,6 +34,9 @@ class Dashboard extends CI_Controller {
         $clients_this_month = $this->Admin_model->get_clients_this_month();
         $tickets_this_month = $this->Admin_model->get_tickets_this_month();
 
+        $clients_array = array_column($clients_this_month, 'clients');
+        $tickets_array = array_column($tickets_this_month, 'tickets');
+
         foreach ($clients_this_month as $client) {
             $clients_arr[$client['day']-1] = (int)$client['clients'];
         }
@@ -54,6 +57,8 @@ class Dashboard extends CI_Controller {
         $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
         $this->data['priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
+        $this->data['total_clients'] = array_sum($clients_arr);
+        $this->data['total_tickets'] = array_sum($tickets_arr);
         $this->template->load('admin', 'Admin/Dashboard/index', $this->data);
     }
 
