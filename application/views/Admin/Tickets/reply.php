@@ -1,7 +1,7 @@
 <!-- Default stacked layout -->
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h6 class="panel-title">Ticket Conversation</h6>
+        <h6 class="panel-title"><?php echo $ticket->title; ?></h6>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>
@@ -48,13 +48,15 @@
             }
             ?>
         </ul>
+        <form method="post">
         <textarea name="enter-message" class="form-control content-group" rows="3" cols="1" placeholder="Enter your message..."></textarea>
         <div class="row">
             <div class="col-xs-6"></div>
             <div class="col-xs-6 text-right">
-                <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right"><b><i class="icon-circle-right2"></i></b> Send</button>
+                <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right"><b><i class="icon-circle-right2"></i></b> Send</button>
             </div>
         </div>
+        </form>
     </div>
 </div>
 <!-- /default stacked layout -->

@@ -97,4 +97,12 @@ class Ticket_model extends CI_Model {
         return $new_arr;
     }
 
+    public function save_ticket_conversation($msg_data){
+        if($this->db->insert(TBL_TICKET_CONVERSATION, $msg_data)){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
 }

@@ -1,7 +1,7 @@
 <!-- Line content divider -->
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h6 class="panel-title">Line content divider</h6>
+        <h6 class="panel-title"><?php echo $ticket->title; ?></h6>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>

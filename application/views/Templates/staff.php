@@ -18,6 +18,7 @@
         <!--<link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">-->
         <link href="assets/admin/css/style.css" rel="stylesheet" type="text/css">
         <link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">
+        <link href="assets/admin/css/style.css" rel="stylesheet" type="text/css">
         <!-- /global stylesheets -->
 
         <!-- Core JS files -->
@@ -46,7 +47,8 @@
             <!--<div class="navbar navbar-default navbar-fixed-top header-highlight">-->
             <div class="navbar-header">
                 <a class="navbar-brand" href="staff">
-                    <img src="assets/admin/images/logo_light.png" alt="">
+                    <i class="icon-ticket position-left"></i>
+                    Support Ticket System
                 </a>
 
                 <ul class="nav navbar-nav visible-xs-block">
@@ -125,7 +127,7 @@
                                     <li class="<?php echo ($current_page == 'tickets') ? 'active' : ''; ?>"><a href="staff/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div>      
                     </div>
                 </div>
 
@@ -179,8 +181,8 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_select.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
-        <!-- <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script> -->
-        <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
+        <!-- <script type="text/javascript" src="assets/admin/js/plugins/ui/ripple.min.js"></script> -->
 
         <!-- /theme JS files -->
         

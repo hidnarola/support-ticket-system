@@ -21,7 +21,6 @@ class Tickets extends CI_Controller {
     	$this->template->load('staff', 'Staff/Tickets/index', $this->data);
     }
 
-    
     public function reply($id) {
         if ($id != '') {
             $record_id = base64_decode($id);

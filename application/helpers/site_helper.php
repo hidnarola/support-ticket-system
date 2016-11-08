@@ -7,7 +7,9 @@
  * 	Author = Nv
  */
 function pr($data, $is_die = false) {
-
+    if(is_object($data)){
+        $data = (array)$data;
+    }
     if (is_array($data)) {
         echo "<pre>";
         print_r($data);

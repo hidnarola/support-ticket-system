@@ -77,7 +77,7 @@ $route['staff/login'] = "login";
 $route['staff/logout'] = "login/logout";
 $route['staff'] = "staff/dashboard";
 $route['staff/profile'] = "staff/dashboard/profile";
-$route['staff/tickets/view/(:any)'] = 'admin/tickets/view/$1'; //--- Add Icp route 
+$route['staff/tickets/view/(:any)'] = 'admin/tickets/view/$1';
 $route['staff/tickets'] = "tickets/staff_index";
 $route['staff/tickets/reply/(:any)'] = "tickets/reply/$1";
 
