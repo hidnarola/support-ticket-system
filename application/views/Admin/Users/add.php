@@ -92,6 +92,25 @@
 
                                 </div>
                                 <div class="form-group col-xs-12">
+                                    <label>Contact Number:</label>
+                                    <input type="text" name="contactno" class="form-control" placeholder="Contact Number" required="required" value="<?php
+                                    if (isset($user)) {
+                                        echo trim($user->contactno);
+                                    } else {
+                                        if ($this->input->post('contactno')) {
+                                            echo $this->input->post('contactno');
+                                        } else {
+                                            echo '';
+                                        }
+                                    }
+                                    ?>"> 
+                                    <?php echo '<label id="contactno-error" class="validation-error-label" for="contactno">' . form_error('contactno') . '</label>'; ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                   
+                                <?php if($segment == 'staff'){?>
+                                <div class="form-group col-xs-12">
                                     <label>Department:</label>                                                                    
                                     <select class="form-control" name="dept_id" required="">
                                         <option selected="" value="">Select Department</option> 
@@ -107,22 +126,7 @@
                                     </select>
                                     <?php echo '<label id="dept_id-error" class="validation-error-label" for="dept_id">' . form_error('dept_id') . '</label>'; ?>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group col-xs-12">
-                                    <label>Contact Number:</label>
-                                    <input type="text" name="contactno" class="form-control" placeholder="Contact Number" required="required" value="<?php
-                                    if (isset($user)) {
-                                        echo trim($user->contactno);
-                                    } else {
-                                        if ($this->input->post('contactno')) {
-                                            echo $this->input->post('contactno');
-                                        } else {
-                                            echo '';
-                                        }
-                                    }
-                                    ?>">                               
-                                </div>                            
+                                <?php } ?>
 
                                 <div class="form-group col-xs-12 user_profile_pic">
                                     <label>User Profile:</label>                               

@@ -136,11 +136,12 @@ class User_model extends CI_Model {
 //        $this->db->where('password', '');
         $result = $this->db->get(TBL_USERS);
         $data = $result->row_array();
-        if ($data['password'] == '') {
-            return 0;
-        } else {
-            return 1;
-        }
+        return $data;
+//        if ($data['password'] == '') {
+//            return 0;
+//        } else {
+//            return 1;
+//        }
     }
 
     /**
@@ -176,8 +177,8 @@ class User_model extends CI_Model {
 //        echo $this->db->last_query();
         return $result->row();
     }
-    
-     /**
+
+    /**
      * Get field by Id
      * @author : Reema  (Rep)
      */
@@ -186,6 +187,26 @@ class User_model extends CI_Model {
         $this->db->where('id', $id);
         $q = $this->db->get(TBL_USERS);
         return $q->row_array();
+    }
+
+    public function getUserTickets($id, $limit = null) {
+        $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, category.name as category_name,staff.fname as staff_fname ,staff.lname as staff_lname');
+        $this->db->where('tickets.is_delete', 0);
+        $this->db->where('tickets.user_id', $id);
+        if ($limit != null) {
+            $this->db->limit(10);
+        }
+        $this->db->from(TBL_TICKETS);
+        $this->db->join(TBL_DEPARTMENTS . ' dept', 'dept.id = tickets.dept_id', 'left');
+        $this->db->join(TBL_TICKET_TYPES . ' type', 'type.id = tickets.ticket_type_id', 'left');
+        $this->db->join(TBL_TICKET_PRIORITIES . ' priority', 'priority.id = tickets.priority_id', 'left');
+        $this->db->join(TBL_TICKET_STATUSES . ' status', 'status.id = tickets.status_id', 'left');
+        $this->db->join(TBL_USERS . ' user', 'user.id = tickets.user_id', 'left');
+        $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
+        $this->db->join(TBL_CATEGORIES . ' category', 'category.id = tickets.category_id', 'left');
+        $query = $this->db->get();
+
+        return $query->result_array();
     }
 
 }

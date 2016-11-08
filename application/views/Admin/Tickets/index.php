@@ -190,6 +190,10 @@ $segment = $this->uri->segment(1);
     </div>
     <!-- /success modal -->
     <script type="text/javascript">
+        $(function() {
+        $('#ticket_table').DataTable();
+    });
+        
         $(document).on('click', 'a.chang_pwdd', function () {
             var modal_title = $(this).attr('data-modal-title');
             var action = $(this).attr('data-act');

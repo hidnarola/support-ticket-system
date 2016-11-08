@@ -32,7 +32,7 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/ui/moment/moment.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/pickers/daterangepicker.js"></script>
-<script type="text/javascript" src="assets/admin/js/plugins/forms/validation/validate.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/forms/validation/validate.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
         <!--<script type="text/javascript" src="assets/admin/js/pages/dashboard.js"></script>-->
         <script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>
@@ -113,18 +113,18 @@
                                             }
 //                                        pr($this->session->userdata('admin_logged_in'),1);
                                             ?> !</span>
-<!--                                        <div class="text-size-mini text-muted">
-                                            <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
-                                        </div>-->
+                                        <!--                                        <div class="text-size-mini text-muted">
+                                                                                    <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
+                                                                                </div>-->
                                     </div>
 
-<!--                                    <div class="media-right media-middle">
-                                        <ul class="icons-list">
-                                            <li>
-                                                <a href="#"><i class="icon-cog3"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>-->
+                                    <!--                                    <div class="media-right media-middle">
+                                                                            <ul class="icons-list">
+                                                                                <li>
+                                                                                    <a href="#"><i class="icon-cog3"></i></a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>-->
                                 </div>
                             </div>
                         </div>
