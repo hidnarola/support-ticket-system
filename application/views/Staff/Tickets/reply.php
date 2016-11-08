@@ -95,7 +95,7 @@
             ?>
 
         </ul>
-
+        <form method="post">
         <textarea name="enter-message" class="form-control content-group" rows="3" cols="1" placeholder="Enter your message..."></textarea>
 
         <div class="row">
@@ -104,9 +104,10 @@
             </div>
 
             <div class="col-xs-6 text-right">
-                <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right"><b><i class="icon-circle-right2"></i></b> Send</button>
+                <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right"><b><i class="icon-circle-right2"></i></b> Send</button>
             </div>
         </div>
+        </form>
     </div>
 </div>
 <!-- /line content divider -->

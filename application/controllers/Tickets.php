@@ -41,6 +41,21 @@ class Tickets extends CI_Controller {
             $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
             $this->data['ticket_coversation'] = $this->Staff_model->get_ticket_conversation($record_id);
             $this->data['title'] = $this->data['page_header'] = 'Tickets / Replies';
+
+            if($this->input->post()){
+                $msg_data = array(
+                    'ticket_id' => $record_id,
+                    'message' => $this->input->post('enter-message'),
+                    'sent_from' => $this->session->userdata('staffed_logged_in')['id']
+                    );
+                if($this->Ticket_model->save_ticket_conversation($msg_data)){
+                    $this->session->set_flashdata('success_msg', 'Message send successfully.');
+                }else{
+                    $this->session->set_flashdata('error_msg', 'Unable to send message.');
+                }
+                redirect('admin/tickets/reply/'.$id);
+            }
+
             $this->template->load('staff', 'Staff/Tickets/reply', $this->data);
         } else {
             $data['view'] = 'admin/404_notfound';
