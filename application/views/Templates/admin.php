@@ -32,15 +32,15 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/ui/moment/moment.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/pickers/daterangepicker.js"></script>
-
+<script type="text/javascript" src="assets/admin/js/plugins/forms/validation/validate.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
         <!--<script type="text/javascript" src="assets/admin/js/pages/dashboard.js"></script>-->
         <script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
-        
-        <!-- <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script> -->
+
         <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
-        <!--<script type="text/javascript" src="assets/admin/js/pages/form_validation.js"></script>-->
+        <!--<script type="text/javascript" src="assets/js/pages/form_validation.js"></script>-->
+        <script type="text/javascript" src="assets/admin/js/pages/form_validation.js"></script>
         <!-- /theme JS files -->
 
     </head>

@@ -17,7 +17,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <form method="POST" class="form-horizontal form-validate manage_record" id="manage_record" name="manage_record">
+            <form method="POST" class="form-horizontal form-validate-jquery manage_record" id="manage_record" name="manage_record">
                 <div class="panel panel-flat">
                     <div class="panel-heading">
                         <h5 class="panel-title"><?php echo 'Manage ' . $record_type; ?></h5>

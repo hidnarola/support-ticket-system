@@ -19,7 +19,8 @@
         <!--<link rel="stylesheet" href="assets/frontend/css/components/bs-filestyle.css" type="text/css" />-->
         <link rel="stylesheet" href="assets/frontend/css/responsive.css" type="text/css" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+          <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+
         <!--[if lt IE 9]>
                 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <![endif]-->
@@ -52,70 +53,30 @@
                             <a href="index.html" class="standard-logo" data-dark-logo="assets/frontend/images/logo-dark.png"><img src="assets/frontend/images/logo.png" alt="Canvas Logo"></a>
                             <a href="index.html" class="retina-logo" data-dark-logo="assets/frontend/images/logo-dark@2x.png"><img src="assets/frontend/images/logo@2x.png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
-                        <?php
-                        if ($this->session->userdata('user_logged_in')) {
-//                                                echo $this->session->userdata('admin_logged_in')['fname'] . " " . $this->session->userdata('admin_logged_in')['lname'];
-                            ?>
-                            <div id="top-account" class="dropdown">
-                                <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                                    <li><a href="profile">Profile</a></li>
-                                    <li><a href="#">Messages</a></li>
-                                    <li><a href="#">Settings</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
-                                </ul>
-                            </div>
-                        <?php } ?>
+
+                        <div id="top-account" class="dropdown">
+                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Messages</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
+                            </ul>
+                        </div>
+
                         <!-- Primary Navigation
                         ============================================= -->
                         <nav id="primary-menu">
-                            <?php
-                            $page = $this->uri->segment(1);
-                            ?>
+
                             <ul>
-                                <li <?php echo ($page == 'home') ? 'active' : ''; ?>><a href="home"><div>Home</div></a></li>
-                                <?php if ($this->session->userdata('user_logged_in')) { ?>
-                                    <li class="mega-menu"><a href="#"><div>Tickets</div></a></li>
+                                <li><a href="home"><div>Home</div></a></li>
+                                <?php if ($this->session->userdata('user_logged_in')['status']!=0) { ?>
+                                    <li><a href="tickets"><div>Tickets</div></a></li>
                                 <?php } ?>
                             </ul>
 
-                            <!-- Top Cart
-                            ============================================= -->
-                            <!--                            <div id="top-cart">
-                                                            <a href="#" id="top-cart-trigger"><i class="icon-shopping-cart"></i><span>5</span></a>
-                                                            <div class="top-cart-content">
-                                                                <div class="top-cart-title">
-                                                                    <h4>Shopping Cart</h4>
-                                                                </div>
-                                                                <div class="top-cart-items">
-                                                                    <div class="top-cart-item clearfix">
-                                                                        <div class="top-cart-item-image">
-                                                                            <a href="#"><img src="images/shop/small/1.jpg" alt="Blue Round-Neck Tshirt" /></a>
-                                                                        </div>
-                                                                        <div class="top-cart-item-desc">
-                                                                            <a href="#">Blue Round-Neck Tshirt</a>
-                                                                            <span class="top-cart-item-price">$19.99</span>
-                                                                            <span class="top-cart-item-quantity">x 2</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="top-cart-item clearfix">
-                                                                        <div class="top-cart-item-image">
-                                                                            <a href="#"><img src="images/shop/small/6.jpg" alt="Light Blue Denim Dress" /></a>
-                                                                        </div>
-                                                                        <div class="top-cart-item-desc">
-                                                                            <a href="#">Light Blue Denim Dress</a>
-                                                                            <span class="top-cart-item-price">$24.99</span>
-                                                                            <span class="top-cart-item-quantity">x 3</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="top-cart-action clearfix">
-                                                                    <span class="fleft top-checkout-price">$114.95</span>
-                                                                    <button class="button button-3d button-small nomargin fright">View Cart</button>
-                                                                </div>
-                                                            </div>
-                                                        </div> #top-cart end -->
+
 
                             <!-- Top Search
                             ============================================= -->
@@ -133,21 +94,6 @@
                 </div>
 
             </header><!-- #header end -->
-
-            <!-- Page Title
-            ============================================= -->
-            <section id="page-title">
-
-                <div class="container clearfix">
-                    <h1>My Account</h1>
-                    <ol class="breadcrumb">
-                        <li><a href="home">Home</a></li>
-                        <li><a href="#">Pages</a></li>
-                        <li class="active">Login</li>
-                    </ol>
-                </div>
-
-            </section><!-- #page-title end -->
 
             <!-- Content
             ============================================= -->
@@ -277,10 +223,10 @@
 
                             </div>
 
-                            <div class="widget subscribe-widget clearfix">
+                            <div class="widget subscribe-widget customjs subscribe-form clearfix">
                                 <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
                                 <div class="widget-subscribe-form-result"></div>
-                                <form id="widget-subscribe-form" action="include/subscribe.php" role="form" method="post" class="nobottommargin">
+                                <form action="http://audio-equipmentrental.com/include/subscribe.php" role="form" method="post" class="nobottommargin">
                                     <div class="input-group divcenter">
                                         <span class="input-group-addon"><i class="icon-email2"></i></span>
                                         <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email">
@@ -393,7 +339,7 @@
 
         <!-- External JavaScripts
         ============================================= -->
-<script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+      
         <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
 
         <!-- Bootstrap File Upload Plugin -->
@@ -402,5 +348,11 @@
         ============================================= -->
         <script type="text/javascript" src="assets/frontend/js/functions.js"></script>
 
+        <script>
+//		jQuery( "#tabs-profile" ).on( "tabsactivate", function( event, ui ) {
+//			jQuery( '.flexslider .slide' ).resize();
+//		});
+        </script>
+
     </body>
-</html>
+    <!--</html>-->

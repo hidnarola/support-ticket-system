@@ -81,3 +81,5 @@ $route['staff/tickets/view/(:any)'] = 'admin/tickets/view/$1'; //--- Add Icp rou
 $route['staff/tickets'] = "tickets/staff_index";
 $route['staff/tickets/reply/(:any)'] = "tickets/reply/$1";
 
+$route['signup'] = "login/signup";
+

@@ -35,7 +35,7 @@
                 }
             }
             ?>
-            <form class="form-horizontal form-validate" method="post" id="user_add" enctype="multipart/form-data" action="<?php echo $action ?>" >            
+            <form class="form-horizontal form-validate-jquery" method="post" id="user_add" enctype="multipart/form-data" action="<?php echo $action ?>"  novalidate="novalidate">            
 
                 <div class="panel panel-flat">
                     <div class="panel-body">
@@ -158,9 +158,11 @@
                                     <?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
                                 </div>
                             </div>
-                            <div class="text-center">                                
-                                <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
-                                <button type="submit" class="btn bg-teal">Save<i class="icon-arrow-right14 position-right"></i></button>
+                            <div class="col-md-12">
+                                <div class="text-center">                                
+                                    <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
+                                    <button type="submit" class="btn bg-teal">Save<i class="icon-arrow-right14 position-right"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
