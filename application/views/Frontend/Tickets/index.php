@@ -17,7 +17,7 @@
                                     <th>Status</th>
                                     <th>Created At</th>
                                     <th>State</th>
-                                      <th>Actions</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
@@ -28,16 +28,16 @@
                                     <tr>
                                         <td><?php echo $record['title']; ?></td>
                                         <td><?php echo $record['dept_name']; ?></td>
-                                    <td><?php echo $record['type_name']; ?></td>
-                                    <td><?php echo $record['priority_name']; ?></td>
-                                    <td><?php echo $record['status_name']; ?></td>
-                                    <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                                    <!--<td>ABC</td>-->
-                                    <?php if ($record['is_read'] == 0) { ?>
-                                        <td class="text-center"><span class="label label-warning">Unread</span></td>
-                                    <?php } else { ?>
-                                        <td  class="text-center"><span class="label label-success">Read</span></td>
-                                    <?php } ?>
+                                        <td><?php echo $record['type_name']; ?></td>
+                                        <td><?php echo $record['priority_name']; ?></td>
+                                        <td><?php echo $record['status_name']; ?></td>
+                                        <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
+                                        <!--<td>ABC</td>-->
+                                        <?php if ($record['is_read'] == 0) { ?>
+                                            <td class="text-center"><span class="label label-warning">Unread</span></td>
+                                        <?php } else { ?>
+                                            <td  class="text-center"><span class="label label-success">Read</span></td>
+                                        <?php } ?>
                                         <td>
                                             <a href="#" class="" title='Delete Ticket'><i class="icon-trash2"></i></a>
                                             <a href="<?php echo base_url() . 'tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye-open"></i></a>
@@ -57,8 +57,9 @@
 
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#datatable1').DataTable();
-        });
-    </script>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#datatable1').DataTable();
+    });
+</script>
