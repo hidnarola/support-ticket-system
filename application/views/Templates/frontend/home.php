@@ -51,6 +51,22 @@
                             <a href="index.html" class="standard-logo" data-dark-logo="assets/frontend/images/logo-dark.png"><img src="assets/frontend/images/logo.png" alt="Canvas Logo"></a>
                             <a href="index.html" class="retina-logo" data-dark-logo="assets/frontend/images/logo-dark@2x.png"><img src="assets/frontend/images/logo@2x.png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
+                        
+                        <?php
+                        if ($this->session->userdata('user_logged_in')) {
+//                                                echo $this->session->userdata('admin_logged_in')['fname'] . " " . $this->session->userdata('admin_logged_in')['lname'];
+                            ?>
+                            <div id="top-account" class="dropdown">
+                                <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                                    <li><a href="profile">Profile</a></li>
+                                    <li><a href="#">Messages</a></li>
+                                    <li><a href="#">Settings</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
+                                </ul>
+                            </div>
+                        <?php } ?>
 
                         <!-- Primary Navigation
                         ============================================= -->
