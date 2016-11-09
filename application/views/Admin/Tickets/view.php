@@ -74,13 +74,13 @@
                             <table class="table table-striped table-bordered newTickets" data-alert="" data-all="189">
                                 <tbody>
                                     <tr class="alpha-teal">
-                                        <th>Assign To</th>
-                                        <td><?php echo $ticket->fname . ' ' . $ticket->lname; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tenant</th>
-                                        <td><?php echo $ticket->staff_fname . ' ' . $ticket->staff_lname; ?></td>
-                                    </tr>
+                                            <th>Assign To</th>
+                                            <td><?php echo $ticket->staff_fname . ' ' . $ticket->staff_lname; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tenant</th>
+                                            <td><?php echo $ticket->fname . ' ' . $ticket->lname; ?></td>
+                                        </tr>
                                     <tr class="alpha-teal">
                                         <th>Title</th>
                                         <td><?php echo $ticket->title ?></td>

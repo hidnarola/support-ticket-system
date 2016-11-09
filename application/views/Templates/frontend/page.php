@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="assets/frontend/css/magnific-popup.css" type="text/css" />
         <!-- Bootstrap File Upload CSS -->
         <!--<link rel="stylesheet" href="assets/frontend/css/components/bs-filestyle.css" type="text/css" />-->
-        	<!-- Bootstrap Data Table Plugin -->
+        <!-- Bootstrap Data Table Plugin -->
         <link rel="stylesheet" href="assets/frontend/css/components/bs-datatable.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/responsive.css" type="text/css" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -71,8 +71,11 @@
                         <?php } ?>
                         <!-- Primary Navigation
                         ============================================= -->
+                        <?php
+                        $page = $this->uri->segment(1);
+                        $sec_segment = $this->uri->segment(2)
+                        ?>
                         <nav id="primary-menu">
-                            <?php $page = $this->uri->segment(1); ?>
                             <ul>
                                 <li <?php echo ($page == 'home') ? 'current' : ''; ?>><a href="home"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
@@ -111,8 +114,14 @@
                     <h1><?php echo $header_title; ?></h1>
                     <ol class="breadcrumb">
                         <li><a href="home">Home</a></li>
-                        <li><a href="#">Pages</a></li>
-                        <li class="active">Login</li>
+                        <?php if ($page != '' && $sec_segment == '') { ?>
+                            <li class="active"><?php echo $page; ?></li>
+                        <?php } else if ($page != '' && $sec_segment != '') { ?>
+                            <li><a href="<?php echo $page; ?>"><?php echo $page; ?></a></li>
+                        <?php } ?>
+                        <?php if ($sec_segment != '') { ?>
+                            <li class="active"><?php echo $sec_segment; ?></li>
+                        <?php } ?>
                     </ol>
                 </div>
 
@@ -364,8 +373,8 @@
         ============================================= -->
         <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
         <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
-	<!-- Bootstrap Data Table Plugin -->
-	<script type="text/javascript" src="assets/frontend/js/components/bs-datatable.js"></script>
+        <!-- Bootstrap Data Table Plugin -->
+        <script type="text/javascript" src="assets/frontend/js/components/bs-datatable.js"></script>
         <!-- Bootstrap File Upload Plugin -->
         <!--<script type="text/javascript" src="assets/frontend/js/components/bs-filestyle.js"></script>-->
         <!-- Footer Scripts

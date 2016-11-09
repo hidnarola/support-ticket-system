@@ -1,11 +1,9 @@
 /* ----------------------------------------------------------------
-	Custom CSS
+        Custom CSS
 
-	Add all your Custom Styled CSS here for New Styles or
-	Overwriting Default Theme Styles for Better Hanlding Updates
+        Add all your Custom Styled CSS here for New Styles or
+        Overwriting Default Theme Styles for Better Hanlding Updates
 -----------------------------------------------------------------*/
-
-
 
 
 form label.error {display: inline-block !important;}
@@ -15,8 +13,36 @@ label.error::first-letter {text-transform: uppercase;}
 /*#login-form .col_full{margin-bottom: 1px;}*/
 #register-form .validation-error-label p{  margin-bottom: 0;text-transform: lowercase;color: #e42c3e;font-weight: 400;}
 #register-form .validation-error-label p::first-letter{text-transform: uppercase;}
-.list-group-item.active { background-color: #1ABC9C;border-color: #1ABC9C;}
+/*.list-group-item.active { background-color: #1ABC9C;border-color: #1ABC9C;}*/
+.list-group-item.active { background-color: #003473;border-color: #003473;}
 
 #datatable1 [class^="icon-trash"]{color: #e42c3e}
 #datatable1 [class^="icon-eye-open"]{color: #6262FF}
 #datatable1 a{margin-left: 5px;}
+
+#ticket-add-form .col_full{margin-bottom: 5px;}
+
+#page-title {background-color: #003473;}
+#page-title h1{color: #fff;}
+#page-title .breadcrumb a {color: #fff;}
+#page-title .breadcrumb > .active {color: #d3d3d3;} 
+#ticket-add-form .bootstrap-select {width: 405px !important;}
+
+.dropdown-id-dropdown-toggle{border-color: #E42C3E;}
+
+
+.bs-example-modal-sm1 .modal-title {color: #fff;}
+.bs-example-modal-sm1 .modal-header {background-color: #003473;}
+.bs-example-modal-sm1 .btn-primary {background-color: #003473;}
+
+@media all and (min-width: 240px) and (max-width: 320px) {
+    #ticket-add-form .bootstrap-select {width: 280px !important;}
+}
+
+@media screen and (min-width: 320px) and (max-width:480px) {
+    #ticket-add-form .bootstrap-select {width: 439px !important;}
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    #ticket-add-form .bootstrap-select {width: 250px !important;}
+}

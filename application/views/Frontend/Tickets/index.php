@@ -1,3 +1,4 @@
+<!--<script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>-->
 <div class="content-wrap">
     <div class="container clearfix">
         <div class="row clearfix">
@@ -39,9 +40,10 @@
                                             <td  class="text-center"><span class="label label-success">Read</span></td>
                                         <?php } ?>
                                         <td>
-                                            <a href="#" class="" title='Delete Ticket'><i class="icon-trash2"></i></a>
-                                            <a href="<?php echo base_url() . 'tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye-open"></i></a>
-                                            <a href="<?php echo base_url() . 'tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="reply"><i class="icon-reply"></i></a>
+                                            <!--<button class='btn btn-danger btn-xs' type="submit" name="remove_levels" value="delete"><span class="fa fa-times"></span> delete</button>-->
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-sm1" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" class="delete" title='Delete Ticket'><i class="icon-trash2"></i></a>
+                                            <a href="<?php echo base_url() . 'tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye-open" style="font-size: 16px;"></i></a>
+                                            <a href="<?php echo base_url() . 'tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" title='Reply Ticket' class="reply"><i class="icon-envelope2"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -58,8 +60,84 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade bs-example-modal-sm1" id="confirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Delete Dialogue</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="nobottommargin"> Do you really want to delete this ticket?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+                    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $('#datatable1').DataTable();
+
+
+//        $('.delete').on('click', function (e) {
+//            $('#confirm')
+//                    .modal({backdrop: 'static', keyboard: false})
+//                    .one('click', '#delete', function (e) {
+//                        //delete function
+//                        alert('here');
+//                    });
+//        });
+    });
+</script>
+<script type="text/javascript">
+//    var jconfirm = function (message, callback) {
+//        var options = {
+//            message: message
+//        };
+//        options.buttons = {
+//            cancel: {
+//                label: "No",
+//                className: "btn-default",
+//                callback: function (result) {
+//                    callback(false);
+//                }
+//            },
+//            main: {
+//                label: "Yes",
+//                className: "btn-primary",
+//                callback: function (result) {
+//                    callback(true);
+//                }
+//            }
+//        };
+//        bootbox.dialog(options);
+//    };
+    var base_url = '<?php echo base_url(); ?>';
+    $(document).on('click', '.delete', function () {
+        var id = $(this).attr('id').replace('delete_', '');
+        var url = base_url + 'tickets/delete';
+        $('#delete').on('click', function (e) {
+            alert('xvcx');
+//            $.ajax({
+//                type: 'POST',
+//                url: url,
+//                async: false,
+//                dataType: 'JSON',
+//                data: {id: id, type: type},
+//                success: function (data) {
+//                    if (data.status == 1) {
+//                        window.location.reload();
+//                    } else if (data.status == 0) {
+//                    }
+//                }
+//            });
+
+        });
     });
 </script>
