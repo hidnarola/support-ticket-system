@@ -9,16 +9,13 @@
 
         <!-- Global stylesheets -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-        <!--<link href="assets/admin/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css">-->
         <link href="assets/admin/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/core.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/components.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/colors.css" rel="stylesheet" type="text/css">
-        <!--<link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">-->
         <link href="assets/admin/css/style.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/common.css" rel="stylesheet" type="text/css" id="style-primary">
-        <link href="assets/admin/css/style.css" rel="stylesheet" type="text/css">
+        
         <!-- /global stylesheets -->
 
         <!-- Core JS files -->
@@ -29,16 +26,6 @@
         <script type="text/javascript" src="assets/admin/js/pages/login_validation.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
-        <!-- /core JS files -->
-
-        <!-- /core JS files -->
-<!--        <script>
-            window.setTimeout(function () {
-                $(".alert").fadeTo(500, 0).slideUp(500, function () {
-                    $(this).remove();
-                });
-            }, 7000);
-        </script>-->
     </head>
 
     <body>

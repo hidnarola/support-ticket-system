@@ -78,8 +78,8 @@ $route['staff/logout'] = "login/logout";
 $route['staff'] = "staff/dashboard";
 $route['staff/profile'] = "staff/dashboard/profile";
 $route['staff/tickets/view/(:any)'] = 'admin/tickets/view/$1';
-$route['staff/tickets'] = "tickets/staff_index";
-$route['staff/tickets/reply/(:any)'] = "tickets/reply/$1";
+$route['staff/tickets'] = "admin/tickets/staff_index";
+$route['staff/tickets/reply/(:any)'] = "admin/tickets/reply/$1";
 
 $route['signup'] = "login/signup";
 

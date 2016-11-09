@@ -217,4 +217,15 @@ class Dashboard extends CI_Controller {
             redirect('admin/manage/company');
         }
     }
+
+    public function get_staff(){
+        $dept = $this->input->post('dept');
+        $staff = $this->Admin_model->get_staff($dept);
+        $html = '<option value="">Select Staff</option>';
+        foreach ($staff as $row) {
+            $html .= '<option value="'. $row['user_id'] .'">'. $row['fname'].' '. $row['lname'] .'</option>';
+        }
+        echo $html;
+        exit;
+    }
 }

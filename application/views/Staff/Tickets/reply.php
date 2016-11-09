@@ -20,7 +20,8 @@
                 </li>
                 <?php
                 foreach ($value as $val) {
-                    if ($val['role_id'] == 1) {
+                   //pr($val);
+                    if ($val['sent_from'] != $this->session->userdata('staffed_logged_in')['id']) {
                         ?>
 
                         <li class="media">
@@ -51,8 +52,13 @@
                             </div>
 
                             <div class="media-body">
+                                <?php if($val['sent_from'] != $val['user_id'] && $val['sent_from'] != $val['staff_id']){ ?>
+                                <div class="media-heading">
+                                    <a href="#" class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                    </div>
+                                <?php } ?>
                                 <div class="media-content"><?php echo $val['message']; ?></div>
-                                <span class="media-annotation display-block mt-10"><?php echo $date = date('g:i a', strtotime($val['created_date'])); ?> <a href="#"><i class="icon-pin-alt position-right text-muted"></i></a></span>
+                                <span class="media-annotation display-block mt-10"><?php echo $date = date('g:i a', strtotime($val['created_date'])); ?></span>
                             </div>
                         </li>
                     <?php } else {
@@ -61,7 +67,7 @@
                         <li class="media reversed">
                             <div class="media-body">
                                 <div class="media-content"><?php echo $val['message']; ?></div>
-                                <span class="media-annotation display-block mt-10"><?php echo $date = date('g:i a', strtotime($val['created_date'])); ?> <a href="#"><i class="icon-pin-alt position-right text-muted"></i></a></span>
+                                <span class="media-annotation display-block mt-10"><?php echo $date = date('g:i a', strtotime($val['created_date'])); ?></span>
                             </div>
 
                             <div class="media-right">

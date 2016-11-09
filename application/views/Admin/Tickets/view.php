@@ -15,49 +15,8 @@
 <div class="content">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <!-- Vertical form -->
-            <!--        <div class="panel panel-flat">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead><tr><th colspan="2"><center><h6>Ticket Details</h6></center></th></tr></thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>Name</th>
-                                            <td><?php echo $ticket->title ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Department</th>
-                                            <td><?php echo $ticket->dept_name ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ticket Type</th>
-                                            <td><?php echo $ticket->type_name ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ticket Priority</th>
-                                            <td><?php echo $ticket->priority_name ?></td>
-                                        </tr>                                
-                                        <tr>
-                                            <th>Ticket Status</th>
-                                            <td><?php echo $ticket->status_name ?></td>
-                                        </tr>                                
-                                        <tr>
-                                            <th>Ticket Category</th>
-                                            <td><?php echo $ticket->category_name ?></td>
-                                        </tr>                          
-                                        <tr>
-                                            <th>Added On</th>
-                                            <td><?php echo date('d-M-Y', strtotime($ticket->created)) ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>-->
-
-
-            <div class="panel-group ticket-view-panel" id="accordion1" role="tablist" aria-multiselectable="true">
+            
+        <div class="panel-group ticket-view-panel" id="accordion1" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default ticket_details">
                     <div class="panel-heading " role="tab" id="heading1">
                         <h4 class="panel-title">
@@ -75,11 +34,11 @@
                                 <tbody>
                                     <tr class="alpha-teal">
                                         <th>Assign To</th>
-                                        <td><?php echo $ticket->fname . ' ' . $ticket->lname; ?></td>
+                                        <td><?php echo $ticket->staff_fname . ' ' . $ticket->staff_lname; ?></td>
                                     </tr>
                                     <tr>
                                         <th>Tenant</th>
-                                        <td><?php echo $ticket->staff_fname . ' ' . $ticket->staff_lname; ?></td>
+                                        <td><?php echo $ticket->fname . ' ' . $ticket->lname; ?></td>
                                     </tr>
                                     <tr class="alpha-teal">
                                         <th>Title</th>

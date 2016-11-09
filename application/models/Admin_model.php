@@ -201,4 +201,17 @@ class Admin_model extends CI_Model {
         return $result->result_array();
     }
 
+    public function get_staff($dept){
+        $this->db->select('staff.user_id, user.fname, user.lname');
+        $this->db->where('staff.is_delete', 0);
+        $this->db->where('user.is_delete', 0);
+        
+        $this->db->from(TBL_STAFF);
+        $this->db->join(TBL_USERS . ' user', 'user.id = staff.user_id', 'left');
+        
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
 }

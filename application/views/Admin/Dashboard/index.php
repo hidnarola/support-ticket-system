@@ -143,6 +143,7 @@
                 <tbody>
                     <?php
                     foreach ($tickets as $key => $record) {
+                        //pr($record);
                         ?>
                         <tr>
                             <td><?php echo $key + 1; ?></td>
@@ -183,23 +184,19 @@
                                                    data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
                                             <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
                                                    data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
-                                            <!--                                               <li class="divider"></li>
-                                                                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" ><i class="icon-file-pdf"></i>Change priority</a></li>-->
+                                             <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
+                                                   data-modal-title="Assign Staff"><i class="icon-user"></i>Assign Staff</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </td>
-
-
-
                         </tr>
                         <?php
                     }
                     ?>
                 </tbody>
             </table>
-        
-    </div>
+        </div>
     <!-- /main charts -->
 </div>
 
@@ -246,6 +243,10 @@
                                 echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>";
                             }
                             ?>
+                        </select>
+                    </div>
+                    <div class="form-group" id="staff_id" style="display:none">
+                        <select class="select" id="staff_val" name="staff_id" required="">
                         </select>
                     </div>
                 </div>
@@ -327,6 +328,7 @@
         $('#hidden_id').val(id);
         if (action == 'dept') {
             $('#dept_id').show();
+            $('#staff_id').hide();
             $('#priority_id').hide();
             $('#status_id').hide();
             //                var id = $(this).attr('id').replace('changedept_', '');
@@ -336,6 +338,7 @@
             var select_data = card.selectedIndex;
         } else if (action == 'status') {
             $('#dept_id').hide();
+            $('#staff_id').hide();
             $('#priority_id').hide();
             $('#status_id').show();
             var card = document.getElementById("status_val");
@@ -345,6 +348,7 @@
             $('.validation-error-label').hide();
         } else if (action == 'priority') {
             $('#priority_id').show();
+            $('#staff_id').hide();
             $('#status_id').hide();
             $('#dept_id').hide();
             var card = document.getElementById("priority_val");
@@ -352,10 +356,30 @@
             //                var id = $(this).attr('id').replace('changepriority_', '');
             var action_type = 'priority_id';
             $('.validation-error-label').hide();
+        }else if (action == 'assign') {
+            var dept = $(this).attr('data-dept');
+             $.ajax({
+                url: 'admin/dashboard/get_staff',
+                data: {'dept':dept},
+                type: 'post',
+            }).done(function (data) {
+                console.log(data);
+                $("select#staff_val").html(data);
+            });
+            $('#staff_id').show();
+            $('#priority_id').hide();
+            $('#status_id').hide();
+            $('#dept_id').hide();
+            var card = document.getElementById("staff_val");
+            var select_data = card.selectedIndex;
+            //                var id = $(this).attr('id').replace('changepriority_', '');
+            var action_type = 'staff_id';
+            $('.validation-error-label').hide();
         } else {
             $('#dept_id').hide();
             $('#priority_id').hide();
             $('#status_id').hide();
+            $('#staff_id').hide();
         }
         $('.modal-title').html(modal_title);
         var select = card.selectedIndex;
@@ -377,6 +401,7 @@
                     $('#ticket_table').dataTable();
                     //                       $("#dept_val option[value='']").attr('selected', true)
                     $('#dept_val').val('');
+                    $('#staff_val').val('');
                     $('#status_val').val('');
                     $('#priority_val').val('');
                     window.location.reload();

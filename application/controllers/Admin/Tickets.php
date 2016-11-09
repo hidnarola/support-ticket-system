@@ -187,6 +187,8 @@ class Tickets extends CI_Controller {
     }
 
     public function reply($id) {
+        $logged_in = $this->uri->segment(1);
+        
         if ($id != '') {
             $record_id = base64_decode($id);
             $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
@@ -194,21 +196,35 @@ class Tickets extends CI_Controller {
             $this->data['icon_class'] = 'icon-ticket';
             $this->data['title'] = $this->data['page_header'] = 'Tickets / Replies';
 
+            $sent_from = $this->session->userdata('admin_logged_in')['id'];
+            if($logged_in=='staff'){
+                $sent_from = $this->session->userdata('staffed_logged_in')['id'];
+            }
+
             if($this->input->post()){
                 $msg_data = array(
                     'ticket_id' => $record_id,
                     'message' => $this->input->post('enter-message'),
-                    'sent_from' => $this->session->userdata('admin_logged_in')['id']
+                    'sent_from' => $sent_from
                     );
                 if($this->Ticket_model->save_ticket_conversation($msg_data)){
                     $this->session->set_flashdata('success_msg', 'Message send successfully.');
                 }else{
                     $this->session->set_flashdata('error_msg', 'Unable to send message.');
                 }
-                redirect('admin/tickets/reply/'.$id);
+                if($logged_in == 'admin'){
+                    redirect('admin/tickets/reply/'.$id);
+                }else if($logged_in=='staff'){
+                    redirect('staff/tickets/reply/'.$id);
+                }
             }
 
-            $this->template->load('admin', 'Admin/Tickets/reply', $this->data);
+            if($logged_in == 'admin'){
+                $this->template->load('admin', 'Admin/Tickets/reply', $this->data);
+            }else if($logged_in=='staff'){
+                $this->template->load('staff', 'Staff/Tickets/reply', $this->data);
+            }
+
         } else {
             $data['view'] = 'admin/404_notfound';
             $this->load->view('admin/error/404_notfound', $data);
@@ -270,7 +286,7 @@ class Tickets extends CI_Controller {
             $this->load->view('admin/error/404_notfound', $data);
         }
     }
-    
+
      */
 
 }

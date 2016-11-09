@@ -49,7 +49,11 @@ $segment = $this->uri->segment(1);
         </div>
     
 
-
+    <div class="panel">
+    <div class="panel-heading">
+        
+    </div>
+    <div class="panel-body">
         <div class="row">
 
 
@@ -125,6 +129,8 @@ $segment = $this->uri->segment(1);
                     ?>
                 </tbody>
             </table>
+</div>
+</div>
 </div>
 </div>
 <script type="text/javascript">
