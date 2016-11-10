@@ -1,0 +1,13 @@
+diff a/application/views/Admin/Tickets/index.php b/application/views/Admin/Tickets/index.php	(rejected hunks)
+@@ -1,7 +1,11 @@
+ <?php
+ $segment = $this->uri->segment(1);
+ ?>
++<div class="page-header page-header-default">
++    <div class="page-header-content">
++        <div class="page-title">
++            <h4><i class="<?php echo $icon_class;?> position-left"></i> <span class="text-semibold"><?php echo $title;?></span></h4>
+         </div>
+     </div>
+     <div class="breadcrumb-line">
+         <ul class="breadcrumb">

@@ -11,6 +11,7 @@ class Dashboard extends CI_Controller {
         $this->data = array();
         $this->load->model('Staff_model');
         $this->load->model('User_model');
+        $this->load->model('Admin_model');
     }
 
     public function index() {
@@ -71,6 +72,17 @@ class Dashboard extends CI_Controller {
             $this->session->set_flashdata('error_msg', 'Incorrect Old Password');
         }
         redirect('staff/profile');
+    }
+
+    public function get_staff(){
+        $dept = $this->input->post('dept');
+        $staff = $this->Admin_model->get_staff($dept);
+        $html = '<option value="">Select Staff</option>';
+        foreach ($staff as $row) {
+            $html .= '<option value="'. $row['user_id'] .'">'. $row['fname'].' '. $row['lname'] .'</option>';
+        }
+        echo $html;
+        exit;
     }
     
    

@@ -22,24 +22,26 @@ $segment = $this->uri->segment(1);
     <div class="panel panel-flat">
         <div class="panel-heading">
             <!--        <h5 class="panel-title">Tickets List</h5>-->
-
-            <div class="heading-elements">
-                <ul class="icons-list">               
-                    <!--<li><a data-action="collapse"></a></li>-->
-                    <?php $current = $this->uri->segment(4); ?>
-                    <!--<label class="control-label">Ticket Type</label>-->
-                    <select class="selectpicker filter" onchange="load_news(this.value);">
+            <div class="col-md-2">
+    <?php $current = $this->uri->segment(4); ?>
+                    <!-- <label class="control-label">Filter by Status</label> -->
+                    <select class="select filter" onchange="load_news(this.value);">
                         <option <?php echo ($current == '') ? 'selected' : ''; ?> value="">All</option>
                         <option <?php echo ($current == '3') ? 'selected' : ''; ?> value="3">Open</option>
                         <option <?php echo ($current == '5') ? 'selected' : ''; ?> value="5">Pending</option>
                         <option <?php echo ($current == '2') ? 'selected' : ''; ?> value="2">In Progress</option>
                         <option <?php echo ($current == '4') ? 'selected' : ''; ?> value="4">Paused</option>
                         <option <?php echo ($current == '1') ? 'selected' : ''; ?> value="1">Closed</option>
-                    </select>
+                    </select></div>
+                    <div class="col-md-10">
+            <div class="pull-right">
+                <!-- <ul class="icons-list">                -->
+                    <!--<li><a data-action="collapse"></a></li>-->
+                    
                      <a onclick="window.location = 'admin/tickets/add'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Ticket</a>
                     <!--<button type="button" class="btn bg-pink-400" onclick="window.location = 'admin/tickets/add'"><i class="icon-plus-circle2 position-left"></i>Add New Ticket</button>-->
-                </ul>
-            </div>
+                <!-- </ul> -->
+            </div></div>
         </div>
         <style>/* #ticket_table .dataTables_length {margin: 5px 0 20px 20px;} */</style>
         <div class="panel-body">

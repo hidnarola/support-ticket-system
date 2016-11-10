@@ -119,11 +119,19 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row">
+    
 
-        
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h6 class="panel-title">Latest Tickets</h6>
+            <div class="heading-elements">
 
+                <a href="admin/tickets" class="label bg-success heading-text">View All Tickets</a></div>
+                
+                
+        </div>
+        <div class="panel-body">
+            <div class="row">
             <table class="table table-bordered table-hover table-striped datatable-basic">
                 <thead>
                     <tr class="bg-teal">
@@ -197,6 +205,8 @@
                 </tbody>
             </table>
         </div>
+        </div>
+        </div>
     <!-- /main charts -->
 </div>
 
@@ -262,6 +272,7 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
+$('.datatable-basic').dataTable();
 
     $(function () {
         var dt = new Date();
@@ -399,7 +410,7 @@
                     $('#modal_theme_success').modal('hide');
                     $('#change_action')[0].reset();
                     $('#ticket_table').dataTable();
-                    //                       $("#dept_val option[value='']").attr('selected', true)
+                    //$("#dept_val option[value='']").attr('selected', true)
                     $('#dept_val').val('');
                     $('#staff_val').val('');
                     $('#status_val').val('');

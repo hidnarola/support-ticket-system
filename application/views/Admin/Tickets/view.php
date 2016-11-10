@@ -33,7 +33,7 @@
                             <table class="table table-striped table-bordered newTickets" data-alert="" data-all="189">
                                 <tbody>
                                     <tr class="alpha-teal">
-                                   <th>Assign To</th>
+                                    <th>Assign To</th>
                                         <td><?php echo $ticket->staff_fname . ' ' . $ticket->staff_lname; ?></td>
                                     </tr>
                                     <tr>
