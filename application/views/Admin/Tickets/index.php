@@ -60,8 +60,8 @@ $segment = $this->uri->segment(1);
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>State</th>
-                                <th style="width:10%">Actions</th>
-                                <th>Actions</th>
+                                <th style="width:12%;text-align: center;">Actions</th>
+                                <!--<th>Actions</th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -102,10 +102,6 @@ $segment = $this->uri->segment(1);
                                             <li class="text-danger-600">
                                                 <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Ticket' class="delete"><i class="icon-trash"></i></a>
                                             </li>
-                                        </ul>
-                                    </td>
-                                    <td class="text-center">
-                                        <ul class="icons-list">
                                             <li class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                     <i class="icon-menu9"></i>
@@ -123,6 +119,11 @@ $segment = $this->uri->segment(1);
                                             </li>
                                         </ul>
                                     </td>
+<!--                                    <td class="text-center">
+                                        <ul class="icons-list">
+                                            
+                                        </ul>
+                                    </td>-->
                                 </tr>
                                 <?php
                             }

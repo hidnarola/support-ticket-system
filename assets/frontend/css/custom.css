@@ -35,6 +35,8 @@ label.error::first-letter {text-transform: uppercase;}
 .bs-example-modal-sm1 .modal-header {background-color: #003473;}
 .bs-example-modal-sm1 .btn-primary {background-color: #003473;}
 
+.blue-button {background-color: #003473;}
+
 @media all and (min-width: 240px) and (max-width: 320px) {
     #ticket-add-form .bootstrap-select {width: 280px !important;}
 }
@@ -45,4 +47,175 @@ label.error::first-letter {text-transform: uppercase;}
 
 @media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     #ticket-add-form .bootstrap-select {width: 250px !important;}
+}
+
+
+.media-left > img,
+.media-right > img {
+    max-width: 100%;
+    height: auto!important;
+}
+
+.content-group {
+    margin-bottom: 20px !important;
+}
+
+.content-divider {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+.media {
+    margin-top: 20px;
+    position: relative;
+}
+.media, .media-body {
+    zoom: 1;
+    overflow: hidden;
+}
+
+.media-body {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.mt-10 {
+    margin-top: 10px!important;
+}
+.display-block, label.display-block {
+    display: block;
+}
+.media-annotation {
+    color: #999999;
+    font-size: 12px;
+    line-height: 1.6666667;
+    font-weight: 400;
+}
+.media-left img:not(.media-preview), .media-right img:not(.media-preview), .thumbnail .media img:not(.media-preview) {
+    width: 40px;
+    height: 40px;
+    max-width: none;
+}
+.img-circle {
+    border-radius: 50%;
+}
+
+/* ------------------------------------------------------------------------------
+ * *  # Chat layouts
+ *
+ *  Conversation chat styles - layouts, chat elements, colors, options
+ *
+ * *  Latest update: Nov 10, 2016
+ * * ---------------------------------------------------------------------------- */
+
+
+.chat-list,
+.chat-stacked {
+    max-height: 520px;
+    overflow: auto;
+}
+.chat-list .media-left {
+    padding-right: 20px;
+}
+.chat-list .media-right {
+    padding-left: 20px;
+}
+.chat-list .media-content {
+    position: relative;
+    padding: 10px 12px;
+    width: auto;
+    border-radius: 3px;
+    display: inline-block;
+}
+.chat-list .media-content:not([class*=bg-]) {
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+}
+.chat-list .media-content > i {
+    top: 0;
+    margin: 2px;
+}
+.chat-list .reversed .media-content {
+    text-align: left;
+    color: #fff;
+}
+.chat-list .reversed .media-content:not([class*=bg-]) {
+    background-color: #42A5F5;
+    border-color: #42A5F5;
+}
+.chat-list .reversed .media-content > a {
+    color: #fff;
+}
+.chat-list .reversed .media-body {
+    text-align: right;
+}
+.chat-list .date-step.media {
+    text-align: center;
+    margin-left: 0;
+    margin-right: 0;
+    color: #999;
+}
+.chat-list .chat-thumbs img {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-height: 100px;
+    height: auto;
+    max-width: 100%;
+    display: inline-block;
+    border-radius: 3px;
+}
+.chat-list .media-content:before,
+.chat-list .reversed .media-content:before {
+    content: '';
+    left: -5px;
+    top: 15px;
+    position: absolute;
+    margin-left: 0;
+}
+.chat-list .media-content:before {
+    border-top: 5px solid transparent;
+    border-right: 5px solid;
+    border-right-color: inherit;
+    border-bottom: 5px solid transparent;
+}
+.chat-list .reversed .media-content:before {
+    left: auto;
+    right: -5px;
+    border-right: 0;
+    border-top: 5px solid transparent;
+    border-left: 5px solid;
+    border-left-color: inherit;
+    border-bottom: 5px solid transparent;
+}
+@media (min-width: 769px) {
+    .chat-list .media {
+        margin-right: 20%;
+    }
+    .chat-list .media.reversed {
+        margin-right: 0;
+        margin-left: 20%;
+    }
+}
+.chat-list-inverse .media-content:not([class*=bg-]) {
+    color: #fff;
+    background-color: #42A5F5;
+    border-color: #42A5F5;
+}
+.chat-list-inverse .media-content:before {
+    border-right: 0;
+    border-top: 5px solid transparent;
+    border-right: 5px solid #42A5F5;
+    border-bottom: 5px solid transparent;
+}
+.chat-list-inverse .media-content > a {
+    color: #fff;
+}
+.chat-list-inverse .reversed .media-content:not([class*=bg-]) {
+    background-color: #f5f5f5;
+    color: inherit;
+}
+.chat-list-inverse .reversed .media-content:before {
+    border-top: 5px solid transparent;
+    border-left: 5px solid #f5f5f5;
+    border-bottom: 5px solid transparent;
 }

@@ -1,10 +1,12 @@
 <?php
 $page = $this->uri->segment(1);
+$page_sec = $this->uri->segment(2);
 ?>
 <div class="col-sm-3 clearfix">
 
     <div class="list-group">
         <a  href="profile" class="list-group-item clearfix <?php echo ($page == 'profile') ? 'active' : ''; ?>">Profile <i class="icon-user pull-right"></i></a>
+        <a  href="profile" class="list-group-item clearfix <?php echo ($page_sec == 'chanagePassword') ? 'active' : ''; ?>">Change Password <i class="icon-edit pull-right"></i></a>
         <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
             <a href="tickets" class="list-group-item clearfix <?php echo ($page == 'tickets') ? 'active' : ''; ?>">My Tickets <i class="icon-laptop2 pull-right"></i></a>
         <?php } ?>
