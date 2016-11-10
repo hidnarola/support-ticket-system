@@ -3,8 +3,45 @@
     <div class="container clearfix">
         <div class="row clearfix">
             <div class="col-sm-9">
+                <?php
+                if ($this->session->flashdata('success_msg')) {
+                    ?>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo $this->session->flashdata('success_msg'); ?>
+                    </div>
+                    <?php
+                }
+                ?>
+                <?php
+                if ($this->session->flashdata('error_msg')) {
+                    ?>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo $this->session->flashdata('error_msg'); ?>
+                    </div>
+                    <?php
+                }
+                ?>
+
+
                 <div class="row">
-                    <a class="button button-rounded button-reveal button-small pull-right" onclick="window.location = 'tickets/add'"><i class="icon-plus-sign"></i><span>Add Ticket</span></a>
+                    <div class="col-sm-3">
+                        <?php $current = $this->uri->segment(3); ?>
+                        <!-- <label class="control-label">Filter by Status</label> -->
+                        <select class="select filter form-control" onchange="load_news(this.value);">
+                            <option <?php echo ($current == '') ? 'selected' : ''; ?> value="">All</option>
+                            <option <?php echo ($current == '3') ? 'selected' : ''; ?> value="3">Open</option>
+                            <option <?php echo ($current == '5') ? 'selected' : ''; ?> value="5">Pending</option>
+                            <option <?php echo ($current == '2') ? 'selected' : ''; ?> value="2">In Progress</option>
+                            <option <?php echo ($current == '4') ? 'selected' : ''; ?> value="4">Paused</option>
+                            <option <?php echo ($current == '1') ? 'selected' : ''; ?> value="1">Closed</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-9">
+
+                        <a class="button button-rounded button-reveal button-small pull-right" onclick="window.location = 'tickets/add'"><i class="icon-plus-sign"></i><span>Add Ticket</span></a>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="table-responsive">
@@ -58,6 +95,7 @@
 
 
         </div>
+        
     </div>
 </div>
 
@@ -83,61 +121,40 @@
 <script>
     $(document).ready(function () {
         $('#datatable1').DataTable();
-
-
-//        $('.delete').on('click', function (e) {
-//            $('#confirm')
-//                    .modal({backdrop: 'static', keyboard: false})
-//                    .one('click', '#delete', function (e) {
-//                        //delete function
-//                        alert('here');
-//                    });
-//        });
     });
 </script>
 <script type="text/javascript">
-//    var jconfirm = function (message, callback) {
-//        var options = {
-//            message: message
-//        };
-//        options.buttons = {
-//            cancel: {
-//                label: "No",
-//                className: "btn-default",
-//                callback: function (result) {
-//                    callback(false);
-//                }
-//            },
-//            main: {
-//                label: "Yes",
-//                className: "btn-primary",
-//                callback: function (result) {
-//                    callback(true);
-//                }
-//            }
-//        };
-//        bootbox.dialog(options);
-//    };
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 7000);
+
     var base_url = '<?php echo base_url(); ?>';
     $(document).on('click', '.delete', function () {
         var id = $(this).attr('id').replace('delete_', '');
         var url = base_url + 'tickets/delete';
         $('#delete').on('click', function (e) {
-            alert('xvcx');
-//            $.ajax({
-//                type: 'POST',
-//                url: url,
-//                async: false,
-//                dataType: 'JSON',
-//                data: {id: id, type: type},
-//                success: function (data) {
-//                    if (data.status == 1) {
-//                        window.location.reload();
-//                    } else if (data.status == 0) {
-//                    }
-//                }
-//            });
-
+            $.ajax({
+                type: 'POST',
+                url: url,
+                async: false,
+                dataType: 'JSON',
+                data: {id: id},
+                success: function (data) {
+                    if (data.status == 1) {
+                        window.location.reload();
+                    } else if (data.status == 0) {
+                    }
+                }
+            });
         });
     });
+    function load_news(val) {
+        if (val == '') {
+            window.location = "tickets";
+        } else {
+            window.location = "tickets/index/" + val;
+        }
+    }
 </script>

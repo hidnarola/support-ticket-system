@@ -12354,7 +12354,7 @@ body:not(.device-touch) .tagcloud a {
 
 .wedding-head .first-name,
 .wedding-head .last-name,
-.wedding-head .and {
+/*.wedding-head .and {
 	display: inline-block;
 	margin-right: 15px;
 	font-weight: bold;
@@ -12362,7 +12362,7 @@ body:not(.device-touch) .tagcloud a {
 	text-transform: uppercase;
 	font-family: 'Raleway', sans-serif;
 	letter-spacing: 2px;
-}
+}*/
 
 .wedding-head .last-name {
 	margin: 0 0 0 15px;
@@ -12380,11 +12380,11 @@ body:not(.device-touch) .tagcloud a {
 	text-transform: none;
 }
 
-.wedding-head .and {
+/*.wedding-head .and {
 	margin: 0;
 	font-size: 200px;
 	font-family: 'Times New Roman', serif;
-}
+}*/
 
 
 /* ----------------------------------------------------------------

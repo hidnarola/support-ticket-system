@@ -189,10 +189,13 @@ class User_model extends CI_Model {
         return $q->row_array();
     }
 
-    public function getUserTickets($id, $limit = null) {
+    public function getUserTickets($id,$type=NULL, $limit = null) {
         $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, category.name as category_name,staff.fname as staff_fname ,staff.lname as staff_lname');
         $this->db->where('tickets.is_delete', 0);
         $this->db->where('tickets.user_id', $id);
+        if ($type != null) {
+            $this->db->where('tickets.status_id', $type);
+        }
         if ($limit != null) {
             $this->db->limit(10);
         }

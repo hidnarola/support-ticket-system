@@ -13,14 +13,18 @@ class Tickets extends CI_Controller {
         $this->table = TBL_TICKETS;
     }
 
-    public function index() {
+    public function index($type = NULL) {
         $data['title'] = 'Tickets | Support-Ticket-System';
         $data['header_title'] = 'My Tickets';
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
-        $data['tickets'] = $this->User_model->getUserTickets($userid);
+        $data['tickets'] = $this->User_model->getUserTickets($userid,$type);
 //        p($data['tickets'],1);
         $this->template->load('frontend/page', 'Frontend/Tickets/index', $data);
+    }
+    
+    public function test(){
+        $this->load->view('Frontend/Tickets/test');
     }
 
     public function add() {
@@ -79,13 +83,65 @@ class Tickets extends CI_Controller {
             $data['header_title'] = 'View Ticket';
             $data['user'] = $this->User_model->getUserByID($userid);
             $this->template->load('frontend/page', 'Frontend/Tickets/view', $data);
-        }else{
+        } else {
+            
+        }
+    }
+
+    public function reply($id) {
+        if ($id != '') {
+            $segment = $this->uri->segment(1);
+//            echo $segment; exit;
+            $record_id = base64_decode($id);
+            $data['ticket'] = $this->Ticket_model->get_ticket($record_id);
+//            p($data['ticket'],1);
+
+            $userid = $this->session->userdata('user_logged_in')['id'];
+            $data['title'] = 'Tickets | Support-Ticket-System';
+            $data['header_title'] = 'Send Message Ticket';
+            $data['user'] = $this->User_model->getUserByID($userid);
+            $data['ticketname'] = $data['ticket']->title;
+            $data['ticket_coversation'] = $this->Ticket_model->get_ticket_conversation($record_id);
+//            p($data['ticket_coversation'],1);
+
+            if ($this->input->post()) {
+                $msg_data = array(
+                    'ticket_id' => $record_id,
+                    'message' => $this->input->post('enter-message'),
+                    'sent_from' => $userid
+                );
+                if ($this->Ticket_model->save_ticket_conversation($msg_data)) {
+                    $this->session->set_flashdata('success_msg', 'Message send successfully.');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Unable to send message.');
+                }
+
+                redirect('tickets/reply/' . $id);
+            }
+
+            $this->template->load('frontend/page', 'Frontend/Tickets/reply', $data);
+        } else {
             
         }
     }
 
     public function delete() {
-        
+        $id = $this->input->post('id');
+        if ($id != '') {
+            $record_id = base64_decode($id);
+            if ($this->Admin_model->delete($this->table, $record_id)) {
+                $this->session->set_flashdata('success_msg', 'Ticket is deleted successfully!');
+                $status = 1;
+            } else {
+                $this->session->set_flashdata('error_msg', 'Unable to delete the record.');
+                $status = 0;
+            }
+            $return_array = array(
+                'status' => $status,
+                'id' => $id
+            );
+            echo json_encode($return_array);
+        }
     }
 
 }

@@ -133,7 +133,7 @@
 
                     <div class="col_full nobottommargin">
                         <!--<a href="tickets/add" class="button button-3d button-small button-rounded pull-right" style="background-color: #003473">Save</a>-->
-                        <button type="submit" class="button button-3d button-small button-rounded pull-right" style="background-color: #003473" id="ticket-submit" name="save" value="register">Save</button>
+                        <button type="submit" class="button button-3d button-small button-rounded pull-right blue-button" id="ticket-submit" name="save" value="register">Save</button>
                         <button type="button" class="button button-3d button-small button-rounded button-white button-light pull-right" onclick="window.history.back()">Cancel</button>
                     </div>
                 </form>
