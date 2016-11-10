@@ -94,7 +94,7 @@ $segment = $this->uri->segment(1);
                                                 <a href="<?php echo base_url() . 'admin/tickets/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" title='Edit Ticket' class="edit"><i class="icon-pencil7"></i></a>
                                             </li>
                                             <li class="text-purple-700">
-                                                <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) . '/' . $segment ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i></a>
+                                                <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']); ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i></a>
                                             </li>
                                             <li class="text-grey">
                                                 <a href="<?php echo base_url() . 'admin/tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Reply' class="view"><i class="icon-reply"></i></a>
@@ -117,8 +117,8 @@ $segment = $this->uri->segment(1);
                                                            data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
                                                     <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
                                                            data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
-                                                    <!--                                               <li class="divider"></li>
-                                                                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" ><i class="icon-file-pdf"></i>Change priority</a></li>-->
+                                                    <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
+                                                   data-modal-title="Assign Staff"><i class="icon-user"></i>Assign Staff</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -181,6 +181,10 @@ $segment = $this->uri->segment(1);
                             ?>
                         </select>
                     </div>
+                    <div class="form-group" id="staff_id" style="display:none">
+                        <select class="select" id="staff_val" name="staff_id" required="">
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
@@ -193,8 +197,8 @@ $segment = $this->uri->segment(1);
     <!-- /success modal -->
     <script type="text/javascript">
         $(function() {
-        $('#ticket_table').DataTable();
-    });
+            $('#ticket_table').DataTable();
+        });
         
         $(document).on('click', 'a.chang_pwdd', function () {
             var modal_title = $(this).attr('data-modal-title');
@@ -230,7 +234,26 @@ $segment = $this->uri->segment(1);
 //                var id = $(this).attr('id').replace('changepriority_', '');
                 var action_type = 'priority_id';
                 $('.validation-error-label').hide();
-            } else {
+            }else if (action == 'assign') {
+            var dept = $(this).attr('data-dept');
+             $.ajax({
+                url: 'admin/dashboard/get_staff',
+                data: {'dept':dept},
+                type: 'post',
+            }).done(function (data) {
+                console.log(data);
+                $("select#staff_val").html(data);
+            });
+            $('#staff_id').show();
+            $('#priority_id').hide();
+            $('#status_id').hide();
+            $('#dept_id').hide();
+            var card = document.getElementById("staff_val");
+            var select_data = card.selectedIndex;
+            //                var id = $(this).attr('id').replace('changepriority_', '');
+            var action_type = 'staff_id';
+            $('.validation-error-label').hide();
+        } else {
                 $('#dept_id').hide();
                 $('#priority_id').hide();
                 $('#status_id').hide();

@@ -134,7 +134,6 @@
                         <?php
                         $current_page = $this->uri->segment(3);
                         $page = $this->uri->segment(2);
-                        $users = $page . '/' . $current_page;
                         $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
                         ?>
                         <!-- Main navigation -->
@@ -147,8 +146,8 @@
 
 
                                     <li class="<?php echo ($page == '') ? 'active' : ''; ?>"><a href="admin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-                                    <li class="<?php echo ($users == 'users/tenants') ? 'active' : ''; ?>"><a href="admin/users/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
-                                    <li class="<?php echo ($users == 'users/staffs') ? 'active' : ''; ?>"><a href="admin/users/staffs"><i class="icon-people"></i> <span>Staff</span></a></li>
+                                    <li class="<?php echo ($page == 'tenants') ? 'active' : ''; ?>"><a href="admin/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
+                                    <li class="<?php echo ($page == 'staff') ? 'active' : ''; ?>"><a href="admin/staff"><i class="icon-people"></i> <span>Staff</span></a></li>
                                     <li class="<?php echo ($page == 'tickets') ? 'active' : ''; ?>"><a href="admin/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>

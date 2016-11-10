@@ -161,4 +161,9 @@ class Login extends CI_Controller {
         }
     }
 
+    public function page_not_found(){
+        $data['view'] = 'admin/404_notfound';
+        $this->load->view('admin/error/404_notfound', $data);
+    }
+
 }

@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   |		my-controller/my-method	-> my_controller/my_method
  */
 $route['default_controller'] = 'Home';
-$route['404_override'] = '';
+$route['404_override'] = 'login/page_not_found';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['admin/logout'] = "login/logout";
@@ -68,8 +68,8 @@ $route['admin/manage/ticket_types'] = "admin/dashboard/manage/ticket_types";
 $route['admin/manage/company'] = "admin/dashboard/company";
 $route['admin/get_detail'] = "admin/dashboard/get_detail";
 $route['admin/delete'] = "admin/dashboard/delete";
-$route['admin/users/staffs'] = "admin/users";
-$route['admin/users/tenants'] = "admin/users";
+$route['admin/staff'] = "admin/users";
+$route['admin/tenants'] = "admin/users";
 $route['admin/news_announcements'] = "admin/news";
 
 

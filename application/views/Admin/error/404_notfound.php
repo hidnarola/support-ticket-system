@@ -30,14 +30,13 @@
 
     </head>
 
-    <body class="navbar-top">
+    <body>
 
-        <!-- Main navbar -->
-        <div class="navbar navbar-inverse bg-teal navbar-fixed-top header-highlight">
-            <!--<div class="navbar navbar-default navbar-fixed-top header-highlight">-->
+        <div class="navbar navbar-inverse">
             <div class="navbar-header">
                 <a class="navbar-brand" href="admin">
-                    <!-- <img src="assets/img/logo.png" alt=""> -->
+                    <i class="icon-ticket position-left"></i>
+                    Support Ticket System
                 </a>
 
                 <ul class="nav navbar-nav visible-xs-block">
@@ -49,15 +48,28 @@
             <div class="navbar-collapse collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav">
                     <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
-                </ul>
 
-                <div class="navbar-right">
-                    <p class="navbar-text">Hello <?php
-                        if ($this->session->userdata('admin_logged_in')) {
-                            echo $this->session->userdata('admin_logged_in')['fname'];
-                        }
-                        ?>!</p>
-                </div>
+                </ul>               
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/admin/images/placeholder.jpg" alt="">
+                            <span><?php
+                                if ($this->session->userdata('admin_logged_in')) {
+                                    echo $this->session->userdata('admin_logged_in')['fname'];
+                                }
+//                                        pr($this->session->userdata('admin_logged_in'),1);
+                                ?> !</span>
+                            <i class="caret"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="admin/profile"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
+                            <li><a href="admin/logout"><i class="icon-switch2"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
         <!-- /main navbar -->
@@ -97,7 +109,7 @@
 
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <a href="admin" class="btn btn-primary btn-block content-group"><i class="icon-circle-left2 position-left"></i> Go to dashboard</a>
+                                            <a href="<?php echo $this->uri->segment(1); ?>" class="btn btn-primary btn-block content-group"><i class="icon-circle-left2 position-left"></i> Go to dashboard</a>
                                         </div>
 
 <!--                                        <div class="col-sm-6">

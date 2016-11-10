@@ -157,30 +157,40 @@ class Tickets extends CI_Controller {
         exit;
     }
 
-    public function view($id) {
+    public function view($id=null) {
+        $flag=1;
         if ($id != '') {
             $segment = $this->uri->segment(1);
 //            echo $segment; exit;
             $record_id = base64_decode($id);
-            $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
-            $this->data['title'] = $this->data['page_header'] = 'Tickets / View ticket';
-            $this->data['icon_class'] = 'icon-ticket';
-            if ($segment == 'admin')
-                $this->template->load('admin', 'Admin/Tickets/view', $this->data);
-            else
-                $this->template->load('staff', 'Staff/Tickets/view', $this->data);
-//            $this->template->load('admin', 'Admin/Tickets/view', $this->data);
-            /* check ticket is read or not */
-            $check = $this->Ticket_model->isTicketRead($record_id);
-            if ($check == 0) {
-                /* if ticket is not read, change is_read = 1  */
-                $data = array(
-                    'is_read' => 1
-                );
-                $this->Admin_model->manage_record(TBL_TICKETS, $data, $record_id);
+            $ticket = $this->Ticket_model->get_ticket($record_id);
+            if(!empty($ticket)){
+
+                $this->data['ticket'] = $ticket;
+
+                $this->data['title'] = $this->data['page_header'] = 'Tickets / View ticket';
+                $this->data['icon_class'] = 'icon-ticket';
+                if ($segment == 'admin')
+                    $this->template->load('admin', 'Admin/Tickets/view', $this->data);
+                else
+                    $this->template->load('staff', 'Staff/Tickets/view', $this->data);
+    //            $this->template->load('admin', 'Admin/Tickets/view', $this->data);
+                /* check ticket is read or not */
+                $check = $this->Ticket_model->isTicketRead($record_id);
+                if ($check == 0) {
+                    /* if ticket is not read, change is_read = 1  */
+                    $data = array(
+                        'is_read' => 1
+                    );
+                    $this->Admin_model->manage_record(TBL_TICKETS, $data, $record_id);
+                }
+            }else{
+                $flag=0;
             }
         } else {
-
+            $flag=0;
+        }
+        if($flag==0){
             $data['view'] = 'admin/404_notfound';
             $this->load->view('admin/error/404_notfound', $data);
         }
@@ -251,11 +261,7 @@ class Tickets extends CI_Controller {
         }
     }
 
-    public function staff_index(){
-        $this->data['title'] = $this->data['page_header'] = 'Tickets';
-        $this->data['tickets'] = $this->Staff_model->get_tickets($this->session->userdata('staffed_logged_in')['id']);
-        $this->template->load('staff', 'Staff/Tickets/index', $this->data);
-    }
+    
 
 
     /*

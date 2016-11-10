@@ -17,7 +17,7 @@
 <div class="content">
 
     <?php
-    $segment = $this->uri->segment(3);
+    $segment = $this->uri->segment(2);
     if ($segment == 'tenants')
         $seg = 'tenant';
     else
@@ -65,12 +65,14 @@
                             <th>Verified</th>
                             <th>Status</th>
                             <th>Action</th>
-                            <th>Action</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
                         <?php
+
                         foreach ($users as $key => $record) {
+
                             ?>
                             <tr>
                                 <td><?php echo $key + 1; ?></td>
@@ -102,10 +104,6 @@
                                         <li class="text-danger-600">
                                             <a id="delete_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" class="delete"><i class="icon-trash"></i></a>
                                         </li>
-                                    </ul>
-                                </td>
-                                <td class="text-center">
-                                    <ul class="icons-list">
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                 <i class="icon-menu9"></i>
@@ -114,10 +112,15 @@
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Password</a></li>
                                                 <li><a class="chang_status" data-status="<?php echo $record['status']; ?>" id="changestatus_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Status</a></li>
+                                                <?php /* if ($user == 2) { ?>
+                                                    <li><a class="chang_dept" data-dept="<?php echo $record['name'];?>" id="changedept_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Department</a></li>
+                                                <?php } */ ?>
+
                                             </ul>
                                         </li>
                                     </ul>
                                 </td>
+                               
                             </tr>
                             <?php
                         }
@@ -319,4 +322,19 @@
             }
         });
     });
+
+    /*$(document).on('click', '.chang_dept', function () {
+        var id = $(this).attr('data-record');
+        var url = base_url + 'users/change_dept';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            async: false,
+            dataType: 'JSON',
+            data: {id: id},
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    });*/
 </script>

@@ -114,8 +114,7 @@ $segment = $this->uri->segment(1);
                                                    data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
                                             <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
                                                    data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
-                                                   <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                   data-modal-title="Assign Staff"><i class="icon-user"></i>Assign Staff</a></li>
+                                                   
                                             
                                         </ul>
                                     </li>
