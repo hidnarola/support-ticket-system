@@ -101,8 +101,8 @@
             ?>
 
         </ul>
-        <form method="post">
-        <textarea name="enter-message" class="form-control content-group" rows="3" cols="1" placeholder="Enter your message..."></textarea>
+        <form method="post" class="form-validate-jquery">
+            <textarea name="enter-message" required="" class="form-control content-group" rows="3" cols="1" placeholder="Enter your message..."></textarea>
 
         <div class="row">
             <div class="col-xs-6">
@@ -116,4 +116,3 @@
         </form>
     </div>
 </div>
-<!-- /line content divider -->

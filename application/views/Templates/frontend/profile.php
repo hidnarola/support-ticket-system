@@ -58,8 +58,8 @@
                             <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                                 <li><a href="profile">Profile</a></li>
-                                <li><a href="profile/chanagepassword">Change Password</a></li>
-                                <li><a href="#">Settings</a></li>
+                                <li><a href="profile/changepassword">Change Password</a></li>
+                                <!--<li><a href="#">Settings</a></li>-->
                                 <li role="separator" class="divider"></li>
                                 <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
                             </ul>

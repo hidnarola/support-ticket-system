@@ -76,9 +76,10 @@
                                         <?php } else { ?>
                                             <td  class="text-center"><span class="label label-success">Read</span></td>
                                         <?php } ?>
-                                        <td>
-                                            <!--<button class='btn btn-danger btn-xs' type="submit" name="remove_levels" value="delete"><span class="fa fa-times"></span> delete</button>-->
-                                            <a href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-sm1" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" class="delete" title='Delete Ticket'><i class="icon-trash2"></i></a>
+                                        <td>                                            
+                                            <?php if ($record['status_name'] == 'close') { ?>
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-sm1" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" class="delete" title='Delete Ticket'><i class="icon-trash2"></i></a>
+                                            <?php } ?>
                                             <a href="<?php echo base_url() . 'tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye-open" style="font-size: 16px;"></i></a>
                                             <a href="<?php echo base_url() . 'tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" title='Reply Ticket' class="reply"><i class="icon-envelope2"></i></a>
                                         </td>
@@ -93,9 +94,8 @@
 
             <?php $this->load->view('frontend/User/rightsidebar'); ?>
 
-
         </div>
-        
+
     </div>
 </div>
 
