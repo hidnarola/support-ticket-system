@@ -179,7 +179,7 @@
 
                                 <!--</div>-->
                                 <div class="col_full nobottommargin text-right">
-                                    <button type="submit" class="button button-3d button-black nomargin" id="submit" name="save" value="save">Save</button>
+                                    <button type="submit" class="button button-3d button-black nomargin blue-button" id="submit" name="save" value="save">Save</button>
                                 </div>
                             </form>
                         </div>

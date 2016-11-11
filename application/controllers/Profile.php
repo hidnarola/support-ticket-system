@@ -81,4 +81,30 @@ class Profile extends CI_Controller {
             redirect('profile');
         }
     }
+    
+    public function changepassword(){
+        $old_password = $this->input->post('old_password');
+        $new_password = $this->input->post('new_password');
+        $cnfrm_password = $this->input->post('cnfrm_password');
+        $id = $this->session->userdata('user_logged_in')['id'];
+        $db_password = $this->User_model->get_password($id);
+        
+        $decode_db_password = $this->encrypt->decode($db_password);
+        if($old_password == $db_password){
+            if($new_password==$cnfrm_password){
+                $password = $this->encrypt->encode($new_password);
+                $profile_data = array('password'=>$password);
+                if($this->User_model->edit($profile_data, TBL_USERS, 'id', $id)){
+                    $this->session->set_flashdata('success_msg', 'Password updated successfully');
+                }else{
+                    $this->session->set_flashdata('error_msg', 'Unable to update the password');
+                }
+            }else{
+                $this->session->set_flashdata('error_msg', 'Password Mismatch');
+            }
+        }else{
+            $this->session->set_flashdata('error_msg', 'Incorrect Old Password');
+        }
+        redirect('profile/changepassword');
+    }
 }

@@ -27,12 +27,12 @@
             $action = base_url() . "admin/news/add";
         }
         ?>
-        <form class="form-horizontal form-validate" method="post" id="news_add" enctype="multipart/form-data" action="<?php echo $action ?>" >            
+        <form class="form-horizontal form-validate-jquery" method="post" id="news_add" enctype="multipart/form-data" action="<?php echo $action ?>" >            
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-12">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h5 class="panel-title"><?php echo (isset($data)) ? 'Edit News/Announcement' : 'Add News/Announcement' ?></h5>
+                            <!--<h5 class="panel-title"><?php echo (isset($data)) ? 'Edit News/Announcement' : 'Add News/Announcement' ?></h5>-->
                         </div>
 
                         <div class="panel-body">

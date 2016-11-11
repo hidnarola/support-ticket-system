@@ -104,28 +104,28 @@
                                         }
                                     }
                                     ?>"> 
-                                    <?php echo '<label id="contactno-error" class="validation-error-label" for="contactno">' . form_error('contactno') . '</label>'; ?>
+                                           <?php echo '<label id="contactno-error" class="validation-error-label" for="contactno">' . form_error('contactno') . '</label>'; ?>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                   
-                                <?php if($segment == 'staff'){?>
-                                <div class="form-group col-xs-12">
-                                    <label>Department:</label>                                                                    
-                                    <select class="form-control" name="dept_id" required="">
-                                        <option selected="" value="">Select Department</option> 
-                                        <?php
-                                        foreach ($departments as $row) {
-                                            if ($user->dept_id == $row['id']) {
-                                                echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
-                                            } else {
-                                                echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
+
+                                <?php if ($segment == 'staff') { ?>
+                                    <div class="form-group col-xs-12">
+                                        <label>Department:</label>                                                                    
+                                        <select class="form-control" name="dept_id" required="">
+                                            <option selected="" value="">Select Department</option> 
+                                            <?php
+                                            foreach ($departments as $row) {
+                                                if ($user->dept_id == $row['id']) {
+                                                    echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
+                                                } else {
+                                                    echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
+                                                }
                                             }
-                                        }
-                                        ?>
-                                    </select>
-                                    <?php echo '<label id="dept_id-error" class="validation-error-label" for="dept_id">' . form_error('dept_id') . '</label>'; ?>
-                                </div>
+                                            ?>
+                                        </select>
+                                        <?php echo '<label id="dept_id-error" class="validation-error-label" for="dept_id">' . form_error('dept_id') . '</label>'; ?>
+                                    </div>
                                 <?php } ?>
 
                                 <div class="form-group col-xs-12 user_profile_pic">
@@ -176,7 +176,6 @@
         </div>
     </div>
 </div>
-
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {

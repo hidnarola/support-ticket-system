@@ -172,6 +172,9 @@ $(function() {
             },
             switch_group: {
                 minlength: 2
+            },
+            contactno: {
+                digits: true
             }
         },
         messages: {
