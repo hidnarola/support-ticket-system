@@ -46,7 +46,7 @@
 
 
         <div class="panel-group ticket-view-panel" id="accordion1" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
+            <div class="panel panel-default ticket_details">
                 <div class="panel-heading" role="tab" id="heading1">
                     <h4 class="panel-title">
 
@@ -59,7 +59,7 @@
 
                 <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
                     <div class="panel-body ticket-view">
-                        <table class="table table-striped table-bordered newTickets" data-alert="" data-all="189">
+                        <table class="table table-striped table-bordered newTickets ticket_details" data-alert="" data-all="189">
                             <tbody>
                                 <tr class="alpha-teal">
                                     <th>Assign To</th>
@@ -109,3 +109,14 @@
         <!-- /vertical form -->
     </div>
 </div>
+
+<style>
+    .ticket_details > .panel-heading {
+        background-color: #333;
+        border-color: #ddd;
+        color: #fff;
+    }
+    .alpha-teal {
+        background-color: #e0f2f1 !important;
+    }
+</style>

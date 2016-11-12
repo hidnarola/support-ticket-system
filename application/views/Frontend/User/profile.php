@@ -1,11 +1,8 @@
+<script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
 <!--<section id="content">-->
-
 <div class="content-wrap">
-
     <div class="container clearfix">
-
         <div class="row clearfix">
-
             <div class="col-sm-9">
                 <?php
                 if (isset($user)) {
@@ -30,12 +27,8 @@
                 </div>
 
                 <div class="clear"></div>
-
                 <div class="row clearfix">
-
                     <div class="col-md-12">
-
-
                         <?php
                         if ($this->session->flashdata('success_msg')) {
                             ?>
@@ -57,67 +50,76 @@
                         }
                         ?>
 
-
-                        <div class="acctitle"><i class="acc-closed icon-user4"></i><i class="acc-open icon-ok-sign"></i>Your Details</div>
+                        <!--<div class="acctitle"><i class="acc-closed icon-user4"></i><i class="acc-open icon-ok-sign"></i>Your Details</div>-->
                         <div class="acc_content clearfix">
                             <form id="profile-form" name="profile-form" class="nobottommargin" action="profile" method="post" enctype="multipart/form-data">
-                                <div class="col_full">
-                                    <label for="fname">First Name:</label>
-                                    <input type="text" id="fname" name="fname" class="form-control" value="<?php
-                                    if (isset($user)) {
-                                        echo trim($user['fname']);
-                                    } else {
-                                        if ($this->input->post('fname')) {
-                                            echo $this->input->post('fname');
-                                        } else {
-                                            echo '';
-                                        }
-                                    }
-                                    ?>"/>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="col_full">
+                                            <label for="fname">First Name:</label>
+                                            <input type="text" id="fname" name="fname" required="" class="form-control" value="<?php
+                                            if (isset($user)) {
+                                                echo trim($user['fname']);
+                                            } else {
+                                                if ($this->input->post('fname')) {
+                                                    echo $this->input->post('fname');
+                                                } else {
+                                                    echo '';
+                                                }
+                                            }
+                                            ?>"/>
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                        <div class="col_full">
+                                            <label for="lname">Last Name:</label>
+                                            <input type="text" id="lname" name="lname" required="" class="form-control" value="<?php
+                                            if (isset($user)) {
+                                                echo trim($user['lname']);
+                                            } else {
+                                                if ($this->input->post('lname')) {
+                                                    echo $this->input->post('lname');
+                                                } else {
+                                                    echo '';
+                                                }
+                                            }
+                                            ?>"/>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col_full">
-                                    <label for="lname">Last Name:</label>
-                                    <input type="text" id="lname" name="lname" class="form-control" value="<?php
-                                    if (isset($user)) {
-                                        echo trim($user['lname']);
-                                    } else {
-                                        if ($this->input->post('lname')) {
-                                            echo $this->input->post('lname');
-                                        } else {
-                                            echo '';
-                                        }
-                                    }
-                                    ?>"/>
-                                </div>
-
-                                <div class="col_full">
-                                    <label for="email">Email Address:</label>
-                                    <input type="text" id="email" name="email" class="form-control" value="<?php
-                                    if (isset($user)) {
-                                        echo trim($user['email']);
-                                    } else {
-                                        if ($this->input->post('email')) {
-                                            echo $this->input->post('email');
-                                        } else {
-                                            echo '';
-                                        }
-                                    }
-                                    ?>"/>
-                                </div>
-
-                                <div class="col_full">
-                                    <label for="phone">Contact Number:</label>
-                                    <input type="text" id="contactno" name="contactno" class="form-control" value="<?php
-                                    if (isset($user)) {
-                                        echo trim($user['contactno']);
-                                    } else {
-                                        if ($this->input->post('contactno')) {
-                                            echo $this->input->post('contactno');
-                                        } else {
-                                            echo '';
-                                        }
-                                    }
-                                    ?>"/>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="col_full">
+                                            <label for="email">Email Address:</label>
+                                            <input type="text" id="email" name="email" required="" class="form-control" value="<?php
+                                            if (isset($user)) {
+                                                echo trim($user['email']);
+                                            } else {
+                                                if ($this->input->post('email')) {
+                                                    echo $this->input->post('email');
+                                                } else {
+                                                    echo '';
+                                                }
+                                            }
+                                            ?>"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="col_full">
+                                            <label for="phone">Contact Number:</label>
+                                            <input type="text" id="contactno" name="contactno" required="" class="form-control" value="<?php
+                                            if (isset($user)) {
+                                                echo trim($user['contactno']);
+                                            } else {
+                                                if ($this->input->post('contactno')) {
+                                                    echo $this->input->post('contactno');
+                                                } else {
+                                                    echo '';
+                                                }
+                                            }
+                                            ?>"/>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col_full">
@@ -176,10 +178,9 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <!--</div>-->
                                 <div class="col_full nobottommargin text-right">
-                                    <button type="submit" class="button button-3d button-black nomargin" id="submit" name="save" value="save">Save</button>
+                                    <button type="submit" class="button button-3d button-black nomargin blue-button" id="submit" name="save" value="save">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -190,22 +191,12 @@
             </div>
 
             <div class="line visible-xs-block"></div>
-
             <?php $this->load->view('frontend/User/rightsidebar'); ?>
-
         </div>
-
     </div>
-
 </div>
-
 <!--</section>-->
-<script type="text/javascript">
-    $(document).on('ready', function () {
-
-    });
-</script>
-<script>
+<<script>
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -216,9 +207,15 @@
                 html += '<img src="' + e.target.result + '" style="height: 160px; width: auto;" alternate="Image" />';
                 html += '</div></div>';
                 $('#imgpreview').html(html);
-//            $('#imgpreview').attr('src', e.target.result);
+                //            $('#imgpreview').attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
+    $("#profile-form").validate();
+        window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 7000);
 </script>

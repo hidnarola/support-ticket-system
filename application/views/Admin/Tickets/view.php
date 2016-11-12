@@ -86,13 +86,3 @@
         </div>
     </div>
 </div>
-<style>
-    .ticket_details > .panel-heading {
-        background-color: #333;
-        border-color: #ddd;
-        color: #fff;
-    }
-    .alpha-teal {
-        background-color: #e0f2f1 !important;
-    }
-</style>

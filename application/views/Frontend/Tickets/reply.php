@@ -117,8 +117,8 @@
                         ?>
 
                     </ul>
-                    <form method="post">
-                        <textarea name="enter-message" class="form-control content-group" rows="3" cols="1" placeholder="Enter your message..."></textarea>
+                    <form method="post" id="reply-form-user">
+                        <textarea name="enter-message" required="" class="form-control content-group" rows="3" cols="1" placeholder="Enter your message..."></textarea>
 
                         <div class="row">
                             <div class="col-xs-6">
@@ -139,6 +139,10 @@
         </div>
     </div>
 </div>
+ <script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
+<script>
+    $('#reply-form-user').validate();
+</script>
 <!-- /line content divider -->
 <script>
     window.setTimeout(function () {

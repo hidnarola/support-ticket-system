@@ -21,12 +21,15 @@ label.error::first-letter {text-transform: uppercase;}
 #datatable1 a{margin-left: 5px;}
 
 #ticket-add-form .col_full{margin-bottom: 5px;}
+#change_password-form .col_full{margin-bottom: 10px;}
+#change_password-form .btn_bottom_sec{margin-top: 5px;}
 
 #page-title {background-color: #003473;}
 #page-title h1{color: #fff;}
 #page-title .breadcrumb a {color: #fff;}
 #page-title .breadcrumb > .active {color: #d3d3d3;} 
 #ticket-add-form .bootstrap-select {width: 405px !important;}
+.btn-not-found {background-color:#003473 !important;color: #fff !important;border: 2px solid #003473;}
 
 .dropdown-id-dropdown-toggle{border-color: #E42C3E;}
 

@@ -9,10 +9,10 @@
                     <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
                     <h4 class="content-group"><?php echo $title; ?></h4>
                     <?php
-                    if ($this->session->flashdata('error_msg') && $this->session->flashdata('error_msg')!='') {
+                    if ($this->session->flashdata('error_msg') && $this->session->flashdata('error_msg') != '') {
                         ?>
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="alert alert-danger no-border">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
                             <?php echo $this->session->flashdata('error_msg'); ?>
                         </div>
                         <?php
@@ -21,8 +21,8 @@
                     <?php
                     if ($this->session->flashdata('success_msg')) {
                         ?>
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="alert alert-success no-border">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
                             <?php echo $this->session->flashdata('success_msg'); ?>
                         </div>
                         <?php
@@ -44,20 +44,20 @@
                     </div>
                 </div>
 
-<!--                <div class="form-group login-options">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" class="styled" name="remember_me" value="1">
-                                Remember Me
-                            </label>
-                        </div>
-
-                        <div class="col-sm-6 text-right">
-                            <a href="#">Forgot password?</a>
-                        </div>
-                    </div>
-                </div>-->
+                <!--                <div class="form-group login-options">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" class="styled" name="remember_me" value="1">
+                                                Remember Me
+                                            </label>
+                                        </div>
+                
+                                        <div class="col-sm-6 text-right">
+                                            <a href="#">Forgot password?</a>
+                                        </div>
+                                    </div>
+                                </div>-->
 
                 <div class="form-group">
                     <button type="submit" class="btn bg-pink-400 btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
@@ -67,7 +67,7 @@
     </div>
 </div>
 <script>
-     window.setTimeout(function () {
+    window.setTimeout(function () {
         $(".alert").fadeTo(500, 0).slideUp(500, function () {
             $(this).remove();
         });

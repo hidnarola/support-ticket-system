@@ -16,13 +16,13 @@ class Tickets extends CI_Controller {
     public function index($type = NULL) {
         $segment = $this->uri->segment(1);
         $this->data['icon_class'] = 'icon-ticket';
-        $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tickets';       
-        
+        $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tickets';
+
         $this->data['tickets'] = $this->Admin_model->get_tickets($type);
         $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
         $this->data['priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
-        
+
         if ($segment == 'admin')
             $this->template->load('admin', 'Admin/Tickets/index', $this->data);
         else
@@ -71,48 +71,56 @@ class Tickets extends CI_Controller {
     }
 
     public function edit($id = NULL) {
+        $flag = 1;
         if ($id != '') {
             $record_id = base64_decode($id);
             $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
-            $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
-            $this->data['tickets_types'] = $this->Admin_model->get_records(TBL_TICKET_TYPES);
-            $this->data['tickets_priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
-            $this->data['tickets_statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
-            $this->data['tickets_categories'] = $this->Admin_model->get_records(TBL_CATEGORIES);
+            if (!empty($this->data['ticket'])) {
+                $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
+                $this->data['tickets_types'] = $this->Admin_model->get_records(TBL_TICKET_TYPES);
+                $this->data['tickets_priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
+                $this->data['tickets_statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
+                $this->data['tickets_categories'] = $this->Admin_model->get_records(TBL_CATEGORIES);
 
-            $user_id = $this->session->userdata('admin_logged_in')['id'];
+                $user_id = $this->session->userdata('admin_logged_in')['id'];
 
-            $this->form_validation->set_rules('title', 'Title', 'trim|required');
-            $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
-            $this->form_validation->set_rules('ticket_type_id', 'Ticket Type', 'trim|required');
-            $this->form_validation->set_rules('priority_id', 'Ticket Priority', 'trim|required');
-            $this->form_validation->set_rules('status_id', 'Ticket Status', 'trim|required');
-            $this->form_validation->set_rules('category_id', 'Category', 'trim|required');
-            $this->form_validation->set_rules('description', 'Description', 'trim|required');
-            if ($this->form_validation->run() == FALSE) {
-                $this->data['icon_class'] = 'icon-ticket';
-                $this->data['title'] = $this->data['page_header'] = 'Edit ticket';
-                $this->template->load('admin', 'Admin/Tickets/add', $this->data);
-            } else {
+                $this->form_validation->set_rules('title', 'Title', 'trim|required');
+                $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
+                $this->form_validation->set_rules('ticket_type_id', 'Ticket Type', 'trim|required');
+                $this->form_validation->set_rules('priority_id', 'Ticket Priority', 'trim|required');
+                $this->form_validation->set_rules('status_id', 'Ticket Status', 'trim|required');
+                $this->form_validation->set_rules('category_id', 'Category', 'trim|required');
+                $this->form_validation->set_rules('description', 'Description', 'trim|required');
+                if ($this->form_validation->run() == FALSE) {
+                    $this->data['icon_class'] = 'icon-ticket';
+                    $this->data['title'] = $this->data['page_header'] = 'Edit ticket';
+                    $this->template->load('admin', 'Admin/Tickets/add', $this->data);
+                } else {
 
-                $data = array(
-                    'user_id' => $user_id,
-                    'title' => $this->input->post('title'),
-                    'dept_id' => $this->input->post('dept_id'),
-                    'ticket_type_id' => $this->input->post('ticket_type_id'),
-                    'priority_id' => $this->input->post('priority_id'),
-                    'status_id' => $this->input->post('status_id'),
-                    'category_id' => $this->input->post('category_id'),
-                    'description' => $this->input->post('description'),
-                    'is_delete' => 0,
-                    'created' => date('Y-m-d H:i:s'),
-                );
+                    $data = array(
+                        'user_id' => $user_id,
+                        'title' => $this->input->post('title'),
+                        'dept_id' => $this->input->post('dept_id'),
+                        'ticket_type_id' => $this->input->post('ticket_type_id'),
+                        'priority_id' => $this->input->post('priority_id'),
+                        'status_id' => $this->input->post('status_id'),
+                        'category_id' => $this->input->post('category_id'),
+                        'description' => $this->input->post('description'),
+                        'is_delete' => 0,
+                        'created' => date('Y-m-d H:i:s'),
+                    );
 //                    pr($data, 1);
-                $this->Admin_model->manage_record($this->table, $data, $record_id);
-                $this->session->set_flashdata('success_msg', 'Ticket updated succesfully.');
-                redirect('admin/tickets');
+                    $this->Admin_model->manage_record($this->table, $data, $record_id);
+                    $this->session->set_flashdata('success_msg', 'Ticket updated succesfully.');
+                    redirect('admin/tickets');
+                }
+            } else {
+                $flag = 0;
             }
         } else {
+            $flag = 0;
+        }
+        if ($flag == 0) {
             $data['view'] = 'admin/404_notfound';
             $this->load->view('admin/error/404_notfound', $data);
         }
@@ -172,14 +180,14 @@ class Tickets extends CI_Controller {
         exit;
     }
 
-    public function view($id=null) {
-        $flag=1;
+    public function view($id = null) {
+        $flag = 1;
         if ($id != '') {
             $segment = $this->uri->segment(1);
 //            echo $segment; exit;
             $record_id = base64_decode($id);
             $ticket = $this->Ticket_model->get_ticket($record_id);
-            if(!empty($ticket)){
+            if (!empty($ticket)) {
 
                 $this->data['ticket'] = $ticket;
 
@@ -189,7 +197,7 @@ class Tickets extends CI_Controller {
                     $this->template->load('admin', 'Admin/Tickets/view', $this->data);
                 else
                     $this->template->load('staff', 'Staff/Tickets/view', $this->data);
-    //            $this->template->load('admin', 'Admin/Tickets/view', $this->data);
+                //            $this->template->load('admin', 'Admin/Tickets/view', $this->data);
                 /* check ticket is read or not */
                 $check = $this->Ticket_model->isTicketRead($record_id);
                 if ($check == 0) {
@@ -199,21 +207,22 @@ class Tickets extends CI_Controller {
                     );
                     $this->Admin_model->manage_record(TBL_TICKETS, $data, $record_id);
                 }
-            }else{
-                $flag=0;
+            } else {
+                $flag = 0;
             }
         } else {
-            $flag=0;
+            $flag = 0;
         }
-        if($flag==0){
+        if ($flag == 0) {
             $data['view'] = 'admin/404_notfound';
             $this->load->view('admin/error/404_notfound', $data);
         }
     }
 
-    public function reply($id) {
+    public function reply($id = NULL) {
+        $flag = 1;
         $logged_in = $this->uri->segment(1);
-        
+
         if ($id != '') {
             $record_id = base64_decode($id);
             $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
@@ -222,35 +231,40 @@ class Tickets extends CI_Controller {
             $this->data['title'] = $this->data['page_header'] = 'Tickets / Replies';
 
             $sent_from = $this->session->userdata('admin_logged_in')['id'];
-            if($logged_in=='staff'){
+            if ($logged_in == 'staff') {
                 $sent_from = $this->session->userdata('staffed_logged_in')['id'];
             }
 
-            if($this->input->post()){
+            if ($this->input->post()) {
                 $msg_data = array(
                     'ticket_id' => $record_id,
                     'message' => $this->input->post('enter-message'),
                     'sent_from' => $sent_from
-                    );
-                if($this->Ticket_model->save_ticket_conversation($msg_data)){
+                );
+                if ($this->Ticket_model->save_ticket_conversation($msg_data)) {
                     $this->session->set_flashdata('success_msg', 'Message send successfully.');
-                }else{
+                } else {
                     $this->session->set_flashdata('error_msg', 'Unable to send message.');
                 }
-                if($logged_in == 'admin'){
-                    redirect('admin/tickets/reply/'.$id);
-                }else if($logged_in=='staff'){
-                    redirect('staff/tickets/reply/'.$id);
+                if ($logged_in == 'admin') {
+                    redirect('admin/tickets/reply/' . $id);
+                } else if ($logged_in == 'staff') {
+                    redirect('staff/tickets/reply/' . $id);
                 }
             }
-
-            if($logged_in == 'admin'){
-                $this->template->load('admin', 'Admin/Tickets/reply', $this->data);
-            }else if($logged_in=='staff'){
-                $this->template->load('staff', 'Staff/Tickets/reply', $this->data);
+            if (!empty($this->data['ticket'])) {
+                if ($logged_in == 'admin') {
+                    $this->template->load('admin', 'Admin/Tickets/reply', $this->data);
+                } else if ($logged_in == 'staff') {
+                    $this->template->load('staff', 'Staff/Tickets/reply', $this->data);
+                }
+            } else {
+                $flag = 0;
             }
-
         } else {
+            $flag = 0;
+        }
+        if ($flag == 0) {
             $data['view'] = 'admin/404_notfound';
             $this->load->view('admin/error/404_notfound', $data);
         }
@@ -276,38 +290,34 @@ class Tickets extends CI_Controller {
         }
     }
 
-    
-
-
     /*
-    public function reply($id) {
-        if ($id != '') {
-            $record_id = base64_decode($id);
-            $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
-            $this->data['ticket_coversation'] = $this->Staff_model->get_ticket_conversation($record_id);
-            $this->data['title'] = $this->data['page_header'] = 'Tickets / Replies';
+      public function reply($id) {
+      if ($id != '') {
+      $record_id = base64_decode($id);
+      $this->data['ticket'] = $this->Ticket_model->get_ticket($record_id);
+      $this->data['ticket_coversation'] = $this->Staff_model->get_ticket_conversation($record_id);
+      $this->data['title'] = $this->data['page_header'] = 'Tickets / Replies';
 
-            if($this->input->post()){
-                $msg_data = array(
-                    'ticket_id' => $record_id,
-                    'message' => $this->input->post('enter-message'),
-                    'sent_from' => $this->session->userdata('staffed_logged_in')['id']
-                    );
-                if($this->Ticket_model->save_ticket_conversation($msg_data)){
-                    $this->session->set_flashdata('success_msg', 'Message send successfully.');
-                }else{
-                    $this->session->set_flashdata('error_msg', 'Unable to send message.');
-                }
-                redirect('admin/tickets/reply/'.$id);
-            }
+      if($this->input->post()){
+      $msg_data = array(
+      'ticket_id' => $record_id,
+      'message' => $this->input->post('enter-message'),
+      'sent_from' => $this->session->userdata('staffed_logged_in')['id']
+      );
+      if($this->Ticket_model->save_ticket_conversation($msg_data)){
+      $this->session->set_flashdata('success_msg', 'Message send successfully.');
+      }else{
+      $this->session->set_flashdata('error_msg', 'Unable to send message.');
+      }
+      redirect('admin/tickets/reply/'.$id);
+      }
 
-            $this->template->load('staff', 'Staff/Tickets/reply', $this->data);
-        } else {
-            $data['view'] = 'admin/404_notfound';
-            $this->load->view('admin/error/404_notfound', $data);
-        }
-    }
+      $this->template->load('staff', 'Staff/Tickets/reply', $this->data);
+      } else {
+      $data['view'] = 'admin/404_notfound';
+      $this->load->view('admin/error/404_notfound', $data);
+      }
+      }
 
      */
-
 }
