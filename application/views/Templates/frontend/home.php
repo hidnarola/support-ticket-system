@@ -60,8 +60,7 @@
                                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                                     <li><a href="profile">Profile</a></li>
-                                    <li><a href="#">Messages</a></li>
-                                    <li><a href="#">Settings</a></li>
+                                   <li><a href="profile/changepassword">Change Password</a></li>                                    
                                     <li role="separator" class="divider"></li>
                                     <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
                                 </ul>
@@ -76,11 +75,12 @@
                                 <li class="<?php echo ($page == 'home') ? 'current' : ''; ?>"><a href="home"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
                                     <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
+                                    <li class="mega-menu <?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a></li>
                                 <?php } ?>
                                 <li class="mega-menu"><a href="login"><div>About us</div></a></li>
                                 <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>
                                 <li class="mega-menu"><a href="login"><div>Services</div></a></li>
-                                <li class="mega-menu"><a href="login"><div>Communities</div></a></li>
+                                <!--<li class="mega-menu"><a href="login"><div>Communities</div></a></li>-->
                                 <li class="mega-menu"><a href="login"><div>Gallery</div></a></li>
                                  <?php if ($this->session->userdata('user_logged_in') == '') { ?>
                                     <li class="mega-menu <?php echo ($page == 'login') ? 'current' : ''; ?>"><a href="login"><div>Login</div></a></li>

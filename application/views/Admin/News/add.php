@@ -1,3 +1,5 @@
+<script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="assets/admin/js/pages/editor_ckeditor.js"></script>
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
@@ -15,86 +17,106 @@
 
 <div class="content">
 
-<div class="row">
-    <div class="col-md-12">
-        <?php
-        $segment = $this->uri->segment(4);
-        $edit_segment = $this->uri->segment(3);
+    <div class="row">
+        <div class="col-md-12">
+            <?php
+            $segment = $this->uri->segment(4);
+            $edit_segment = $this->uri->segment(3);
 
-        if (isset($data)) {
-            $action = base_url() . "admin/news/edit/" . base64_encode($data['id']);
-        } else {
-            $action = base_url() . "admin/news/add";
-        }
-        ?>
-        <form class="form-horizontal form-validate-jquery" method="post" id="news_add" enctype="multipart/form-data" action="<?php echo $action ?>" >            
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <!--<h5 class="panel-title"><?php echo (isset($data)) ? 'Edit News/Announcement' : 'Add News/Announcement' ?></h5>-->
-                        </div>
+            if (isset($data)) {
+                $action = base_url() . "admin/news/edit/" . base64_encode($data['id']);
+            } else {
+                $action = base_url() . "admin/news/add";
+            }
+            ?>
+            <form class="form-horizontal form-validate-jquery" method="post" id="news_add" enctype="multipart/form-data" action="<?php echo $action ?>" >            
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <!--<h5 class="panel-title"><?php echo (isset($data)) ? 'Edit News/Announcement' : 'Add News/Announcement' ?></h5>-->
+                            </div>
 
-                        <div class="panel-body">
-                            <div class="center-block" style="max-width:650px;margin: 0 auto;">
-                                
-                                <div class="form-group">
-                                    <label class="display-block control-label text-semibold col-lg-3">Please select</label>
-                                    
-                                    <?php 
+                            <div class="panel-body">
+                                <div class="center-block">
+
+                                    <div class="form-group">
+                                        <label class="display-block control-label text-semibold col-lg-2">Please select</label>
+
+                                        <?php
                                         $news_checked = 'checked';
                                         $announcement_checked = '';
 
-                                        if(isset($data)){
-                                            if($data['is_news']==1){
+                                        if (isset($data)) {
+                                            if ($data['is_news'] == 1) {
                                                 $news_checked = 'checked';
                                                 $announcement_checked = '';
-                                            }else{
+                                            } else {
                                                 $news_checked = '';
                                                 $announcement_checked = 'checked';
                                             }
                                         }
-                                    ?>
+                                        ?>
 
-                                    <label class="radio-inline">
-                                        <input type="radio" value="1" name="is_news" class="styled" <?php echo $news_checked; ?>>
-                                        News
-                                    </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="1" name="is_news" class="styled" <?php echo $news_checked; ?>>
+                                            News
+                                        </label>
 
-                                    <label class="radio-inline">
-                                        <input type="radio" value="0" name="is_news" class="styled" <?php echo $announcement_checked; ?>>
-                                        Announcement
-                                    </label>
-                                    
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Title</label>
-                                    <div class="col-lg-9">
-                                        <input type="text" class="form-control" name="title" placeholder="Enter Title" value="<?php echo (isset($data)) ? $data['title'] : ''; ?>">   
+                                        <label class="radio-inline">
+                                            <input type="radio" value="0" name="is_news" class="styled" <?php echo $announcement_checked; ?>>
+                                            Announcement
+                                        </label>
+
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Description</label>
-                                    <div class="col-lg-9">
-                                        <textarea rows="5" cols="5" name="description" class="form-control" required="required" placeholder="Description Here" aria-required="true" aria-invalid="true"><?php
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Title</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" required="" name="title" placeholder="Enter Title" value="<?php echo (isset($data)) ? $data['title'] : ''; ?>">   
+                                             <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Description</label>
+                                        <div class="col-lg-10">
+    <!--                                        <textarea rows="5" cols="5" name="description" class="form-control" required="required" placeholder="Description Here" aria-required="true" aria-invalid="true"><?php
                                             if (isset($data)) {
                                                 echo trim($data['description']);
                                             } else {
-                                                    echo '';
+                                                echo '';
                                             }
-                                            ?></textarea>
-                                    </div>
-                                </div>
+                                            ?></textarea>-->
+                                            <div class="panel panel-flat">
+                                                <div class="panel-heading">
+                                                </div>
 
-                                <div class="text-right">
-                                    <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
-                                    <button type="submit" class="btn bg-teal">Save <i class="icon-arrow-right14 position-right"></i></button>
+                                                <div class="panel-body">
+
+                                                    <div class="content-group">
+                                                        <textarea name="description" required="" id="editor-full" rows="4" cols="4"><?php
+                                                            if (isset($data)) {
+                                                                echo trim($data['description']);
+                                                            } else {
+                                                                echo '';
+                                                            }
+                                                            ?>	
+                                                        </textarea>
+                                                         <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
+                                        <button type="submit" class="btn bg-teal">Save <i class="icon-arrow-right14 position-right"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>

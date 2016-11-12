@@ -75,7 +75,7 @@
                                             <span class="media-annotation display-block mt-10"><?php echo $date = date('g:i a', strtotime($val['created_date'])); ?></span>
                                         </div>
                                     </li>
-                                <?php
+                                    <?php
                                 } else {
 //                         echo 'in else';
                                     ?>
@@ -95,7 +95,7 @@
                                                     <a href="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>">
                                                         <img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>" class="img-circle" alt="">
                                                     <!--<div class="media-left"><img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?> " class="img-circle" alt=""></div>-->
-                <?php } else { ?>
+                                                    <?php } else { ?>
                                                         <a href="assets/admin/images/placeholder.jpg">
                                                             <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
                                                         </a>
@@ -107,7 +107,7 @@
                                                     <a href="assets/admin/images/placeholder.jpg">
                                                         <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
                                                     </a>
-            <?php } ?>
+                                                <?php } ?>
                                         </div>
                                     </li>
                                     <?php
@@ -135,13 +135,13 @@
             </div>
             <div class="line visible-xs-block"></div>
 
-<?php $this->load->view('frontend/User/rightsidebar'); ?>
+            <?php $this->load->view('frontend/User/rightsidebar'); ?>
         </div>
     </div>
 </div>
- <script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
+<script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
 <script>
-    $('#reply-form-user').validate();
+                                    $('#reply-form-user').validate();
 </script>
 <!-- /line content divider -->
 <script>

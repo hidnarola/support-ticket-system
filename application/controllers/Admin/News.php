@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class News extends CI_Controller {
 
-    public function __construct(){
+    public function __construct() {
         parent::__construct();
         $this->data = array();
         check_isvalidated();
@@ -14,14 +14,14 @@ class News extends CI_Controller {
         $this->load->helper('text');
     }
 
-    public function index($type=null){
+    public function index($type = null) {
         $this->data['title'] = $this->data['page_header'] = 'News And Announcements';
         $this->data['icon_class'] = 'icon-newspaper';
-        $search_text='';
+        $search_text = '';
         $this->data['search_text'] = $search_text;
         $get_data = $this->News_model->get_data($type);
         $search_text = '';
-        if($this->input->get()){
+        if ($this->input->get()) {
             $search_text = $this->input->get('search_text');
             $get_data = $this->News_model->search_news($search_text, $type);
         }
@@ -32,48 +32,56 @@ class News extends CI_Controller {
         $this->template->load('admin', 'Admin/News/index', $this->data);
     }
 
-    public function add(){
+    public function add() {
         $this->data['title'] = $this->data['page_header'] = 'Add News/Announcement';
         $this->data['page'] = 'News/Announcement';
         $this->data['icon_class'] = 'icon-newspaper';
-        if($this->input->post()){
-           $data = array(
-            'title' => $this->input->post('title'),
-            'description'=>$this->input->post('description'),
-            'is_news'=>$this->input->post('is_news'),
-            'user_id'=>$this->session->userdata('admin_logged_in')['id']
+
+        $this->form_validation->set_rules('title', 'Title', 'trim|required');
+        $this->form_validation->set_rules('description', 'Description', 'trim|required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->template->load('admin', 'Admin/News/add', $this->data);
+        } else {
+            $data = array(
+                'title' => $this->input->post('title'),
+                'description' => $this->input->post('description'),
+                'is_news' => $this->input->post('is_news'),
+                'user_id' => $this->session->userdata('admin_logged_in')['id']
             );
-           if($this->News_model->add($data)){
+            if ($this->News_model->add($data)) {
                 $this->session->set_flashdata('success_msg', 'Detail saved successfully.');
-           }else{
+            } else {
                 $this->session->set_flashdata('error_msg', 'Unable to save detail.');
-           }
+            }
         }
-        $this->template->load('admin', 'Admin/News/add', $this->data);
     }
 
-    public function edit($id){
+    public function edit($id) {
         if ($id != '') {
             $record_id = base64_decode($id);
         }
         $this->data['title'] = $this->data['page_header'] = 'Edit News/Announcement';
         $this->data['page'] = 'News/Announcement';
         $this->data['icon_class'] = 'icon-newspaper';
+        $this->form_validation->set_rules('title', 'Title', 'trim|required');
+        $this->form_validation->set_rules('description', 'Description', 'trim|required');
+        if ($this->form_validation->run() == FALSE) {
 
-        if($this->input->post()){
-           $data = array(
-            'title' => $this->input->post('title'),
-            'description'=>$this->input->post('description'),
-            'is_news'=>$this->input->post('is_news'),
+            $this->data['data'] = $this->News_model->get_data_by_id($record_id);
+            $this->template->load('admin', 'Admin/News/add', $this->data);
+        } else {
+
+            $data = array(
+                'title' => $this->input->post('title'),
+                'description' => $this->input->post('description'),
+                'is_news' => $this->input->post('is_news'),
             );
-           if($this->News_model->edit($data, $record_id)){
+            if ($this->News_model->edit($data, $record_id)) {
                 $this->session->set_flashdata('success_msg', 'Detail updated successfully.');
-           }else{
+            } else {
                 $this->session->set_flashdata('error_msg', 'Unable to update detail.');
-           }
+            }
         }
-        $this->data['data'] = $this->News_model->get_data_by_id($record_id);
-        $this->template->load('admin', 'Admin/News/add', $this->data);
     }
 
     public function delete() {
@@ -95,11 +103,12 @@ class News extends CI_Controller {
         }
     }
 
-    public function view($type,$id){
+    public function view($type, $id) {
         $this->data['icon_class'] = 'icon-newspaper';
         $record_id = base64_decode($id);
         $this->data['title'] = $this->data['page_header'] = 'Add News/Announcement';
         $this->data['data'] = $this->News_model->get_data_by_id($record_id);
         $this->template->load('admin', 'Admin/News/view', $this->data);
     }
+
 }

@@ -222,3 +222,101 @@ label.error::first-letter {text-transform: uppercase;}
     border-left: 5px solid #f5f5f5;
     border-bottom: 5px solid transparent;
 }
+
+
+
+#primary, #content, #sidebar {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.ht-container {
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 0 3%;
+}
+
+#primary.sidebar-off #content {
+    width: 100%;
+    float: none;
+    margin: 0;
+    border: none;
+}
+/*#content {
+    float: left;
+    margin: 0 4% 0 0;
+    width: 70%;
+}*/
+.kb-category-list {
+    margin-bottom: 40px;
+}
+.row, .row-fixed, .row-adaptive, .row-delaybreak {
+    width: 100%;
+    margin: 0 auto;
+    zoom: 1;
+}
+
+.post-type-archive-st_kb .kb-category-list .column {
+    margin-bottom: 40px;
+}
+.row .col-half, .row-fixed .col-half, .row-adaptive .col-half {
+    width: 47.78%;
+}
+.column:first-child {
+    margin-left: 0;
+}
+.column {
+    margin-left: 4.4%;
+    float: left;
+    min-height: 1px;
+    position: relative;
+    margin-bottom: 1.5em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.kb-category-list h3, .kb-category-list h3 a, #category-title {
+    color: #30363C;
+}
+.kb-category-list h3, #category-title {
+    margin: 0 0 20px;
+    font-size: 24px;
+    letter-spacing: -0.6px;
+    font-weight: bold;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 0 20px;
+    line-height: 100%;
+}
+
+.kb-category-list h3 span.count{
+    background: #86b854;
+}
+.kb-category-list h3 span.count {
+    color: #fff;
+    font-size: 13px;
+    line-height: 100%;
+    font-weight: 600;
+    letter-spacing: 0;
+    margin: 2px 0 0 10px;
+    padding: 6px 8px;
+    float: right;
+}
+.kb-category-list h3, .kb-category-list h3 a, #category-title {
+    color: #30363C;
+}
+
+.kb-article-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.kb-article-list li {
+    background: url(images/kb-small.png) no-repeat 0 0;
+    margin: 0 0 10px;
+    padding: 0 0 5px 40px;
+}
+.kb-article-list li a {
+    color: #666;
+    color: #41474D;
+}
