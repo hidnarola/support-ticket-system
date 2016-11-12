@@ -33,7 +33,8 @@ class Dashboard extends CI_Controller {
         
         $clients_this_month = $this->Admin_model->get_clients_this_month();
         $tickets_this_month = $this->Admin_model->get_tickets_this_month();
-
+        // pr($clients_this_month);
+        // pr($tickets_this_month);
         $clients_array = array_column($clients_this_month, 'clients');
         $tickets_array = array_column($tickets_this_month, 'tickets');
 
@@ -50,7 +51,7 @@ class Dashboard extends CI_Controller {
         $this->data['total_tenants'] = $this->Admin_model->get_total_users(1);
         $this->data['total_staffs'] = $this->Admin_model->get_total_users(2);
         $this->data['total_tickets'] = $this->Admin_model->get_total(TBL_TICKETS);
-        $this->data['tickets'] = $this->Admin_model->get_tickets($type);
+        $this->data['tickets'] = $this->Admin_model->get_tickets($type,10);
         $this->data['clients_chart'] = $clients_arr;
         $this->data['tickets_chart'] = $tickets_arr;
 //        $this->data['tickets'] = $this->Admin_model->get_tickets($this->table, 1);
@@ -227,5 +228,31 @@ class Dashboard extends CI_Controller {
         }
         echo $html;
         exit;
+    }
+
+    public function change_password(){
+        $old_password = $this->input->post('old_password');
+        $new_password = $this->input->post('new_password');
+        $cnfrm_password = $this->input->post('cnfrm_password');
+        $id = $this->session->userdata('admin_logged_in')['id'];
+        $db_password = $this->User_model->get_password($id);
+        
+        $decode_db_password = $this->encrypt->decode($db_password['password']);
+        if($old_password == $decode_db_password){
+            if($new_password==$cnfrm_password){
+                $password = $this->encrypt->encode($new_password);
+                $profile_data = array('password'=>$password);
+                if($this->User_model->edit($profile_data, TBL_USERS, 'id', $id)){
+                    $this->session->set_flashdata('success_msg', 'Password updated successfully');
+                }else{
+                    $this->session->set_flashdata('error_msg', 'Unable to update the password');
+                }
+            }else{
+                $this->session->set_flashdata('error_msg', 'Password Mismatch');
+            }
+        }else{
+            $this->session->set_flashdata('error_msg', 'Incorrect Old Password');
+        }
+        redirect('admin/profile');
     }
 }

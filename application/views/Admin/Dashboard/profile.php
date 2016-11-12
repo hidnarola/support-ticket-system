@@ -66,5 +66,36 @@
             <!-- /basic layout -->
 
         </div>
+        <div class="col-md-12">
+        <div class="panel panel-flat">
+                <div class="panel-heading">
+                <h5 class="panel-title">Change Password</h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                        </ul>
+                    </div>
+                <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+                <form class="change_pwd_frm" method="post" action="admin/dashboard/change_password">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Old Password:</label>
+                        <input type="password" name="old_password" class="form-control"  placeholder="Enter Old Password" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>New Password:</label>
+                        <input type="password" name="new_password" class="form-control" placeholder="Enter New Password" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Retype New Password:</label>
+                        <input type="password" name="cnfrm_password" class="form-control" placeholder="Re-enter New Password" value="">
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary legitRipple">Save Password <i class="icon-arrow-right14 position-right"></i></button>
+                    </div>
+                </div>
+                </form>
+            </div>
+    </div>
     </div>
 </div>

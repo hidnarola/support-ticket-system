@@ -12,11 +12,10 @@ class Ticket_model extends CI_Model {
      * @return boolean
      * @author : Reema  (Rep)
      */
-    public function updateField($wherekey, $wherevalue, $fieldname, $value, $table) {
-        $query = "update " . $table . " set " . $fieldname . "='" . $value . "' where " . $wherekey . "='" . $wherevalue . "'";
-//        echo $query;
-//        exit;
-        if ($this->db->query($query)) {
+    public function updateField($wherekey, $wherevalue, $update_data, $table) {
+        $this->db->where($wherekey, $wherevalue);
+        
+        if ($this->db->update($table, $update_data)) {
             return true;
         } else {
             return false;

@@ -55,8 +55,8 @@ class Dashboard extends CI_Controller {
         $id = $this->session->userdata('staffed_logged_in')['id'];
         $db_password = $this->User_model->get_password($id);
         
-        $decode_db_password = $this->encrypt->decode($db_password);
-        if($old_password == $db_password){
+        $decode_db_password = $this->encrypt->decode($db_password['password']);
+        if($old_password == $decode_db_password){
             if($new_password==$cnfrm_password){
                 $password = $this->encrypt->encode($new_password);
                 $profile_data = array('password'=>$password);
@@ -74,16 +74,7 @@ class Dashboard extends CI_Controller {
         redirect('staff/profile');
     }
 
-    public function get_staff(){
-        $dept = $this->input->post('dept');
-        $staff = $this->Admin_model->get_staff($dept);
-        $html = '<option value="">Select Staff</option>';
-        foreach ($staff as $row) {
-            $html .= '<option value="'. $row['user_id'] .'">'. $row['fname'].' '. $row['lname'] .'</option>';
-        }
-        echo $html;
-        exit;
-    }
+    
     
    
 

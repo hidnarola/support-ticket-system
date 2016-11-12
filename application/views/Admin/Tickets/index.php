@@ -70,7 +70,7 @@ $segment = $this->uri->segment(1);
                                 ?>
                                 <tr>
                                     <td><?php echo $key + 1; ?></td>
-                                    <?php if ($record['staff_fname'] != '' && $record['staff_lname'] != '') { ?>
+                                    <?php if ($record['staff_id'] != '') { ?>
                                         <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
                                     <?php } else { ?>
                                         <td class="text-center"><span class="label label-success">Free</span></td>
@@ -114,7 +114,7 @@ $segment = $this->uri->segment(1);
                                                     <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
                                                            data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
                                                     <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                   data-modal-title="Assign Staff"><i class="icon-user"></i>Assign Staff</a></li>
+                                                   data-modal-title="Assign Staff"><i class="icon-user"></i><?php echo ($record['staff_id'] != '') ? 'Change' : 'Assign'; ?> Staff</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -146,7 +146,7 @@ $segment = $this->uri->segment(1);
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h6 class="modal-title"></h6>
             </div>
-            <form id="change_action" class="form-validate" method="post" action="admin/tickets/changeAction">
+            <form id="change_action" class="form-validate" novalidate method="post" action="admin/tickets/changeAction">
                 <input type="hidden" id="hidden_value" name="hidden_value" value=""/>
                 <input type="hidden" id="select_type" name="select_type" value=""/>
                 <input type="hidden" id="hidden_id" name="hidden_id" value=""/>
@@ -201,41 +201,45 @@ $segment = $this->uri->segment(1);
             $('#ticket_table').DataTable();
         });
         
-        $(document).on('click', 'a.chang_pwdd', function () {
-            var modal_title = $(this).attr('data-modal-title');
-            var action = $(this).attr('data-act');
-            var url = base_url + 'tickets/changeAction';
-            var id = $(this).attr('id').replace('changedept_', '');
-            $('#hidden_id').val(id);
-            if (action == 'dept') {
-                $('#dept_id').show();
-                $('#priority_id').hide();
-                $('#status_id').hide();
-//                var id = $(this).attr('id').replace('changedept_', '');
-                var action_type = 'dept_id';
-                $('.validation-error-label').hide();
-                var card = document.getElementById("dept_val");
-                var select_data = card.selectedIndex;
-
-            } else if (action == 'status') {
-                $('#dept_id').hide();
-                $('#priority_id').hide();
-                $('#status_id').show();
-                var card = document.getElementById("status_val");
-                var select_data = card.selectedIndex;
-//                var id = $(this).attr('id').replace('changestatus_', '');
-                var action_type = 'status_id';
-                $('.validation-error-label').hide();
-            } else if (action == 'priority') {
-                $('#priority_id').show();
-                $('#status_id').hide();
-                $('#dept_id').hide();
-                var card = document.getElementById("priority_val");
-                var select_data = card.selectedIndex;
-//                var id = $(this).attr('id').replace('changepriority_', '');
-                var action_type = 'priority_id';
-                $('.validation-error-label').hide();
-            }else if (action == 'assign') {
+        var base_url = '<?php echo base_url(); ?>admin/';
+    $(document).on('click', 'a.chang_pwdd', function () {
+        var modal_title = $(this).attr('data-modal-title');
+        var action = $(this).attr('data-act');
+        var url = base_url + 'tickets/changeAction';
+        // var id = $(this).attr('id').replace('changedept_', '');
+        var id = $(this).attr('data-record');
+        $('#hidden_id').val(id);
+        if (action == 'dept') {
+            $('#dept_id').show();
+            $('#staff_id').hide();
+            $('#priority_id').hide();
+            $('#status_id').hide();
+            //                var id = $(this).attr('id').replace('changedept_', '');
+            var action_type = 'dept_id';
+            $('.validation-error-label').hide();
+            var card = document.getElementById("dept_val");
+            var select_data = card.selectedIndex;
+        } else if (action == 'status') {
+            $('#dept_id').hide();
+            $('#staff_id').hide();
+            $('#priority_id').hide();
+            $('#status_id').show();
+            var card = document.getElementById("status_val");
+            var select_data = card.selectedIndex;
+            //                var id = $(this).attr('id').replace('changestatus_', '');
+            var action_type = 'status_id';
+            $('.validation-error-label').hide();
+        } else if (action == 'priority') {
+            $('#priority_id').show();
+            $('#staff_id').hide();
+            $('#status_id').hide();
+            $('#dept_id').hide();
+            var card = document.getElementById("priority_val");
+            var select_data = card.selectedIndex;
+            //                var id = $(this).attr('id').replace('changepriority_', '');
+            var action_type = 'priority_id';
+            $('.validation-error-label').hide();
+        }else if (action == 'assign') {
             var dept = $(this).attr('data-dept');
              $.ajax({
                 url: 'admin/dashboard/get_staff',
@@ -255,41 +259,43 @@ $segment = $this->uri->segment(1);
             var action_type = 'staff_id';
             $('.validation-error-label').hide();
         } else {
-                $('#dept_id').hide();
-                $('#priority_id').hide();
-                $('#status_id').hide();
-            }
-
-            $('.modal-title').html(modal_title);
-            var select = card.selectedIndex;
-            var hidden_val = select;
-            $('#hidden_value').val(hidden_val);
-            $('#select_type').val(action_type);
-        });
-
-        $(function () {
-            $("#change_action").submit(function (event) {
-                var url = $(this).attr('action');
-                $.ajax({
-                    url: url,
-                    data: {form: $('#change_action').serialize()},
-                    type: $(this).attr('method')
-                }).done(function (data) {
-                    if (data = 'success') {
-                        $('#modal_theme_success').modal('hide');
-                        $('#change_action')[0].reset();
-                        $('#ticket_table').dataTable();
-//                       $("#dept_val option[value='']").attr('selected', true)
-                        $('#dept_val').val('');
-                        $('#status_val').val('');
-                        $('#priority_val').val('');
-                        window.location.reload();
-                    } else {
-                    }
-                });
-                event.preventDefault();
+            $('#dept_id').hide();
+            $('#priority_id').hide();
+            $('#status_id').hide();
+            $('#staff_id').hide();
+        }
+        $('.modal-title').html(modal_title);
+        var select = card.selectedIndex;
+        var hidden_val = select;
+        $('#hidden_value').val(hidden_val);
+        $('#select_type').val(action_type);
+    });
+    $(function () {
+        $("#change_action").submit(function (event) {
+            var url = $(this).attr('action');
+            $.ajax({
+                url: url,
+                data: {form: $('#change_action').serialize()},
+                type: $(this).attr('method')
+            }).done(function (data) {
+                // console.log("data", data);
+                // return false;
+                if (data = 'success') {
+                    $('#modal_theme_success').modal('hide');
+                    $('#change_action')[0].reset();
+                    $('#ticket_table').dataTable();
+                    //$("#dept_val option[value='']").attr('selected', true)
+                    $('#dept_val').val('');
+                    $('#staff_val').val('');
+                    $('#status_val').val('');
+                    $('#priority_val').val('');
+                    //window.location.reload();
+                } else {
+                }
             });
+            event.preventDefault();
         });
+    });
     </script>
     <script type="text/javascript">
         var jconfirm = function (message, callback) {
