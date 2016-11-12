@@ -124,28 +124,43 @@ class Tickets extends CI_Controller {
     public function changeAction() {
         $form = $this->input->get_post('form');
         $form = explode('&', $form);
+        //pr($form);
         $form['select_type'] = explode('=', $form[1]);
         $type = $form['select_type'][1];
-
+        // pr($type);
         $form['hidden_id'] = explode('=', $form[2]);
         $id = $form['hidden_id'][1];
         $record_id = base64_decode($id);
-
+        // echo $record_id;
         $form['dept_id'] = explode('=', $form[3]);
         $dept_id = $form['dept_id'][1];
         $form['status_id'] = explode('=', $form[4]);
         $status_id = $form['status_id'][1];
         $form['priority_id'] = explode('=', $form[5]);
         $priority_id = $form['priority_id'][1];
-
+        $form['staff_id'] = explode('=', $form[6]);
+        $staff_id = $form['staff_id'][1];
+        $update_data = array();
         if ($type == 'dept_id') {
-            $select_data = $dept_id;
+            $update_data = array(
+                'dept_id'=>$dept_id,
+                'staff_id'=>NULL
+                );
         } else if ($type == 'status_id') {
-            $select_data = $status_id;
+            $update_data = array(
+                'status_id'=>$status_id
+                );
         } else if ($type == 'priority_id') {
-            $select_data = $priority_id;
+            $update_data = array(
+                'priority_id'=>$priority_id
+                );
+        }else if ($type == 'staff_id') {
+            $update_data = array(
+                'staff_id'=>$staff_id
+                );
         }
-        $rec = $this->Ticket_model->updateField('id', $record_id, $type, $select_data, $this->table);
+        // pr($update_data,1);
+        $rec = $this->Ticket_model->updateField('id', $record_id, $update_data, $this->table);
         if ($rec) {
             $this->session->set_flashdata('success_msg', 'Data is updated succesfully..!!');
             $data = 'success';

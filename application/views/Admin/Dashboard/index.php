@@ -104,14 +104,14 @@
                 <div class="row text-center">
                     <div class="col-md-6">
                         <div class="content-group">
-                            <h5 class="text-semibold no-margin"><i class="icon-ticket position-left text-primary"></i> <?php echo $total_tickets; ?></h5>
+                            <h5 class="text-semibold no-margin"><i class="icon-ticket position-left text-danger"></i> <?php echo $total_tickets; ?></h5>
                             <span class="text-muted text-size-small">Total Tickets this month</span>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="content-group">
-                            <h5 class="text-semibold no-margin"><i class="icon-users position-left text-danger"></i> <?php echo $total_clients; ?></h5>
+                            <h5 class="text-semibold no-margin"><i class="icon-users position-left text-primary"></i> <?php echo $total_clients; ?></h5>
                             <span class="text-muted text-size-small">Total Clients this month</span>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                 <thead>
                     <tr class="bg-teal">
                         <th>#</th>
-                        <th>Staff</th>
+                        <th>Assigned To</th>
                         <th>Title</th>
                         <th>Tenant</th>
                         <th>Department</th>
@@ -151,11 +151,11 @@
                 <tbody>
                     <?php
                     foreach ($tickets as $key => $record) {
-                        //pr($record);
+                       // pr($record);
                         ?>
                         <tr>
                             <td><?php echo $key + 1; ?></td>
-                            <?php if ($record['staff_fname'] != '' && $record['staff_lname'] != '') { ?>
+                            <?php if ($record['staff_id'] != '') { ?>
                                 <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
                             <?php } else { ?>
                                 <td class="text-center"><span class="label label-success">Free</span></td>
@@ -192,8 +192,10 @@
                                                    data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
                                             <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
                                                    data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
+                                        
                                              <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                   data-modal-title="Assign Staff"><i class="icon-user"></i>Assign Staff</a></li>
+                                                   data-modal-title="Assign Staff"><i class="icon-user"></i> <?php echo ($record['staff_id'] != '') ? 'Change' : 'Assign'; ?> Staff</a></li>
+                                        
                                         </ul>
                                     </li>
                                 </ul>
@@ -219,7 +221,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h6 class="modal-title"></h6>
             </div>
-            <form id="change_action" class="form-validate" method="post" action="admin/tickets/changeAction">
+            <form id="change_action" class="form-validate" method="post" novalidate action="admin/tickets/changeAction">
                 <input type="hidden" id="hidden_value" name="hidden_value" value=""/>
                 <input type="hidden" id="select_type" name="select_type" value=""/>
                 <input type="hidden" id="hidden_id" name="hidden_id" value=""/>
@@ -272,7 +274,7 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
-$('.datatable-basic').dataTable();
+// $('.datatable-basic').dataTable();
 
     $(function () {
         var dt = new Date();
@@ -335,7 +337,8 @@ $('.datatable-basic').dataTable();
         var modal_title = $(this).attr('data-modal-title');
         var action = $(this).attr('data-act');
         var url = base_url + 'tickets/changeAction';
-        var id = $(this).attr('id').replace('changedept_', '');
+        // var id = $(this).attr('id').replace('changedept_', '');
+        var id = $(this).attr('data-record');
         $('#hidden_id').val(id);
         if (action == 'dept') {
             $('#dept_id').show();
@@ -406,6 +409,8 @@ $('.datatable-basic').dataTable();
                 data: {form: $('#change_action').serialize()},
                 type: $(this).attr('method')
             }).done(function (data) {
+                // console.log("data", data);
+                // return false;
                 if (data = 'success') {
                     $('#modal_theme_success').modal('hide');
                     $('#change_action')[0].reset();

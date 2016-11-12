@@ -119,7 +119,7 @@ class Admin_model extends CI_Model {
      * @author : Reema  (Rep)
      * @return type
      */
-    public function get_tickets($type) {
+    public function get_tickets($type, $limit = null) {
         $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, category.name as category_name, staff.fname as staff_fname ,staff.lname as staff_lname');
         $this->db->where('tickets.is_delete', 0);
         if ($type != null) {
@@ -135,6 +135,9 @@ class Admin_model extends CI_Model {
         $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
         $this->db->join(TBL_CATEGORIES . ' category', 'category.id = tickets.category_id', 'left');
         $this->db->order_by("tickets.id", "desc");
+         if ($limit != null) {
+            $this->db->limit(10);
+        }
 
         $query = $this->db->get();
 
@@ -165,7 +168,8 @@ class Admin_model extends CI_Model {
 
     public function get_clients_this_month() {
         $this->db->select('Day(created) as day, count(id) as clients');
-        $this->db->where('MONTH(created)', 10);
+        // $this->db->where('MONTH(created)', 11);
+        $this->db->where('MONTH(created)', date('m'));
         $this->db->group_by('Date(created)');
         $result = $this->db->get(TBL_USERS);
         return $result->result_array();
@@ -173,8 +177,8 @@ class Admin_model extends CI_Model {
 
     public function get_tickets_this_month() {
         $this->db->select('Day(created) as day, count(id) as tickets');
-        $this->db->where('MONTH(created)', 10);
-        // $this->db->where('MONTH(created)', date('j'));
+        // $this->db->where('MONTH(created)', 11);
+        $this->db->where('MONTH(created)', date('m'));
         $this->db->group_by('Date(created)');
         $result = $this->db->get(TBL_TICKETS);
         return $result->result_array();
