@@ -117,3 +117,7 @@ define('ANNOUNCEMENT_IMAGE', 'uploads/announcements/original');
 define('ANNOUNCEMENT_THUMB_IMAGE', 'uploads/announcements/thumb');
 define('ANNOUNCEMENT_MEDIUM_IMAGE', 'uploads/announcements/medium');
 
+define('ARTICLE_IMAGE', 'uploads/articles');
+define('ARTICLE_THUMB_IMAGE', 'uploads/articles/thumb');
+define('ARTICLE_MEDIUM_IMAGE', 'uploads/articles/medium');
+
