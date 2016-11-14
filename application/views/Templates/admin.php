@@ -135,6 +135,7 @@
                         $current_page = $this->uri->segment(3);
                         $page = $this->uri->segment(2);
                         $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
+                        $knowledgebase = array('faq', 'articles');
                         ?>
                         <!-- Main navigation -->
                         <div class="sidebar-category sidebar-category-visible">
@@ -152,10 +153,14 @@
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
                                     <li class="<?php echo ($current_page == 'news_announcements') ? 'active' : ''; ?>"><a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a></li>
-                                    <li class="<?php echo ($current_page == 'faq') ? 'active' : ''; ?>"><a href="admin/faq"><i class="icon-question3"></i> <span>FAQ'S</span></a></li>
-                                    <li class="<?php echo ($current_page == 'articles') ? 'active' : ''; ?>"><a href="admin/articles"><i class="icon-magazine"></i> <span>Articles</span></a></li>
+                                    <li class="<?php echo (in_array($page, $knowledgebase)) ? 'active' : ''; ?>">
+                                        <a href="#"><i class="icon-book"></i><span>Knowledge Base</span></a>
+                                        <ul>
+                                            <li class="<?php echo ($page == 'faq') ? 'active' : ''; ?>"><a href="admin/faq"><i class="icon-question3"></i> <span>FAQ'S</span></a></li>
+                                            <li class="<?php echo ($page == 'articles') ? 'active' : ''; ?>"><a href="admin/articles"><i class="icon-magazine"></i> <span>Articles</span></a></li>
 
-
+                                        </ul>
+                                    </li>
                                     <li class="<?php echo (in_array($current_page, $settings)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-gear"></i><span>Settings</span></a>
                                         <ul>
@@ -183,35 +188,35 @@
 
                 <!-- Main content -->
                 <div class="content-wrapper">
-                
-                <?php
-                            if ($this->session->flashdata('success_msg')) {
-                                ?>
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <?php echo $this->session->flashdata('success_msg'); ?>
-                                </div>
-                                <?php
-                            }
-                            ?>
-                            <?php
-                            if ($this->session->flashdata('error_msg')) {
-                                ?>
-                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <?php echo $this->session->flashdata('error_msg'); ?>
-                                </div>
-                                <?php
-                            }
-                            ?>
 
-                            <div class="alert alert-dismissible div_alert_error" role="alert" style="display: none;">
-                                <button type="button" class="close alert_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <div id="error_msg_div">
-                                    <p class="alert_error_msg"></p>
-                                </div>
-                            </div>
-                           
+                    <?php
+                    if ($this->session->flashdata('success_msg')) {
+                        ?>
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <?php echo $this->session->flashdata('success_msg'); ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if ($this->session->flashdata('error_msg')) {
+                        ?>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <?php echo $this->session->flashdata('error_msg'); ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
+
+                    <div class="alert alert-dismissible div_alert_error" role="alert" style="display: none;">
+                        <button type="button" class="close alert_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="error_msg_div">
+                            <p class="alert_error_msg"></p>
+                        </div>
+                    </div>
+
                     <!-- Page header -->
                     <?php echo $body; ?>
                 </div>

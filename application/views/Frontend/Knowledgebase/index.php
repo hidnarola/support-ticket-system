@@ -30,7 +30,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="column col-half">
+<!--                            <div class="column col-half">
                                 <h3>
                                     <span class="count">4 Articles</span>
                                     <a href="http://demo.herothemes.com/supportdesk/section/copyright-legal/" title="View all posts in Copyright &amp; Legal">Copyright &amp; Legal <span>→</span></a>
@@ -49,8 +49,8 @@
                                         <a href="http://demo.herothemes.com/supportdesk/knowledgebase/how-do-i-file-a-dmca/" rel="bookmark">How do I file a DMCA</a>
                                     </li>
                                 </ul>
-                            </div>
-                            <div class="column col-half">
+                            </div>-->
+<!--                            <div class="column col-half">
                                 <h3>
                                     <span class="count">19 Articles</span>
                                     <a href="http://demo.herothemes.com/supportdesk/section/customization/" title="View all posts in Customization">Customization <span>→</span></a>
@@ -72,10 +72,11 @@
                                         <a href="http://demo.herothemes.com/supportdesk/knowledgebase/changing-the-theme-color/" rel="bookmark">Changing the theme color</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div>-->
+                        </div>
                     </section>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 

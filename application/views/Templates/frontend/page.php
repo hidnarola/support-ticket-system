@@ -113,11 +113,38 @@
 
                 <div class="container clearfix">
                     <h1><?php echo $header_title; ?></h1>
+                    <?php if ($page == 'knowledgebase') { ?>
+                        <div id="live-search">
+                            <form role="search" method="get" id="searchform" class="clearfix" action="knowledgebase" autocomplete="off"> 
+                                <input type="text" onfocus="if (this.value == 'Search the knowledge base...') {
+                                                this.value = '';
+                                            }" onblur="if (this.value == '') {
+                                                        this.value = 'Search the knowledge base...';
+                                                    }" value="Search the knowledge base..." name="s" id="s" autocomplete="off">
+                                <input type="hidden" name="post_type[]" value="st_kb">
+                            </form>
+                        </div>
+                        <style>
+                            #page-title {
+                                padding: 35px 0;
+                            }
+                        </style>
+                    <?php }
+                    ?>
                     <ol class="breadcrumb">
                         <li><a href="home">Home</a></li>
-                        <?php if ($page != '' && $sec_segment == '') { ?>
-                            <li class="active"><?php echo $page; ?></li>
-                        <?php } else if ($page != '' && $sec_segment != '') { ?>
+                        <?php
+                        if ($page != '' && $sec_segment == '') {
+                            if ($page == 'knowledgebase') {
+                                ?>
+                                <li class="active"><?php echo 'Knowledge Base'; ?></li>
+                            <?php } else { ?>
+                               
+                                <li class="active"><?php echo $page; ?></li>
+                                <?php
+                            }
+                        } else if ($page != '' && $sec_segment != '') {
+                            ?>
                             <li><a href="<?php echo $page; ?>"><?php echo $page; ?></a></li>
                         <?php } ?>
                         <?php if ($sec_segment != '') { ?>

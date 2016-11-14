@@ -50,8 +50,10 @@ class News extends CI_Controller {
             );
             if ($this->News_model->add($data)) {
                 $this->session->set_flashdata('success_msg', 'Detail saved successfully.');
+                 redirect('admin/news');
             } else {
                 $this->session->set_flashdata('error_msg', 'Unable to save detail.');
+                 redirect('admin/news/add');
             }
         }
     }
@@ -78,8 +80,10 @@ class News extends CI_Controller {
             );
             if ($this->News_model->edit($data, $record_id)) {
                 $this->session->set_flashdata('success_msg', 'Detail updated successfully.');
+                redirect('admin/news');
             } else {
                 $this->session->set_flashdata('error_msg', 'Unable to update detail.');
+                 redirect('admin/news/edit');
             }
         }
     }
