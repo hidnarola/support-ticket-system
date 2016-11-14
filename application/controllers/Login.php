@@ -101,6 +101,35 @@ class Login extends CI_Controller {
             $data['user'] = $this->User_model->getUserByID($userid);
             $this->template->load('frontend/page', 'Frontend/login_register', $data);
         } else {
+
+            if ($_FILES['contract']['name'] != '') {
+                    $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG', 'pdf', 'PDF');
+                    $exts = explode(".", $_FILES['contract']['name']);
+                    $name = $exts[0] . time() . "." . $exts[1];
+                    $name = "contract-" . date("mdYhHis") . "." . $exts[1];
+
+                    $config['upload_path'] = USER_CONTRACT;
+                    $config['allowed_types'] = implode("|", $type_array);
+                    $config['max_size'] = '2048';
+                    $config['file_name'] = $name;
+
+                    $this->upload->initialize($config);
+
+                    if (!$this->upload->do_upload('contract')) {
+                        $flag = 1;
+                        $data['contract_validation'] = $this->upload->display_errors();
+                    } else {
+                        $file_info = $this->upload->data();
+                        $contract = $file_info['file_name'];
+
+                        $src = './' . USER_CONTRACT . '/' . $contract;
+                        
+                    }
+                } else {
+                    $contract = '';
+                }
+
+
             $password = $this->encrypt->encode($this->input->post('password'));
             $data = array(
                 'fname' => $this->input->post('fname'),
@@ -114,6 +143,7 @@ class Login extends CI_Controller {
                 'status' => 0,
                 'is_delete' => 0,
                 'created' => date('Y-m-d H:i:s'),
+                'contract'=>$contract
             );
 //            p($data, 1);
             $this->Admin_model->manage_record($this->table, $data);

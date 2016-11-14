@@ -26,15 +26,18 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-9"> 
-                    <a onclick="window.location = 'admin/news/add'" class="btn btn-success btn-labeled pull-right"><b><i class="icon-plus-circle2"></i></b> Add New</a>
+                <div class="col-md-9">
+                    <div class="col-md-4">
                     <!--<button type="button" class="btn bg-pink-400 pull-right" onclick="window.location = 'admin/news/add'"><i class="icon-plus-circle2 position-left"></i>Add New</button>-->
                     <?php $current = $this->uri->segment(4); ?>
-                    <select class="pull-right selectpicker filter" onchange="load_news(this.value);">
+                    <select class="select filter" onchange="load_news(this.value);">
                         <option <?php echo ($current == '') ? 'selected' : ''; ?> value="">Both</option>
                         <option <?php echo ($current == '1') ? 'selected' : ''; ?> value="1">News</option>
                         <option <?php echo ($current == '0') ? 'selected' : ''; ?> value="0">Announcements</option>
                     </select>
+                    </div>
+                    <div class="col-md-8"> 
+                    <a onclick="window.location = 'admin/news/add'" class="btn btn-success btn-labeled pull-right"><b><i class="icon-plus-circle2"></i></b> Add New</a></div>
                 </div>
             </div>
             <!-- </h5> -->
@@ -63,7 +66,7 @@
                                     ?>
 
                                     <div class="col-md-2">
-                                        <img src="<?php echo $image; ?>">
+                                        <img src="<?php echo $image; ?>"/>
                                     </div>
                                 <?php } ?>
 

@@ -46,7 +46,7 @@
 
             <div class="acctitle acctitle_register"><i class="acc-closed icon-user4"></i><i class="acc-open icon-ok-sign"></i>New Signup? Register for an Account</div>
             <div class="acc_content clearfix register_accordion"  id="hiddenFields">
-                <form id="register-form" name="register-form" class="nobottommargin" action="login/signup" method="post">
+                <form id="register-form" name="register-form" class="nobottommargin" enctype="multipart/form-data" action="login/signup" method="post">
                     <div class="col_full">
                         <label for="register-form-name">First Name:</label>
                         <input type="text" id="fname" name="fname" value="<?php echo set_value('fname'); ?>" required="required" class="form-control required" />
@@ -89,6 +89,12 @@
                         <label for="register-form-phone">Address:</label>
                         <textarea rows="5" cols="5" name="address" class="form-control required" required="required" placeholder="Address" aria-required="true" aria-invalid="true"><?php echo set_value('address'); ?></textarea>
                         <?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
+                    </div>
+                    <div class="col_full">
+                        <label for="register-form-phone">Contract:</label>
+                        <input type="file" id="contract" name="contract" required="required" value="<?php echo set_value('contract'); ?>" class="form-control required" />
+                        <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
+                        <?php echo '<label id="contract-error" class="validation-error-label" for="contract">' . form_error('contract') . '</label>'; ?>
                     </div>
 
                     <div class="col_full nobottommargin">

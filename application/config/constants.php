@@ -107,6 +107,8 @@ define('USER_PROFILE_IMAGE', 'uploads/user_profile_image/original');
 define('PROFILE_THUMB_IMAGE', 'uploads/user_profile_image/thumb');
 define('PROFILE_MEDIUM_IMAGE', 'uploads/user_profile_image/medium');
 
+define('USER_CONTRACT', 'uploads/contracts');
+
 define('NEWS_IMAGE', 'uploads/news/original');
 define('NEWS_THUMB_IMAGE', 'uploads/news/thumb');
 define('NEWS_MEDIUM_IMAGE', 'uploads/news/medium');
