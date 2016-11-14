@@ -33,7 +33,7 @@ $segment = $this->uri->segment(1);
         <div class="panel-body">
             <div class="row">
                 <!--<div class="table-responsive ticket_table">-->
-                <table class="table datatable-basic">
+<!--                <table class="table datatable-basic">
                     <thead>
                         <tr class="bg-teal">
                             <th>#</th>
@@ -45,18 +45,16 @@ $segment = $this->uri->segment(1);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        foreach ($articles as $key => $record) {
-                            ?>
+                        
                             <tr>
                                 <td><?php echo $key + 1; ?></td>
                                 <td><?php echo $record['title']; ?></td>
                                 <td><?php echo $record['cat_name']; ?></td>                              
-                                <?php if ($record['is_visible'] == 0) { ?>
-                                    <td><span class="label label-success">Yes</span></td>
-                                <?php } else { ?>
-                                    <td><span class="label label-warning">No</span></td>
-                                <?php } ?>
+                <?php if ($record['is_visible'] == 0) { ?>
+                                                                    <td><span class="label label-success">Yes</span></td>
+                <?php } else { ?>
+                                                                    <td><span class="label label-warning">No</span></td>
+                <?php } ?>
                                 <td><?php echo date('Y-m-d', strtotime($record['a_created'])); ?></td>
                                 <td>
                                     <ul class="icons-list">
@@ -73,66 +71,127 @@ $segment = $this->uri->segment(1);
                                     </ul>
                                 </td>
                             </tr>
-                            <?php
-                        }
-                        ?>
+                           
                     </tbody>
-                </table>
+                </table>-->
+                <?php
+                foreach ($articles as $key => $record) {
+                    ?>
+                    <div class="col-md-12">
+                        <div class="panel panel-body">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a title="Article"><i class="icon-magazine text-success-400 icon-2x no-edge-top mt-5"></i></a>
+                                </div>
+
+                                <div class="media-body">
+                                    <?php
+                                    if ($record['image'] != '') {
+                                        $image = ARTICLE_MEDIUM_IMAGE . '/' . $record['image'];
+                                        ?>
+
+                                        <div class="col-md-2">
+                                            <img src="<?php echo $image; ?>">
+                                        </div>
+                                    <?php } ?>
+
+                                    <div class="col-md-9">
+                                        <h5 class="media-heading text-semibold"><a href="admin/articles/view/<?php echo base64_encode($record['aid']); ?>" class="text-default"><?php echo $record['title']; ?></a></h5>
+                                        <h6 class="media-heading" style="display:inline; font-weight: 500;">Category: </h6><span><?php echo $record['cat_name']; ?></span>
+                                        <div>
+                                            <h6 class="media-heading" style="display:inline; font-weight: 500;">Is visible: </h6>
+                                            <?php if ($record['is_visible'] == 0) { ?>
+
+                                                <div class="checkbox visible_chk">
+                                                    <label>
+                                                        <div class="checker border-success-600 text-success-800"><span class="checked"><input class="control-success" disabled="" checked="checked" type="checkbox"></span></div>
+                                                        Yes
+                                                    </label>
+                                                </div>
+
+                                            <?php } else { ?>
+                                                <div class="checkbox visible_chk">
+                                                    <label>
+                                                        <div class="checker border-warning-600 text-warning-800"><span class="checked"><input class="control-warning" checked="checked" disabled="" type="checkbox"></span></div>
+                                                        <!--<div class="checker border-warning-600 text-success-800"><span class="checked"><input class="control-warning" disabled="" checked="checked" type="checkbox"></span></div>-->
+                                                        NO
+                                                    </label>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="description"><?php echo html_excerpt($record['description']); ?></div>
+
+                                    </div>
+
+                                </div>
+
+                                <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($record['aid']); ?>" data-record="<?php echo base64_encode($record['aid']); ?>"><i class="icon-trash"></i></a>
+                                <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/articles/edit/' . base64_encode($record['aid']) ?>" id="edit_<?php echo base64_encode($record['aid']); ?>"><i class="icon-pencil7"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
                 <!--</div>-->
             </div>
         </div>
     </div>
 </div>
-
+<style>
+    .visible_chk {display: inline;}
+    .checkbox .checker{top: 0;}
+</style>
 <script type="text/javascript">
     $(function () {
         $('.datatable-basic').DataTable();
     });
-    
+
     var jconfirm = function (message, callback) {
-            var options = {
-                message: message
-            };
-            options.buttons = {
-                cancel: {
-                    label: "No",
-                    className: "btn-default",
-                    callback: function (result) {
-                        callback(false);
-                    }
-                },
-                main: {
-                    label: "Yes",
-                    className: "btn-primary",
-                    callback: function (result) {
-                        callback(true);
-                    }
-                }
-            };
-            bootbox.dialog(options);
+        var options = {
+            message: message
         };
-    
-    var base_url = '<?php echo base_url(); ?>admin/';
-        var type = '<?php echo $this->uri->segment(2); ?>';
-        $(document).on('click', '.delete', function () {
-            var id = $(this).attr('id').replace('delete_', '');
-            var url = base_url + 'articles/delete';
-            jconfirm("Do you really want to delete this record?", function (r) {
-                if (r) {
-                    $.ajax({
-                        type: 'POST',
-                        url: url,
-                        async: false,
-                        dataType: 'JSON',
-                        data: {id: id, type: type},
-                        success: function (data) {
-                            if (data.status == 1) {
-                                window.location.reload();
-                            } else if (data.status == 0) {
-                            }
-                        }
-                    });
+        options.buttons = {
+            cancel: {
+                label: "No",
+                className: "btn-default",
+                callback: function (result) {
+                    callback(false);
                 }
-            });
+            },
+            main: {
+                label: "Yes",
+                className: "btn-primary",
+                callback: function (result) {
+                    callback(true);
+                }
+            }
+        };
+        bootbox.dialog(options);
+    };
+
+    var base_url = '<?php echo base_url(); ?>admin/';
+    var type = '<?php echo $this->uri->segment(2); ?>';
+    $(document).on('click', '.delete', function () {
+        var id = $(this).attr('id').replace('delete_', '');
+        var url = base_url + 'articles/delete';
+        jconfirm("Do you really want to delete this record?", function (r) {
+            if (r) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    async: false,
+                    dataType: 'JSON',
+                    data: {id: id, type: type},
+                    success: function (data) {
+                        if (data.status == 1) {
+                            window.location.reload();
+                        } else if (data.status == 0) {
+                        }
+                    }
+                });
+            }
         });
+    });
 </script> 

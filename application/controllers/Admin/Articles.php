@@ -196,7 +196,12 @@ class Articles extends CI_Controller {
     }
 
     public function view($id = NULL) {
-        
+         $this->data['icon_class'] = 'icon-magazine';
+         $this->data['page'] = 'Articles';
+        $record_id = base64_decode($id);
+        $this->data['title'] = $this->data['page_header'] = 'Article';
+        $this->data['data'] = $this->Article_model->get_data_by_id($record_id);
+        $this->template->load('admin', 'Admin/Articles/view', $this->data);
     }
 
 }
