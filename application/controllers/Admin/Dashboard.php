@@ -182,11 +182,43 @@ class Dashboard extends CI_Controller {
         $this->data['profile'] = $profile;
         $this->template->load('admin', 'Admin/Dashboard/profile', $this->data);
         if($this->input->post()){
+
+            if ($_FILES['profile_pic']['name'] != '') {
+                    $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
+                    $exts = explode(".", $_FILES['profile_pic']['name']);
+                    $name = $exts[0] . time() . "." . $exts[1];
+                    $name = "profile-" . date("mdYhHis") . "." . $exts[1];
+
+                    $config['upload_path'] = USER_PROFILE_IMAGE;
+                    $config['allowed_types'] = implode("|", $img_array);
+                    $config['max_size'] = '2048';
+                    $config['file_name'] = $name;
+
+                    $this->upload->initialize($config);
+
+                    if (!$this->upload->do_upload('profile_pic')) {
+                        $flag = 1;
+                        $data['profile_ validation'] = $this->upload->display_errors();
+                    } else {
+                        $file_info = $this->upload->data();
+                        $profile_pic = $file_info['file_name'];
+
+                        $src = './' . USER_PROFILE_IMAGE . '/' . $profile_pic;
+                        $thumb_dest = './' . PROFILE_THUMB_IMAGE . '/';
+                        $medium_dest = './' . PROFILE_MEDIUM_IMAGE . '/';
+                        thumbnail_image($src, $thumb_dest);
+                        medium_image_user($src, $medium_dest);
+                    }
+                } else {
+                    $profile_pic = '';
+                }
+           
             $profile_data = array(
                 'fname' => $this->input->post('fname'),
                 'lname' => $this->input->post('lname'),
                 'contactno' => $this->input->post('contact_no'),
                 'address' => $this->input->post('address'),
+                'profile_pic' => $profile_pic
             );
 
             if($this->User_model->edit($profile_data, TBL_USERS, 'id', $id)){

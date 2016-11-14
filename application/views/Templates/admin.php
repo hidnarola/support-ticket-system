@@ -46,7 +46,11 @@
     </head>
 
     <body>
-
+    <?php 
+        $image = USER_PROFILE_IMAGE.'/'.$this->session->userdata('admin_logged_in')['profile_pic'];
+        if($this->session->userdata('admin_logged_in') == ''){
+            $image = "assets/admin/images/placeholder.jpg";
+        } ?>
         <!-- Main navbar -->
         <div class="navbar navbar-inverse">
             <div class="navbar-header">
@@ -70,7 +74,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown dropdown-user">
                         <a class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="assets/admin/images/placeholder.jpg" alt="">
+                        
+                            <img src="<?php echo $image; ?>" alt="">
                             <span><?php
                                 if ($this->session->userdata('admin_logged_in')) {
                                     echo $this->session->userdata('admin_logged_in')['fname'];
@@ -105,7 +110,7 @@
                         <div class="sidebar-user">
                             <div class="category-content">
                                 <div class="media">
-                                    <a href="#" class="media-left"><img src="assets/admin/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
+                                    <a href="#" class="media-left"><img src="<?php echo $image; ?>" class="img-circle img-sm" alt=""></a>
                                     <div class="media-body">
                                         <span class="media-heading text-semibold"><?php
                                             if ($this->session->userdata('admin_logged_in')) {
