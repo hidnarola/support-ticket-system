@@ -42,6 +42,7 @@ class News extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $this->template->load('admin', 'Admin/News/add', $this->data);
         } else {
+
             $data = array(
                 'title' => $this->input->post('title'),
                 'description' => $this->input->post('description'),
