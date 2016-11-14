@@ -108,12 +108,22 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                    <label class="col-lg-2 control-label">Image</label>
+                                        <div class="col-lg-10">
+                                            <div class="uploader">
+                                                <input name="userfile" type="file" class="file-styled">
+                                            </div>
+                                            <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                                        </div>
+                                    </div>
+
                                     <div class="text-right">
                                         <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
                                         <button type="submit" class="btn bg-teal">Save <i class="icon-arrow-right14 position-right"></i></button>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>

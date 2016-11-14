@@ -141,8 +141,6 @@
                                                 ?>
                                             </select>
                                             <?php echo '<label id="category_id-error" class="validation-error-label" for="category_id">' . form_error('category_id') . '</label>'; ?>
-
-
                                         </div>
 
                                         <div class="form-group col-xs-12">

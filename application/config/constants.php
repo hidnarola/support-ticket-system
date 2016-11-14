@@ -103,15 +103,15 @@ define('TBL_SETTINGS','settings');
 
 /*  |	set upload folder constants */
 
-define('USER_PROFILE_IMAGE', 'uploads/user_profile_image');
+define('USER_PROFILE_IMAGE', 'uploads/user_profile_image/original');
 define('PROFILE_THUMB_IMAGE', 'uploads/user_profile_image/thumb');
 define('PROFILE_MEDIUM_IMAGE', 'uploads/user_profile_image/medium');
 
-define('NEWS_IMAGE', 'uploads/news');
+define('NEWS_IMAGE', 'uploads/news/original');
 define('NEWS_THUMB_IMAGE', 'uploads/news/thumb');
 define('NEWS_MEDIUM_IMAGE', 'uploads/news/medium');
 
-define('ANNOUNCEMENT_IMAGE', 'uploads/announcements');
+define('ANNOUNCEMENT_IMAGE', 'uploads/announcements/original');
 define('ANNOUNCEMENT_THUMB_IMAGE', 'uploads/announcements/thumb');
 define('ANNOUNCEMENT_MEDIUM_IMAGE', 'uploads/announcements/medium');
 
