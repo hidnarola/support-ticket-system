@@ -54,8 +54,25 @@
                             </div>
 
                             <div class="media-body">
-                                <h6 class="media-heading text-semibold"><a href="admin/news/view/<?php echo $news['is_news'] . '/' . base64_encode($news['id']); ?>" class="text-default"><?php echo $news['title']; ?></a></h6>
-                                <?php echo word_limiter($news['description'], 4); ?>
+                                <?php if($news['image'] != ''){ 
+                                    $image = NEWS_MEDIUM_IMAGE.'/'.$news['image'];
+                                    if($news['is_news'] == 0){
+                                        $image = ANNOUNCEMENT_MEDIUM_IMAGE.'/'.$news['image'];
+                                    }
+
+                                    ?>
+
+                                    <div class="col-md-2">
+                                        <img src="<?php echo $image; ?>">
+                                    </div>
+                                <?php } ?>
+
+                                <div class="col-md-9">
+                                    <h5 class="media-heading text-semibold"><a href="admin/news/view/<?php echo $news['is_news'] . '/' . base64_encode($news['id']); ?>" class="text-default"><?php echo $news['title']; ?></a></h5>
+                                    <div class="description"><?php echo html_excerpt($news['description']); ?></div>
+                                </div>
+                                
+
                             </div>
 
                             <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($news['id']); ?>" data-record="<?php echo base64_encode($news['id']); ?>"><i class="icon-trash"></i></a>
