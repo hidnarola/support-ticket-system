@@ -31,7 +31,7 @@ $segment = $this->uri->segment(1);
         </div>
         <style>/* #ticket_table .dataTables_length {margin: 5px 0 20px 20px;} */</style>
         <div class="panel-body">
-            <div class="row">
+           
                 <!--<div class="table-responsive ticket_table">-->
 <!--                <table class="table datatable-basic">
                     <thead>
@@ -59,14 +59,14 @@ $segment = $this->uri->segment(1);
                                 <td>
                                     <ul class="icons-list">
                                         <li class="text-teal-600">
-                                            <a href="<?php echo base_url() . 'admin/articles/edit/' . base64_encode($record['aid']) ?>" id="edit_<?php echo base64_encode($record['aid']); ?>" title='Edit Article' class="edit"><i class="icon-pencil7"></i></a>
+                                            <a href="<?php echo base_url() . 'admin/articles/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" title='Edit Article' class="edit"><i class="icon-pencil7"></i></a>
                                         </li>
                                         <li class="text-purple-700">
-                                            <a href="<?php echo base_url() . 'admin/articles/view/' . base64_encode($record['aid']); ?>" id="view_<?php echo base64_encode($record['aid']); ?>" data-record="<?php echo base64_encode($record['aid']); ?>" title='View Article' class="view"><i class="icon-eye"></i></a>
+                                            <a href="<?php echo base_url() . 'admin/articles/view/' . base64_encode($record['id']); ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Article' class="view"><i class="icon-eye"></i></a>
                                         </li>
 
                                         <li class="text-danger-600">
-                                            <a id="delete_<?php echo base64_encode($record['aid']); ?>" data-record="<?php echo base64_encode($record['aid']); ?>" title='Delete Article' class="delete"><i class="icon-trash"></i></a>
+                                            <a id="delete_<?php echo base64_encode($record['aid']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Article' class="delete"><i class="icon-trash"></i></a>
                                         </li>
                                     </ul>
                                 </td>
@@ -77,6 +77,7 @@ $segment = $this->uri->segment(1);
                 <?php
                 foreach ($articles as $key => $record) {
                     ?>
+                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-body">
                             <div class="media">
@@ -96,7 +97,7 @@ $segment = $this->uri->segment(1);
                                     <?php } ?>
 
                                     <div class="col-md-9">
-                                        <h5 class="media-heading text-semibold"><a href="admin/articles/view/<?php echo base64_encode($record['aid']); ?>" class="text-default"><?php echo $record['title']; ?></a></h5>
+                                        <h5 class="media-heading text-semibold"><a href="admin/articles/view/<?php echo base64_encode($record['id']); ?>" class="text-default"><?php echo $record['title']; ?></a></h5>
                                         <h6 class="media-heading" style="display:inline; font-weight: 500;">Category: </h6><span><?php echo $record['cat_name']; ?></span>
                                         <div>
                                             <h6 class="media-heading" style="display:inline; font-weight: 500;">Is visible: </h6>
@@ -112,21 +113,24 @@ $segment = $this->uri->segment(1);
                                             <?php } else { ?>
                                                 <div class="checkbox visible_chk">
                                                     <label>
-                                                        <div class="checker border-warning-600 text-warning-800"><span class="checked"><input class="control-warning" checked="checked" disabled="" type="checkbox"></span></div>
-                                                        <!--<div class="checker border-warning-600 text-success-800"><span class="checked"><input class="control-warning" disabled="" checked="checked" type="checkbox"></span></div>-->
+                                                        <div class="checker border-warning-600 text-warning-800"><i class="icon-cancel-square" style="margin-top: -4px;"></i></div>
                                                         NO
                                                     </label>
                                                 </div>
                                             <?php } ?>
                                         </div>
                                         <div class="description"><?php echo html_excerpt($record['description']); ?></div>
-
+                                        <div class="expiers">
+                                            <i class="icon-calendar"></i> <?php echo date('d F, Y', strtotime($record['created'])); ?><br>                                            
+                                            <!--<h6 class="media-heading" style="display:inline; font-weight: 500;">Expires On: </h6><span><?php echo $record['cat_name']; ?></span>-->
+                                        </div>
+                                        </div>
                                     </div>
 
                                 </div>
 
-                                <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($record['aid']); ?>" data-record="<?php echo base64_encode($record['aid']); ?>"><i class="icon-trash"></i></a>
-                                <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/articles/edit/' . base64_encode($record['aid']) ?>" id="edit_<?php echo base64_encode($record['aid']); ?>"><i class="icon-pencil7"></i></a>
+                                <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"><i class="icon-trash"></i></a>
+                                <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/articles/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>"><i class="icon-pencil7"></i></a>
                             </div>
 
                         </div>
@@ -138,10 +142,12 @@ $segment = $this->uri->segment(1);
             </div>
         </div>
     </div>
-</div>
+
 <style>
     .visible_chk {display: inline;}
     .checkbox .checker{top: 0;}
+    .expiers{margin-top: 7px;}
+    .checker .icon-cancel-square{font-size: 17px;}
 </style>
 <script type="text/javascript">
     $(function () {

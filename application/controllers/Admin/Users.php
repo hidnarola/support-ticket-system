@@ -170,7 +170,6 @@ class Users extends CI_Controller {
     }
 
     public function edit($user_type, $id = NULL) {
-
         $flag = 1;
         if ($id != '') {
             $record_id = base64_decode($id);

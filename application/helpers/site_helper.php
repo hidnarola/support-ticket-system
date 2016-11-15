@@ -7,8 +7,8 @@
  * 	Author = Nv
  */
 function pr($data, $is_die = false) {
-    if(is_object($data)){
-        $data = (array)$data;
+    if (is_object($data)) {
+        $data = (array) $data;
     }
     if (is_array($data)) {
         echo "<pre>";
@@ -157,6 +157,31 @@ function p($data, $status = 0) {
 }
 
 /**
+ * For knowlwdge Base slug of title
+ * @return boolean
+ * @author : Reema  (Rep)
+ */
+function slug($text) {
+//    $a = str_replace(' ', '-', $str);
+//    return strtolower($a);
+
+    $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+
+    // trim
+    $text = trim($text, '-');
+
+    // transliterate
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+    // lowercase
+    $text = strtolower($text);
+
+    // remove unwanted characters
+    $text = preg_replace('~[^-\w\?&]+~', '', $text);
+    return strtolower($text);
+}
+
+/**
  * For pagination configuration
  * @return boolean
  * @author : Reema  (Rep)
@@ -165,12 +190,9 @@ function init_pagination() {
     $config = array();
     $CI = & get_instance();
     $settings = $CI->session->userdata('settings');
-//    pr($settings,1);
     $per_page = "";
     foreach ($settings as $row) {
-//        echo $row->key;
         if (trim($row->key) == 'records-per-page') {
-
             $per_page = $row->value;
             break;
         }
@@ -197,21 +219,14 @@ function init_pagination() {
     $config['next_tag_close'] = '</li>';
     $config['last_tag_open'] = '<li>';
     $config['last_tag_close'] = '</li>';
-
-//    $config['cur_tag_open'] = '<li class="active"><a href="#">';
-//    $config['cur_tag_close'] = '</a></li>';
-
     $config['cur_tag_open'] = '<li class="active"><a style="background-color:#455a64;color:#ffffff;">';
     $config['cur_tag_close'] = '</a></li>';
-
     $config['num_tag_open'] = '<li>';
     $config['num_tag_close'] = '</li>';
     $config['num_links'] = 2;
     $config['display_prev_link'] = TRUE;
     $config['display_next_link'] = TRUE;
-//    $config['use_page_numbers'] = TRUE;
     $config['enable_query_strings'] = TRUE;
-
     return $config;
 }
 
@@ -228,12 +243,28 @@ function init_pagination() {
  * @param string The end character. Usually an ellipsis.
  * @return string The excerpt.
  */
-function html_excerpt( $str, $count=500, $end_char = '&#8230;' ) {
-    $str = strip_all_tags( $str, true );
-    $str = mb_substr( $str, 0, $count );
+function html_excerpt($str, $count = 500, $end_char = '&#8230;') {
+    $str = strip_all_tags($str, true);
+    $str = mb_substr($str, 0, $count);
     // remove part of an entity at the end
-    $str = preg_replace( '/&[^;\s]{0,6}$/', '', $str );
-    return $str.$end_char;
+    $str = preg_replace('/&[^;\s]{0,6}$/', '', $str);
+    return $str . $end_char;
+}
+
+function html_excerpt_article($str, $count = 90, $end_char = '&#8230;') {
+    $str = strip_all_tags($str, true);
+    $str = mb_substr($str, 0, $count);
+    // remove part of an entity at the end
+    $str = preg_replace('/&[^;\s]{0,6}$/', '', $str);
+    return $str . $end_char;
+}
+
+function html_excerpt_title($str, $count = 25, $end_char = '&#8230;') {
+    $str = strip_all_tags($str, true);
+    $str = mb_substr($str, 0, $count);
+    // remove part of an entity at the end
+    $str = preg_replace('/&[^;\s]{0,6}$/', '', $str);
+    return $str . $end_char;
 }
 
 /**
@@ -245,10 +276,10 @@ function html_excerpt( $str, $count=500, $end_char = '&#8230;' ) {
  * @return string The processed string.
  */
 function strip_all_tags($string, $remove_breaks = false) {
-    $string = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $string );
+    $string = preg_replace('@<(script|style)[^>]*?>.*?</\\1>@si', '', $string);
     $string = strip_tags($string);
-    if ( $remove_breaks ) {
+    if ($remove_breaks) {
         $string = preg_replace('/[\r\n\t ]+/', ' ', $string);
     }
-    return trim( $string );
+    return trim($string);
 }

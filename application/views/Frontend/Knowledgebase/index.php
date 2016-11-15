@@ -7,7 +7,30 @@
                 <div class="ht-container">
                     <section id="content" role="main">
                         <div class="kb-category-list row stacked">
-                            <div class="column col-half">
+                            <div class="kb-category-list row stacked">
+                            <?php
+                            foreach ($data as $key => $value) {
+                                $count = count($value);
+                               
+                                    ?>
+                                    <div class="column col-half">
+                                        <h3>
+                                            <span class="count"><?php echo $count; ?> Articles</span>
+                                            <a href="http://demo.herothemes.com/supportdesk/section/account/" title="View all posts in Account"><?php echo $key; ?> <span>→</span></a>
+                                        </h3>
+                                        <ul class="kb-article-list">
+                                            <?php  foreach ($value as $key => $rec) { ?>
+                                            <li>
+                                                <a href="<?php echo base_url().'knowledgebase/'.$rec['slug'] ?>" rel="bookmark"><?php echo $rec['title']; ?></a>
+                                            </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                <?php 
+                            }
+                            ?>
+                          
+<!--                            <div class="column col-half">
                                 <h3>
                                     <span class="count">7 Articles</span>
                                     <a href="http://demo.herothemes.com/supportdesk/section/account/" title="View all posts in Account">Account <span>→</span></a>
@@ -30,7 +53,7 @@
                                     </li>
                                 </ul>
                             </div>
-<!--                            <div class="column col-half">
+                            <div class="column col-half">
                                 <h3>
                                     <span class="count">4 Articles</span>
                                     <a href="http://demo.herothemes.com/supportdesk/section/copyright-legal/" title="View all posts in Copyright &amp; Legal">Copyright &amp; Legal <span>→</span></a>
@@ -49,8 +72,8 @@
                                         <a href="http://demo.herothemes.com/supportdesk/knowledgebase/how-do-i-file-a-dmca/" rel="bookmark">How do I file a DMCA</a>
                                     </li>
                                 </ul>
-                            </div>-->
-<!--                            <div class="column col-half">
+                            </div>
+                            <div class="column col-half">
                                 <h3>
                                     <span class="count">19 Articles</span>
                                     <a href="http://demo.herothemes.com/supportdesk/section/customization/" title="View all posts in Customization">Customization <span>→</span></a>
@@ -82,3 +105,9 @@
 
 
 </div>
+<style>
+    .row.stacked .col-half:nth-child(2n+3), .row-fixed.stacked .col-half:nth-child(2n+3), .row-adaptive.stacked .col-half:nth-child(2n+3), .row-delaybreak.stacked .col-half:nth-child(2n+3) {
+    margin-left: 0;
+    clear: left;
+}
+</style>
