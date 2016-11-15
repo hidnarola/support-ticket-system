@@ -48,7 +48,7 @@
     <body>
     <?php 
         $image = USER_PROFILE_IMAGE.'/'.$this->session->userdata('admin_logged_in')['profile_pic'];
-        if($this->session->userdata('admin_logged_in') == ''){
+        if($this->session->userdata('admin_logged_in')['profile_pic'] == ''){
             $image = "assets/admin/images/placeholder.jpg";
         } ?>
         <!-- Main navbar -->
@@ -110,7 +110,7 @@
                         <div class="sidebar-user">
                             <div class="category-content">
                                 <div class="media">
-                                    <a href="#" class="media-left"><img src="<?php echo $image; ?>" class="img-circle img-sm" alt=""></a>
+                                    <a href="admin" class="media-left"><img src="<?php echo $image; ?>" class="img-circle img-sm" alt=""></a>
                                     <div class="media-body">
                                         <span class="media-heading text-semibold"><?php
                                             if ($this->session->userdata('admin_logged_in')) {

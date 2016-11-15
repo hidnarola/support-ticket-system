@@ -14,7 +14,7 @@ class Users extends CI_Controller {
     }
 
     public function index() {
-        $segment = $this->uri->segment(3);
+        $segment = $this->uri->segment(2);
         if ($segment == 'tenants') {
             $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tenants';
             $this->data['icon_class'] = 'icon-users';

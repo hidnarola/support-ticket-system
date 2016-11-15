@@ -145,7 +145,7 @@
                         <th>Status</th>
                         <th>Created At</th>
                         <th>State</th>
-                        <th>Actions</th>
+                        <th style="width:10%;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>

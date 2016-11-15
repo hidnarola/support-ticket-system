@@ -1,28 +1,29 @@
 <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <div class="page-header page-header-default">
-    <div class="page-header-content">
-        <div class="page-title">
-            <h4><i class="<?php echo $icon_class;?> position-left"></i> <span class="text-semibold"><?php echo $title; ?></span></h4>
-        </div>
-    </div>
-    <div class="breadcrumb-line">
-        <ul class="breadcrumb">
-            <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
-            <li class="active"><?php echo $title; ?></li>
-        </ul>
-    </div>
-</div>
-
-<div class="content">
-
-    <?php
+<?php
     $segment = $this->uri->segment(2);
     if ($segment == 'tenants')
         $seg = 'tenant';
     else
         $seg = 'staff';
     ?>
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4><i class="<?php echo $icon_class;?> position-left"></i> <span class="text-semibold"><?php echo ($seg=='tenant') ? 'Tenants' : 'Staff'; ?></span></h4>
+        </div>
+    </div>
+    <div class="breadcrumb-line">
+        <ul class="breadcrumb">
+            <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
+            <li class="active"><?php echo ($seg=='tenant') ? 'Tenants' : 'Staff'; ?></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+
+    
     <!-- Table header styling -->
     <div class="panel panel-flat">
         <div class="panel-heading">
@@ -51,11 +52,8 @@
                             <th>Last Name</th>
                             <th>Email</th>
                             <?php
-                            $user = '';
-                            foreach ($users as $key => $record) {
-                                $user = $record['role_id'];
-                            }
-                            if ($user == 2) {
+                            
+                            if ($seg == 'staff') {
                                 ?>
                                 <th>Department</th>
                             <?php } else { ?>
@@ -79,7 +77,7 @@
                                 <td><?php echo $record['fname']; ?></td>
                                 <td><?php echo $record['lname']; ?></td>
                                 <td><?php echo $record['email']; ?></td>
-                                <?php if ($record['role_id'] == 2) { ?>
+                                <?php if ($seg == 'staff') { ?>
                                     <td><?php echo $record['name']; ?></td> 
                                 <?php } else { ?>
                                     <td><?php echo $record['address']; ?></td>
@@ -112,9 +110,10 @@
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Password</a></li>
                                                 <li><a class="chang_status" data-status="<?php echo $record['status']; ?>" id="changestatus_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Status</a></li>
-                                                <?php /* if ($user == 2) { ?>
-                                                    <li><a class="chang_dept" data-dept="<?php echo $record['name'];?>" id="changedept_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Department</a></li>
-                                                <?php } */ ?>
+
+                                                <?php  if ($seg == 'tenant') { ?>
+                                                    <li><a target="_blank" class="view_contract" href="<?php echo USER_CONTRACT.'/'.$record['contract']; ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> View Contract</a></li>
+                                                <?php }  ?>
 
                                             </ul>
                                         </li>
