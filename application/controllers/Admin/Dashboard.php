@@ -44,7 +44,7 @@ class Dashboard extends CI_Controller {
         foreach ($tickets_this_month as $ticket) {
             $tickets_arr[$ticket['day']-1] = (int)$ticket['tickets'];
         }
-
+        
         $this->data['title'] = $this->data['page_header'] = 'Dashboard';
         $this->data['icon_class'] = 'icon-home4';
         $this->data['total_departments'] = $this->Admin_model->get_total(TBL_DEPARTMENTS);
@@ -58,8 +58,8 @@ class Dashboard extends CI_Controller {
         $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
         $this->data['priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
-        $this->data['total_clients'] = array_sum($clients_arr);
-        $this->data['total_tickets'] = array_sum($tickets_arr);
+        $this->data['total_clients'] = array_sum($clients_array);
+        $this->data['total_tickets'] = array_sum($tickets_array);
         $this->template->load('admin', 'Admin/Dashboard/index', $this->data);
     }
 
