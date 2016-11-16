@@ -7,6 +7,7 @@ class Users extends CI_Controller {
     public function __construct() {
         parent::__construct();
         //$this->data = get_admin_data();
+        $this->data = array();
         check_isvalidated();
         $this->load->model('Admin_model');
         $this->load->model('User_model');
@@ -29,45 +30,32 @@ class Users extends CI_Controller {
 
     public function add($user_type) {
         if ($user_type == 'tenant')
-            $user['role_id'] = 1;
+            $role_id = 1;
         else
-            $user['role_id'] = 2;
-        $this->load->helper('security');
+            $role_id = 2;
+//        $this->load->helper('security');
         $useremail = $this->input->post('email');
         $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
         $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
-        if ($user_type == 'staff') {
-            $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
-        }
+//        if ($user_type == 'staff') {
+//            $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
+//        }
 //        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . TBL_USERS . '.email]', array('is_unique' => 'Email already exist!'));
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|callback_check_email[' . $useremail . ']');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_check_email[' . $useremail . ']');
         $this->form_validation->set_rules('contactno', 'Contact Number', 'trim|required');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
-        $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
-        if ($this->form_validation->run() == FALSE) {
-            if ($user_type == 'tenant') {
-                $this->data['title'] = $this->data['page_header'] = 'Add Tenant';
-                $this->data['page'] = 'Tenants';
-                $this->data['icon_class'] = 'icon-users';
-                $this->template->load('admin', 'Admin/Users/add', $this->data);
-            } else {
-                $this->data['icon_class'] = 'icon-people';
-                $this->data['page'] = 'Staff';
-                $this->data['title'] = $this->data['page_header'] = 'Add Staff';
-                $this->template->load('admin', 'Admin/Users/add', $this->data);
-            }
-        } else {
-            $flag = 0;
+        $data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
 
+        if ($this->form_validation->run() == TRUE) {
             $isUserUnique = $this->User_model->isUnique('email', $useremail, $this->table);
-            if (!$isUserUnique) {
+//            if (!$isUserUnique) {
                 $flag = 0;
 
                 if ($_FILES['profile_pic']['name'] != '') {
                     $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
                     $exts = explode(".", $_FILES['profile_pic']['name']);
-                    $name = $exts[0] . time() . "." . $exts[1];
-                    $name = "profile-" . date("mdYhHis") . "." . $exts[1];
+                     $name = $exts[0] . time() . "." . end($exts);
+//                    $name = "profile-" . date("mdYhHis") . "." . $exts[1];
 
                     $config['upload_path'] = USER_PROFILE_IMAGE;
                     $config['allowed_types'] = implode("|", $img_array);
@@ -78,7 +66,7 @@ class Users extends CI_Controller {
 
                     if (!$this->upload->do_upload('profile_pic')) {
                         $flag = 1;
-                        $data['profile_ validation'] = $this->upload->display_errors();
+                        $data['profile_validation'] = $this->upload->display_errors();
                     } else {
                         $file_info = $this->upload->data();
                         $profile_pic = $file_info['file_name'];
@@ -98,7 +86,7 @@ class Users extends CI_Controller {
                         'fname' => $this->input->post('fname'),
                         'lname' => $this->input->post('lname'),
                         'email' => $useremail,
-                        'role_id' => $user['role_id'],
+                        'role_id' => $role_id,
                         'profile_pic' => $profile_pic,
                         'contactno' => $this->input->post('contactno'),
                         'address' => $this->input->post('address'),
@@ -107,10 +95,10 @@ class Users extends CI_Controller {
                         'is_delete' => 0,
                         'created' => date('Y-m-d H:i:s'),
                     );
-//                    pr($data, 1);
+
                     $this->Admin_model->manage_record($this->table, $data);
                     $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
-                    if ($user['role_id'] == 2) {
+                    if ($role_id == 2) {
                         $staff_array = array(
                             'user_id' => $lastUserId,
                             'dept_id' => $this->input->post('dept_id')
@@ -136,27 +124,43 @@ class Users extends CI_Controller {
                     $this->email->message($msg);
                     $this->email->send();
                     $this->email->print_debugger();
-
+// pr($data, 1);
                     if ($user_type == 'tenant') {
                         $this->session->set_flashdata('success_msg', 'Tenant added succesfully.');
-                        redirect('admin/users/tenants');
+                        redirect('admin/tenants');
                     } else {
                         $this->session->set_flashdata('success_msg', 'Staff added succesfully.');
-                        redirect('admin/users/staffs');
+                        redirect('admin/staff');
                     }
-                } else {
-                    redirect('admin/users/add');
-                }
-            } else {
-                if ($user_type == 'tenant') {
-//                    $this->session->set_flashdata('error_msg', 'EmailId already exist. Please try again.');
-                    redirect('admin/users/add/tenant');
-                } else {
-//                    $this->session->set_flashdata('error_msg', 'EmailId already exist. Please try again.');
-                    redirect('admin/users/add/staff');
-                }
-            }
+//                }
+//                else {
+//                    if ($user_type == 'tenant') {
+//                        redirect('admin/users/add/tenant');
+//                    }else {
+//                        redirect('admin/users/add/staff');
+//                    }
+//                }
+            } 
+//            else {
+//                if ($user_type == 'tenant') {
+////                    $this->session->set_flashdata('error_msg', 'EmailId already exist. Please try again.');
+//                    redirect('admin/users/add/tenant');
+//                } else {
+////                    $this->session->set_flashdata('error_msg', 'EmailId already exist. Please try again.');
+//                    redirect('admin/users/add/staff');
+//                }
+//            }
         }
+        if ($user_type == 'tenant') {
+            $data['title'] = $data['page_header'] = 'Add Tenant';
+            $data['page'] = 'Tenants';
+            $data['icon_class'] = 'icon-users';
+        } else {
+            $data['icon_class'] = 'icon-people';
+            $data['page'] = 'Staff';
+            $data['title'] = $data['page_header'] = 'Add Staff';
+        }
+        $this->template->load('admin', 'Admin/Users/add', $data);
     }
 
     function check_email($email) {
@@ -220,7 +224,7 @@ class Users extends CI_Controller {
 
                             if (!$this->upload->do_upload('profile_pic')) {
                                 $flag = 1;
-                                $data['profile_ validation'] = $this->upload->display_errors();
+                                $data['profile_validation'] = $this->upload->display_errors();
                             } else {
                                 $file_info = $this->upload->data();
                                 $profile_pic = $file_info['file_name'];
@@ -252,10 +256,10 @@ class Users extends CI_Controller {
                             }
                             if ($user_type == 'tenant') {
                                 $this->session->set_flashdata('success_msg', 'Tenant updated succesfully..!!');
-                                redirect('admin/users/tenants');
+                                redirect('admin/tenants');
                             } else {
                                 $this->session->set_flashdata('success_msg', 'Staff updated succesfully..!!');
-                                redirect('admin/users/staffs');
+                                redirect('admin/staff');
                             }
                         } else {
                             redirect('admin/users/edit');
@@ -325,10 +329,10 @@ class Users extends CI_Controller {
 
     public function delete() {
         $id = $this->input->post('id');
-        $table_name = $this->input->post('type');
+
         if ($id != '') {
             $record_id = base64_decode($id);
-            if ($this->Admin_model->delete($table_name, $record_id)) {
+            if ($this->Admin_model->delete($this->table, $record_id)) {
                 $this->session->set_flashdata('success_msg', 'Record deleted successfully!');
                 $status = 1;
             } else {

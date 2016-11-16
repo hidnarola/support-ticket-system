@@ -1,13 +1,9 @@
 <div class="content-wrap">
-
     <div class="container clearfix">
-
         <div class="col_half nobottommargin">
             <div class="error404 center">404</div>
         </div>
-
         <div class="col_half nobottommargin col_last">
-
             <div class="heading-block nobottomborder">
                 <h4>Ooopps.! The Page you were looking for, couldn't be found.</h4>
                 <span>Try searching for the best match or browse the links below:</span>
@@ -26,30 +22,18 @@
             </div>
             <div class="col_one_third widget_links topmargin nobottommargin">
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="home">Home</a></li>
                     <li><a href="#">About</a></li>
-                    <li><a href="#">FAQs</a></li>
+                    <li><a href="faq">FAQs</a></li>
                 </ul>
             </div>
-
             <div class="col_one_third widget_links topmargin nobottommargin">
                 <ul>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
-            </div>
-
-            <div class="col_one_third widget_links topmargin nobottommargin col_last">
-                <ul>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Forums</a></li>
+                    <li><a href="#">Communities</a></li>
+                    <li><a href="#">Services</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
-            </div>
-
+            </div>          
         </div>
-
     </div>
-
 </div>

@@ -9,6 +9,8 @@
         <!-- Stylesheets
         ============================================= -->
         <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+        <!-- Favicons -->
+        <link rel="icon" href="assets/frontend/images/favicon (1).ico" />
         <link rel="stylesheet" href="assets/frontend/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/style.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/swiper.css" type="text/css" />
@@ -48,8 +50,8 @@
                         <!-- Logo
                         ============================================= -->
                         <div id="logo">
-                            <a href="index.html" class="standard-logo" data-dark-logo="assets/frontend/images/logo-dark.png"><img src="assets/frontend/images/logo.png" alt="Canvas Logo"></a>
-                            <a href="index.html" class="retina-logo" data-dark-logo="assets/frontend/images/logo-dark@2x.png"><img src="assets/frontend/images/logo@2x.png" alt="Canvas Logo"></a>
+                            <a href="home" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <a href="home" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
                         
                         <?php
@@ -273,7 +275,7 @@
                     <div class="container clearfix">
 
                         <div class="col_half">
-                            Copyrights &copy; 2014 All Rights Reserved by Canvas Inc.<br>
+                           Copyrights &copy; 2014 All Rights Reserved by Support Ticket System.<br>
                             <div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
                         </div>
 

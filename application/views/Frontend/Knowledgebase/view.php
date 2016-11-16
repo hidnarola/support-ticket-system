@@ -69,8 +69,10 @@
                             if ($flag == 1) {
                                 $class = '';
                             } else {
-                                $class = 'col_last';
+                                $class = '';
                             }
+                        }else{
+                            $class = 'col_last';
                         }
                         ?>
                         <div class="col_half nobottommargin <?php echo $class; ?>">
@@ -93,7 +95,7 @@
                             </div>
                             <?php
                             $cnt++;
-                            if ($cnt == 1 || $cnt == $total) {
+                            if ($cnt == 2 || $cnt == $total) {
                                 $cnt = 0;
                                 $flag = 2;
                             }
@@ -150,29 +152,7 @@
 
             <!-- Sidebar
             ============================================= -->
-            <div class="sidebar nobottommargin col_last clearfix">
-                <div class="sidebar-widgets-wrap">
-
-                    <div class="widget widget-twitter-feed clearfix">
-
-                        <h4>Twitter Feed</h4>
-                        <ul class="iconlist twitter-feed" data-username="envato" data-count="2"><li><i class="icon-twitter"></i><a href="http://twitter.com/envato" class="twitter-avatar" target="_blank"><img src="http://pbs.twimg.com/profile_images/655904741617086464/nwevoHSQ_normal.png" alt="Envato" title="Envato"></a><span>What motion graphics trends should you be keeping an eye on for 2017? Find out at <a href="https://t.co/jcnzYj0Lug" target="_blank">https://t.co/jcnzYj0Lug</a>. <a href="https://t.co/GWd9FK2udV" target="_blank">https://t.co/GWd9FK2udV</a></span><small><a href="http://twitter.com/envato/statuses/798444214950461440" target="_blank">about an hour ago</a></small></li><li><i class="icon-twitter"></i><a href="http://twitter.com/envato" class="twitter-avatar" target="_blank"><img src="http://pbs.twimg.com/profile_images/655904741617086464/nwevoHSQ_normal.png" alt="Envato" title="Envato"></a><span>Turning still images into engaging video content's easier than you might think. <a href="https://t.co/UwHptcu1SR" target="_blank">https://t.co/UwHptcu1SR</a></span><small><a href="http://twitter.com/envato/statuses/798390170294906880" target="_blank">about 5 hours ago</a></small></li></ul>
-
-                        <a href="#" class="btn btn-default btn-sm fright">Follow Us on Twitter</a>
-
-                    </div>
-                    <div class="widget clearfix">
-
-                        <h4>Flickr Photostream</h4>
-                        <div id="flickr-widget" class="flickr-feed masonry-thumbs" data-id="613394@N22" data-count="16" data-type="group" data-lightbox="gallery"></div>
-
-                    </div>
-
-
-
-                </div>
-
-            </div>
+             <?php $this->load->view('frontend/rightsidebar');?>
             <!-- .sidebar end -->
 
         </div>

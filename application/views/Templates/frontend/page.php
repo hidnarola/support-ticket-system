@@ -54,13 +54,11 @@
                         <!-- Logo
                         ============================================= -->
                         <div id="logo">
-                            <a href="index.html" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
-                            <a href="index.html" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <a href="home" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <a href="home" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
                         <?php
-                        if ($this->session->userdata('user_logged_in')) {
-//                                                echo $this->session->userdata('admin_logged_in')['fname'] . " " . $this->session->userdata('admin_logged_in')['lname'];
-                            ?>
+                        if ($this->session->userdata('user_logged_in')) { ?>
                             <div id="top-account" class="dropdown">
                                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
@@ -82,12 +80,6 @@
                         ?>
                         <nav id="primary-menu">
                             <ul>
-<!--                                <li><a href="index.html"><div>Home</div></a>
-                                    <ul>
-                                        <li><a href="index-corporate.html"><div>Home - Corporate</div></a>
-                                        </li>                                      
-                                    </ul>
-                                </li>-->
                                 <li <?php echo ($page == 'home') ? 'current' : ''; ?>><a href="home"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
                                     <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
@@ -139,13 +131,10 @@
                                         }" onblur="if (this.value == '') {
                                                     this.value = 'Search the knowledge base...';
                                                 }" value="Search the knowledge base..." name="s" id="s" autocomplete="off">
-                                <!--<input type="hidden" name="post_type[]" value="st_kb">-->
                             </form>
                         </div>
                         <style>
-                            #page-title {
-                                padding: 35px 0;
-                            }
+                            #page-title {padding: 35px 0;}
                         </style>
                     <?php }
                     ?>
@@ -351,7 +340,7 @@
                     <div class="container clearfix">
 
                         <div class="col_half">
-                            Copyrights &copy; 2014 All Rights Reserved by Canvas Inc.<br>
+                            Copyrights &copy; 2014 All Rights Reserved by Support Ticket System.<br>
                             <div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
                         </div>
 

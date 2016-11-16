@@ -23,7 +23,7 @@
 
             if (isset($user)) {
                 if ($edit_segment == 'edit' && $segment == 'tenant') {
-                    $action = base_url() . "admin/users/edit/tenatnt/" . base64_encode($user->uid);
+                    $action = base_url() . "admin/users/edit/tenant/" . base64_encode($user->uid);
                 } else {
                     $action = base_url() . "admin/users/edit/staff/" . base64_encode($user->uid);
                 }
@@ -35,7 +35,7 @@
                 }
             }
             ?>
-            <form class="form-horizontal form-validate-jquery" method="post" id="user_add" enctype="multipart/form-data" action="<?php echo $action ?>"  novalidate="novalidate">            
+            <form class="form-horizontal form-validate-jquery" method="post" id="user_add" enctype="multipart/form-data" action="<?php echo $action; ?>"  novalidate="novalidate">            
 
                 <div class="panel panel-flat">
                     <div class="panel-body">
@@ -48,11 +48,12 @@
                                     if (isset($user)) {
                                         echo trim($user->fname);
                                     } else {
-                                        if ($this->input->post('fname')) {
-                                            echo $this->input->post('fname');
-                                        } else {
-                                            echo '';
-                                        }
+//                                        if ($this->input->post('fname')) {
+//                                            echo $this->input->post('fname');
+//                                        } else {
+//                                            echo '';
+//                                        }
+                                      echo set_value('fname');
                                     }
                                     ?>">
                                            <?php echo '<label id="fname-error" class="validation-error-label" for="fname">' . form_error('fname') . '</label>'; ?>
@@ -65,11 +66,12 @@
                                     if (isset($user)) {
                                         echo trim($user->lname);
                                     } else {
-                                        if ($this->input->post('lname')) {
-                                            echo $this->input->post('lname');
-                                        } else {
-                                            echo '';
-                                        }
+//                                        if ($this->input->post('lname')) {
+//                                            echo $this->input->post('lname');
+//                                        } else {
+//                                            echo '';
+//                                        }
+                                        echo set_value('lname');
                                     }
                                     ?>">
                                            <?php echo '<label id="lname-error" class="validation-error-label" for="lname">' . form_error('lname') . '</label>'; ?>
@@ -81,11 +83,12 @@
                                     if (isset($user)) {
                                         echo trim($user->email);
                                     } else {
-                                        if ($this->input->post('email')) {
-                                            echo $this->input->post('email');
-                                        } else {
-                                            echo '';
-                                        }
+//                                        if ($this->input->post('email')) {
+//                                            echo $this->input->post('email');
+//                                        } else {
+//                                            echo '';
+//                                        }
+                                        echo set_value('email');
                                     }
                                     ?>">
                                            <?php echo '<label id="email-error" class="validation-error-label" for="email">' . form_error('email') . '</label>'; ?>
@@ -97,11 +100,12 @@
                                     if (isset($user)) {
                                         echo trim($user->contactno);
                                     } else {
-                                        if ($this->input->post('contactno')) {
-                                            echo $this->input->post('contactno');
-                                        } else {
-                                            echo '';
-                                        }
+//                                        if ($this->input->post('contactno')) {
+//                                            echo $this->input->post('contactno');
+//                                        } else {
+//                                            echo '';
+//                                        }
+                                        echo set_value('contactno');
                                     }
                                     ?>"> 
                                            <?php echo '<label id="contactno-error" class="validation-error-label" for="contactno">' . form_error('contactno') . '</label>'; ?>
@@ -131,6 +135,7 @@
                                 <div class="form-group col-xs-12 user_profile_pic">
                                     <label>User Profile:</label>                               
                                     <input type="file" name="profile_pic" class="file-styled" onchange="readURL(this)">
+                                    
                                     <!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->                               
                                     <div class="clearfix"></div>
                                     <div class="col-lg-2"></div>
@@ -144,6 +149,10 @@
                                             ?>
                                         </div>
                                     </div>
+                                    <br>
+                                    <?php if(isset($profile_validation)){
+                                        echo '<label id="profile_pic-error" class="validation-error-label" for="profile_pic">' . $profile_validation . '</label>'; 
+                                    } ?>
                                 </div>
 
                                 <div class="form-group col-xs-12">
@@ -152,11 +161,13 @@
                                         if (isset($user)) {
                                             echo trim($user->address);
                                         } else {
-                                            if ($this->input->post('address')) {
-                                                echo $this->input->post('address');
-                                            } else {
-                                                echo '';
-                                            }
+//                                            if ($this->input->post('address')) {
+//                                                echo $this->input->post('address');
+//                                            } else {
+//                                                echo '';
+//                                            }
+                                           echo set_value('address');
+                                            
                                         }
                                         ?></textarea>
                                     <?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
@@ -165,7 +176,7 @@
                             <div class="col-md-12">
                                 <div class="text-center">                                
                                     <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
-                                    <button type="submit" class="btn bg-teal">Save<i class="icon-arrow-right14 position-right"></i></button>
+                                    <button type="submit" name="save" class="btn bg-teal">Save<i class="icon-arrow-right14 position-right"></i></button>
                                 </div>
                             </div>
                         </div>

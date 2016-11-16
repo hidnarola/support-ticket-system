@@ -8,7 +8,6 @@ class Knowledgebase extends CI_Controller {
         parent::__construct();
         $this->data = array();
         check_isvalidated_user();
-        $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->load->model('Article_model');
         $this->load->helper('text');

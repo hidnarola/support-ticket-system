@@ -12,13 +12,12 @@ class Article_model extends CI_Model {
         $this->db->select('articles.id,title,slug,description,image,category_id,user_id,is_visible,expiry_date,articles.is_delete,articles.created,articles.modified,c.name as cat_name');
         $this->db->join('categories as c', 'c.id = articles.category_id', 'left');
         $this->db->where('articles.is_delete', 0);
-
-//        $this->db->order_by('articles.modified', 'desc');
+        $this->db->order_by('articles.modified', 'desc');
         $result = $this->db->get(TBL_ARTICLES);
         return $result->result_array();
 //        pr($result->result_array(),1);
     }
-    
+
     /**
      * 
      * @param type $keyword
@@ -115,11 +114,8 @@ class Article_model extends CI_Model {
         $originalArray = $q->result_array();
         $new_arr = array();
         foreach ($originalArray as $key => $part) {
-//            $date=date('Y-m-d',strtotime($part['created_date']));
-            $date = date('l, M d', strtotime($part['created']));
             $new_arr[$part['name']][] = $part;
         }
-//        pr($new_arr,1);
         return $new_arr;
     }
 
@@ -158,25 +154,33 @@ class Article_model extends CI_Model {
             }
         }
     }
-    
+
     /**
      * 
      * @param type $text
      * @param type $type
      * @return type
      */
-    function search_article($text){
+    public function search_article($text) {
         $this->db->select('articles.id,title,slug,description,image,category_id,user_id,is_visible,expiry_date,articles.is_delete,articles.created,articles.modified,c.name as cat_name');
-         $this->db->join(TBL_CATEGORIES . ' c', 'c.id = articles.category_id', 'left');
-    	$this->db->where('articles.is_delete', 0);
-    	
-    	$this->db->group_start();
+        $this->db->join(TBL_CATEGORIES . ' c', 'c.id = articles.category_id', 'left');
+        $this->db->where('articles.is_delete', 0);
+
+        $this->db->group_start();
         $this->db->like('title', $text);
         $this->db->or_like('description', $text);
         $this->db->group_end();
-    	$this->db->order_by('modified', 'desc');
-    	$result = $this->db->get(TBL_ARTICLES);
-    	return $result->result_array();
+        $this->db->order_by('modified', 'desc');
+        $result = $this->db->get(TBL_ARTICLES);
+        return $result->result_array();
+    }
+
+    public function get_faq() {
+        $this->db->select('*');
+        $this->db->where('faq.is_delete', 0);
+        $this->db->order_by('faq.modified', 'desc');
+        $result = $this->db->get(TBL_FAQ);
+        return $result->result_array();
     }
 
 }
