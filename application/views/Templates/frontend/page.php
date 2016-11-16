@@ -8,6 +8,8 @@
         <!-- Stylesheets
         ============================================= -->
         <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+        <!-- Favicons -->
+        <link rel="icon" href="assets/frontend/images/favicon (1).ico" />
         <link rel="stylesheet" href="assets/frontend/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/style.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/custom.css" type="text/css" />
@@ -22,13 +24,14 @@
         <link rel="stylesheet" href="assets/frontend/css/responsive.css" type="text/css" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <!--[if lt IE 9]>
                 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <![endif]-->
 
         <!-- Document Title
         ============================================= -->
-        <title><?php echo $title; ?></title>
+        <title><?php echo $title;   ?></title>
 
     </head>
 
@@ -51,8 +54,8 @@
                         <!-- Logo
                         ============================================= -->
                         <div id="logo">
-                            <a href="index.html" class="standard-logo" data-dark-logo="assets/frontend/images/logo-dark.png"><img src="assets/frontend/images/logo.png" alt="Canvas Logo"></a>
-                            <a href="index.html" class="retina-logo" data-dark-logo="assets/frontend/images/logo-dark@2x.png"><img src="assets/frontend/images/logo@2x.png" alt="Canvas Logo"></a>
+                            <a href="index.html" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <a href="index.html" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
                         <?php
                         if ($this->session->userdata('user_logged_in')) {
@@ -73,14 +76,29 @@
                         ============================================= -->
                         <?php
                         $page = $this->uri->segment(1);
-                        $sec_segment = $this->uri->segment(2)
+                        $sec_segment = $this->uri->segment(2);
+
+                        $user = $this->User_model->getUserByID($this->session->userdata('user_logged_in')['id']);
                         ?>
                         <nav id="primary-menu">
                             <ul>
+<!--                                <li><a href="index.html"><div>Home</div></a>
+                                    <ul>
+                                        <li><a href="index-corporate.html"><div>Home - Corporate</div></a>
+                                        </li>                                      
+                                    </ul>
+                                </li>-->
                                 <li <?php echo ($page == 'home') ? 'current' : ''; ?>><a href="home"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
                                     <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
-                                    <li class="mega-menu <?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a></li>
+<!--                                    <li class="mega-menu <?php // echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a>
+                                    </li>-->
+                                     <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a>
+                                    <ul>
+                                        <li><a href="faq"><div>FAQ'S</div></a>
+                                        </li>                                      
+                                    </ul>
+                                </li>
                                 <?php } ?>
                                 <li class="mega-menu"><a href="login"><div>About us</div></a></li>
                                 <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>
@@ -115,13 +133,13 @@
                     <h1><?php echo $header_title; ?></h1>
                     <?php if ($page == 'knowledgebase') { ?>
                         <div id="live-search">
-                            <form role="search" method="get" id="searchform" class="clearfix" action="knowledgebase" autocomplete="off"> 
+                            <form role="search" method="post" id="searchform" class="clearfix" action="knowledgebase" autocomplete="off"> 
                                 <input type="text" onfocus="if (this.value == 'Search the knowledge base...') {
-                                                this.value = '';
-                                            }" onblur="if (this.value == '') {
-                                                        this.value = 'Search the knowledge base...';
-                                                    }" value="Search the knowledge base..." name="s" id="s" autocomplete="off">
-                                <input type="hidden" name="post_type[]" value="st_kb">
+                                            this.value = '';
+                                        }" onblur="if (this.value == '') {
+                                                    this.value = 'Search the knowledge base...';
+                                                }" value="Search the knowledge base..." name="s" id="s" autocomplete="off">
+                                <!--<input type="hidden" name="post_type[]" value="st_kb">-->
                             </form>
                         </div>
                         <style>
@@ -139,7 +157,7 @@
                                 ?>
                                 <li class="active"><?php echo 'Knowledge Base'; ?></li>
                             <?php } else { ?>
-                               
+
                                 <li class="active"><?php echo $page; ?></li>
                                 <?php
                             }
@@ -400,6 +418,7 @@
         <!-- External JavaScripts
         ============================================= -->
         <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
         <!-- Bootstrap Data Table Plugin -->
         <script type="text/javascript" src="assets/frontend/js/components/bs-datatable.js"></script>
@@ -409,5 +428,45 @@
         ============================================= -->
         <script type="text/javascript" src="assets/frontend/js/functions.js"></script>
 
+        <script type="text/javascript">
+$("#s").autocomplete({
+    minLength: 1,
+    source:
+            function (req, add) {
+                $.ajax({
+                    url: "<?php echo base_url() . 'home/articles'; ?>",
+                    dataType: 'json',
+                    type: 'POST',
+                    data: req,
+                    success:
+                            function (data) {
+                                if (data.response === "true") {
+                                    add(data.message);
+                                }
+                            }
+                });
+            },
+    select: function (event, ui) {
+        $("#s").val(ui.item.value);
+        var id = ui.item.id;
+        var val = ui.item.value;
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo base_url() . 'home/getArticle'; ?>",
+            dataType: 'json',
+            data: {id: id},
+            success: function (data) {
+                if (data != '') {
+                    console.log(data.data.slug);
+                    var url = window.location.href;
+                    url= url+'/'+data.data.slug;
+                    window.location.href = url;
+                }
+            }
+        });
+
+    }
+});
+        </script>
     </body>
 </html>

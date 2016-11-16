@@ -18,6 +18,21 @@ class Article_model extends CI_Model {
         return $result->result_array();
 //        pr($result->result_array(),1);
     }
+    
+    /**
+     * 
+     * @param type $keyword
+     * @return type
+     */
+    function getarticles($keyword) {
+        $this->db->select('articles.id,title,slug,description,image,category_id,user_id,is_visible,expiry_date,articles.is_delete,articles.created,articles.modified,c.name as cat_name');
+        $this->db->join('categories as c', 'c.id = articles.category_id', 'left');
+        $this->db->where('articles.is_delete', 0);
+        $this->db->like('title', $keyword);
+        $result = $this->db->get(TBL_ARTICLES);
+        return $result->result_array();
+//        pr($result->result_array(),1);
+    }
 
     function get_data_by_id($id) {
         $this->db->where('is_delete', 0);
@@ -33,6 +48,12 @@ class Article_model extends CI_Model {
         return $result->row_array();
     }
 
+    /**
+     * To display related articles in fronend side
+     * @param type $category_id
+     * @param type $id
+     * @return type
+     */
     function get_other_articles($category_id, $id) {
         $this->db->select('articles.id,title,slug,description,image,category_id,user_id,is_visible,expiry_date,articles.is_delete,articles.created,articles.modified,c.name as cat_name');
         $this->db->join('categories as c', 'c.id = articles.category_id', 'left');
@@ -102,6 +123,12 @@ class Article_model extends CI_Model {
         return $new_arr;
     }
 
+    /**
+     * To check unique title for aricle and if it is, will append -1 to the title
+     * @param type $title
+     * @param type $id
+     * @return string
+     */
     public function get_unique_title($title, $id = NULL) {
 
         for ($i = 0; $i < 1; $i++) {
@@ -130,6 +157,26 @@ class Article_model extends CI_Model {
                 return $title;
             }
         }
+    }
+    
+    /**
+     * 
+     * @param type $text
+     * @param type $type
+     * @return type
+     */
+    function search_article($text){
+        $this->db->select('articles.id,title,slug,description,image,category_id,user_id,is_visible,expiry_date,articles.is_delete,articles.created,articles.modified,c.name as cat_name');
+         $this->db->join(TBL_CATEGORIES . ' c', 'c.id = articles.category_id', 'left');
+    	$this->db->where('articles.is_delete', 0);
+    	
+    	$this->db->group_start();
+        $this->db->like('title', $text);
+        $this->db->or_like('description', $text);
+        $this->db->group_end();
+    	$this->db->order_by('modified', 'desc');
+    	$result = $this->db->get(TBL_ARTICLES);
+    	return $result->result_array();
     }
 
 }

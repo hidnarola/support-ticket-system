@@ -15,12 +15,21 @@ class Articles extends CI_Controller {
         $this->table = TBL_ARTICLES;
     }
 
-    public function index($type = null) {
+    public function index() {
         $this->data['title'] = $this->data['page_header'] = 'Articles';
         $this->data['icon_class'] = 'icon-magazine';
-        $get_data = $this->Article_model->get_data($type);
-//        pr($get_data,1);
+        
+         $search_text = '';
+        $this->data['search_text'] = $search_text;
+        $get_data = $this->Article_model->get_data();
+        if ($this->input->get()) {
+            $search_text = $this->input->get('search_text');
+            $get_data = $this->Article_model->search_article($search_text);
+        }
+
         $this->data['articles'] = $get_data;
+        $this->data['search_text'] = $search_text;
+//        pr($get_data,1);
         $this->template->load('admin', 'Admin/Articles/index', $this->data);
     }
 

@@ -9,6 +9,7 @@ class Home extends CI_Controller {
         //$this->data = get_admin_data();
         $this->load->model('Admin_model');
         $this->load->model('User_model');
+        $this->load->model('Article_model');
     }
 
     public function index() {
@@ -29,7 +30,7 @@ class Home extends CI_Controller {
         if ($check['role_id'] == 1) {
             //--- for tenant verifaication
             if ($check['is_verified'] == 1) {
-                 //--- for tenant verifaication already Done or not
+                //--- for tenant verifaication already Done or not
                 $this->session->set_flashdata('success_msg', 'Your account is already verified, no need to activate again. You can login!');
                 redirect('login');
             } else {
@@ -40,7 +41,7 @@ class Home extends CI_Controller {
         } else {
             //--- For staff verifaication
             if ($check['password'] != 1) {
-                  //--- for staff verifaication already Done or not
+                //--- for staff verifaication already Done or not
                 $this->session->set_flashdata('error_msg', 'You have already setup password. You can login Now!');
                 redirect('staff/login');
             } else {
@@ -70,6 +71,32 @@ class Home extends CI_Controller {
                 redirect('staff/login');
             }
         }
+    }
+
+    public function articles() {
+
+        $keyword = $this->input->post('term');
+
+        $data['response'] = 'false'; //Set default response
+        if (!empty($keyword) && isset($keyword)) {
+            $query = $this->Article_model->getarticles($keyword);
+            if (!empty($query)) {
+                $data['response'] = 'true'; //Set response
+                $data['message'] = array(); //Create array
+                foreach ($query as $row) {
+                    $data['message'][] = array('value' => $row['title'], 'id' => $row['id']);
+                }
+                echo json_encode($data);
+                exit;
+            }
+        }
+    }
+
+    public function getArticle() {
+        $id = $this->input->post('id');
+        $data['data'] = $this->Article_model->get_data_by_id($id);
+        echo json_encode($data);
+        exit;
     }
 
 }

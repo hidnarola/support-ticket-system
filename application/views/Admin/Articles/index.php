@@ -21,127 +21,96 @@ $segment = $this->uri->segment(1);
     <!-- Table header styling -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-10">
-                <div class="pull-right">
-                    <a onclick="window.location = 'admin/articles/add'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Article</a>
+            <div class="row">
+                <div class="col-md-3">
+                    <form method="get">
+                        <input type="text" name="search_text" value="<?php echo ($search_text != '') ? $search_text : ''; ?>" class="form-control" placeholder="Search">
+                        <div class="form-control-feedback">
+                            <i class="icon-search4 text-size-base"></i>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="pull-right">
+                        <a onclick="window.location = 'admin/articles/add'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Article</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <style>/* #ticket_table .dataTables_length {margin: 5px 0 20px 20px;} */</style>
-        <div class="panel-body">
-           
-                <!--<div class="table-responsive ticket_table">-->
-<!--                <table class="table datatable-basic">
-                    <thead>
-                        <tr class="bg-teal">
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Visible</th>
-                            <th>Created At</th>
-                            <th style="width:12%;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                            <tr>
-                                <td><?php echo $key + 1; ?></td>
-                                <td><?php echo $record['title']; ?></td>
-                                <td><?php echo $record['cat_name']; ?></td>                              
-                <?php if ($record['is_visible'] == 0) { ?>
-                                                                    <td><span class="label label-success">Yes</span></td>
-                <?php } else { ?>
-                                                                    <td><span class="label label-warning">No</span></td>
-                <?php } ?>
-                                <td><?php echo date('Y-m-d', strtotime($record['a_created'])); ?></td>
-                                <td>
-                                    <ul class="icons-list">
-                                        <li class="text-teal-600">
-                                            <a href="<?php echo base_url() . 'admin/articles/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" title='Edit Article' class="edit"><i class="icon-pencil7"></i></a>
-                                        </li>
-                                        <li class="text-purple-700">
-                                            <a href="<?php echo base_url() . 'admin/articles/view/' . base64_encode($record['id']); ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Article' class="view"><i class="icon-eye"></i></a>
-                                        </li>
 
-                                        <li class="text-danger-600">
-                                            <a id="delete_<?php echo base64_encode($record['aid']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Article' class="delete"><i class="icon-trash"></i></a>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                           
-                    </tbody>
-                </table>-->
-                <?php
-                foreach ($articles as $key => $record) {
-                    ?>
-                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-body">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a title="Article"><i class="icon-magazine text-success-400 icon-2x no-edge-top mt-5"></i></a>
-                                </div>
-
-                                <div class="media-body">
-                                    <?php
-                                    if ($record['image'] != '') {
-                                        $image = ARTICLE_MEDIUM_IMAGE . '/' . $record['image'];
-                                        ?>
-
-                                        <div class="col-md-2">
-                                            <img src="<?php echo $image; ?>">
-                                        </div>
-                                    <?php } ?>
-
-                                    <div class="col-md-9">
-                                        <h5 class="media-heading text-semibold"><a href="admin/articles/view/<?php echo base64_encode($record['id']); ?>" class="text-default"><?php echo $record['title']; ?></a></h5>
-                                        <h6 class="media-heading" style="display:inline; font-weight: 500;">Category: </h6><span><?php echo $record['cat_name']; ?></span>
-                                        <div>
-                                            <h6 class="media-heading" style="display:inline; font-weight: 500;">Is visible: </h6>
-                                            <?php if ($record['is_visible'] == 0) { ?>
-
-                                                <div class="checkbox visible_chk">
-                                                    <label>
-                                                        <div class="checker border-success-600 text-success-800"><span class="checked"><input class="control-success" disabled="" checked="checked" type="checkbox"></span></div>
-                                                        Yes
-                                                    </label>
-                                                </div>
-
-                                            <?php } else { ?>
-                                                <div class="checkbox visible_chk">
-                                                    <label>
-                                                        <div class="checker border-warning-600 text-warning-800"><i class="icon-cancel-square" style="margin-top: -4px;"></i></div>
-                                                        NO
-                                                    </label>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-                                        <div class="description"><?php echo html_excerpt($record['description']); ?></div>
-                                        <div class="expiers">
-                                            <i class="icon-calendar"></i> <?php echo date('d F, Y', strtotime($record['created'])); ?><br>                                            
-                                            <!--<h6 class="media-heading" style="display:inline; font-weight: 500;">Expires On: </h6><span><?php echo $record['cat_name']; ?></span>-->
-                                        </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"><i class="icon-trash"></i></a>
-                                <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/articles/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>"><i class="icon-pencil7"></i></a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <?php
-                }
-                ?>
-                <!--</div>-->
-            </div>
         </div>
     </div>
+
+    <div class="row">
+        <?php
+        foreach ($articles as $key => $record) {
+            ?>
+
+            <div class="col-md-12">
+                <div class="panel panel-body articles">
+                    <div class="media">
+                        <div class="media-left">
+                            <a title="Article"><i class="icon-magazine text-success-400 icon-2x no-edge-top mt-5"></i></a>
+                        </div>
+
+                        <div class="media-body">
+                            <?php
+                            if ($record['image'] != '') {
+                                $image = ARTICLE_MEDIUM_IMAGE . '/' . $record['image'];
+                                ?>
+
+                                <div class="col-md-2">
+                                    <img src="<?php echo $image; ?>">
+                                </div>
+                            <?php } ?>
+
+                            <div class="col-md-9">
+                                <h5 class="media-heading text-semibold"><a href="admin/articles/view/<?php echo base64_encode($record['id']); ?>" class="text-default"><?php echo $record['title']; ?></a></h5>
+                                <h6 class="media-heading" style="display:inline; font-weight: 500;">Category: </h6><span><?php echo $record['cat_name']; ?></span>
+                                <div>
+                                    <h6 class="media-heading" style="display:inline; font-weight: 500;">Is visible: </h6>
+                                    <?php if ($record['is_visible'] == 0) { ?>
+
+                                        <div class="checkbox visible_chk">
+                                            <label>
+                                                <div class="checker border-success-600 text-success-800"><span class="checked"><input class="control-success" disabled="" checked="checked" type="checkbox"></span></div>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                    <?php } else { ?>
+                                        <div class="checkbox visible_chk">
+                                            <label>
+                                                <div class="checker border-warning-600 text-warning-800"><i class="icon-cancel-square" style="margin-top: -4px;"></i></div>
+                                                NO
+                                            </label>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                                <div class="description"><?php echo html_excerpt($record['description']); ?></div>
+                                <div class="expiers">
+                                    <i class="icon-calendar"></i> <?php echo date('d F, Y', strtotime($record['created'])); ?><br>                                            
+                                    <!--<h6 class="media-heading" style="display:inline; font-weight: 500;">Expires On: </h6><span><?php echo $record['cat_name']; ?></span>-->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"><i class="icon-trash"></i></a>
+                    <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/articles/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>"><i class="icon-pencil7"></i></a>
+                </div>
+
+            </div>
+
+            <?php
+        }
+        ?>
+    </div>
+    <!--</div>-->
+</div>
+</div>
+</div>
 
 <style>
     .visible_chk {display: inline;}

@@ -50,5 +50,23 @@ class Knowledgebase extends CI_Controller {
             $this->template->load('frontend/page', 'Frontend/error/404notfound', $data);
         }
     }
+    
+    public function articles() {
+        
+        $keyword = $this->input->post('term');
+        echo $keyword;exit;
+        $data['response'] = 'false'; //Set default response
+//        if (!empty($keyword) && isset($keyword)) {           
+//            $query = $this->Article_model->getarticles($keyword);
+//            if (!empty($query)) {
+//                $data['response'] = 'true'; //Set response
+//                $data['message'] = array(); //Create array
+//                foreach ($query as $row) {
+//                    $data['message'][] = array('value' => $row->title);
+//                }
+//                echo json_encode($data);exit;
+//            }
+//        }
+    }
 
 }

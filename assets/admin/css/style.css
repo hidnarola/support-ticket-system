@@ -17,3 +17,5 @@ and open the template in the editor.
 .validation-valid-label {display: none !important;}
 .ticket_details > .panel-heading {background-color: #333;border-color: #ddd;color: #fff;}
 .alpha-teal {background-color: #e0f2f1 !important;}
+
+.articles .delete{margin-left: 5px;}
