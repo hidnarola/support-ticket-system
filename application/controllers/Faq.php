@@ -19,7 +19,7 @@ class Faq extends CI_Controller {
 
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
-
+         $data['news_announcements'] = $this->User_model->getlatestnews();
         $data['title'] = 'Faq | Support-Ticket-System';
         $data['header_title'] = 'Faq';
         $data['data'] = $this->Article_model->get_faq();

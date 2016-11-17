@@ -83,11 +83,6 @@
                                     if (isset($user)) {
                                         echo trim($user->email);
                                     } else {
-//                                        if ($this->input->post('email')) {
-//                                            echo $this->input->post('email');
-//                                        } else {
-//                                            echo '';
-//                                        }
                                         echo set_value('email');
                                     }
                                     ?>">

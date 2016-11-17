@@ -77,7 +77,12 @@
                                 <li class="<?php echo ($page == 'home') ? 'current' : ''; ?>"><a href="home"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
                                     <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
-                                    <li class="mega-menu <?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a></li>
+                                    <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a>
+                                    <ul>
+                                        <li><a href="faq"><div>FAQ'S</div></a>
+                                        </li>                                      
+                                    </ul>
+                                </li>
                                 <?php } ?>
                                 <li class="mega-menu"><a href="login"><div>About us</div></a></li>
                                 <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>

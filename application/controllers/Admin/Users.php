@@ -172,6 +172,16 @@ class Users extends CI_Controller {
             return TRUE;
         }
     }
+    function check_email_edit($email,$id) {
+        $return_value = $this->User_model->check_email_edit($email,$id);
+//        pr($return_value,1);
+        if ($return_value== 1) {
+            $this->form_validation->set_message('check_email_edit', 'Sorry, This email is already Exists..!');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
 
     public function edit($user_type, $id = NULL) {
         $flag = 1;
@@ -181,13 +191,14 @@ class Users extends CI_Controller {
 //            echo '<pre>';
 //            print_r($this->data['user']);exit;
             if (!empty($this->data['user'])) {
+                $useremail = $this->input->post('email');
                 $image = $this->User_model->getFieldById($record_id, 'profile_pic', $this->table);
                 $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
                 $profile_pic = $image->profile_pic;
 //            exit;
                 $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
                 $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
-//            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . TBL_USERS . '.email]', array('is_unique' => 'Email already exist!'));
+           $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_check_email_edit[' . $record_id . ']');
                 $this->form_validation->set_rules('contactno', 'Contact Number', 'trim|required');
                 $this->form_validation->set_rules('address', 'Address', 'trim|required');
                 if ($this->form_validation->run() == FALSE) {
@@ -206,8 +217,8 @@ class Users extends CI_Controller {
 
                     $flag = 0;
                     $useremail = $this->input->post('email');
-                    $isUserUnique = $this->User_model->isUnique('email', $useremail, $this->table, $record_id, 'AND id!= $id AND is_delete = 0');
-                    if (!$isUserUnique) {
+//                    $isUserUnique = $this->User_model->isUnique('email', $useremail, $this->table, $record_id, 'AND id!='. $id .'AND is_delete != 0');
+//                    if ($isUserUnique) {
                         $flag = 0;
                         if ($_FILES['profile_pic']['name'] != '') {
                             $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
@@ -264,15 +275,17 @@ class Users extends CI_Controller {
                         } else {
                             redirect('admin/users/edit');
                         }
-                    } else {
-                        if ($user_type == 'tenant') {
-//                    $this->session->set_flashdata('error_msg', 'EmailId already exist. Please try again.');
-                            redirect('admin/users/edit/tenant');
-                        } else {
-//                    $this->session->set_flashdata('error_msg', 'EmailId already exist. Please try again.');
-                            redirect('admin/users/edit/staff');
-                        }
-                    }
+//                    } else {
+//                        if ($user_type == 'tenant') {
+//                            $data['error_msg'] = 'EmailId already exist. Please try again.';
+////                    $this->session->set_flashdata('error_msg', 'EmailId already exist. Please try again.');
+//                            redirect('admin/users/edit/tenant/'.$id);
+//                        } else {
+//                             $data['error_msg'] = 'EmailId already exist. Please try again.';
+////                    $this->session->set_flashdata('error_msg', 'EmailId already exist. Please try again.');
+//                            redirect('admin/users/edit/staff/'.$id);
+//                        }
+//                    }
                 }
             } else {
                 $flag = 0;

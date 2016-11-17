@@ -18,6 +18,7 @@ class Profile extends CI_Controller {
 //echo "</pre>";exit;
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
+        $data['news_announcements'] = $this->User_model->getlatestnews();
 
         $data['title'] = 'User Profile | Support-Ticket-System';
         $this->template->load('frontend/profile', 'Frontend/User/profile', $data);
@@ -85,7 +86,7 @@ class Profile extends CI_Controller {
     public function changepassword() {
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
-
+ $data['news_announcements'] = $this->User_model->getlatestnews();
         $data['title'] = 'Profile | Support-Ticket-System';
          $data['header_title'] = 'Change Password';
         $this->template->load('frontend/page', 'Frontend/User/change_password', $data);

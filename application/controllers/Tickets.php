@@ -19,6 +19,7 @@ class Tickets extends CI_Controller {
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
         $data['tickets'] = $this->User_model->getUserTickets($userid, $type);
+         $data['news_announcements'] = $this->User_model->getlatestnews();
 //        p($data['tickets'],1);
         $this->template->load('frontend/page', 'Frontend/Tickets/index', $data);
     }
@@ -34,6 +35,7 @@ class Tickets extends CI_Controller {
         $data['tickets_priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
         $data['tickets_statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
         $data['tickets_categories'] = $this->Admin_model->get_records(TBL_CATEGORIES);
+         $data['news_announcements'] = $this->User_model->getlatestnews();
 
         $userid = $this->session->userdata('user_logged_in')['id'];
 
@@ -77,6 +79,7 @@ class Tickets extends CI_Controller {
 //            echo $segment; exit;
             $record_id = base64_decode($id);
             $data['ticket'] = $this->Ticket_model->get_ticket($record_id);
+             $data['news_announcements'] = $this->User_model->getlatestnews();
             $userid = $this->session->userdata('user_logged_in')['id'];
             $data['title'] = 'Tickets | Support-Ticket-System';
             $data['header_title'] = 'View Ticket';
@@ -102,6 +105,7 @@ class Tickets extends CI_Controller {
 //            echo $segment; exit;
             $record_id = base64_decode($id);
             $data['ticket'] = $this->Ticket_model->get_ticket($record_id);
+             $data['news_announcements'] = $this->User_model->getlatestnews();
 //            p($data['ticket'],1);
             $userid = $this->session->userdata('user_logged_in')['id'];
                 $data['title'] = 'Tickets | Support-Ticket-System';

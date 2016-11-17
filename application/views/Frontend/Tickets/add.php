@@ -1,9 +1,4 @@
-
-<!-- Select-Boxes CSS -->
-<!--<link rel="stylesheet" href="assets/frontend/css/components/select-boxes.css" type="text/css" />-->
-<!-- Select-Boxes Plugin -->
-<!--<script type="text/javascript" src="assets/frontend/js/components/select-boxes.js"></script>-->
-
+<script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
 <div class="content-wrap">
     <div class="container clearfix">
         <div class="row clearfix">
@@ -146,43 +141,40 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
+
 <script type="text/javascript">
-                            $(document).ready(function () {
-                                $('#datatable1').DataTable();
+    $(document).ready(function () {
+        $('#datatable1').DataTable();
 
-                            });
+    });
 
-
-
-//                            var element = $('#category_id').val();
-                            $("#ticket-add-form").validate({
-                                rules: {
-                                    category_id: "required",
-                                    dept_id: "required",
-                                    status_id: "required",
-                                    priority_id: "required",
-                                },
-//                                errorPlacement: function (error, element) {
-//                                    error.insertAfter(element.parent());
-//                                    console.log(element);
+    $("#ticket-add-form").validate({
+        rules: {
+            category_id: "required",
+            dept_id: "required",
+            status_id: "required",
+            priority_id: "required",
+        },
+//        errorPlacement: function (error, element) {
+//            error.insertAfter(element.parent());
+//            console.log(element);
 //
-//                                    if (element.attr("name") == "category_id") {
-//                                        element.removeClass('error');
-//                                        element.parent().find("button").addClass('dropdown-id-dropdown-toggle');
-//                                    }
-//                                },
-//                                success: function (label, element) {
-//                                    if (element.attr("name") == "category_id") {
-//                                        element.removeClass('error');
-//                                        element.parent().find("button").removeClass('dropdown-id-dropdown-toggle');
+//            if (element.attr("name") == "category_id") {
+//                element.removeClass('error');
+//                element.parent().find("button").addClass('dropdown-id-dropdown-toggle');
+//            }
+//        },
+//        success: function (label, element) {
+//            if (element.attr("name") == "category_id") {
+//                element.removeClass('error');
+//                element.parent().find("button").removeClass('dropdown-id-dropdown-toggle');
 //
-//                                    }
+//            }
 //
-//                                },
-                                submitHandler: function (form) { // for demo
-                                    form.submit();
-                                }
+//        },
+        submitHandler: function (form) { // for demo
+            form.submit();
+        }
 
-                            });
+    });
 </script>

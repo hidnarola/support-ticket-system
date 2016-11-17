@@ -51,7 +51,6 @@
                     </div>
                 </div><!-- .entry end -->
                 <?php if ($other_articles == NULL) {
-                   
                     ?>
                     <style> .entry {border-bottom: 0 none!important;padding: 0!important;}#comments {margin-top: 0;}</style>
                 <?php } ?>
@@ -71,7 +70,7 @@
                             } else {
                                 $class = '';
                             }
-                        }else{
+                        } else {
                             $class = 'col_last';
                         }
                         ?>
@@ -118,31 +117,32 @@
                     <div id="respond" class="clearfix">
 
                         <h3>Leave a <span>Comment</span></h3>
+                        <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm1" class="button tright" id="">Inquiry About Article<i class="icon-circle-arrow-right"></i></a>
 
-                        <form class="clearfix" action="knowledgebase/add_comments" method="post" id="commentform">
-
-                            <div class="col_one_third">
-                                <label for="author">Name</label>
-                                <input type="text" name="author" id="author" value="" size="22" tabindex="1" class="sm-form-control" />
-                            </div>
-
-                            <div class="col_one_third">
-                                <label for="email">Email</label>
-                                <input type="text" name="email" id="email" value="" size="22" tabindex="2" class="sm-form-control" />
-                            </div>
-
-                            <div class="clear"></div>
-
-                            <div class="col_full">
-                                <label for="comment">Comment</label>
-                                <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control"></textarea>
-                            </div>
-
-                            <div class="col_full nobottommargin">
-                                <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit Comment</button>
-                            </div>
-
-                        </form>
+                        <!--                        <form class="clearfix" action="knowledgebase/add_comments" method="post" id="commentform">
+                        
+                                                    <div class="col_one_third">
+                                                        <label for="author">Name</label>
+                                                        <input type="text" name="author" id="author" value="" size="22" tabindex="1" class="sm-form-control" />
+                                                    </div>
+                        
+                                                    <div class="col_one_third">
+                                                        <label for="email">Email</label>
+                                                        <input type="text" name="email" id="email" value="" size="22" tabindex="2" class="sm-form-control" />
+                                                    </div>
+                        
+                                                    <div class="clear"></div>
+                        
+                                                    <div class="col_full">
+                                                        <label for="comment">Comment</label>
+                                                        <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control"></textarea>
+                                                    </div>
+                        
+                                                    <div class="col_full nobottommargin">
+                                                        <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit Comment</button>
+                                                    </div>
+                        
+                                                </form>-->
 
                     </div><!-- #respond end -->
 
@@ -152,7 +152,7 @@
 
             <!-- Sidebar
             ============================================= -->
-             <?php $this->load->view('frontend/rightsidebar');?>
+            <?php $this->load->view('frontend/rightsidebar'); ?>
             <!-- .sidebar end -->
 
         </div>
@@ -160,7 +160,142 @@
     </div>
 
 </div>
+<style>
+    .loading-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 10;
+    }
+    .loader{
+        display: none;
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+        bottom: 0;
+        left:0;
+        overflow: auto;
+        position: fixed;
+        right: 0;
+        text-align: center;
+        top: 0;
+        z-index: 9999;
+    }
+</style>
+<div class="loader">
+    <center>
+        <img class="loading-image" src="assets/frontend/images/preloader@2x.gif" alt="loading..">
+    </center>
+</div>
 
-<!--</div>
+<div class="modal fade bs-example-modal-sm1" id="confirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Leave a Comment</h4>
+                </div>
+                <form class="clearfix" action="" method="post" id="commentform">
+                    <input type="hidden" id="type" name="type" value="0"/>
+                    <input type="hidden" id="link" name="link" value="<?php echo current_url(); ?>"/>
+                    <input type="hidden" id="article_id" name="article_id" value="<?php echo $article['id']; ?>"/>
+                    <div class="modal-body">
+                        <div class="col_full">
+                            <label for="subject">Subject</label>
+                            <input type="text" name="subject" id="subject" required="required" value="" size="22" tabindex="2" class="sm-form-control" />
+                        </div>
+                        <div class="clear"></div>
+                        <div class="col_full">
+                            <label for="comment">Comment</label>
+                            <textarea name="comment" id="comment" cols="58" rows="7" required="required" tabindex="4" class="sm-form-control"></textarea>
+                        </div>
 
-</div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="send" class="button button-3d button-rounded button-mini" id="send_comment">Send</button>
+                        <button type="button" data-dismiss="modal" class="button button-3d button-mini button-rounded button-white button-light">Cancel</button>
+                        <!--<a href="#" class="button button-3d button-mini button-rounded button-white button-light">White</a>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
+<script>
+    $("#commentform").validate({
+        rules: {
+            subject: "required",
+            comment: "required",
+        },
+        submitHandler: function (form, event) { // for demo
+            event.preventDefault();
+//            form.submit();
+        }
+
+    });
+</script>
+
+<script>
+    $(document).on('click', '#send_comment', function () {
+        var base_url = '<?php echo base_url(); ?>';
+        var url_action = base_url + 'home/add_comments';
+        var subject = $('#subject').val();
+        var comment = $('#comment').val();
+        var type = $('#type').val();
+        var link = $('#link').val();
+        var article_id = $('#article_id').val();
+//        var url = window.location.href;
+        $('.loader').show();
+        if (subject !== '' && comment !== '') {
+            $.ajax({
+                type: 'POST',
+                url: url_action,
+                async: false,
+                dataType: 'JSON',
+                data: {subject: subject, comment: comment, type: type, link: link, article_id: article_id},
+                success: function (data) {
+//                    return false;
+                    $('.loader').hide();
+                    window.location.reload();
+                },
+//                complete: function () {
+//                    $('.loader').hide();
+//                }
+            });
+        }
+
+
+    });
+
+    $(function () {
+//        $("#commentform").submit(function (event) {
+//            event.preventDefault();
+//          console.log('here');
+//          return false;
+//            var base_url = '<?php echo base_url(); ?>';
+//            var url_action = base_url + 'home/add_comments';
+//            var subject = $('#subject').val();
+//            var comment = $('#comment').val();
+//            var type = $('#type').val();
+//        var url = 'http://dev.supportticket.com/knowledgebase/digital-marketing';
+////            var pathname = window.location.pathname; // Returns path only
+////            var url = window.location.href;     // Returns full URL
+//            if (subject !== '' && comment !== '') {
+//                $.ajax({
+//                    url: url_action,
+//                    dataType: 'JSON',
+//                     data: {subject: subject, comment: comment,type:type,url:url},
+//                    type: $(this).attr('method')
+//                }).done(function (data) {
+//                    return false;
+////                window.location.reload();
+//
+//                });
+//            }
+//            event.preventDefault();
+//        });
+
+
+
+    });
+</script>

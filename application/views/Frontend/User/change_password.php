@@ -42,12 +42,13 @@
                                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" data-label="Confirm password" required="required" data-msg="Confirm password should be match with password." data-rule-equalTo="#new_password">
                                 </div>
 
-                            </div>
-                        </div>
+                            
 
                         <div class="btn_bottom_sec">
-                            <input type="submit" class="button button-small button-3d button-black nomargin blue-button" name="save" value="Submit">&nbsp;
+                            <input type="submit" class="button button-small button-3d button-rounded nomargin blue-button" name="save" value="Submit">&nbsp;
                             <input type="button" class="button button-small button-white button-3d button-light nomargin" onclick="window.history.back()" value="Back">
+                        </div>
+                                </div>
                         </div>
                     </form>
             </div>

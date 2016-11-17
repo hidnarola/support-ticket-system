@@ -100,6 +100,7 @@ define('TBL_TICKET_TYPES','ticket_types');
 define('TBL_TICKETS','tickets');
 define('TBL_USERS','users');
 define('TBL_SETTINGS','settings');
+define('TBL_ARTICLE_COMMENTS','article_comments');
 
 
 /*  |	set upload folder constants */

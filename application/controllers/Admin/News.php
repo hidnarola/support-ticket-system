@@ -89,7 +89,8 @@ class News extends CI_Controller {
                 'description' => $this->input->post('description'),
                 'is_news' => $this->input->post('is_news'),
                 'user_id' => $this->session->userdata('admin_logged_in')['id'],
-                'image'=>$image
+                'image'=>$image,
+                'created' => date('Y-m-d H:i:s')
             );
             if ($this->News_model->add($data)) {
                 $this->session->set_flashdata('success_msg', 'Detail saved successfully.');

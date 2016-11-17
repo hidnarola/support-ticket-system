@@ -13,8 +13,8 @@ label.error::first-letter {text-transform: uppercase;}
 /*#login-form .col_full{margin-bottom: 1px;}*/
 #register-form .validation-error-label p{  margin-bottom: 0;text-transform: lowercase;color: #e42c3e;font-weight: 400;}
 #register-form .validation-error-label p::first-letter{text-transform: uppercase;}
-/*.list-group-item.active { background-color: #1ABC9C;border-color: #1ABC9C;}*/
-.list-group-item.active { background-color: #003473;border-color: #003473;}
+.list-group-item.active { background-color: #1ABC9C;border-color: #1ABC9C;}
+/*.list-group-item.active { background-color: #003473;border-color: #003473;}*/
 
 #datatable1 [class^="icon-trash"]{color: #e42c3e}
 #datatable1 [class^="icon-eye-open"]{color: #6262FF}
@@ -24,10 +24,10 @@ label.error::first-letter {text-transform: uppercase;}
 #change_password-form .col_full{margin-bottom: 10px;}
 #change_password-form .btn_bottom_sec{margin-top: 5px;}
 
-#page-title {background-color: #003473;}
+/*#page-title {background-color: #003473;}
 #page-title h1{color: #fff;}
 #page-title .breadcrumb a {color: #fff;}
-#page-title .breadcrumb > .active {color: #d3d3d3;} 
+#page-title .breadcrumb > .active {color: #d3d3d3;} */
 #ticket-add-form .bootstrap-select {width: 405px !important;}
 .btn-not-found {background-color:#003473 !important;color: #fff !important;border: 2px solid #003473;}
 
@@ -35,10 +35,10 @@ label.error::first-letter {text-transform: uppercase;}
 
 
 .bs-example-modal-sm1 .modal-title {color: #fff;}
-.bs-example-modal-sm1 .modal-header {background-color: #003473;}
-.bs-example-modal-sm1 .btn-primary {background-color: #003473;}
+.bs-example-modal-sm1 .modal-header {background-color: #1ABC9C;}
+/*.bs-example-modal-sm1 .btn-primary {background-color: #003473;}*/
 
-.blue-button {background-color: #003473;}
+/*.blue-button {background-color: #003473;}*/
 
 @media all and (min-width: 240px) and (max-width: 320px) {
     #ticket-add-form .bootstrap-select {width: 280px !important;}

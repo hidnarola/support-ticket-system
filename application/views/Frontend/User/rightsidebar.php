@@ -54,3 +54,4 @@ $page_sec = $this->uri->segment(2);
     </a>-->
 
 </div>
+<?php $this->load->view('frontend/rightsidebar'); ?>

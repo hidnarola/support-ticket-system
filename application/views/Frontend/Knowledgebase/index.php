@@ -13,7 +13,8 @@
                                     <div class="column col-half">
                                         <h3>
                                             <span class="count"><?php echo $count; ?> Articles</span>
-                                            <a href="http://demo.herothemes.com/supportdesk/section/account/" title="View all posts in Account"><?php echo $key; ?> <span>→</span></a>
+                                            <!--<a href="http://demo.herothemes.com/supportdesk/section/account/" title="View all posts in Account"><?php echo $key; ?> <span>→</span></a>-->
+                                           <a><?php echo $key; ?> <span>→</span></a>
                                         </h3>
                                         <ul class="kb-article-list">
                                             <?php foreach ($value as $key => $rec) { ?>

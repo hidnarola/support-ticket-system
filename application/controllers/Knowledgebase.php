@@ -30,12 +30,13 @@ class Knowledgebase extends CI_Controller {
             $data['article'] = $this->Article_model->get_data_by_slug($slug);
 
             if ($data['article'] != '') {
-                $data['other_articles'] = $this->Article_model->get_other_articles($data['article']['category_id'],$data['article']['id']);
+                $data['other_articles'] = $this->Article_model->get_other_articles($data['article']['category_id'], $data['article']['id']);
 //                pr($data['other_articles'],1);
                 $data['title'] = 'Knowledge Base | Support-Ticket-System';
                 $data['header_title'] = 'Knowledge Base';
                 $userid = $this->session->userdata('user_logged_in')['id'];
                 $data['user'] = $this->User_model->getUserByID($userid);
+                $data['news_announcements'] = $this->User_model->getlatestnews();
 //                pr($data['article'],1);exit;
                 $this->template->load('frontend/page', 'Frontend/Knowledgebase/view', $data);
             } else {
@@ -49,23 +50,15 @@ class Knowledgebase extends CI_Controller {
             $this->template->load('frontend/page', 'Frontend/error/404notfound', $data);
         }
     }
-    
-    public function articles() {
-        
-        $keyword = $this->input->post('term');
-        echo $keyword;exit;
-        $data['response'] = 'false'; //Set default response
-//        if (!empty($keyword) && isset($keyword)) {           
-//            $query = $this->Article_model->getarticles($keyword);
-//            if (!empty($query)) {
-//                $data['response'] = 'true'; //Set response
-//                $data['message'] = array(); //Create array
-//                foreach ($query as $row) {
-//                    $data['message'][] = array('value' => $row->title);
-//                }
-//                echo json_encode($data);exit;
-//            }
-//        }
+
+    public function add_comments() {
+        pr($_POST,1);
+        $subject = $this->input->get_post('subject');
+        $comment = $this->input->get_post('comment');
+        $link = $this->input->post('url');
+        echo $link;   
+//        echo json_encode($subject);
+        exit;
     }
 
 }

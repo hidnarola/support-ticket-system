@@ -99,4 +99,54 @@ class Home extends CI_Controller {
         exit;
     }
 
+    public function add_comments() {
+
+        $subject = $this->input->get_post('subject');
+        $comment = $this->input->get_post('comment');
+        $link = $this->input->post('link');
+        $type = $this->input->post('type');
+        $article_id = $this->input->post('article_id');
+        
+        $userid = $this->session->userdata('user_logged_in')['id'];
+        $useremail = $this->session->userdata('user_logged_in')['email'];
+        $data['user'] = $this->User_model->getUserByID($userid);
+       
+        $data_rec = array(
+            'user_id' => $this->session->userdata('user_logged_in')['id'],
+            'article_id' => $article_id,
+            'type' => $type,
+            'subject' => $subject,
+            'comment' => $comment,
+            'created' => date('Y-m-d H:i:s')
+        );
+        
+//        pr($_POST,1);
+
+        if ($this->Admin_model->manage_record(TBL_ARTICLE_COMMENTS, $data_rec)) {
+            /* To send mail to the admin */
+            $configs = mail_config();
+            $this->load->library('email', $configs);
+            $this->email->initialize($configs);
+            $this->email->from($useremail);
+            $this->email->to('rep@narola.email');
+
+            //--- set email template
+            $data_array = array(
+                'firstname' => $this->session->userdata('user_logged_in')['fname'],
+                'lastname' => $this->session->userdata('user_logged_in')['lname'],
+                'subject' => $subject,
+                'link' => $link,
+                'email' => $useremail,
+            );
+            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
+            $this->email->subject('Your account is registed for dev.supportticket.com');
+            $this->email->message($msg);
+            $this->email->send();
+            $this->email->print_debugger();
+        }
+
+        echo json_encode($data);
+        exit;
+    }
+
 }

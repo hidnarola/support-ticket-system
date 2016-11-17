@@ -8,6 +8,7 @@
         <!-- Stylesheets
         ============================================= -->
         <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+         <link rel="icon" href="assets/frontend/images/favicon (1).ico" />
         <link rel="stylesheet" href="assets/frontend/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/style.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/custom.css" type="text/css" />
@@ -50,9 +51,10 @@
                         <!-- Logo
                         ============================================= -->
                         <div id="logo">
-                            <a href="index.html" class="standard-logo" data-dark-logo="assets/frontend/images/logo-dark.png"><img src="assets/frontend/images/logo.png" alt="Canvas Logo"></a>
-                            <a href="index.html" class="retina-logo" data-dark-logo="assets/frontend/images/logo-dark@2x.png"><img src="assets/frontend/images/logo@2x.png" alt="Canvas Logo"></a>
+                            <a href="home" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <a href="home" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
+                        
 
                         <div id="top-account" class="dropdown">
                             <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
@@ -74,7 +76,12 @@
                                 <li <?php echo ($page == 'home') ? 'current' : ''; ?>><a href="home"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
                                     <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
-                                    <li class="mega-menu <?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a></li>
+                                   <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a>
+                                    <ul>
+                                        <li><a href="faq"><div>FAQ'S</div></a>
+                                        </li>                                      
+                                    </ul>
+                                </li>
                                 <?php } ?>
                                 <li class="mega-menu"><a href="login"><div>About us</div></a></li>
                                 <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>

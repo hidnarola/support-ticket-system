@@ -93,6 +93,23 @@ class User_model extends CI_Model {
         $query = $this->db->get_where('users', array('is_delete !=' => 1, 'email' => $email));
         return $query->row_array();
     }
+    function check_email_edit($email,$id) {
+        $this->db->select('email');
+        $this->db->where('is_delete!=', 1);
+        $this->db->where('email=', $email);
+        $this->db->where('id!=', $id);
+//        $query = $this->db->get_where('users', array('is_delete !=' => 1, 'email' => $email,'id!='=> $id));
+//        echo $this->db->last_query();exit;
+//        return $query->row_array();
+
+        $result = $this->db->get(TBL_USERS);
+        if ($result->num_rows() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+       
+    }
 
     public function get_role_id($role) {
         $this->db->select('id');
@@ -211,5 +228,18 @@ class User_model extends CI_Model {
 
         return $query->result_array();
     }
+    
+    /**
+     * To display news and announcements in the rightside bar
+     */
+    public function getlatestnews(){
+        $this->db->select('*');
+         $this->db->where('news_announcements.is_delete', 0);
+         $this->db->order_by('news_announcements.id', 'DESC');
+        $this->db->limit('3');
+        $this->db->from(TBL_NEWS_ANNOUNCEMENTS);
+         $query = $this->db->get();
 
+        return $query->result_array();
+    }
 }
