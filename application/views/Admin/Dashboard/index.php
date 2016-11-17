@@ -397,6 +397,8 @@
         }
         $('.modal-title').html(modal_title);
         var select = card.selectedIndex;
+        console.log("select", select);
+        
         var hidden_val = select;
         $('#hidden_value').val(hidden_val);
         $('#select_type').val(action_type);
@@ -409,8 +411,8 @@
                 data: {form: $('#change_action').serialize()},
                 type: $(this).attr('method')
             }).done(function (data) {
-                // console.log("data", data);
-                // return false;
+                console.log("data", data);
+                return false;
                 if (data = 'success') {
                     $('#modal_theme_success').modal('hide');
                     $('#change_action')[0].reset();
@@ -420,7 +422,7 @@
                     $('#staff_val').val('');
                     $('#status_val').val('');
                     $('#priority_val').val('');
-                    window.location.reload();
+                    //window.location.reload();
                 } else {
                 }
             });

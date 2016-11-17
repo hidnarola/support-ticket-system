@@ -54,25 +54,7 @@ if ($this->session->flashdata('success')) {
                 <form action="" method="post" id="page_info" class="validate-form" enctype="multipart/form-data">
                     <div class="panel panel-flat">
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label>Select Parent Page:</label>
-                                <select name="parent_id" id="parent_id" class="form-control">
-                                    <option value="">None</option>
-                                    <?php 
-                                        if(isset($pages)){
-                                            foreach ($pages as $key => $value) {
-                                                $selected = '';
-                                                if($page_data['parent_id'] == $value['id']){
-                                                    $selected = 'selected';
-                                                }
-                                                ?>
-                                                    <option <?php echo $selected; ?> value="<?php echo $value['id'] ?>"><?php echo $value['title']; ?></option>
-                                                <?php
-                                            }
-                                        }
-                                    ?>
-                                </select>
-                            </div>
+                            
                             <div class="form-group">
                                 <label>Navigation Name:</label>
                                 <input type="text" name="navigation_name" id="navigation_name" class="form-control" value="<?php echo isset($page_data['navigation_name']) ? $page_data['navigation_name'] : set_value('navigation_name'); ?>">
@@ -92,7 +74,7 @@ if ($this->session->flashdata('success')) {
                                     if(isset($page_data['banner_image'])){
                                 ?>
                                     <div class="col-md-3">
-                                        <img heigth="100" width="170" src="<?php echo base_url(PAGE_BANNER.'/'.$page_data['banner_image']) ?>" alt="">
+                                        <img heigth="100" width="170" src="<?php echo base_url(USER_PROFILE_IMAGE.'/'.$page_data['banner_image']) ?>" alt="">
                                     </div>
                                 <?php
                                     }
@@ -102,8 +84,8 @@ if ($this->session->flashdata('success')) {
                                         <label>Banner Image:</label>
                                         <div class="uploader">
                                             <input type="file" name="banner_image" id="banner_image" class="file-styled">
-                                            <span class="filename" style="">No file selected</span>
-                                            <span class="action btn bg-pink-400" style="">Choose File</span>
+                                            <!-- <span class="filename" style="">No file selected</span> -->
+                                            <!-- <span class="action btn bg-pink-400" style="">Choose File</span> -->
                                         </div>
                                         <span class="help-block">Accepted formats: png, jpg, jpeg. Max file size 700Kb</span>
                                     </div>
