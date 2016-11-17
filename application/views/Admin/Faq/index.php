@@ -40,11 +40,13 @@
                     <div class="panel panel-white">
                         <div class="panel-heading">
                             <h6 class="panel-title">
+                                
                                 <a class="collapsed" data-toggle="collapse" href="<?php echo "#question" . $value['id'] ?>">
                                     <i class="icon-help position-left text-slate"></i> <?php echo $value['question']; ?>
                                 </a>
-                                <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($value['id']); ?>" data-record="<?php echo base64_encode($value['id']); ?>"><i class="icon-trash"></i></a>
-                                <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/faq/edit/' . base64_encode($value['id']) ?>" id="edit_<?php echo base64_encode($value['id']); ?>"><i class="icon-pencil7"></i></a>
+                                
+                                <span><a class=" text-danger-600 delete" id="delete_<?php echo base64_encode($value['id']); ?>" data-record="<?php echo base64_encode($value['id']); ?>"><i class="icon-trash"></i></a>
+                                <a class="text-teal-600 edit" href="<?php echo base_url() . 'admin/faq/edit/' . base64_encode($value['id']) ?>" id="edit_<?php echo base64_encode($value['id']); ?>"><i class="icon-pencil7"></i></a></span>
                             </h6>
                         </div>
 

@@ -51,6 +51,34 @@ if ($this->session->flashdata('success')) {
                     <th width="100px">Action</th>
                 </tr>
             </thead>
+            <tbody>
+                <?php 
+                $srno = 1;
+                foreach ($pages as $page) { ?>
+                    <tr>
+                        <td><?php echo $srno; ?></td>
+                        <td><?php echo $page['title']; ?></td>
+                        <td><?php echo date('F j, Y', strtotime($page['created'])); ?></td>
+                        <td><?php $status = '<span class="label bg-success">Active</span>';
+                    if ($page['active'] == '0') {
+                        $status = '<span class="label bg-grey">InActive</span>';
+                    }
+                    if ($page['active'] == '2') {
+                        $status = '<span class="label bg-danger">Deleted</span>';
+                    } echo $status ?></td>
+                        <td>
+                            <?php if ($page['active'] == '1') { ?>
+                        
+                            <a href="admin/pages/manage/<?php echo $page['id']; ?>" class="btn border-primary text-primary-600 btn-flat btn-icon btn-rounded btn-sm"><i class="icon-pencil3"></i></a>
+                            <?php 
+                        }else { ?>
+                        <a href="admin/pages/activate/<?php echo $page['id']; ?>" class="btn border-success text-success-600 btn-flat btn-icon btn-rounded"><i class="icon-checkmark"></i></a>
+                    <?php } ?>
+
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
         </table>
     </div>
     

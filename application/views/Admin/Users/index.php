@@ -111,9 +111,12 @@
                                                 <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Password</a></li>
                                                 <li><a class="chang_status" data-status="<?php echo $record['status']; ?>" id="changestatus_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Status</a></li>
 
-                                                <?php  if ($seg == 'tenant') { ?>
-                                                    <li><a target="_blank" class="view_contract" href="<?php echo USER_CONTRACT.'/'.$record['contract']; ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> View Contract</a></li>
-                                                <?php }  ?>
+                                                <?php  if ($seg == 'tenant') { 
+                                                            if($record['contract'] != ''){
+                                                    ?>
+                                                    <li><a target="_blank" class="view_contract" href="<?php echo USER_CONTRACT.'/'.$record['contract']; ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-eye"></i> View Contract</a></li>
+                                                <?php } 
+                                                } ?>
 
                                             </ul>
                                         </li>
