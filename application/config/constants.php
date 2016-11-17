@@ -90,6 +90,7 @@ define('TBL_CATEGORIES','categories');
 define('TBL_DEPARTMENTS','departments');
 define('TBL_FAQ','faq');
 define('TBL_NEWS_ANNOUNCEMENTS','news_announcements');
+define('TBL_PAGES','pages');
 define('TBL_ROLES','roles');
 define('TBL_STAFF','staff');
 define('TBL_TICKET_CONVERSATION','ticket_conversation');

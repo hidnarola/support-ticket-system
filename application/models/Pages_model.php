@@ -9,6 +9,8 @@ class Pages_model extends CI_Model {
     }
 
     function get_pages(){
-    	
+    	$this->db->where('is_delete', 0);
+		$records = $this->db->get(TBL_PAGES);
+        return $records->result_array();
     }
 }
