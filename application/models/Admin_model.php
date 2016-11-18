@@ -134,7 +134,7 @@ class Admin_model extends CI_Model {
 
         $this->db->join(TBL_USERS . ' user', 'user.id = tickets.user_id', 'left');
         $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
-        //$this->db->join(TBL_CATEGORIES . ' category', 'category.id = tickets.category_id', 'left');
+
         $this->db->order_by("tickets.id", "desc");
          if ($limit != null) {
             $this->db->limit(10);

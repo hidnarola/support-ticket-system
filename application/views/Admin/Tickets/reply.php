@@ -13,6 +13,7 @@
 </div>
 
 <div class="content">
+     <?php $this->load->view('admin/message_view'); ?>
     <!-- Default stacked layout -->
     <div class="panel panel-flat">
         <div class="panel-heading">

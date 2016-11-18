@@ -13,6 +13,7 @@
 </div>
 
 <div class="content">
+    <?php $this->load->view('admin/message_view');?>
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h5 class="panel-title">FAQ'S List

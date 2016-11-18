@@ -35,7 +35,6 @@ class Tickets extends CI_Controller {
         $this->data['tickets_types'] = $this->Admin_model->get_records(TBL_TICKET_TYPES);
         $this->data['tickets_priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
         $this->data['tickets_statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
-        $this->data['tickets_categories'] = $this->Admin_model->get_records(TBL_CATEGORIES);
         $user_id = $this->session->userdata('admin_logged_in')['id'];
 
         $this->form_validation->set_rules('title', 'Title', 'trim|required');
@@ -43,7 +42,6 @@ class Tickets extends CI_Controller {
         $this->form_validation->set_rules('ticket_type_id', 'Ticket Type', 'trim|required');
         $this->form_validation->set_rules('priority_id', 'Ticket Priority', 'trim|required');
         $this->form_validation->set_rules('status_id', 'Ticket Status', 'trim|required');
-        $this->form_validation->set_rules('category_id', 'Category', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
             $this->data['icon_class'] = 'icon-ticket';
@@ -58,7 +56,6 @@ class Tickets extends CI_Controller {
                 'ticket_type_id' => $this->input->post('ticket_type_id'),
                 'priority_id' => $this->input->post('priority_id'),
                 'status_id' => $this->input->post('status_id'),
-                'category_id' => $this->input->post('category_id'),
                 'description' => $this->input->post('description'),
                 'is_delete' => 0,
                 'created' => date('Y-m-d H:i:s'),
@@ -80,7 +77,6 @@ class Tickets extends CI_Controller {
                 $this->data['tickets_types'] = $this->Admin_model->get_records(TBL_TICKET_TYPES);
                 $this->data['tickets_priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
                 $this->data['tickets_statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
-                $this->data['tickets_categories'] = $this->Admin_model->get_records(TBL_CATEGORIES);
 
                 $user_id = $this->session->userdata('admin_logged_in')['id'];
 
@@ -89,7 +85,6 @@ class Tickets extends CI_Controller {
                 $this->form_validation->set_rules('ticket_type_id', 'Ticket Type', 'trim|required');
                 $this->form_validation->set_rules('priority_id', 'Ticket Priority', 'trim|required');
                 $this->form_validation->set_rules('status_id', 'Ticket Status', 'trim|required');
-                $this->form_validation->set_rules('category_id', 'Category', 'trim|required');
                 $this->form_validation->set_rules('description', 'Description', 'trim|required');
                 if ($this->form_validation->run() == FALSE) {
                     $this->data['icon_class'] = 'icon-ticket';
@@ -104,7 +99,6 @@ class Tickets extends CI_Controller {
                         'ticket_type_id' => $this->input->post('ticket_type_id'),
                         'priority_id' => $this->input->post('priority_id'),
                         'status_id' => $this->input->post('status_id'),
-                        'category_id' => $this->input->post('category_id'),
                         'description' => $this->input->post('description'),
                         'is_delete' => 0,
                         'created' => date('Y-m-d H:i:s'),

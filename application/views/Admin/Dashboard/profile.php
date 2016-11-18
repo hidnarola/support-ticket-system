@@ -11,9 +11,9 @@
         </ul>
     </div>
 </div>
-
 <div class="content">
     <div class="row profile_page">
+                <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
 
             <!-- Basic layout-->

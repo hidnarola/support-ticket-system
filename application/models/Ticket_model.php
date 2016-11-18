@@ -53,7 +53,7 @@ class Ticket_model extends CI_Model {
         $this->db->join(TBL_TICKET_STATUSES . ' status', 'status.id = tickets.status_id', 'left');
         $this->db->join(TBL_USERS . ' user', 'user.id = tickets.user_id', 'left');
         $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
-        //$this->db->join(TBL_CATEGORIES . ' category', 'category.id = tickets.category_id', 'left');
+
 
         $query = $this->db->get();
 //        echo $this->db->last_query();

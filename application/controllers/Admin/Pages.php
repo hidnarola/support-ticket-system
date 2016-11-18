@@ -41,7 +41,7 @@ class Pages extends CI_Controller {
         //$this->form_validation->set_rules('meta_keyword', 'SEO meta keyword', 'trim|required');
         //$this->form_validation->set_rules('meta_description', 'SEO meta description', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
-            $this->form_validation->set_error_delimiters('<div class="alert alert-error alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+//            $this->form_validation->set_error_delimiters('<div class="alert alert-error alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
         } else {
             $update_array = $this->input->post(null);
             if(!empty($_FILES['banner_image']['name'])){
@@ -86,13 +86,13 @@ class Pages extends CI_Controller {
                     $update_array['url'] = base_url().'/admin/pages'.$id;
                     $update_array['modified'] = date('Y-m-d H:i:s');
                     $update_array['description'] = $_POST['description'];
-                    $this->session->set_flashdata('success', 'Page successfully updated!');
+                    $this->session->set_flashdata('success_msg', 'Page successfully updated!');
                     $this->Pages_model->update_record(TBL_PAGES, 'id = '.$id,$update_array);
                     $this->Pages_model->update_record(TBL_PAGES, 'id = '.$update_array['parent_id'],array('footer_position' => 0));
                 } else {
                     $update_array['url'] = base_url.'/admin/pages';
                     $update_array['description'] = $_POST['description'];
-                    $this->session->set_flashdata('success', 'Page successfully added!');
+                    $this->session->set_flashdata('success_msg', 'Page successfully added!');
                     $this->Pages_model->insert(TBL_PAGES, $update_array);
                     $this->Pages_model->update_record(TBL_PAGES, 'id = '.$update_array['parent_id'],array('footer_position' => 0));
                 }

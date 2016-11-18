@@ -23,7 +23,7 @@
 
 <div class="content">
 
-    
+     <?php $this->load->view('admin/message_view'); ?>
     <!-- Table header styling -->
     <div class="panel panel-flat">
         <div class="panel-heading">
@@ -184,7 +184,7 @@
                         <!--<label>User's Password: </label>-->
                         <button type="button" id='show_pwd_btn' class="btn btn-primary legitRipple">Show Password</button>
                         <!--<div class="user_password" id='user_password' style="display: none">-->
-                        <label class="lblpassword" style="display: none" id='labelpaas'></label>
+                        <label class="lblpassword" style="display: none;margin-left: 10px;" id='labelpaas'></label>
                         <!--</div>-->
                     </div>
                     <div class="form-group has-feedback">
@@ -207,16 +207,18 @@
                         </div>
                     </div>  
                 </div>
-                <div class="pass-set">This User is not verified Yet!</div>
+                <div class="pass-set user_verified">This User is not verified Yet!</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn border-slate text-slate-800 btn-flat" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn bg-teal legitRipple" id="save_pasword">Save changes <i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
+<style>
+    .user_verified{display: none;font-size: 18px;margin-left: 16px;margin-top: 10px;}
+</style>
 <!-- /success modal -->
 <script>
     

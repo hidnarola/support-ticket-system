@@ -103,7 +103,6 @@
                     <?php } ?>
                 </div>
 
-
                 <!-- Comments
                 ============================================= -->
                 <div id="comments" class="">
@@ -118,32 +117,6 @@
 
                         <h3>Leave a <span>Comment</span></h3>
                         <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm1" class="button tright" id="">Inquiry About Article<i class="icon-circle-arrow-right"></i></a>
-
-                        <!--                        <form class="clearfix" action="knowledgebase/add_comments" method="post" id="commentform">
-                        
-                                                    <div class="col_one_third">
-                                                        <label for="author">Name</label>
-                                                        <input type="text" name="author" id="author" value="" size="22" tabindex="1" class="sm-form-control" />
-                                                    </div>
-                        
-                                                    <div class="col_one_third">
-                                                        <label for="email">Email</label>
-                                                        <input type="text" name="email" id="email" value="" size="22" tabindex="2" class="sm-form-control" />
-                                                    </div>
-                        
-                                                    <div class="clear"></div>
-                        
-                                                    <div class="col_full">
-                                                        <label for="comment">Comment</label>
-                                                        <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control"></textarea>
-                                                    </div>
-                        
-                                                    <div class="col_full nobottommargin">
-                                                        <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit Comment</button>
-                                                    </div>
-                        
-                                                </form>-->
-
                     </div><!-- #respond end -->
 
                 </div><!-- #comments end -->
@@ -160,31 +133,14 @@
     </div>
 
 </div>
-<style>
-    .loading-image {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 10;
-    }
-    .loader{
-        display: none;
-        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
-        bottom: 0;
-        left:0;
-        overflow: auto;
-        position: fixed;
-        right: 0;
-        text-align: center;
-        top: 0;
-        z-index: 9999;
-    }
-</style>
+
 <div class="loader">
     <center>
         <img class="loading-image" src="assets/frontend/images/preloader@2x.gif" alt="loading..">
     </center>
 </div>
+
+<a href="#" id="succeess_message" class="" data-notify-type="success" data-notify-msg="<i class=icon-ok-sign></i> Message Sent Successfully!" style="display: none;" onclick="SEMICOLON.widget.notifications(this); return false;"></a>
 
 <div class="modal fade bs-example-modal-sm1" id="confirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -244,27 +200,29 @@
         var type = $('#type').val();
         var link = $('#link').val();
         var article_id = $('#article_id').val();
+
 //        var url = window.location.href;
+       if($('#commentform').valid()){
         $('.loader').show();
-        if (subject !== '' && comment !== '') {
             $.ajax({
                 type: 'POST',
                 url: url_action,
-                async: false,
                 dataType: 'JSON',
                 data: {subject: subject, comment: comment, type: type, link: link, article_id: article_id},
                 success: function (data) {
 //                    return false;
                     $('.loader').hide();
-                    window.location.reload();
+                    $('#confirm').modal('hide');
+//                    window.location.reload();
+                    $('#succeess_message').show();
+                    $('#commentform')[0].reset();
+//                    SEMICOLON.widget.notifications(this);
+                    $("#succeess_message").trigger("click");
+                    return false;
+                  
                 },
-//                complete: function () {
-//                    $('.loader').hide();
-//                }
             });
         }
-
-
     });
 
     $(function () {
