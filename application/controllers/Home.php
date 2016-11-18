@@ -23,24 +23,31 @@ class Home extends CI_Controller {
     public function verify() {
         $key = $this->input->get('key');
         $decode = urldecode($key);
+//        echo $decode;
         $val = explode('=', $decode);
         $this->data['email'] = $val[1];
+//        echo '<br>'.$this->data['email'];
         $check = $this->User_model->passwordExist($this->data['email']);
+//        pr($check);
 
         if ($check['role_id'] == 1) {
             //--- for tenant verifaication
-            if ($check['is_verified'] == 1) {
+            if ($check['is_verified'] == 1 && $check['password'] != '') {
                 //--- for tenant verifaication already Done or not
                 $this->session->set_flashdata('success_msg', 'Your account is already verified, no need to activate again. You can login!');
                 redirect('login');
             } else {
+//                echo 'in else';exit;
+                $this->data['title'] = 'Password Setup | Support-Ticket-System';
+                $this->data['header_title'] = 'Password Setup';
                 $update = $this->User_model->updateField('id', $check['id'], 'is_verified', 1, TBL_USERS);
-                $this->session->set_flashdata('success_msg', 'Your Email Id is verified. You can Login.');
-                redirect('login');
+                $this->session->set_flashdata('success_msg', 'Your Email Id is verified. Please set your password!');
+                $this->template->load('frontend/page', 'Frontend/User/password_recovery_tenant', $this->data);
+//                redirect('login');
             }
         } else {
             //--- For staff verifaication
-            if ($check['password'] != 1) {
+            if ($check['password'] != '') {
                 //--- for staff verifaication already Done or not
                 $this->session->set_flashdata('error_msg', 'You have already setup password. You can login Now!');
                 redirect('staff/login');
@@ -69,6 +76,31 @@ class Home extends CI_Controller {
             if ($rec) {
                 $this->session->set_flashdata('success_msg', 'Your password is changed succesfully. You can login Now!');
                 redirect('staff/login');
+            }
+        }
+    }
+
+    public function verifyPasswordTenant() {
+        $email = $this->data = $this->input->post('email_hidden');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('conpassword', 'Confirm Password', 'trim|required|matches[password]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->data['title'] = 'Password Setup | Support-Ticket-System';
+            $this->data['header_title'] = 'Password Setup';
+            $this->template->load('frontend/page', 'Frontend/User/password_recovery_tenant', $this->data);
+        } else {
+            $password = $this->input->post('password');
+            $encryptPassword = $this->encrypt->encode($password);
+            $data = array(
+                'password' => $encryptPassword,
+                'status' => 0,
+                'is_verified' => 1
+            );
+            $rec = $this->User_model->edit($data, TBL_USERS, 'email', $email);
+            if ($rec) {
+                $this->session->set_flashdata('success_msg', 'Your password is changed succesfully. You can login Now!');
+                redirect('login');
             }
         }
     }
@@ -106,11 +138,18 @@ class Home extends CI_Controller {
         $link = $this->input->post('link');
         $type = $this->input->post('type');
         $article_id = $this->input->post('article_id');
-        
+        if ($type == 0) {
+            $type_id = 'article';
+        } else if ($type == 1) {
+            $type_id = 'news';
+        } else {
+            $type_id = 'announcement';
+        }
+
         $userid = $this->session->userdata('user_logged_in')['id'];
         $useremail = $this->session->userdata('user_logged_in')['email'];
         $data['user'] = $this->User_model->getUserByID($userid);
-       
+
         $data_rec = array(
             'user_id' => $this->session->userdata('user_logged_in')['id'],
             'article_id' => $article_id,
@@ -119,7 +158,7 @@ class Home extends CI_Controller {
             'comment' => $comment,
             'created' => date('Y-m-d H:i:s')
         );
-        
+
 //        pr($_POST,1);
 
         if ($this->Admin_model->manage_record(TBL_ARTICLE_COMMENTS, $data_rec)) {
@@ -131,16 +170,24 @@ class Home extends CI_Controller {
             $this->email->to('rep@narola.email');
 
             //--- set email template
-            $data_array = array(
-                'firstname' => $this->session->userdata('user_logged_in')['fname'],
-                'lastname' => $this->session->userdata('user_logged_in')['lname'],
-                'subject' => $subject,
-                'link' => $link,
-                'email' => $useremail,
-            );
-            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
-            $this->email->subject('Your account is registed for dev.supportticket.com');
-            $this->email->message($msg);
+            $firstname = $this->session->userdata('user_logged_in')['fname'];
+            $lastname = $this->session->userdata('user_logged_in')['lname'];
+//            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
+
+            $message = "Hello Admin,<br/><br/><div>There is an inquiry for the " . $type_id . " from <strong>" . $firstname . " " . $lastname . "</strong>"
+                    . "<br/>Link Inquiry : <a href = ".  $link .">" . $link . "</a>"
+                    . "<br/>Subject : " . $subject
+                    . "<br/>Comment : " . $comment
+                    . "</div><br/>Thanks, <br/>" . $firstname . " " . $lastname;
+
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body = $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+
+            $this->email->subject('Inquiry for ' . $type_id . ' in the dev.supportticket.com');
+            $this->email->message($mail_body);
             $this->email->send();
             $this->email->print_debugger();
         }

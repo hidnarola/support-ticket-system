@@ -18,7 +18,8 @@
                             </div>
                         </form>-->
             <div>
-                <a href="home" class="button button-xlarge button-border button-rounded tright btn-not-found">Back To Home<i class="icon-circle-arrow-right"></i></a>
+                <a href="home" class="button button-3d button-rounded button-xlarge tright">Back To Home<i class="icon-circle-arrow-right"></i></a>
+
             </div>
             <div class="col_one_third widget_links topmargin nobottommargin">
                 <ul>

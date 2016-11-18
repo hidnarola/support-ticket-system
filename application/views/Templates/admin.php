@@ -193,35 +193,14 @@
 
 
                 <!-- Main content -->
-                <div class="content-wrapper">
+                <div class="content-wrapper">                    
 
-                    <?php
-                    if ($this->session->flashdata('success_msg')) {
-                        ?>
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <?php echo $this->session->flashdata('success_msg'); ?>
-                        </div>
-                        <?php
-                    }
-                    ?>
-                    <?php
-                    if ($this->session->flashdata('error_msg')) {
-                        ?>
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <?php echo $this->session->flashdata('error_msg'); ?>
-                        </div>
-                        <?php
-                    }
-                    ?>
-
-                    <div class="alert alert-dismissible div_alert_error" role="alert" style="display: none;">
+<!--                    <div class="alert alert-dismissible div_alert_error" role="alert" style="display: none;">
                         <button type="button" class="close alert_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <div id="error_msg_div">
                             <p class="alert_error_msg"></p>
                         </div>
-                    </div>
+                    </div>-->
 
                     <!-- Page header -->
                     <?php echo $body; ?>

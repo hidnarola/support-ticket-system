@@ -15,6 +15,7 @@
 
 <div class="content">
     <div class="row">
+         <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
             $segment = $this->uri->segment(4);
@@ -125,7 +126,7 @@
 
 
                                         </div>
-                                        <div class="form-group col-xs-12">
+<!--                                        <div class="form-group col-xs-12">
                                             <label>Ticket Category</label>
 
                                             <select class="select" name="category_id" required="" id="category_id">
@@ -141,7 +142,7 @@
                                                 ?>
                                             </select>
                                             <?php echo '<label id="category_id-error" class="validation-error-label" for="category_id">' . form_error('category_id') . '</label>'; ?>
-                                        </div>
+                                        </div>-->
 
                                         <div class="form-group col-xs-12">
                                             <label>Description</label>

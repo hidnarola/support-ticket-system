@@ -11,32 +11,9 @@
         </ul>
     </div>
 </div>
-<?php
-if ($this->session->flashdata('success')) {
-    ?>
-    <div class="content pt0">
-        <div class="alert alert-success">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong><?= $this->session->flashdata('success') ?></strong>
-        </div>
-    </div>
-    <?php
-    $this->session->set_flashdata('success', false);
-} else if ($this->session->flashdata('error')) {
-    ?>
-    <div class="content pt0">
-        <div class="alert alert-danger">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong><?= $this->session->flashdata('error') ?></strong>
-        </div>
-    </div>
-    <?php
-    $this->session->set_flashdata('error', false);
-} else {
-    echo validation_errors();
-}
-?>
+
 <div class="content">
+    <?php $this->load->view('admin/message_view'); ?>
     <div class="panel panel-flat">
         <div class="panel-heading text-right">
             <a href="<?php echo site_url('admin/pages/manage'); ?>" class="btn btn-success btn-labeled"><b><i class="icon-magazine"></i></b> Add new page</a>
@@ -52,33 +29,36 @@ if ($this->session->flashdata('success')) {
                 </tr>
             </thead>
             <tbody>
-                <?php 
+                <?php
                 $srno = 1;
-                foreach ($pages as $page) { ?>
+                foreach ($pages as $page) {
+                    ?>
                     <tr>
                         <td><?php echo $srno; ?></td>
                         <td><?php echo $page['title']; ?></td>
                         <td><?php echo date('F j, Y', strtotime($page['created'])); ?></td>
-                        <td><?php $status = '<span class="label bg-success">Active</span>';
-                    if ($page['active'] == '0') {
-                        $status = '<span class="label bg-grey">InActive</span>';
-                    }
-                    if ($page['active'] == '2') {
-                        $status = '<span class="label bg-danger">Deleted</span>';
-                    } echo $status ?></td>
+                        <td><?php
+                            $status = '<span class="label bg-success">Active</span>';
+                            if ($page['active'] == '0') {
+                                $status = '<span class="label bg-grey">InActive</span>';
+                            }
+                            if ($page['active'] == '2') {
+                                $status = '<span class="label bg-danger">Deleted</span>';
+                            } echo $status
+                            ?></td>
                         <td>
                             <?php if ($page['active'] == '1') { ?>
-                        
-                            <a href="admin/pages/manage/<?php echo $page['id']; ?>" class="btn border-primary text-primary-600 btn-flat btn-icon btn-rounded btn-sm"><i class="icon-pencil3"></i></a>
-                            <?php 
-                        }else { ?>
-                        <a href="admin/pages/activate/<?php echo $page['id']; ?>" class="btn border-success text-success-600 btn-flat btn-icon btn-rounded"><i class="icon-checkmark"></i></a>
+
+                                <a href="admin/pages/manage/<?php echo $page['id']; ?>" class="btn border-primary text-primary-600 btn-flat btn-icon btn-rounded btn-sm"><i class="icon-pencil3"></i></a>
+                                    <?php } else {
+                                    ?>
+                                <a href="admin/pages/activate/<?php echo $page['id']; ?>" class="btn border-success text-success-600 btn-flat btn-icon btn-rounded"><i class="icon-checkmark"></i></a>
                     <?php } ?>
 
                         </td>
                     </tr>
-                <?php } ?>
+<?php } ?>
             </tbody>
         </table>
     </div>
-    
+</div>

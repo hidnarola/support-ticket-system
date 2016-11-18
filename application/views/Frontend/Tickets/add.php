@@ -87,7 +87,7 @@
                                 <?php echo '<label id="priority_id-error" class="validation-error-label" for="priority_id">' . form_error('priority_id') . '</label>'; ?>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+<!--                        <div class="col-sm-6">
                             <div class="col_full">
                                 <label>Ticket Category:</label>
 
@@ -105,7 +105,7 @@
                                 </select>
                                 <?php echo '<label id="category_id-error" class="validation-error-label" for="category_id">' . form_error('category_id') . '</label>'; ?>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
 
                     <div class="col_full">

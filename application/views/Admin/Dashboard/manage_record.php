@@ -12,10 +12,10 @@
         </ul>
     </div>
 </div>
-
 <div class="content">
-
     <div class="row">
+        <?php $this->load->view('admin/message_view'); ?>
+
         <div class="col-md-6">
             <form method="POST" class="form-horizontal form-validate-jquery manage_record" id="manage_record" name="manage_record">
                 <div class="panel panel-flat">
@@ -55,43 +55,43 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                    <table id="example" class="table table-bordered table-hover" cellspacing="0" width="100%">
-        <thead>
-            <tr class="bg-teal">
-                <th>#</th>
-                <th><?php echo $record_type . ' Name'; ?></th>
-                <th>Action</th>
-                
-            </tr>
-        </thead>
-        
-        <tbody>
-            <?php
-    foreach ($records as $key => $record) {
-        ?>
-        <tr>
-            <td><?php echo $key + 1; ?></td>
-            <td><?php echo $record['name']; ?></td>
-            <td>
-                <ul class="icons-list">
-                    <li class="text-teal-600">
-                        <a id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-pencil7"></i></a>
-                    </li>
-                    <li class="text-danger-600">
-                        <?php $url = urlencode("admin/delete/" . $this->uri->segment(3) . "/" . base64_encode($record['id'])); ?>
-                        <a data-record="<?php echo base64_encode($record['id']); ?>" id="delete_<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
-                    </li>
-                </ul>
-            </td>
-            
+                        <table id="example" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="bg-teal">
+                                    <th>#</th>
+                                    <th><?php echo $record_type . ' Name'; ?></th>
+                                    <th>Action</th>
 
-        </tr>
-        <?php
-    }
-    ?>
+                                </tr>
+                            </thead>
 
-        </tbody>
-    </table>
+                            <tbody>
+                                <?php
+                                foreach ($records as $key => $record) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $key + 1; ?></td>
+                                        <td><?php echo $record['name']; ?></td>
+                                        <td>
+                                            <ul class="icons-list">
+                                                <li class="text-teal-600">
+                                                    <a id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-pencil7"></i></a>
+                                                </li>
+                                                <li class="text-danger-600">
+                                                    <?php $url = urlencode("admin/delete/" . $this->uri->segment(3) . "/" . base64_encode($record['id'])); ?>
+                                                    <a data-record="<?php echo base64_encode($record['id']); ?>" id="delete_<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
+                                                </li>
+                                            </ul>
+                                        </td>
+
+
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -146,7 +146,7 @@
             }
         });
     });
-    $(function() {
+    $(function () {
         $('#example').DataTable();
     });
 </script>

@@ -16,6 +16,7 @@
 <div class="content">
 
     <div class="row">
+         <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
             $segment = $this->uri->segment(4);
@@ -48,11 +49,7 @@
                                     if (isset($user)) {
                                         echo trim($user->fname);
                                     } else {
-//                                        if ($this->input->post('fname')) {
-//                                            echo $this->input->post('fname');
-//                                        } else {
-//                                            echo '';
-//                                        }
+
                                       echo set_value('fname');
                                     }
                                     ?>">

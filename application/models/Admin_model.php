@@ -120,7 +120,7 @@ class Admin_model extends CI_Model {
      * @return type
      */
     public function get_tickets($type, $limit = null) {
-        $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, category.name as category_name, staff.fname as staff_fname ,staff.lname as staff_lname');
+        $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, staff.fname as staff_fname ,staff.lname as staff_lname');
         $this->db->where('tickets.is_delete', 0);
         if ($type != null) {
             $this->db->where('status_id', $type);
@@ -133,7 +133,6 @@ class Admin_model extends CI_Model {
 
         $this->db->join(TBL_USERS . ' user', 'user.id = tickets.user_id', 'left');
         $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
-        $this->db->join(TBL_CATEGORIES . ' category', 'category.id = tickets.category_id', 'left');
         $this->db->order_by("tickets.id", "desc");
          if ($limit != null) {
             $this->db->limit(10);

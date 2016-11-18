@@ -53,7 +53,7 @@
                             <a href="home" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
                             <a href="home" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
-                        
+
                         <?php
                         if ($this->session->userdata('user_logged_in')) {
 //                                                echo $this->session->userdata('admin_logged_in')['fname'] . " " . $this->session->userdata('admin_logged_in')['lname'];
@@ -62,7 +62,7 @@
                                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                                     <li><a href="profile">Profile</a></li>
-                                   <li><a href="profile/changepassword">Change Password</a></li>                                    
+                                    <li><a href="profile/changepassword">Change Password</a></li>                                    
                                     <li role="separator" class="divider"></li>
                                     <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
                                 </ul>
@@ -78,18 +78,20 @@
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
                                     <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
                                     <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a>
-                                    <ul>
-                                        <li><a href="faq"><div>FAQ'S</div></a>
-                                        </li>                                      
-                                    </ul>
-                                </li>
+                                        <ul>
+                                            <li><a href="faq"><div>FAQ'S</div></a></li>                                      
+                                            <li><a href="login"><div>News</div></a></li>
+                                            <li><a href="login"><div>Announcements</div></a></li>
+                                        </ul>
+                                    </li>
                                 <?php } ?>
                                 <li class="mega-menu"><a href="login"><div>About us</div></a></li>
+
+                                <li class="mega-menu"><a href="login"><div>Privacy Policy</div></a></li>
                                 <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>
                                 <li class="mega-menu"><a href="login"><div>Services</div></a></li>
-                                <!--<li class="mega-menu"><a href="login"><div>Communities</div></a></li>-->
-                                <li class="mega-menu"><a href="login"><div>Gallery</div></a></li>
-                                 <?php if ($this->session->userdata('user_logged_in') == '') { ?>
+                                <!--<li class="mega-menu"><a href="login"><div>Gallery</div></a></li>-->
+                                <?php if ($this->session->userdata('user_logged_in') == '') { ?>
                                     <li class="mega-menu <?php echo ($page == 'login') ? 'current' : ''; ?>"><a href="login"><div>Login</div></a></li>
                                 <?php } ?>
                             </ul>
@@ -280,7 +282,7 @@
                     <div class="container clearfix">
 
                         <div class="col_half">
-                           Copyrights &copy; 2014 All Rights Reserved by Support Ticket System.<br>
+                            Copyrights &copy; 2014 All Rights Reserved by Support Ticket System.<br>
                             <div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
                         </div>
 

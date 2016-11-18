@@ -88,11 +88,7 @@
                                 <tr class="alpha-teal">
                                     <th>Ticket Status</th>
                                     <td><?php echo $ticket->status_name ?></td>
-                                </tr>                                
-                                <tr>
-                                    <th>Ticket Category</th>
-                                    <td><?php echo $ticket->category_name ?></td>
-                                </tr>                          
+                                </tr>                                                         
                                 <tr class="alpha-teal">
                                     <th>Added On</th>
                                     <td><?php echo date('d-M-Y', strtotime($ticket->created)) ?></td>

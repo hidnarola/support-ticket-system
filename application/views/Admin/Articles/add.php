@@ -20,10 +20,10 @@
         </ul>
     </div>
 </div>
-
 <div class="content">
 
     <div class="row">
+        <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
             $segment = $this->uri->segment(4);
@@ -98,90 +98,90 @@
                                                 }
                                                 ?>>
                                             </div>
-                                        
-                                    <br>
-                                    <?php
-                                    if (isset($article)) {
-                                        if ($article->expiry_date != '') {
-                                             $expiry_date = date('d F, Y', strtotime($article->expiry_date));
-                                            ?>
-                                            <div id="expiry_date_id" class="input-group mb10">
 
-                                                <span class="input-group-addon"><i class="icon-calendar5"></i></span>
-                                                <input type="text" name="expiry_date" id="expiry_date" class="form-control pickadate" placeholder="Try me&hellip;" value="<?php echo $expiry_date; ?>">
-                                            </div>
+                                            <br>
                                             <?php
-                                        }
-                                    } else {
-                                        ?>
+                                            if (isset($article)) {
+                                                if ($article->expiry_date != '') {
+                                                    $expiry_date = date('d F, Y', strtotime($article->expiry_date));
+                                                    ?>
+                                                    <div id="expiry_date_id" class="input-group mb10">
 
-                                        <div id="expiry_date_id" class="input-group mb10" style="display:none">
+                                                        <span class="input-group-addon"><i class="icon-calendar5"></i></span>
+                                                        <input type="text" name="expiry_date" id="expiry_date" class="form-control pickadate" placeholder="Try me&hellip;" value="<?php echo $expiry_date; ?>">
+                                                    </div>
+                                                    <?php
+                                                }
+                                            } else {
+                                                ?>
 
-                                            <span class="input-group-addon"><i class="icon-calendar5"></i></span>
-                                            <input type="text" name="expiry_date" id="expiry_date" class="form-control pickadate" placeholder="Try me&hellip;">
+                                                <div id="expiry_date_id" class="input-group mb10" style="display:none">
+
+                                                    <span class="input-group-addon"><i class="icon-calendar5"></i></span>
+                                                    <input type="text" name="expiry_date" id="expiry_date" class="form-control pickadate" placeholder="Try me&hellip;">
+                                                </div>
+
+                                            <?php } ?>
                                         </div>
-                                        
-                                    <?php } ?>
                                     </div>
-                                    </div>
-                                   
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">Description</label>
-                                    <div class="col-lg-10">
-                                        <div class="panel panel-flat">
-                                            <div class="panel-heading">
-                                            </div>
 
-                                            <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Description</label>
+                                        <div class="col-lg-10">
+                                            <div class="panel panel-flat">
+                                                <div class="panel-heading">
+                                                </div>
 
-                                                <div class="content-group">
-                                                    <textarea name="description" required="" id="editor-full" rows="4" cols="4"><?php
-                                                        if (isset($article)) {
-                                                            echo trim($article->description);
-                                                        } else {
-                                                            echo '';
-                                                        }
-                                                        ?>	
-                                                    </textarea>
-                                                    <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
+                                                <div class="panel-body">
+
+                                                    <div class="content-group">
+                                                        <textarea name="description" required="" id="editor-full" rows="4" cols="4"><?php
+                                                            if (isset($article)) {
+                                                                echo trim($article->description);
+                                                            } else {
+                                                                echo '';
+                                                            }
+                                                            ?>	
+                                                        </textarea>
+                                                        <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group col-xs-12 user_profile_pic">
-                                    <label class="col-lg-2 control-label">Article Image:</label>  
-                                    <div class="col-lg-10">
-                                        <input type="file" name="image" class="file-styled" onchange="readURL(this)">
-                                        <!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->                               
-                                        <div class="clearfix"></div>
-                                        <div class="col-lg-2"></div>
-                                        <div class="col-lg-5">
-                                            <div id="imgpreview" style="margin-top: 10px;">
-                                                <?php
-                                                if (isset($article)) {
-                                                    if (trim($article->image) != '')
-                                                        echo "<img src='" . base_url() . ARTICLE_IMAGE . '/' . $article->image . "' height='73px' width='73px'>"; //                                               
-                                                }
-                                                ?>
+                                    <div class="form-group col-xs-12 user_profile_pic">
+                                        <label class="col-lg-2 control-label">Article Image:</label>  
+                                        <div class="col-lg-10">
+                                            <input type="file" name="image" class="file-styled" onchange="readURL(this)">
+                                            <!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->                               
+                                            <div class="clearfix"></div>
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-5">
+                                                <div id="imgpreview" style="margin-top: 10px;">
+                                                    <?php
+                                                    if (isset($article)) {
+                                                        if (trim($article->image) != '')
+                                                            echo "<img src='" . base_url() . ARTICLE_IMAGE . '/' . $article->image . "' height='73px' width='73px'>"; //                                               
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="text-right">
-                                <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
-                                <button type="submit" class="btn bg-teal">Save <i class="icon-arrow-right14 position-right"></i></button>
+                                    <div class="text-right">
+                                        <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
+                                        <button type="submit" class="btn bg-teal">Save <i class="icon-arrow-right14 position-right"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </form>
         </div>
     </div>
-</form>
-</div>
-</div>
 </div>
 <script>
     $("[name=add_expiry_date]").click(function () {

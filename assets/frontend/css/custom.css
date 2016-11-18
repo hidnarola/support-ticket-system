@@ -40,16 +40,35 @@ label.error::first-letter {text-transform: uppercase;}
 
 /*.blue-button {background-color: #003473;}*/
 
-@media all and (min-width: 240px) and (max-width: 320px) {
-    #ticket-add-form .bootstrap-select {width: 280px !important;}
-}
 
-@media screen and (min-width: 320px) and (max-width:480px) {
-    #ticket-add-form .bootstrap-select {width: 439px !important;}
+/* For loader for inquiry */
+/* .loading-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 10;
+    }*/
+.loading-image {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 5px;
+    left: 50%;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    z-index: 10;
 }
+.loader{
+    display: none;
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    bottom: 0;
+    left:0;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: 0;
+    z-index: 9999;
 
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-    #ticket-add-form .bootstrap-select {width: 250px !important;}
 }
 
 
@@ -190,15 +209,7 @@ label.error::first-letter {text-transform: uppercase;}
     border-left-color: inherit;
     border-bottom: 5px solid transparent;
 }
-@media (min-width: 769px) {
-    .chat-list .media {
-        margin-right: 20%;
-    }
-    .chat-list .media.reversed {
-        margin-right: 0;
-        margin-left: 20%;
-    }
-}
+
 .chat-list-inverse .media-content:not([class*=bg-]) {
     color: #fff;
     background-color: #42A5F5;
@@ -332,6 +343,29 @@ label.error::first-letter {text-transform: uppercase;}
 }
 
 #page-title form {
-     margin-bottom: 0; 
+    margin-bottom: 0; 
 }
 
+
+
+@media all and (min-width: 240px) and (max-width: 320px) {
+    #ticket-add-form .bootstrap-select {width: 280px !important;}
+}
+
+@media screen and (min-width: 320px) and (max-width:480px) {
+    #ticket-add-form .bootstrap-select {width: 439px !important;}
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    #ticket-add-form .bootstrap-select {width: 250px !important;}
+}
+
+@media (min-width: 769px) {
+    .chat-list .media {
+        margin-right: 20%;
+    }
+    .chat-list .media.reversed {
+        margin-right: 0;
+        margin-left: 20%;
+    }
+}
