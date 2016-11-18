@@ -54,7 +54,7 @@
                                     <th>Priority</th>
                                     <th>Status</th>
                                     <th>Created At</th>
-                                    <th>State</th>
+                                    <!-- <th>State</th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -71,11 +71,11 @@
                                         <td><?php echo $record['status_name']; ?></td>
                                         <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
                                         <!--<td>ABC</td>-->
-                                        <?php if ($record['is_read'] == 0) { ?>
+                                        <?php /* if ($record['is_read'] == 0) { ?>
                                             <td class="text-center"><span class="label label-warning">Unread</span></td>
                                         <?php } else { ?>
                                             <td  class="text-center"><span class="label label-success">Read</span></td>
-                                        <?php } ?>
+                                        <?php } */?>
                                         <td>                                            
                                             <?php if ($record['status_name'] == 'close') { ?>
                                                 <a href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-sm1" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" class="delete" title='Delete Ticket'><i class="icon-trash2"></i></a>

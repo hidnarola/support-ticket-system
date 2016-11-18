@@ -83,10 +83,10 @@ $segment = $this->uri->segment(1);
                                     <td><?php echo $record['status_name']; ?></td>
                                     <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
                                     <!--<td>ABC</td>-->
-                                    <?php if ($record['is_read'] == 0) { ?>
-                                        <td class="text-center"><span class="label label-warning">Unread</span></td>
-                                    <?php } else { ?>
+                                    <?php if ($record['is_read'] == 1 || $record['is_read'] == 3) { ?>
                                         <td  class="text-center"><span class="label label-success">Read</span></td>
+                                    <?php } else { ?>
+                                        <td class="text-center"><span class="label label-warning">Unread</span></td>
                                     <?php } ?>
                                     <td>
                                         <ul class="icons-list">
@@ -184,6 +184,7 @@ $segment = $this->uri->segment(1);
                     </div>
                     <div class="form-group" id="staff_id" style="display:none">
                         <select class="select" id="staff_val" name="staff_id" required="">
+                            <option value="">Select Staff</option> 
                         </select>
                     </div>
                 </div>
@@ -289,7 +290,7 @@ $segment = $this->uri->segment(1);
                     $('#staff_val').val('');
                     $('#status_val').val('');
                     $('#priority_val').val('');
-                    //window.location.reload();
+                    window.location.reload();
                 } else {
                 }
             });

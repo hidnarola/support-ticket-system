@@ -99,18 +99,7 @@ if ($this->session->flashdata('success')) {
                                 <label>Banner Url:</label>
                                 <input type="text" name="ext_url" id="ext_url" class="form-control" value="<?php echo isset($page_data['ext_url']) ? $page_data['ext_url'] : set_value('ext_url'); ?>">
                             </div>
-                            <div class="form-group">
-                                <label>SEO Meta title:</label>
-                                <input type="text" name="meta_title" id="meta_title" class="form-control" value="<?php echo isset($page_data['meta_title']) ? $page_data['meta_title'] : set_value('meta_title'); ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>SEO Meta keyword:</label>
-                                <input type="text" name="meta_keyword" id="meta_keyword" class="form-control" value="<?php echo isset($page_data['meta_keyword']) ? $page_data['meta_keyword'] : set_value('meta_keyword'); ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>SEO Meta Description:</label>
-                                <input type="text" name="meta_description" id="meta_description" class="form-control" value="<?php echo isset($page_data['meta_description']) ? $page_data['meta_description'] : set_value('meta_description'); ?>">
-                            </div>
+                            
                             <div class="text-right">
                                 <button class="btn btn-primary" type="submit">Save <i class="icon-arrow-right14 position-right"></i></button>
                             </div>

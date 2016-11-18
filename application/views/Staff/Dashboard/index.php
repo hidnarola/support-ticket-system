@@ -67,7 +67,7 @@ $segment = $this->uri->segment(1);
                         <th>Priority</th>
                         <th>Status</th>
                         <th>Created At</th>
-                        <th>State</th>
+                        <th>state</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -89,10 +89,10 @@ $segment = $this->uri->segment(1);
                             <td><?php echo $record['priority_name']; ?></td>
                             <td><?php echo $record['status_name']; ?></td>
                             <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                            <?php if ($record['is_read'] == 0) { ?>
-                                <td><span class="label label-warning">Unread</span></td>
-                            <?php } else { ?>
+                            <?php if ($record['is_read'] == 2 || $record['is_read'] == 3) { ?>
                                 <td><span class="label label-success">Read</span></td>
+                            <?php } else { ?>
+                                <td><span class="label label-warning">Unread</span></td>
                             <?php } ?>
                             <td class="text-center">
                                 <ul class="icons-list">

@@ -34,12 +34,12 @@ class Pages extends CI_Controller {
             $data['heading'] = 'Add page';
         }
         $data['pages'] = $this->Pages_model->get_pages(TBL_PAGES);
-        $this->form_validation->set_rules('navigation_name', 'navigation name', 'trim|required');
+        //$this->form_validation->set_rules('navigation_name', 'navigation name', 'trim|required');
         $this->form_validation->set_rules('title', 'title', 'trim|required');
         $this->form_validation->set_rules('description', 'description', 'trim|required');
-        $this->form_validation->set_rules('meta_title', 'SEO meta title', 'trim|required');
-        $this->form_validation->set_rules('meta_keyword', 'SEO meta keyword', 'trim|required');
-        $this->form_validation->set_rules('meta_description', 'SEO meta description', 'trim|required');
+        //$this->form_validation->set_rules('meta_title', 'SEO meta title', 'trim|required');
+        //$this->form_validation->set_rules('meta_keyword', 'SEO meta keyword', 'trim|required');
+        //$this->form_validation->set_rules('meta_description', 'SEO meta description', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
             $this->form_validation->set_error_delimiters('<div class="alert alert-error alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
         } else {

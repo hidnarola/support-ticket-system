@@ -34,7 +34,7 @@ class Tickets extends CI_Controller {
         $data['tickets_types'] = $this->Admin_model->get_records(TBL_TICKET_TYPES);
         $data['tickets_priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
         $data['tickets_statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
-        $data['tickets_categories'] = $this->Admin_model->get_records(TBL_CATEGORIES);
+         $data['tickets_categories'] = $this->Admin_model->get_records(TBL_CATEGORIES);
          $data['news_announcements'] = $this->User_model->getlatestnews();
 
         $userid = $this->session->userdata('user_logged_in')['id'];

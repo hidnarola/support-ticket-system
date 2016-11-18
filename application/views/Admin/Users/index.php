@@ -27,9 +27,30 @@
     <!-- Table header styling -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <div class="heading-elements">
-                <ul class="icons-list">
-                    <?php if ($segment == 'tenants') { ?>
+        <div class="col-md-12">
+            <!-- <div class="heading-elements"> -->
+            <?php if ($seg == 'staff') { ?>
+            <div class="col-md-4">
+            <form method="get">
+             <div class="form-group">
+                <label class="control-label">Select Department</label>
+                    <?php $get_dept = $this->input->get('department'); ?>
+                <select name="department" class="form-control" onchange="this.form.submit()">
+                    <option <?php echo ($get_dept=='all') ? 'selected' : ''; ?> value="all">All</option>
+                    <?php foreach ($departments as $dept) { ?>
+                        <option <?php echo ($get_dept==$dept['name']) ? 'selected' : ''; ?> value="<?php echo $dept['name']; ?>"><?php echo $dept['name']; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            </form>
+            </div>
+            <div class="col-md-8">
+                <div class="row" style="margin-bottom: 10px;">
+            <?php }else{ ?>
+                <div class="col-md-offset-4 col-md-8">
+            <?php } ?>
+                <ul class="icons-list pull-right">
+                    <?php if ($seg == 'tenants') { ?>
                         <a onclick="window.location = 'admin/users/add/tenant'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add new Tenant</a>
                            <!--<button type="button" class="btn bg-success" onclick="window.location = 'admin/users/add/tenant'"><i class="icon-user-plus position-left"></i>Add New Tenant</button>-->
                     <?php } else { ?>
@@ -38,12 +59,19 @@
                     <?php } ?>
                     <!--<li><a data-action="collapse"></a></li>-->
                 </ul>
+                <?php if($seg == 'staff'){ ?>
+                </div>
+                <div class="row pull-right">
+                    <p style="color: red;">*Highlighted rows represents Head Staff</p>
+                </div>
+                <?php } ?>
+                </div>
             </div>
 
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="clear: both;">
 
-            <div class="table-responsive user_table">
+            <div class="user_table">
                 <table class="table datatable-basic" id="datatable-basic-users">
                     <thead>
                         <tr class="bg-teal">
@@ -70,9 +98,14 @@
                         <?php
 
                         foreach ($users as $key => $record) {
-
+                            $is_head = '';
+                            if ($seg == 'staff') {
+                                if($record['is_head']==1){
+                                    $is_head = 'staff_head';
+                                }
+                            }
                             ?>
-                            <tr>
+                            <tr class="<?php echo $is_head; ?>">
                                 <td><?php echo $key + 1; ?></td>
                                 <td><?php echo $record['fname']; ?></td>
                                 <td><?php echo $record['lname']; ?></td>

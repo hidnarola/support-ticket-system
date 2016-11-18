@@ -254,7 +254,7 @@ class Dashboard extends CI_Controller {
     public function get_staff(){
         $dept = $this->input->post('dept');
         $staff = $this->Admin_model->get_staff($dept);
-        $html = '<option value="">Select Staff</option>';
+        $html = '';
         foreach ($staff as $row) {
             $html .= '<option value="'. $row['user_id'] .'">'. $row['fname'].' '. $row['lname'] .'</option>';
         }

@@ -21,9 +21,15 @@ class Users extends CI_Controller {
             $this->data['icon_class'] = 'icon-users';
             $this->data['users'] = $this->User_model->get_users_records($this->table, 1);
         } else {
+            $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
             $this->data['icon_class'] = 'icon-people';
             $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Staffs';
-            $this->data['users'] = $this->User_model->get_users_records($this->table, 2);
+            if($this->input->get() && $this->input->get('department')!='all'){
+                $users = $this->User_model->get_dept_users($this->table, $this->input->get('department'));
+            }else{
+                $users = $this->User_model->get_users_records($this->table, 2);
+            }
+            $this->data['users']= $users;
         }
         $this->template->load('admin', 'Admin/Users/index', $this->data);
     }

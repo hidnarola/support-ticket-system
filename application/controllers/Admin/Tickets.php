@@ -132,14 +132,16 @@ class Tickets extends CI_Controller {
     public function changeAction() {
         $form = $this->input->get_post('form');
         $form = explode('&', $form);
-        //pr($form);
+        
         $form['select_type'] = explode('=', $form[1]);
         $type = $form['select_type'][1];
-        // pr($type);
+        
         $form['hidden_id'] = explode('=', $form[2]);
         $id = $form['hidden_id'][1];
-        $record_id = base64_decode($id);
-        // echo $record_id;
+
+        $record_id = base64_decode(urldecode($id));
+        
+        
         $form['dept_id'] = explode('=', $form[3]);
         $dept_id = $form['dept_id'][1];
         $form['status_id'] = explode('=', $form[4]);
@@ -148,6 +150,7 @@ class Tickets extends CI_Controller {
         $priority_id = $form['priority_id'][1];
         $form['staff_id'] = explode('=', $form[6]);
         $staff_id = $form['staff_id'][1];
+        
         $update_data = array();
         if ($type == 'dept_id') {
             $update_data = array(
@@ -167,8 +170,9 @@ class Tickets extends CI_Controller {
                 'staff_id'=>$staff_id
                 );
         }
-        // pr($update_data,1);
+        //pr($update_data);
         $rec = $this->Ticket_model->updateField('id', $record_id, $update_data, $this->table);
+        
         if ($rec) {
             $this->session->set_flashdata('success_msg', 'Data is updated succesfully..!!');
             $data = 'success';
@@ -200,13 +204,35 @@ class Tickets extends CI_Controller {
                 //            $this->template->load('admin', 'Admin/Tickets/view', $this->data);
                 /* check ticket is read or not */
                 $check = $this->Ticket_model->isTicketRead($record_id);
-                if ($check == 0) {
-                    /* if ticket is not read, change is_read = 1  */
-                    $data = array(
-                        'is_read' => 1
-                    );
-                    $this->Admin_model->manage_record(TBL_TICKETS, $data, $record_id);
+                $data = array();
+                if ($segment == 'admin'){
+                    if ($check == 0) {
+                        /* if ticket is not read, change is_read = 1  */
+                        $data = array(
+                            'is_read' => 1
+                        );
+                    }else if($check == 2){
+                        $data = array(
+                            'is_read' => 3
+                        );
+                    }
+                    
+                    }else{
+                       if ($check == 0) {
+                        /* if ticket is not read, change is_read = 1  */
+                        $data = array(
+                            'is_read' => 2
+                        );
+                    }else if($check == 1){
+                        $data = array(
+                            'is_read' => 3
+                        );
+                    } 
+                   
                 }
+                if(!empty($data)){
+                        $this->Admin_model->manage_record(TBL_TICKETS, $data, $record_id);
+                    }
             } else {
                 $flag = 0;
             }

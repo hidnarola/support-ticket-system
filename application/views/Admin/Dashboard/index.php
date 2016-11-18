@@ -167,10 +167,10 @@
                             <td><?php echo $record['priority_name']; ?></td>
                             <td><?php echo $record['status_name']; ?></td>
                             <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                            <?php if ($record['is_read'] == 0) { ?>
-                                <td><span class="label label-warning">Unread</span></td>
-                            <?php } else { ?>
+                            <?php if ($record['is_read'] == 1 || $record['is_read'] == 3) { ?>
                                 <td><span class="label label-success">Read</span></td>
+                            <?php } else { ?>
+                                <td><span class="label label-warning">Unread</span></td>
                             <?php } ?>
                             <td class="text-center">
                                 <ul class="icons-list">
@@ -193,7 +193,7 @@
                                             <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
                                                    data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
                                         
-                                             <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
+                                             <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo $record['id']; ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
                                                    data-modal-title="Assign Staff"><i class="icon-user"></i> <?php echo ($record['staff_id'] != '') ? 'Change' : 'Assign'; ?> Staff</a></li>
                                         
                                         </ul>
@@ -259,6 +259,7 @@
                     </div>
                     <div class="form-group" id="staff_id" style="display:none">
                         <select class="select" id="staff_val" name="staff_id" required="">
+                        <option value="">Select Staff</option>
                         </select>
                     </div>
                 </div>
@@ -398,21 +399,21 @@
         $('.modal-title').html(modal_title);
         var select = card.selectedIndex;
         console.log("select", select);
-        
+
         var hidden_val = select;
         $('#hidden_value').val(hidden_val);
         $('#select_type').val(action_type);
     });
     $(function () {
         $("#change_action").submit(function (event) {
+            // var card = document.getElementById("staff_val");
+            // var select_data = card.selectedIndex;
             var url = $(this).attr('action');
             $.ajax({
                 url: url,
                 data: {form: $('#change_action').serialize()},
                 type: $(this).attr('method')
             }).done(function (data) {
-                console.log("data", data);
-                return false;
                 if (data = 'success') {
                     $('#modal_theme_success').modal('hide');
                     $('#change_action')[0].reset();
@@ -422,7 +423,7 @@
                     $('#staff_val').val('');
                     $('#status_val').val('');
                     $('#priority_val').val('');
-                    //window.location.reload();
+                    window.location.reload();
                 } else {
                 }
             });

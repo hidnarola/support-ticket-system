@@ -69,6 +69,34 @@ class User_model extends CI_Model {
     }
 
     /**
+     * 
+     * @param type $table_name
+     * @param type $role_id
+     * @return type
+     * @author : Reema  (Rep)
+     */
+    public function get_dept_users($table_name, $dept) {
+        $this->db->select('*,users.id as uid');
+        $this->db->where('users.role_id', 2);
+        $this->db->where('d.name', $dept);
+        
+        $this->db->join('staff as s', 's.user_id = users.id', 'left');
+        $this->db->join('departments as d', 'd.id = s.dept_id', 'left');
+        $this->db->where('users.is_delete', 0);
+        $this->db->order_by('is_head', 'desc');
+        $records = $this->db->get($table_name);
+        $rec = $records->result_array();
+
+        $users = array();
+        foreach ($rec as $key => $value) {
+            $users[$key] = $value;
+            $passworddecrypted = $this->encrypt->decode($value['password']);
+            $users[$key]['password'] = $passworddecrypted;
+        }
+        return $users;
+    }
+
+    /**
      * Check if the value is unique
      * @param type $field
      * @param type $value
@@ -213,6 +241,7 @@ class User_model extends CI_Model {
         if ($type != null) {
             $this->db->where('tickets.status_id', $type);
         }
+        $this->db->where('tickets.title !=', '');
         if ($limit != null) {
             $this->db->limit(10);
         }

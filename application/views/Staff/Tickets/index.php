@@ -12,6 +12,7 @@
                         <th>Type</th>
                         <th>Priority</th>
                         <th>Status</th>
+                        <th>State</th>
                         <th>Created At</th>
                         <th>Actions</th>
                     </tr>
@@ -27,6 +28,11 @@
                             <td><?php echo $record['type_name']; ?></td>
                             <td><?php echo $record['priority_name']; ?></td>
                             <td><?php echo $record['status_name']; ?></td>
+                            <?php if ($record['is_read'] == 2 || $record['is_read'] == 3) { ?>
+                                <td><span class="label label-success">Read</span></td>
+                            <?php } else { ?>
+                                <td><span class="label label-warning">Unread</span></td>
+                            <?php } ?>
                             <td><?php echo date('Y-m-d',strtotime($record['created'])); ?></td>
                             <td class="text-center">
                                 <ul class="icons-list">
@@ -48,8 +54,7 @@
                                                    data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
                                             <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
                                                    data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
-                                                   <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                   data-modal-title="Assign Staff"><i class="icon-user"></i>Assign Staff</a></li>
+                                                   
                                             
                                         </ul>
                                     </li>
