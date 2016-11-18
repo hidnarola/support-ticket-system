@@ -167,7 +167,7 @@ class Articles extends CI_Controller {
                     }
                 }
 
-                $title = $this->input->post('title');
+                $title = $this->Article_model->get_unique_title(trim($this->input->post('title')));
                 $slug = slug($title);
                 $data = array(
                     'title' => $title,

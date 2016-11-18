@@ -2,9 +2,7 @@
 
     <div class="container clearfix">
         <div class="postcontent nobottommargin clearfix">
-
             <div class="clear"></div>
-
             <div id="faqs" class="faqs">
                 <?php
                 if (isset($data)) {
@@ -17,12 +15,7 @@
                     <?php }
                 }
                 ?>
-
-
-
-            </div>
-
-
+           </div>
         </div><!-- .postcontent end -->
 
         <?php $this->load->view('frontend/rightsidebar');?>

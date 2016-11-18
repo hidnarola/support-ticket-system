@@ -80,8 +80,8 @@
                                     <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="knowledgebase"><div>Knowledge Base</div></a>
                                         <ul>
                                             <li><a href="faq"><div>FAQ'S</div></a></li>                                      
-                                            <li><a href="login"><div>News</div></a></li>
-                                            <li><a href="login"><div>Announcements</div></a></li>
+                                            <li><a href="news"><div>News</div></a></li>
+                                            <li><a href="announcements"><div>Announcements</div></a></li>
                                         </ul>
                                     </li>
                                 <?php } ?>

@@ -12,6 +12,7 @@ class News extends CI_Controller {
         $this->load->model('User_model');
         $this->load->model('News_model');
         $this->load->helper('text');
+          $this->table = TBL_NEWS_ANNOUNCEMENTS;
     }
 
     public function index($type = null) {
@@ -48,56 +49,57 @@ class News extends CI_Controller {
             $upload_path = NEWS_IMAGE;
             $upload_medium = NEWS_MEDIUM_IMAGE;
             $upload_thumb = NEWS_THUMB_IMAGE;
-            if($is_news==0){
+            if ($is_news == 0) {
                 $type = 'announcement';
                 $upload_path = ANNOUNCEMENT_IMAGE;
                 $upload_medium = ANNOUNCEMENT_MEDIUM_IMAGE;
                 $upload_thumb = ANNOUNCEMENT_THUMB_IMAGE;
             }
             if ($_FILES['userfile']['name'] != '') {
-                    $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
-                    $exts = explode(".", $_FILES['userfile']['name']);
-                    $name = $exts[0] . time() . "." . $exts[1];
-                    $name = $type."-" . date("mdYhHis") . "." . $exts[1];
+                pr($_FILES);
+                $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
+                $exts = explode(".", $_FILES['userfile']['name']);
+                $name = $exts[0] . time() . "." . end($exts);
+                $name = $type . "-" . date("mdYhHis") . "." . $exts[1];
 
-                    $config['upload_path'] = $upload_path;
-                    $config['allowed_types'] = implode("|", $img_array);
-                    $config['max_size'] = '2048';
-                    $config['file_name'] = $name;
+                $config['upload_path'] = $upload_path;
+                $config['allowed_types'] = implode("|", $img_array);
+                $config['max_size'] = '2048';
+                $config['file_name'] = $name;
 
-                    $this->upload->initialize($config);
+                $this->upload->initialize($config);
 
-                    if (!$this->upload->do_upload('userfile')) {
-                        $flag = 1;
-                        $data['profile_validation'] = $this->upload->display_errors();
-                    } else {
-                        $file_info = $this->upload->data();
-                        $image = $file_info['file_name'];
-
-                        $src = './' . $upload_path . '/' . $image;
-                        $thumb_dest = './' . $upload_thumb . '/';
-                        $medium_dest = './' . $upload_medium . '/';
-                        thumbnail_image($src, $thumb_dest);
-                        medium_image_user($src, $medium_dest);
-                    }
+                if (!$this->upload->do_upload('userfile')) {
+                    $flag = 1;
+                    $data['profile_validation'] = $this->upload->display_errors();
                 } else {
-                    $image = '';
+                    $file_info = $this->upload->data();
+                    $image = $file_info['file_name'];
+
+                    $src = './' . $upload_path . '/' . $image;
+                    $thumb_dest = './' . $upload_thumb . '/';
+                    $medium_dest = './' . $upload_medium . '/';
+                    thumbnail_image($src, $thumb_dest);
+                    medium_image_user($src, $medium_dest);
                 }
-           
+            } 
+            $title = $this->News_model->get_unique_title(trim($this->input->post('title')));
+            $slug = slug($title);
             $data = array(
                 'title' => $this->input->post('title'),
+                'slug' => $slug,
                 'description' => $this->input->post('description'),
                 'is_news' => $this->input->post('is_news'),
                 'user_id' => $this->session->userdata('admin_logged_in')['id'],
-                'image'=>$image,
+                'image' => $image,
                 'created' => date('Y-m-d H:i:s')
             );
             if ($this->News_model->add($data)) {
                 $this->session->set_flashdata('success_msg', 'Detail saved successfully.');
-                 redirect('admin/news');
+                redirect('admin/news');
             } else {
                 $this->session->set_flashdata('error_msg', 'Unable to save detail.');
-                 redirect('admin/news/add');
+                redirect('admin/news/add');
             }
         }
     }
@@ -116,58 +118,62 @@ class News extends CI_Controller {
             $this->data['data'] = $this->News_model->get_data_by_id($record_id);
             $this->template->load('admin', 'Admin/News/add', $this->data);
         } else {
+
+            $image = $this->User_model->getFieldById($record_id, 'image', $this->table);
+            $news_pic = $image->image;
             $is_news = $this->input->post('is_news');
             $type = 'news';
             $upload_path = NEWS_IMAGE;
             $upload_medium = NEWS_MEDIUM_IMAGE;
             $upload_thumb = NEWS_THUMB_IMAGE;
-            if($is_news==0){
+            if ($is_news == 0) {
                 $type = 'announcement';
                 $upload_path = ANNOUNCEMENT_IMAGE;
                 $upload_medium = ANNOUNCEMENT_MEDIUM_IMAGE;
                 $upload_thumb = ANNOUNCEMENT_THUMB_IMAGE;
             }
             if ($_FILES['userfile']['name'] != '') {
-                    $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
-                    $exts = explode(".", $_FILES['userfile']['name']);
-                    $name = $exts[0] . time() . "." . $exts[1];
-                    $name = $type."-" . date("mdYhHis") . "." . $exts[1];
+                $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
+                $exts = explode(".", $_FILES['userfile']['name']);
+                $name = $exts[0] . time() . "." . $exts[1];
+                $name = $type . "-" . date("mdYhHis") . "." . $exts[1];
 
-                    $config['upload_path'] = $upload_path;
-                    $config['allowed_types'] = implode("|", $img_array);
-                    $config['max_size'] = '2048';
-                    $config['file_name'] = $name;
+                $config['upload_path'] = $upload_path;
+                $config['allowed_types'] = implode("|", $img_array);
+                $config['max_size'] = '2048';
+                $config['file_name'] = $name;
 
-                    $this->upload->initialize($config);
+                $this->upload->initialize($config);
 
-                    if (!$this->upload->do_upload('userfile')) {
-                        $flag = 1;
-                        $data['profile_validation'] = $this->upload->display_errors();
-                    } else {
-                        $file_info = $this->upload->data();
-                        $image = $file_info['file_name'];
-
-                        $src = './' . $upload_path . '/' . $image;
-                        $thumb_dest = './' . $upload_thumb . '/';
-                        $medium_dest = './' . $upload_medium . '/';
-                        thumbnail_image($src, $thumb_dest);
-                        medium_image_user($src, $medium_dest);
-                    }
+                if (!$this->upload->do_upload('userfile')) {
+                    $flag = 1;
+                    $data['profile_validation'] = $this->upload->display_errors();
                 } else {
-                    $image = '';
+                    $file_info = $this->upload->data();
+                    $news_pic = $file_info['file_name'];
+
+                    $src = './' . $upload_path . '/' . $news_pic;
+                    $thumb_dest = './' . $upload_thumb . '/';
+                    $medium_dest = './' . $upload_medium . '/';
+                    thumbnail_image($src, $thumb_dest);
+                    medium_image_user($src, $medium_dest);
                 }
+            }
+            $title = $this->News_model->get_unique_title(trim($this->input->post('title')));
+            $slug = slug($title);
             $data = array(
                 'title' => $this->input->post('title'),
+                'slug' => $slug,
                 'description' => $this->input->post('description'),
                 'is_news' => $this->input->post('is_news'),
-                'image'=>$image
+                'image' => $news_pic
             );
             if ($this->News_model->edit($data, $record_id)) {
                 $this->session->set_flashdata('success_msg', 'Detail updated successfully.');
                 redirect('admin/news');
             } else {
                 $this->session->set_flashdata('error_msg', 'Unable to update detail.');
-                 redirect('admin/news/edit');
+                redirect('admin/news/edit');
             }
         }
     }
