@@ -155,7 +155,8 @@
                                     <li class="<?php echo ($page == 'tenants') ? 'active' : ''; ?>"><a href="admin/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
                                     <li class="<?php echo ($page == 'staff') ? 'active' : ''; ?>"><a href="admin/staff"><i class="icon-people"></i> <span>Staff</span></a></li>
                                     <li class="<?php echo ($page == 'tickets') ? 'active' : ''; ?>"><a href="admin/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
-                                    <li class="<?php echo ($page == 'pages') ? 'active' : ''; ?>"><a href="admin/pages"><i class="icon-ticket"></i> <span>Manage Pages</span></a></li>
+                                    <li class="<?php echo ($page == 'pages') ? 'active' : ''; ?>"><a href="admin/pages"><i class="icon-magazine"></i> <span>Manage Pages</span></a></li>
+                                    <!-- <li class="<?php echo ($page == 'header_footer_control') ? 'active' : ''; ?>"><a href="admin/header_footer_control"><i class="icon-cogs"></i> <span>Header/Footer Settings</span></a></li> -->
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
                                     <li class="<?php echo ($current_page == 'news_announcements') ? 'active' : ''; ?>"><a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a></li>

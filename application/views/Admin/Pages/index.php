@@ -22,6 +22,7 @@
             <thead>
                 <tr>
                     <th>Sr No.</th>
+                    <th>Navigation Name</th>
                     <th>Title</th>
                     <th>Modified Date</th>
                     <th>Status</th>
@@ -35,6 +36,7 @@
                     ?>
                     <tr>
                         <td><?php echo $srno; ?></td>
+                        <td><?php echo $page['navigation_name']; ?></td>
                         <td><?php echo $page['title']; ?></td>
                         <td><?php echo date('F j, Y', strtotime($page['created'])); ?></td>
                         <td><?php
