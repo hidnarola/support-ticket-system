@@ -8,14 +8,14 @@
         <ul class="breadcrumb">
             <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
             <li><a href="<?php echo site_url('admin/faq'); ?>"><i class="<?php echo $icon_class; ?> position-left"></i><?php echo $title; ?></a></li>
-            <li class="active"><?php echo $page ; ?></li>
+            <li class="active"><?php echo $page; ?></li>
         </ul>
     </div>
 </div>
 
 <div class="content">
     <div class="row">
-        <?php $this->load->view('admin/message_view');?>
+        <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
             $segment = $this->uri->segment(4);
@@ -37,6 +37,30 @@
 
                             <div class="panel-body">
                                 <div class="center-block" style="max-width:650px;margin: 0 auto;">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Category</label>
+                                        <div class="col-lg-9">
+
+                                            <select class="select" name="category_id" required="" id="category_id">
+                                                <option selected="" value="">Select Category</option> 
+                                                <?php
+                                                foreach ($categories as $row) {
+                                                    $selected = '';
+                                                    if (isset($faq) && $faq->category_id == $row['id']) {
+
+                                                        $selected = 'selected';
+                                                        echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['name'] . '</option>';
+                                                    }else{
+                                                        echo '<option value="' . $row['id'] . '" >' . $row['name'] . '</option>';
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                            <?php echo '<label id="category_id-error" class="validation-error-label" for="category_id">' . form_error('category_id') . '</label>'; ?>
+                                        </div>
+
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Question</label>
                                         <div class="col-lg-9">

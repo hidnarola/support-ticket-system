@@ -41,17 +41,17 @@ class Faq extends CI_Controller {
         $config['base_url'] = base_url() . "admin/faq/index";
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 
-        $query = "select * from " . $this->table . " Where is_delete =0";
+        $query = "select *,f.id as fid from " . $this->table . " f left join categories c on c.id= f.category_id Where f.is_delete =0";
         $keyword = '';
         if ($this->input->get('keyword')) {
-            $keyword = $this->input->get('keyword');           
+            $keyword = $this->input->get('keyword');
             $keyword = str_replace("'", "''", $keyword);
-            $query.= " AND (question like '%$keyword%'";
+            $query.= " AND (f.question like '%$keyword%'";
             $query.=" OR ";
-            $query.= "answer like '%$keyword%')";
+            $query.= "f.answer like '%$keyword%')";
         }
 
-        $config['total_rows'] = count($this->Admin_model->customQuery($query, 2));
+        $config['total_rows'] = count($this->Admin_model->getFaq($query));
         $this->pagination->initialize($config);
         $num_pages = (int) ceil($this->pagination->total_rows / $this->pagination->per_page);
         $v = $num_pages + $this->pagination->per_page;
@@ -62,7 +62,8 @@ class Faq extends CI_Controller {
         }
         $this->pagination->initialize($config);
         $this->data["links"] = $this->pagination->create_links();
-        $this->data['faq'] = $this->Admin_model->customQuery($query . ' Limit ' . $page . ', ' . $config['per_page'], 2);
+        $this->data['faq'] = $this->Admin_model->getFaq($query . ' Limit ' . $page . ', ' . $config['per_page']);
+//        pr($this->data['faq'],1);
         $this->data['keyword'] = $keyword;
         $this->template->load('admin', 'Admin/Faq/index', $this->data);
     }
@@ -75,11 +76,13 @@ class Faq extends CI_Controller {
             $this->data['title'] = $this->data['page_header'] = 'FAQ';
             $this->data['page'] = 'Add FAQ';
             $this->data['icon_class'] = 'icon-question3';
+            $this->data['categories'] = $this->Admin_model->get_records(TBL_CATEGORIES);
             $this->template->load('admin', 'Admin/Faq/add', $this->data);
         } else {
             $data = array(
                 'question' => $this->input->post('question'),
                 'answer' => $this->input->post('answer'),
+                'category_id' => $this->input->post('category_id'),
                 'is_delete' => 0,
                 'created' => date('Y-m-d H:i:s')
             );
@@ -99,11 +102,13 @@ class Faq extends CI_Controller {
                 $this->data['title'] = $this->data['page_header'] = 'FAQ';
                 $this->data['page'] = 'Edit FAQ';
                 $this->data['icon_class'] = 'icon-question3';
+                $this->data['categories'] = $this->Admin_model->get_records(TBL_CATEGORIES);
                 $this->template->load('admin', 'Admin/Faq/add', $this->data);
             } else {
                 $data = array(
                     'question' => $this->input->post('question'),
                     'answer' => $this->input->post('answer'),
+                    'category_id' => $this->input->post('category_id'),
                 );
                 $this->Admin_model->manage_record($this->table, $data, $record_id);
                 $this->session->set_flashdata('success_msg', 'Faq added succesfully.');

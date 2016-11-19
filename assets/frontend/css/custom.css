@@ -347,6 +347,78 @@ label.error::first-letter {text-transform: uppercase;}
 }
 
 
+/* Ticket listing*/
+
+.my-tickets p{color:rgb(93, 92, 87);}
+.row.left-section{border:1px solid #d1d1d1;margin-bottom: 15px;border-radius: 3px;}
+.row.left-section .col-md-10 {
+    border-left: 1px solid #d1d1d1;
+    padding:20px;
+}
+ul.top-section,
+ul.bottom-section {
+    list-style: outside none none;
+    padding-left: 0px;
+}
+ul.top-section li,
+ul.bottom-section li{display:inline-block;float:left;padding-right:30px;}
+ul.top-section li a{text-decoration:none;color:#979795;}
+ul.top-section li a i{padding-right:8px;}
+.row.left-section .col-md-10 > p {
+    color: #5d5c57;
+    font-size: 24px;
+    margin-bottom:0px;
+    padding: 0px 0 15px;
+    clear: both;
+}
+.bottom-section a.resolved{
+    background: rgb(88, 172, 223) none repeat scroll 0 0;
+    color: rgb(255, 255, 255);
+    border:1px solid rgb(88, 172, 223);
+}
+.bottom-section a.resolved:hover{border:1px solid rgb(88, 172, 223);}
+.bottom-section a {
+    text-decoration:none;
+    font-size: 16px;
+    padding: 8px;
+    color:#5d5c57;
+    border:1px solid #d1d1d1;
+}
+.bottom-section a:hover{border:1px solid #1ABC9C;}
+li.view,li.edit{float: right !important;padding-right: 10px !important;}
+li.view a,
+li.edit a{    
+    /*background: #1ABC9C;*/
+    padding: 5px 8px;
+    border-radius: 2px;
+    color: #fff !important;}
+.ticket-img{    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 158px;}
+
+
+
+btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.text-primary-600, .text-primary-600:hover, .text-primary-600:focus {
+    color: #1e88e5 !important;
+}
+.border-primary {
+    border-color: #2196f3;
+}
+
 
 @media all and (min-width: 240px) and (max-width: 320px) {
     #ticket-add-form .bootstrap-select {width: 280px !important;}
