@@ -58,6 +58,9 @@ class Login extends CI_Controller {
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title == 'Staff') {
                     // Give error msg for user is not approved by admin
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title == 'Staff') {
+                    //pr($result,1);
+                    $if_head = $this->User_model->check_head_staff($result['id']);
+                    $result['is_head'] = $if_head;
                     $userdata = $this->session->set_userdata('staffed_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);

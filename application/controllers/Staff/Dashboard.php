@@ -15,6 +15,7 @@ class Dashboard extends CI_Controller {
     }
 
     public function index() {
+        
         $this->data['title'] = $this->data['page_header'] = 'Dashboard';
 
         $this->data['total_tickets'] = $this->Staff_model->get_total_tickets($this->session->userdata('staffed_logged_in')['id']);
