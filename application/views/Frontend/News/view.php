@@ -121,9 +121,21 @@
                     <h4 class="modal-title" id="myModalLabel">Leave a Comment</h4>
                 </div>
                 <form class="clearfix" action="" method="post" id="commentform">
-                    <input type="hidden" id="type" name="type" value="0"/>
+                    <input type="hidden" id="type" name="type" value="<?php
+                    if (isset($news)) {
+                        echo 1;
+                    } elseif (isset($announcements)) {
+                        echo 2;
+                    }
+                    ?>"/>
                     <input type="hidden" id="link" name="link" value="<?php echo current_url(); ?>"/>
-                    <input type="hidden" id="article_id" name="article_id" value="<?php echo $article['id']; ?>"/>
+                    <input type="hidden" id="article_id" name="article_id" value="<?php
+                    if (isset($news)) {
+                        echo $news['id'];
+                    } elseif (isset($announcements)) {
+                        echo $announcements['id'];
+                    }
+                    ?>"/>
                     <div class="modal-body">
                         <div class="col_full">
                             <label for="subject">Subject</label>

@@ -176,11 +176,18 @@ class Article_model extends CI_Model {
     }
 
     public function get_faq() {
-        $this->db->select('*');
+        $this->db->select('*,faq.id fid');
+        $this->db->join(TBL_CATEGORIES . ' c', 'c.id = faq.category_id', 'left');
         $this->db->where('faq.is_delete', 0);
         $this->db->order_by('faq.modified', 'desc');
         $result = $this->db->get(TBL_FAQ);
-        return $result->result_array();
+
+        $originalArray = $result->result_array();
+        $new_arr = array();
+        foreach ($originalArray as $key => $part) {
+            $new_arr[$part['name']][] = $part;
+        }
+        return $new_arr;
     }
 
 }

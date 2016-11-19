@@ -136,7 +136,7 @@ class Admin_model extends CI_Model {
         $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
 
         $this->db->order_by("tickets.id", "desc");
-         if ($limit != null) {
+        if ($limit != null) {
             $this->db->limit(10);
         }
 
@@ -195,6 +195,17 @@ class Admin_model extends CI_Model {
             return $result->result();
     }
 
+    public function getFaq($query) {
+        $result = $this->db->query($query);
+        $originalArray = $result->result_array();
+        $new_arr = array();
+        foreach ($originalArray as $key => $part) {
+            $name = $part['name'];
+            $new_arr[$name][] = $part;
+        }
+        return $new_arr;
+    }
+
     public function search_faq($text) {
         $this->db->where('is_delete', 0);
         $this->db->group_start();
@@ -206,14 +217,14 @@ class Admin_model extends CI_Model {
         return $result->result_array();
     }
 
-    public function get_staff($dept){
+    public function get_staff($dept) {
         $this->db->select('staff.user_id, user.fname, user.lname');
         $this->db->where('staff.is_delete', 0);
         $this->db->where('user.is_delete', 0);
-        
+
         $this->db->from(TBL_STAFF);
         $this->db->join(TBL_USERS . ' user', 'user.id = staff.user_id', 'left');
-        
+
         $query = $this->db->get();
 
         return $query->result_array();
