@@ -6,11 +6,11 @@ class Home extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        //$this->data = get_admin_data();
         $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->load->model('Article_model');
         $this->load->model('Media_model');
+        $this->load->model('News_model');
     }
 
     public function index() {
@@ -31,31 +31,47 @@ class Home extends CI_Controller {
         $this->data['email'] = $val[1];
 //        echo '<br>'.$this->data['email'];
         $check = $this->User_model->passwordExist($this->data['email']);
-//        pr($check);
+        pr($check);
+//        $update = $this->User_model->updateField('id', $check['id'], 'is_verified', 1, TBL_USERS);
 
         if ($check['role_id'] == 1) {
             //--- for tenant verifaication
-            if ($check['is_verified'] == 1 && $check['password'] != '') {
-                //--- for tenant verifaication already Done or not
-                $this->session->set_flashdata('success_msg', 'Your account is already verified, no need to activate again. You can login!');
+            if ($check['is_verified'] == 1 && $check['approved'] == 1) {
+                $this->session->set_flashdata('success_msg', 'Your Email has been verified Successfully! No need to verify again.');
+                redirect('login');
+            } elseif ($check['is_verified'] == 1 && $check['approved'] == 0) {
+                $this->session->set_flashdata('success_msg', 'Your Email has been verified Successfully! No need to verify again.');
                 redirect('login');
             } else {
+                if ($check['is_verified'] == 0 && $check['password'] != '') {
+                    //--- for tenant verifaication already Done or not
+                    $update = $this->User_model->updateField('id', $check['id'], 'is_verified', 1, TBL_USERS);
+                    $this->session->set_flashdata('success_msg', 'Your Email has been verified Successfully!');
+                    redirect('login');
+                } else {
 //                echo 'in else';exit;
-                $this->data['title'] = 'Password Setup | Support-Ticket-System';
-                $this->data['header_title'] = 'Password Setup';
-                $update = $this->User_model->updateField('id', $check['id'], 'is_verified', 1, TBL_USERS);
-                $this->session->set_flashdata('success_msg', 'Your Email Id is verified. Please set your password!');
-                $this->template->load('frontend/page', 'Frontend/User/password_recovery_tenant', $this->data);
+                    $this->data['title'] = 'Password Setup | Support-Ticket-System';
+                    $this->data['header_title'] = 'Password Setup';
+                    $update = $this->User_model->updateField('id', $check['id'], 'is_verified', 1, TBL_USERS);
+                    $this->session->set_flashdata('success_msg', 'Your Email Id is verified. Please set your password!');
+                    $this->template->load('frontend/page', 'Frontend/User/password_recovery_tenant', $this->data);
 //                redirect('login');
+                }
             }
         } else {
             //--- For staff verifaication
-            if ($check['password'] != '') {
-                //--- for staff verifaication already Done or not
-                $this->session->set_flashdata('error_msg', 'You have already setup password. You can login Now!');
-                redirect('staff/login');
+            if ($check['is_verified'] == 1 && $check['approved'] == 1) {
+                $this->session->set_flashdata('success_msg', 'Your Email has been verified Successfully! No need to verify again.');
+                redirect('login');
             } else {
-                $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
+                if ($check['password'] != '') {
+                    //--- for staff verifaication already Done or not
+                    $this->session->set_flashdata('error_msg', 'You have already setup password. You can login Now!');
+                    redirect('staff/login');
+                } else {
+                    $update = $this->User_model->updateField('id', $check['id'], 'is_verified', 1, TBL_USERS);
+                    $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
+                }
             }
         }
     }
@@ -77,7 +93,7 @@ class Home extends CI_Controller {
             );
             $rec = $this->User_model->edit($data, TBL_USERS, 'email', $email);
             if ($rec) {
-                $this->session->set_flashdata('success_msg', 'Your password is changed succesfully. You can login Now!');
+                $this->session->set_flashdata('success_msg', 'Your password is saved succesfully. You can login Now!');
                 redirect('staff/login');
             }
         }
@@ -178,7 +194,7 @@ class Home extends CI_Controller {
 //            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
 
             $message = "Hello Admin,<br/><br/><div>There is an inquiry for the " . $type_id . " from <strong>" . $firstname . " " . $lastname . "</strong>"
-                    . "<br/>Link Inquiry : <a href = ".  $link .">" . $link . "</a>"
+                    . "<br/>Link Inquiry : <a href = " . $link . ">" . $link . "</a>"
                     . "<br/>Subject : " . $subject
                     . "<br/>Comment : " . $comment
                     . "</div><br/>Thanks, <br/>" . $firstname . " " . $lastname;
@@ -195,6 +211,18 @@ class Home extends CI_Controller {
             $this->email->print_debugger();
         }
 
+        echo json_encode($data);
+        exit;
+    }
+
+    public function loadmore() {
+        $type = $this->input->post('type');
+        $id = $this->input->post('id');
+        $num_rows = $this->News_model->num_rows($type, $id);
+        $rec = $this->News_model->load_rows($type, $id);
+        $data['num_rows'] = $num_rows;
+        $data['rec'] = $rec;
+//        pr($rec);
         echo json_encode($data);
         exit;
     }

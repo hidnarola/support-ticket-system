@@ -40,6 +40,8 @@ class Login extends CI_Controller {
 //                p($result);
                 if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1 && $user_title == 'Tenant') {
                     //success
+                    $settings = $this->User_model->viewAll('settings', "");
+                    $this->session->set_userdata('settings', $settings);
                     $userdata = $this->session->set_userdata('user_logged_in', $result);
                     redirect('home');
                 } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $user_title == 'Tenant') {

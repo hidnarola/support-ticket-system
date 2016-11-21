@@ -20,6 +20,7 @@ class News extends CI_Controller {
         $data['title'] = 'News | Support-Ticket-System';
         $data['header_title'] = 'News';
         $data['data'] = $this->News_model->get_news_announcements($type = 1);
+        $data['num_rows'] = $this->News_model->get_news_announcements_num($type = 1);
         $this->template->load('frontend/page', 'Frontend/News/index', $data);
     }
 
@@ -48,6 +49,14 @@ class News extends CI_Controller {
             $data['header_title'] = 'Page Not Found';
             $this->template->load('frontend/page', 'Frontend/error/404notfound', $data);
         }
+    }
+    
+    public function loadmore(){
+        $type = $this->inout->post('type');
+              
+        pr($this->inout->post(),1);
+        exit;
+        $num_rows = $this->News_model->num_rows($type);
     }
 
 }

@@ -361,7 +361,7 @@ ul.bottom-section {
     padding-left: 0px;
 }
 ul.top-section li,
-ul.bottom-section li{display:inline-block;float:left;padding-right:30px;}
+ul.bottom-section li{display:inline-block;float:left;padding-right:10px;}
 ul.top-section li a{text-decoration:none;color:#979795;}
 ul.top-section li a i{padding-right:8px;}
 .row.left-section .col-md-10 > p {
@@ -383,28 +383,31 @@ ul.top-section li a i{padding-right:8px;}
     padding: 8px;
     color:#5d5c57;
     border:1px solid #d1d1d1;
+    display: inline-block;
 }
 .bottom-section a:hover{border:1px solid #1ABC9C;}
-li.view,li.edit{float: right !important;padding-right: 10px !important;}
+li.view,li.edit{float: right !important;}
 li.view a,
 li.edit a{    
-    /*background: #1ABC9C;*/
-    padding: 5px 8px;
+    background: #1abc9c;
     border-radius: 2px;
-    color: #fff !important;}
+    color: #fff !important;
+    padding: 5px 8px;}
+li.view a i,
+li.edit a i{padding-right: 0px !important;}
 .ticket-img{    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    height: 158px;}
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-pack: center;
+                -webkit-justify-content: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                -ms-flex-align: center;
+                align-items: center;
+                height: 158px;}
 
 
 
@@ -418,7 +421,64 @@ btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
 .border-primary {
     border-color: #2196f3;
 }
-
+@media(max-width:1200px){
+    ul.bottom-section li {
+        margin: 10px 0 0px 0px;
+        width: 50%;
+    }
+   
+   
+}
+@media(max-width:990px){
+    ul.top-section{margin-bottom: 0px;}
+    ul.top-section li {
+        display:block;
+        float:none;
+        padding-right: 0px;
+    }
+    li.edit {
+        float: none ;
+        position: absolute;
+        top:15px;
+        right: 15px;      
+    }
+    li.view{float: none ;
+            position: absolute;
+            top:15px;
+            right: 50px; }
+    ul.top-section li, ul.bottom-section li {
+        padding-right: 5px;
+    }
+    .row.left-section .col-md-10 > p {
+        padding-bottom: 0px;
+    }
+    .container.ticket-listing {
+        width: 100% !important;
+    }
+     .sidebar.col_last, .sidebar-widgets-wrap {
+        clear: both;
+    }
+    .sidebar.nobottommargin.col_last.clearfix {
+  padding-left: 30px;
+}
+}
+@media(max-width:767px){
+    .ticket-img {
+        height: auto;
+        padding-top: 15px;
+    }
+}
+@media(max-width:480px){
+    .container.ticket-listing {
+        width: 100% !important;
+    }
+    ul.bottom-section{text-align: center;}
+    ul.bottom-section li {
+        margin: 10px 0 0;
+        width: 100%;
+    }
+    ul.bottom-section li a{width: 100%;}
+}
 
 @media all and (min-width: 240px) and (max-width: 320px) {
     #ticket-add-form .bootstrap-select {width: 280px !important;}

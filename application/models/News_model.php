@@ -61,17 +61,32 @@ class News_model extends CI_Model {
 
         $this->db->where('is_news', $type);
         $this->db->order_by('modified', 'desc');
+        $this->db->limit('2');
         $result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
         return $result->result_array();
     }
-    
+    function get_news_announcements_num($type) {
+        $this->db->where('is_delete', 0);
+
+        $this->db->where('is_news', $type);
+        $this->db->order_by('modified', 'desc');
+        $this->db->limit('2');
+        $result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
+        return $result->result_array();
+    }
+
     function get_data_by_slug($slug) {
         $this->db->where('is_delete', 0);
         $this->db->where('slug', $slug);
         $result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
-        return $result->row_array();
+         $data = $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->num_rows();
+        } else {
+            return FALSE;
+        }
     }
-    
+
     /**
      * To check unique title for aricle and if it is, will append -1 to the title
      * @param type $title
@@ -106,6 +121,38 @@ class News_model extends CI_Model {
                 return $title;
             }
         }
+    }
+
+    public function num_rows($type, $id) {
+        $this->db->where('is_delete', 0);
+        $this->db->where('id>', $id);
+
+        $this->db->where('is_news', $type);
+        $this->db->order_by('modified', 'desc');
+        $result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
+        $data = $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->num_rows();
+        } else {
+            return FALSE;
+        }
+    }
+    public function load_rows($type,$id) {
+        $this->db->where('is_delete', 0);
+        $this->db->where('is_news', $type);
+         $this->db->where('id>', $id);
+        $this->db->order_by('modified', 'desc');
+        $this->db->limit('2');
+        $result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
+       $originalArray = $result->result_array();        
+       
+       $new_arr = array();
+        foreach ($originalArray as $key => $part) {
+            $new_arr[$key] = $part;
+            $new_arr[$key]['d'] = date('d', strtotime($part['modified']));
+            $new_arr[$key]['m'] = date('M', strtotime($part['modified']));
+        }
+        return $new_arr;
     }
 
 }
