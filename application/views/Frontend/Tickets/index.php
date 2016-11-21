@@ -1,6 +1,12 @@
+<?php
+$action = $this->uri->segment(1);
+$suffixUrl = '';
+if ($this->input->get('filter') && $this->input->get('search'))
+    $suffixUrl = "?filter=" . $this->input->get('filter') . "&search=" . $this->input->get('search');
+?>
 <!--<script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>-->
 <div class="content-wrap">
-    <div class="container clearfix">
+    <div class="container clearfix ticket-listing">
         <div class="row clearfix">
             <div class="col-sm-9">
                 <?php
@@ -24,116 +30,83 @@
                 }
                 ?>
 
-
                 <div class="row">
                     <div class="col-sm-3">
-                        <?php $current = $this->uri->segment(3); ?>
+                        <?php $current = $this->uri->segment(3); 
+                        $current = $this->input->get('filter');
+                        ?>
                         <!-- <label class="control-label">Filter by Status</label> -->
-                        <select class="select filter form-control" onchange="load_news(this.value);">
-                            <option <?php echo ($current == '') ? 'selected' : ''; ?> value="">All</option>
-                            <option <?php echo ($current == '3') ? 'selected' : ''; ?> value="3">Open</option>
-                            <option <?php echo ($current == '5') ? 'selected' : ''; ?> value="5">Pending</option>
-                            <option <?php echo ($current == '2') ? 'selected' : ''; ?> value="2">In Progress</option>
-                            <option <?php echo ($current == '4') ? 'selected' : ''; ?> value="4">Paused</option>
-                            <option <?php echo ($current == '1') ? 'selected' : ''; ?> value="1">Closed</option>
-                        </select>
+                        <form method="get" id="category_search" action="<?php $_SERVER['PHP_SELF']; ?>">
+                            <select class="select filter form-control" id="filter" name='filter' onchange="document.getElementById('category_search').submit();">
+                                <option <?php echo ($current == '') ? 'selected' : ''; ?> value="">All</option>
+                                <option <?php echo ($current == '3') ? 'selected' : ''; ?> value="3">Open</option>
+                                <option <?php echo ($current == '5') ? 'selected' : ''; ?> value="5">Pending</option>
+                                <option <?php echo ($current == '2') ? 'selected' : ''; ?> value="2">In Progress</option>
+                                <option <?php echo ($current == '4') ? 'selected' : ''; ?> value="4">Paused</option>
+                                <option <?php echo ($current == '1') ? 'selected' : ''; ?> value="1">Closed</option>
+                            </select>
+                        </form>
                     </div>
                     <div class="col-sm-9">
 
                         <a class="button button-rounded button-reveal button-small pull-right" onclick="window.location = 'tickets/add'"><i class="icon-plus-sign"></i><span>Add Ticket</span></a>
                     </div>
                 </div>
-                <!--                <div class="row">
-                                    <div class="table-responsive">
-                                        <table id="datatable1" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Title</th>
-                                                    <th>Department</th>
-                                                    <th>Type</th>
-                                                    <th>Priority</th>
-                                                    <th>Status</th>
-                                                    <th>Created At</th>
-                                                     <th>State</th> 
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                
-                                            <tbody>
-                <?php
-                foreach ($tickets as $key => $record) {
-                    ?>
-                                                                            <tr>
-                                                                                <td><?php echo $record['title']; ?></td>
-                                                                                <td><?php echo $record['dept_name']; ?></td>
-                                                                                <td><?php echo $record['type_name']; ?></td>
-                                                                                <td><?php echo $record['priority_name']; ?></td>
-                                                                                <td><?php echo $record['status_name']; ?></td>
-                                                                                <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                                                                                <td>ABC</td>
-                    <?php /* if ($record['is_read'] == 0) { ?>
-                      <td class="text-center"><span class="label label-warning">Unread</span></td>
-                      <?php } else { ?>
-                      <td  class="text-center"><span class="label label-success">Read</span></td>
-                      <?php } */ ?>
-                                                                                <td>                                            
-                    <?php if ($record['status_name'] == 'close') { ?>
-                                                                                                                <a href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-sm1" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" class="delete" title='Delete Ticket'><i class="icon-trash2"></i></a>
-                    <?php } ?>
-                                                                                    <a href="<?php echo base_url() . 'tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye-open" style="font-size: 16px;"></i></a>
-                                                                                    <a href="<?php echo base_url() . 'tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" title='Reply Ticket' class="reply"><i class="icon-envelope2"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>-->
-                <?php
-                foreach ($tickets as $key => $record) {
-                    ?>
-                    <div class="row">
-                        <div class="col-md-12">
 
-                            <div class="row left-section">
+                <?php
+                if ($tickets > 0) {
+                    foreach ($tickets as $key => $record) {
+                        ?>
+                        <div class="row">
+                            <div class="col-md-12">
 
-                                <div class="col-md-2">
-                                    <div class="ticket-img">
-                                        <img src="assets/frontend/images/restaurant/slider/3.jpg"/>
+                                <div class="row left-section">
+
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <div class="ticket-img">
+                                            <img src="assets/frontend/images/restaurant/slider/3.jpg"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-10">
-                                    <ul class="top-section">
-                                        <li><a><i class="icon-clock" aria-hidden="true"></i>Update: <span><?php echo date('Y-m-d', strtotime($record['created'])); ?></span></a></li>
-                                        <?php if ($record['staff_fname'] != '') { ?>
-                                            <li><a><i class="icon-user" aria-hidden="true"></i>Assign To: <span><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></span></a></li>
-                                        <?php } ?>
-                                <!--<li><a href="#"><i class="fa fa-comments" aria-hidden="true"></i><span>2</span></a></li>-->
-                                        <?php if ($record['is_read'] == 0) { ?>
-                                            <li><a><span class="label label-warning">Unread</span></a></li>
-                                        <?php } else { ?>
-                                            <li><a><span class="label label-success">Read</span></span></a></li>
-                                        <?php } ?>
-                                        <li class="view button border-primary text-primary-600 button-flat button-rounded button-circle button-mini"><a href="<?php echo base_url() . 'tickets/view/' . base64_encode($record['id']) ?>">view</a></li>
-                                        <!--<li><a href="http://clientapp.narola.online/HD/spotashoot/admin/users/edit/251" class="btn border-primary text-primary-600 btn-flat btn-icon btn-rounded btn-sm"><i class="icon-pencil3"></i></a></li>-->
-                                        <li class="edit button border-primary text-primary-600 button-flat button-rounded button-circle button-mini"><a href="<?php echo base_url() . 'tickets/reply/' . base64_encode($record['id']) ?>">edit</a></li>
-                                        <!--<li class="edit"><a href="#" class="button button-rounded button-reveal button-mini button-teal edit"><i class="icon-pencil"></i><span>edit</span></a></li>-->
-                                        <!--<a href="#" class="button button-rounded button-reveal button-large button-teal"><i class="icon-signal"></i><span>Teal</span></a>-->
-                                    </ul>
-                                    <p><?php echo $record['title']; ?></p>
-                                    <ul class="bottom-section">
-                                        <li><a class="resolved"><?php echo $record['dept_name']; ?></a></li>
-                                        <li><a><span>Priority: </span><?php echo $record['priority_name']; ?></a></li>
-                                        <li><a><span>Type: </span><?php echo $record['type_name']; ?></a></li>
-                                        <li><a><span>Status: </span><?php echo $record['status_name']; ?></a></li>
-                                    </ul>
+                                    <div class="col-md-10 col-sm-10 col-xs-12">
+                                        <ul class="top-section">
+                                            <li><a><i class="icon-clock" aria-hidden="true"></i>Update: <span><?php echo date('Y-m-d', strtotime($record['created'])); ?></span></a></li>
+                                            <?php if ($record['staff_fname'] != '') { ?>
+                                                <li><a><i class="icon-user" aria-hidden="true"></i>Assign To: <span><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></span></a></li>
+                                            <?php } ?>
+        <!--<li><a href="#"><i class="fa fa-comments" aria-hidden="true"></i><span>2</span></a></li>-->
+                                            <?php if ($record['is_read'] == 0) { ?>
+                                                <!--<li><a><span class="label label-warning">Unread</span></a></li>-->
+                                            <?php } else { ?>
+                                                <!--<li><a><span class="label label-success">Read</span></span></a></li>-->
+                                            <?php } ?>
+                                            <li class="view"><a href="<?php echo base_url() . 'tickets/view/' . base64_encode($record['id']) ?>"><i class="icon-eye-open"></i></a></li>
+                                            <!--<li><a href="http://clientapp.narola.online/HD/spotashoot/admin/users/edit/251" class="btn border-primary text-primary-600 btn-flat btn-icon btn-rounded btn-sm"><i class="icon-pencil3"></i></a></li>-->
+                                            <li class="edit"><a href="<?php echo base_url() . 'tickets/reply/' . base64_encode($record['id']) ?>"><i class="icon-envelope2"></i></a></li>
+                                            <!--<li class="edit"><a href="#" class="button button-rounded button-reveal button-mini button-teal edit"><i class="icon-pencil"></i><span>edit</span></a></li>-->
+
+                                        </ul>
+                                        <p><?php echo $record['title']; ?></p>
+                                        <ul class="bottom-section">
+                                            <li><a class="resolved"><?php echo $record['dept_name']; ?></a></li>
+                                            <li><a><span>Priority: </span><?php echo $record['priority_name']; ?></a></li>
+                                            <li><a><span>Type: </span><?php echo $record['type_name']; ?></a></li>
+                                            <li><a><span>Status: </span><?php echo $record['status_name']; ?></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
+                    <?php }
+                    ?>
+                    <div class="row">  
+                        <div class='col-sm-12'>
+                            <?php // echo $links; ?>
+                        </div>
                     </div>
+                <?php } else {
+                    ?>
+                    <div class="no-tickets">No tickets are available</div>
                 <?php } ?>
-
             </div>
             <div class="line visible-xs-block"></div>
 
@@ -163,26 +136,6 @@
         </div>
     </div>
 </div>
-<!--<style>
-    .button.button-mini {
-        padding: 0 5px;}
-    [class^="icon-"], [class*=" icon-"] {
-    display: inline-block;
-    font-family: "icomoon";
-    font-size: 16px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: 1;
-    min-width: 1em;
-    position: relative;
-    text-align: center;
-    text-transform: none;
-    top: -1px;
-    vertical-align: middle;
-}
-</style>-->
-
 <script>
     $(document).ready(function () {
         $('#datatable1').DataTable();
@@ -219,7 +172,7 @@
         if (val == '') {
             window.location = "tickets";
         } else {
-            window.location = "tickets/index/" + val;
+            window.location = "tickets/index?" + val;
         }
     }
 </script>

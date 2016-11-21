@@ -55,7 +55,7 @@
                         ============================================= -->
                         <div id="logo">
                             <a href="home" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
-                            <a href="home" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <!--<a href="home" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>-->
                         </div><!-- #logo end -->
                         <?php
                         if ($this->session->userdata('user_logged_in')) { ?>
@@ -93,7 +93,7 @@
                                 <?php } ?>
                                 <li class="mega-menu"><a href="login"><div>About us</div></a></li>
 
-                                <li class="mega-menu"><a href="login"><div>Privacy Policy</div></a></li>
+                                <!--<li class="mega-menu"><a href="login"><div>Privacy Policy</div></a></li>-->
                                 <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>
                                 <li class="mega-menu"><a href="login"><div>Services</div></a></li>
                                 <!--<li class="mega-menu"><a href="login"><div>Gallery</div></a></li>-->
@@ -102,12 +102,7 @@
                                 <?php } ?>
                             </ul>
 
-                            <div id="top-search">
-                                <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-                                <form action="search.html" method="get">
-                                    <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
-                                </form>
-                            </div><!-- #top-search end -->
+                            
 
                         </nav><!-- #primary-menu end -->
 

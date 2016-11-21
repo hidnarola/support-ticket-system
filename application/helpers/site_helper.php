@@ -130,10 +130,10 @@ function mail_config() {
         'protocol' => 'smtp',
         'smtp_host' => 'ssl://smtp.gmail.com',
         'smtp_port' => 465,
-//        'smtp_user' => 'demo.narola@gmail.com',
-//        'smtp_pass' => 'Ke6g7sE70Orq3Rqaqa',
-        'smtp_user' => 'demo.narolainfotech@gmail.com',
-        'smtp_pass' => 'Narola102',
+        'smtp_user' => 'demo.narola@gmail.com',
+        'smtp_pass' => 'Ke6g7sE70Orq3Rqaqa',
+//        'smtp_user' => 'demo.narolainfotech@gmail.com',
+//        'smtp_pass' => 'Narola102',
         'transport' => 'Smtp',
         'charset' => 'utf-8',
         'newline' => "\r\n",
@@ -202,6 +202,55 @@ function init_pagination() {
     $segment = $CI->uri->segment(4);
     $config['per_page'] = $per_page;
     $config['uri_segment'] = 4;
+    //config for bootstrap pagination class integration
+    $config['full_tag_open'] = '<ul class="pagination">';
+    $config['full_tag_close'] = '</ul>';
+    $config['first_link'] = false;
+    $config['last_link'] = false;
+    $config['first_tag_open'] = '<li>';
+    $config['first_tag_close'] = '</li>';
+    $config['prev_link'] = '←';
+    if ($segment == '') {
+        $config['prev_tag_open'] = '<li class="prev disabled">';
+    } else {
+        $config['prev_tag_open'] = '<li class="prev">';
+    }
+    $config['prev_tag_close'] = '</li>';
+    $config['next_link'] = '→';
+    $config['next_tag_open'] = '<li>';
+    $config['next_tag_close'] = '</li>';
+    $config['last_tag_open'] = '<li>';
+    $config['last_tag_close'] = '</li>';
+    $config['cur_tag_open'] = '<li class="active"><a style="background-color:#455a64;color:#ffffff;">';
+    $config['cur_tag_close'] = '</a></li>';
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_close'] = '</li>';
+    $config['num_links'] = 2;
+    $config['display_prev_link'] = TRUE;
+    $config['display_next_link'] = TRUE;
+    $config['enable_query_strings'] = TRUE;
+    return $config;
+}
+
+/**
+ * For pagination configuration
+ * @return boolean
+ * @author : Reema  (Rep)
+ */
+function init_pagination_tenant() {
+    $config = array();
+    $CI = & get_instance();
+    $settings = $CI->session->userdata('settings');
+    $per_page = "";
+    foreach ($settings as $row) {
+        if (trim($row->key) == 'records-per-page') {
+            $per_page = $row->value;
+            break;
+        }
+    }
+    $segment = $CI->uri->segment(2);
+    $config['per_page'] = $per_page;
+    $config['uri_segment'] = 2;
     //config for bootstrap pagination class integration
     $config['full_tag_open'] = '<ul class="pagination">';
     $config['full_tag_close'] = '</ul>';

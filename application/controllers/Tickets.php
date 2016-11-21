@@ -11,6 +11,19 @@ class Tickets extends CI_Controller {
         $this->load->model('Ticket_model');
         $this->load->model('User_model');
         $this->table = TBL_TICKETS;
+        $this->perpageSuffix = "";
+        $this->filterSuffix = "";
+
+        if ($this->input->get('perpage'))
+            $this->perpageSuffix = "?perpage=" . $this->input->get('perpage');
+
+        if ($this->input->get('keyword')) {
+            $this->filterSuffix = "?keyword=" . $this->input->get('keyword');
+            if ($this->input->get('perpage'))
+                $this->perpageSuffix = "&perpage=" . $this->input->get('perpage');
+        }
+
+        $this->suffix = $this->filterSuffix . $this->perpageSuffix;
     }
 
     public function index($type = NULL) {
@@ -18,8 +31,30 @@ class Tickets extends CI_Controller {
         $data['header_title'] = 'My Tickets';
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
-        $data['tickets'] = $this->User_model->getUserTickets($userid, $type);
-         $data['news_announcements'] = $this->User_model->getlatestnews();
+        $config = init_pagination_tenant();
+//        pr($config,1);
+        $filter = '';
+        if ($this->input->get('filter')) {
+                $filter = $this->input->get('filter');
+        }
+        
+        if ($this->input->get('perpage')) {
+            $config['per_page'] = $this->input->get('perpage');
+            $config['first_url'] = base_url() . "tickets/index" . $this->perpageSuffix;
+        }
+        if ($this->input->get('keyword'))
+            $config['first_url'] = base_url() . "tickets/index" . $this->suffix;
+        $config['suffix'] = $this->suffix;
+        $config['base_url'] = base_url() . "tickets/index";
+        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+
+        $config['total_rows'] = count($this->User_model->getUserTickets_tenant($userid, $filter));
+         $this->pagination->initialize($config);
+        $data["links"] = $this->pagination->create_links();
+//        pr($config,1);
+        $data['tickets'] = $this->User_model->getUserTickets_tenant($userid, $filter, $page, $config['per_page']);
+
+        $data['news_announcements'] = $this->User_model->getlatestnews();
 //        p($data['tickets'],1);
         $this->template->load('frontend/page', 'Frontend/Tickets/index', $data);
     }
@@ -29,7 +64,6 @@ class Tickets extends CI_Controller {
     }
 
     public function add() {
-
         $data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         $data['tickets_types'] = $this->Admin_model->get_records(TBL_TICKET_TYPES);
         $data['tickets_priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
@@ -76,7 +110,7 @@ class Tickets extends CI_Controller {
 //            echo $segment; exit;
             $record_id = base64_decode($id);
             $data['ticket'] = $this->Ticket_model->get_ticket($record_id);
-             $data['news_announcements'] = $this->User_model->getlatestnews();
+            $data['news_announcements'] = $this->User_model->getlatestnews();
             $userid = $this->session->userdata('user_logged_in')['id'];
             $data['title'] = 'Tickets | Support-Ticket-System';
             $data['header_title'] = 'View Ticket';
@@ -102,14 +136,14 @@ class Tickets extends CI_Controller {
 //            echo $segment; exit;
             $record_id = base64_decode($id);
             $data['ticket'] = $this->Ticket_model->get_ticket($record_id);
-             $data['news_announcements'] = $this->User_model->getlatestnews();
+            $data['news_announcements'] = $this->User_model->getlatestnews();
 //            p($data['ticket'],1);
             $userid = $this->session->userdata('user_logged_in')['id'];
-                $data['title'] = 'Tickets | Support-Ticket-System';
-                $data['header_title'] = 'Send Message Ticket';
-                $data['user'] = $this->User_model->getUserByID($userid);
+            $data['title'] = 'Tickets | Support-Ticket-System';
+            $data['header_title'] = 'Send Message Ticket';
+            $data['user'] = $this->User_model->getUserByID($userid);
             if (!empty($data['ticket'])) {
-                
+
                 $data['ticketname'] = $data['ticket']->title;
                 $data['ticket_coversation'] = $this->Ticket_model->get_ticket_conversation($record_id);
 //            p($data['ticket_coversation'],1);
