@@ -10,12 +10,15 @@ class Home extends CI_Controller {
         $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->load->model('Article_model');
+        $this->load->model('Media_model');
     }
 
     public function index() {
 //        $this->load->view('Frontend/home');
         $data['title'] = 'Home | Support-Ticket-System';
         $userid = $this->session->userdata('user_logged_in')['id'];
+        $images = $this->Media_model->get_home_images();
+        $data['images'] = $images;
         $data['user'] = $this->User_model->getUserByID($userid);
         $this->template->load('frontend/home', 'Frontend/home', $data);
     }

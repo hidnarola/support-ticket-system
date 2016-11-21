@@ -40,6 +40,24 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group col-xs-12">
+                                            <label>Tenant</label>                                  
+                                            <select class="select" name="user_id" required="" id="user_id">
+                                                <option selected="" value="">Select Tenant</option> 
+                                                <?php
+
+                                                foreach ($tenants as $row) {
+                                                    if (isset($ticket) && $ticket->user_id == $row['id']) {
+                                                        echo "<option value='" . $row['id'] . "' selected>" . $row['fname'] . $row['lname']. "</option>";
+                                                    } else {
+                                                        echo "<option value='" . $row['id'] . "'>" . $row['fname'] . $row['lname'] ."</option>"; //                                                
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                            <?php echo '<label id="user_id-error" class="validation-error-label" for="user_id">' . form_error('user_id') . '</label>'; ?>
+                                        </div>
+
+                                        <div class="form-group col-xs-12">
                                             <label>Title</label>
                                             <input type="text" name="title" class="form-control" placeholder="Title" required="required" value="<?php
                                             if (isset($ticket)) {
@@ -55,22 +73,7 @@
                                                    <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
                                         </div>
 
-                                        <div class="form-group col-xs-12">
-                                            <label>Department</label>                                  
-                                            <select class="select" name="dept_id" required="" id="dept_id">
-                                                <option selected="" value="">Select Department</option> 
-                                                <?php
-                                                foreach ($departments as $row) {
-                                                    if ($ticket->dept_id == $row['id']) {
-                                                        echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
-                                                    } else {
-                                                        echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
-                                                    }
-                                                }
-                                                ?>
-                                            </select>
-                                            <?php echo '<label id="dept_id-error" class="validation-error-label" for="dept_id">' . form_error('dept_id') . '</label>'; ?>
-                                        </div>
+                                        
                                         <div class="form-group col-xs-12">
                                             <label>Ticket Type</label>                                                                      
                                             <select class="select" name="ticket_type_id" required="" id="ticket_type_id">
@@ -107,6 +110,22 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                    <div class="form-group col-xs-12">
+                                            <label>Department</label>                                  
+                                            <select class="select" name="dept_id" required="" id="dept_id">
+                                                <option selected="" value="">Select Department</option> 
+                                                <?php
+                                                foreach ($departments as $row) {
+                                                    if ($ticket->dept_id == $row['id']) {
+                                                        echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
+                                                    } else {
+                                                        echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                            <?php echo '<label id="dept_id-error" class="validation-error-label" for="dept_id">' . form_error('dept_id') . '</label>'; ?>
+                                        </div>
                                         <div class="form-group col-xs-12">
                                             <label>Ticket Status</label>
 
@@ -124,25 +143,8 @@
                                             </select>
                                             <?php echo '<label id="status_id-error" class="validation-error-label" for="status_id">' . form_error('status_id') . '</label>'; ?>
 
-
                                         </div>
-<!--                                        <div class="form-group col-xs-12">
-                                            <label>Ticket Category</label>
 
-                                            <select class="select" name="category_id" required="" id="category_id">
-                                                <option selected="" value="">Select Ticket Category</option> 
-                                                <?php
-                                                foreach ($tickets_categories as $row) {
-                                                    if ($ticket->category_id == $row['id']) {
-                                                        echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
-                                                    } else {
-                                                        echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
-                                                    }
-                                                }
-                                                ?>
-                                            </select>
-                                            <?php echo '<label id="category_id-error" class="validation-error-label" for="category_id">' . form_error('category_id') . '</label>'; ?>
-                                        </div>-->
 
                                         <div class="form-group col-xs-12">
                                             <label>Description</label>

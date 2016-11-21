@@ -89,6 +89,7 @@ define('TBL_ARTICLES','articles');
 define('TBL_CATEGORIES','categories');
 define('TBL_DEPARTMENTS','departments');
 define('TBL_FAQ','faq');
+define('TBL_MEDIA','media');
 define('TBL_NEWS_ANNOUNCEMENTS','news_announcements');
 define('TBL_PAGES','pages');
 define('TBL_ROLES','roles');
@@ -123,3 +124,14 @@ define('ARTICLE_IMAGE', 'uploads/articles');
 define('ARTICLE_THUMB_IMAGE', 'uploads/articles/thumb');
 define('ARTICLE_MEDIUM_IMAGE', 'uploads/articles/medium');
 
+define('HOME_IMAGE', 'uploads/media/home_page/original');
+define('HOME_THUMB_IMAGE', 'uploads/media/home_page/thumb');
+define('HOME_MEDIUM_IMAGE', 'uploads/media/home_page/medium');
+
+define('GALLERY_IMAGE', 'uploads/media/gallery/original');
+define('GALLERY_THUMB_IMAGE', 'uploads/media/gallery/thumb');
+define('GALLERY_MEDIUM_IMAGE', 'uploads/media/gallery/medium');
+
+define('TICKET_IMAGE', 'uploads/tickets/original');
+define('TICKET_THUMB_IMAGE', 'uploads/tickets/thumb');
+define('TICKET_MEDIUM_IMAGE', 'uploads/tickets/medium');

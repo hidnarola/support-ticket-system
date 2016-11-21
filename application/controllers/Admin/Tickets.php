@@ -35,7 +35,8 @@ class Tickets extends CI_Controller {
         $this->data['tickets_types'] = $this->Admin_model->get_records(TBL_TICKET_TYPES);
         $this->data['tickets_priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
         $this->data['tickets_statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
-        $user_id = $this->session->userdata('admin_logged_in')['id'];
+        $this->data['tenants'] = $this->Admin_model->get_tenants();
+        $created_by = $this->session->userdata('admin_logged_in')['id'];
 
         $this->form_validation->set_rules('title', 'Title', 'trim|required');
         $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
@@ -50,7 +51,7 @@ class Tickets extends CI_Controller {
         } else {
 
             $data = array(
-                'user_id' => $user_id,
+                'user_id' => $this->input->post('user_id'),
                 'title' => $this->input->post('title'),
                 'dept_id' => $this->input->post('dept_id'),
                 'ticket_type_id' => $this->input->post('ticket_type_id'),
@@ -59,6 +60,7 @@ class Tickets extends CI_Controller {
                 'description' => $this->input->post('description'),
                 'is_delete' => 0,
                 'created' => date('Y-m-d H:i:s'),
+                'created_by'=>$created_by
             );
 //                    pr($data, 1);
             $this->Admin_model->manage_record($this->table, $data);
@@ -77,8 +79,8 @@ class Tickets extends CI_Controller {
                 $this->data['tickets_types'] = $this->Admin_model->get_records(TBL_TICKET_TYPES);
                 $this->data['tickets_priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
                 $this->data['tickets_statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
-
-                $user_id = $this->session->userdata('admin_logged_in')['id'];
+                $this->data['tenants'] = $this->Admin_model->get_tenants();
+                $created_by = $this->session->userdata('admin_logged_in')['id'];
 
                 $this->form_validation->set_rules('title', 'Title', 'trim|required');
                 $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
@@ -93,7 +95,7 @@ class Tickets extends CI_Controller {
                 } else {
 
                     $data = array(
-                        'user_id' => $user_id,
+                        'user_id' => $this->input->post('user_id'),
                         'title' => $this->input->post('title'),
                         'dept_id' => $this->input->post('dept_id'),
                         'ticket_type_id' => $this->input->post('ticket_type_id'),
@@ -102,6 +104,7 @@ class Tickets extends CI_Controller {
                         'description' => $this->input->post('description'),
                         'is_delete' => 0,
                         'created' => date('Y-m-d H:i:s'),
+                        'created_by'=>$created_by
                     );
 //                    pr($data, 1);
                     $this->Admin_model->manage_record($this->table, $data, $record_id);
@@ -163,6 +166,25 @@ class Tickets extends CI_Controller {
             $update_data = array(
                 'staff_id'=>$staff_id
                 );
+            $get_staff = $this->User_model->getFieldById($staff_id, 'email, fname, lname', TBL_USERS);
+            $get_ticket = $this->User_model->getFieldById($record_id, 'title', TBL_TICKETS);
+            $email = $get_staff->email;
+            $configs = mail_config();
+            $this->load->library('email', $configs);
+            $this->email->initialize($configs);
+            $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+            $this->email->to($email);
+
+            //--- set email template
+            
+            $msg = 'Hello '. $get_staff->fname.' '.$get_staff->lname;
+            $msg .= '<p>You have been assigned a Ticket - <a href="'.base_url().'staff/tickets/view/'.urldecode($id).'"><b>'. $get_ticket->title .'</b></a></p>';
+            $msg .= '<p>Thank you</p>';
+            $msg .= '<p>Support Ticket</p>';
+
+            $this->email->subject('New Ticket Assigned');
+            $this->email->message($msg);
+            $this->email->send();
         }
         //pr($update_data);
         $rec = $this->Ticket_model->updateField('id', $record_id, $update_data, $this->table);

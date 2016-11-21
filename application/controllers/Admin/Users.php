@@ -126,10 +126,10 @@ class Users extends CI_Controller {
                         'email' => $useremail,
                     );
                     $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
-                    $this->email->subject('Your account is registed for dev.supportticket.com');
+                    $this->email->subject('Your account is registered for dev.supportticket.com');
                     $this->email->message($msg);
                     $this->email->send();
-                    $this->email->print_debugger();
+                    // $this->email->print_debugger();
 // pr($data, 1);
                     if ($user_type == 'tenant') {
                         $this->session->set_flashdata('success_msg', 'Tenant added succesfully.');

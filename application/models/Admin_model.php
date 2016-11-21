@@ -71,11 +71,7 @@ class Admin_model extends CI_Model {
     public function get_total_users($role_id) {
         $this->db->select('*');
         $this->db->from(TBL_USERS);
-        if ($role_id == 1) {
-            $this->db->where('role_id', $role_id);
-        } elseif ($role_id == 2) {
-            $this->db->where('role_id', $role_id);
-        }
+        $this->db->where('role_id', $role_id);
         $this->db->where('is_delete', 0);
         $result = $this->db->get();
         $data = $result->row();
@@ -229,5 +225,19 @@ class Admin_model extends CI_Model {
 
         return $query->result_array();
     }
+
+    public function get_tenants() {
+        $this->db->select('id, fname, lname');
+        $this->db->where('is_delete', 0);
+        $this->db->where('role_id', 1);
+
+        $this->db->from(TBL_USERS);
+
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+
 
 }

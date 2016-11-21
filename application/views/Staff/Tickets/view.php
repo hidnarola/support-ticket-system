@@ -63,11 +63,11 @@
                             <tbody>
                                 <tr class="alpha-teal">
                                     <th>Assign To</th>
-                                    <td><?php echo $ticket->fname . ' ' . $ticket->lname; ?></td>
+                                    <td><?php echo $ticket->staff_fname . ' ' . $ticket->staff_lname; ?></td>
                                 </tr>
                                 <tr>
                                     <th>Tenant</th>
-                                    <td><?php echo $ticket->staff_fname . ' ' . $ticket->staff_lname; ?></td>
+                                    <td><?php echo $ticket->fname . ' ' . $ticket->lname; ?></td>
                                 </tr>
                                 <tr class="alpha-teal">
                                     <th>Title</th>
@@ -93,6 +93,10 @@
                                 <tr class="alpha-teal">
                                     <th>Added On</th>
                                     <td><?php echo date('d-M-Y', strtotime($ticket->created)) ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td><?php echo $ticket->description ?></td>
                                 </tr>
                             </tbody>
                         </table>

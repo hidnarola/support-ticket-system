@@ -85,11 +85,11 @@
                                         </ul>
                                     </li>
                                 <?php } ?>
-                                <li class="mega-menu"><a href="login"><div>About us</div></a></li>
+                                <li class="mega-menu"><a><div>About us</div></a></li>
 
-                                <li class="mega-menu"><a href="login"><div>Privacy Policy</div></a></li>
-                                <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>
-                                <li class="mega-menu"><a href="login"><div>Services</div></a></li>
+                                <li class="mega-menu"><a><div>Privacy Policy</div></a></li>
+                                <li class="mega-menu"><a><div>Contact us</div></a></li>
+                                <li class="mega-menu"><a><div>Services</div></a></li>
                                 <!--<li class="mega-menu"><a href="login"><div>Gallery</div></a></li>-->
                                 <?php if ($this->session->userdata('user_logged_in') == '') { ?>
                                     <li class="mega-menu <?php echo ($page == 'login') ? 'current' : ''; ?>"><a href="login"><div>Login</div></a></li>
