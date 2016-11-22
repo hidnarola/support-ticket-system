@@ -92,9 +92,9 @@
                     </div>
                     <div class="col_full">
                         <label for="register-form-phone">Contract:</label>
-                        <input type="file" id="contract" name="contract" required="required" value="<?php echo set_value('contract'); ?>" class="form-control required" />
+                        <input type="file" id="contract" name="contract" value="<?php echo set_value('contract'); ?>" class="form-control" />
                         <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
-                        <?php echo '<label id="contract-error" class="validation-error-label" for="contract">' . form_error('contract') . '</label>'; ?>
+                        <?php // echo '<label id="contract-error" class="validation-error-label" for="contract">' . form_error('contract') . '</label>'; ?>
                     </div>
 
                     <div class="col_full nobottommargin">

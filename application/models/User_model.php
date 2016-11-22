@@ -56,6 +56,7 @@ class User_model extends CI_Model {
         $this->db->join('staff as s', 's.user_id = users.id', 'left');
         $this->db->join('departments as d', 'd.id = s.dept_id', 'left');
         $this->db->where('users.is_delete', 0);
+        $this->db->order_by('users.id', 'desc');
         $records = $this->db->get($table_name);
         $rec = $records->result_array();
 
@@ -79,7 +80,7 @@ class User_model extends CI_Model {
         $this->db->select('*,users.id as uid');
         $this->db->where('users.role_id', 2);
         $this->db->where('d.name', $dept);
-        
+
         $this->db->join('staff as s', 's.user_id = users.id', 'left');
         $this->db->join('departments as d', 'd.id = s.dept_id', 'left');
         $this->db->where('users.is_delete', 0);
@@ -121,7 +122,8 @@ class User_model extends CI_Model {
         $query = $this->db->get_where('users', array('is_delete !=' => 1, 'email' => $email));
         return $query->row_array();
     }
-    function check_email_edit($email,$id) {
+
+    function check_email_edit($email, $id) {
         $this->db->select('email');
         $this->db->where('is_delete!=', 1);
         $this->db->where('email=', $email);
@@ -136,7 +138,6 @@ class User_model extends CI_Model {
         } else {
             return 0;
         }
-       
     }
 
     public function get_role_id($role) {
@@ -235,7 +236,7 @@ class User_model extends CI_Model {
         return $q->row_array();
     }
 
-    public function getUserTickets($id,$type=NULL, $limit = null,$start=null) {
+    public function getUserTickets($id, $type = NULL, $limit = null, $start = null) {
         $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, staff.fname as staff_fname ,staff.lname as staff_lname');
         $this->db->where('tickets.is_delete', 0);
         $this->db->where('tickets.user_id', $id);
@@ -244,7 +245,7 @@ class User_model extends CI_Model {
         }
         $this->db->where('tickets.title !=', '');
         if ($limit != null) {
-            $this->db->limit(10,$start);
+            $this->db->limit(10, $start);
         }
         $this->db->from(TBL_TICKETS);
         $this->db->join(TBL_DEPARTMENTS . ' dept', 'dept.id = tickets.dept_id', 'left');
@@ -258,8 +259,8 @@ class User_model extends CI_Model {
 
         return $query->result_array();
     }
-    
-     public function getUserTickets_tenant($id,$type=NULL, $limit = null,$start=null) {
+
+    public function getUserTickets_tenant($id, $type = NULL, $limit = null, $start = null) {
         $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, staff.fname as staff_fname ,staff.lname as staff_lname');
         $this->db->where('tickets.is_delete', 0);
         $this->db->where('tickets.user_id', $id);
@@ -267,9 +268,9 @@ class User_model extends CI_Model {
             $this->db->where('tickets.status_id', $type);
         }
         $this->db->where('tickets.title !=', '');
-        if ($limit != null) {
-            $this->db->limit($limit,$start);
-        }
+//        if ($limit != null) {
+        $this->db->limit($limit, $start);
+//        }
         $this->db->from(TBL_TICKETS);
         $this->db->join(TBL_DEPARTMENTS . ' dept', 'dept.id = tickets.dept_id', 'left');
         $this->db->join(TBL_TICKET_TYPES . ' type', 'type.id = tickets.ticket_type_id', 'left');
@@ -278,30 +279,90 @@ class User_model extends CI_Model {
         $this->db->join(TBL_USERS . ' user', 'user.id = tickets.user_id', 'left');
         $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
         $query = $this->db->get();
-//         echo $this->db->last_query();
+//        echo $this->db->last_query();
 
         return $query->result_array();
     }
-    
+
     /**
      * To display news and announcements in the rightside bar
      */
-    public function getlatestnews(){
+    public function getlatestnews() {
         $this->db->select('*');
-         $this->db->where('news_announcements.is_delete', 0);
-         $this->db->order_by('news_announcements.id', 'DESC');
+        $this->db->where('news_announcements.is_delete', 0);
+        $this->db->order_by('news_announcements.id', 'DESC');
         $this->db->limit('3');
         $this->db->from(TBL_NEWS_ANNOUNCEMENTS);
-         $query = $this->db->get();
+        $query = $this->db->get();
 
         return $query->result_array();
     }
 
-    public function check_head_staff($id){
+    public function check_head_staff($id) {
         $this->db->select('is_head');
         $this->db->where('user_id', $id);
         $q = $this->db->get(TBL_STAFF);
         $result = $q->row_array();
         return $result['is_head'];
     }
+    /**
+     * 
+     * @param type $value
+     * @param type $field
+     * @param type $table
+     */
+    public function getValueByField($value, $field, $field_name, $table) {
+        $this->db->select($value);
+        $this->db->where($field_name, $field);
+        $result = $this->db->get($table);
+//        echo $this->db->last_query();exit;
+
+        return $result->row();
+    }
+
+     public function add_user($data) {
+        $this->db->insert(TBL_USERS, $data);
+        return $this->db->insert_id();
+    }
+    
+    public function is_key_used($key) {
+        $query = $this->db->get(TBL_USERS);
+        $flag = '';
+        foreach ($query->result() as $rows) {
+            $email_key = $rows->email;
+            if ($key == md5($email_key)) {
+                if ($rows->is_verified == 1) {
+                    $flag = 'used';
+                } else {
+                    $flag = 'unused';
+                }
+            }
+        }
+        return $flag;
+    }
+
+    public function get_email_by_id($id) {
+        $this->db->select('email');
+        $this->db->where("id", $id);
+        $query = $this->db->get(TBL_USERS);
+        $data = $query->result_array();
+        return $data[0]['email'];
+    }
+    
+     public function get_activation_key($email) {
+
+        $this->db->where('email', $email);
+        $q = $this->db->get(TBL_USERS);
+//        $data = $q->result_array();
+        if ($q->num_rows() > 0) {
+            return md5($email);
+        }
+    }
+    
+    public function make_active($email) {
+        $this->db->where('email', $email);
+        $data = array('is_verified' => 1);
+        $this->db->update(TBL_USERS, $data);
+    }
+
 }

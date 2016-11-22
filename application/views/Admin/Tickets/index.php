@@ -21,7 +21,7 @@ $segment = $this->uri->segment(1);
      <?php $this->load->view('admin/message_view'); ?>
     <!-- Table header styling -->
     <div class="panel panel-flat">
-        <div class="panel-heading">
+        <div class="panel-heading tic-listing">
             <!--        <h5 class="panel-title">Tickets List</h5>-->
             <div class="col-md-2">
     <?php $current = $this->uri->segment(4); ?>

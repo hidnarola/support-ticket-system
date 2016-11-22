@@ -27,8 +27,8 @@ class News extends CI_Controller {
     public function view($slug) {
         $flag = 1;
         if ($slug != '') {
-            $data['news'] = $this->News_model->get_data_by_slug($slug,$type= 1);
-
+            $data['news'] = $this->News_model->get_data_by_slug($slug, $type = 1);
+//            pr($data['news'],1);
             if ($data['news'] != '') {
 //                $data['other_articles'] = $this->Article_model->get_other_articles($data['article']['category_id'], $data['article']['id']);
 //                pr($data['other_articles'],1);
@@ -50,11 +50,11 @@ class News extends CI_Controller {
             $this->template->load('frontend/page', 'Frontend/error/404notfound', $data);
         }
     }
-    
-    public function loadmore(){
+
+    public function loadmore() {
         $type = $this->inout->post('type');
-              
-        pr($this->inout->post(),1);
+
+        pr($this->inout->post(), 1);
         exit;
         $num_rows = $this->News_model->num_rows($type);
     }

@@ -145,9 +145,9 @@
 
             str += '<div class="entry-title">';
             if (item.is_news == 0) {
-                str += '<h2><a href="' + url + item.slug + '">' + item.title + '</a></h2>';
+                str += '<h2><a href="' + url + 'announcements/' + item.slug + '">' + item.title + '</a></h2>';
             } else {
-                str += '<h2><a href="' + url + item.slug + '">' + item.title + '</a></h2>';
+                str += '<h2><a href="' + url + 'news/' + item.slug + '">' + item.title + '</a></h2>';
             }
             str += '</div>';
             str += '<ul class="entry-meta clearfix">';
@@ -156,9 +156,9 @@
             str += '<div class="entry-content">';
             str += '<p>' + item.description + '</p>';
             if (item.is_news == 0) {
-                str += '<a href="' + url + item.slug + '" class="more-link">Read More</a>';
+                str += '<a href="' + url + 'announcements/' + item.slug +  '" class="more-link">Read More</a>';
             } else {
-                str += '<a href="' + url + item.slug + '" class="more-link">Read More</a>';
+                str += '<a href="' + url + 'news/' + item.slug +  '" class="more-link">Read More</a>';
             }
             str += '</div>';
         });

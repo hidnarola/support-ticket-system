@@ -24,12 +24,12 @@ class Users extends CI_Controller {
             $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
             $this->data['icon_class'] = 'icon-people';
             $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Staffs';
-            if($this->input->get() && $this->input->get('department')!='all'){
+            if ($this->input->get() && $this->input->get('department') != 'all') {
                 $users = $this->User_model->get_dept_users($this->table, $this->input->get('department'));
-            }else{
+            } else {
                 $users = $this->User_model->get_users_records($this->table, 2);
             }
-            $this->data['users']= $users;
+            $this->data['users'] = $users;
         }
         $this->template->load('admin', 'Admin/Users/index', $this->data);
     }
@@ -55,89 +55,98 @@ class Users extends CI_Controller {
         if ($this->form_validation->run() == TRUE) {
             $isUserUnique = $this->User_model->isUnique('email', $useremail, $this->table);
 //            if (!$isUserUnique) {
-                $flag = 0;
+            $flag = 0;
 
-                if ($_FILES['profile_pic']['name'] != '') {
-                    $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
-                    $exts = explode(".", $_FILES['profile_pic']['name']);
-                     $name = $exts[0] . time() . "." . end($exts);
+            if ($_FILES['profile_pic']['name'] != '') {
+                $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
+                $exts = explode(".", $_FILES['profile_pic']['name']);
+                $name = $exts[0] . time() . "." . end($exts);
 //                    $name = "profile-" . date("mdYhHis") . "." . $exts[1];
 
-                    $config['upload_path'] = USER_PROFILE_IMAGE;
-                    $config['allowed_types'] = implode("|", $img_array);
-                    $config['max_size'] = '2048';
-                    $config['file_name'] = $name;
+                $config['upload_path'] = USER_PROFILE_IMAGE;
+                $config['allowed_types'] = implode("|", $img_array);
+                $config['max_size'] = '2048';
+                $config['file_name'] = $name;
 
-                    $this->upload->initialize($config);
+                $this->upload->initialize($config);
 
-                    if (!$this->upload->do_upload('profile_pic')) {
-                        $flag = 1;
-                        $data['profile_validation'] = $this->upload->display_errors();
-                    } else {
-                        $file_info = $this->upload->data();
-                        $profile_pic = $file_info['file_name'];
-
-                        $src = './' . USER_PROFILE_IMAGE . '/' . $profile_pic;
-                        $thumb_dest = './' . PROFILE_THUMB_IMAGE . '/';
-                        $medium_dest = './' . PROFILE_MEDIUM_IMAGE . '/';
-                        thumbnail_image($src, $thumb_dest);
-                        medium_image_user($src, $medium_dest);
-                    }
+                if (!$this->upload->do_upload('profile_pic')) {
+                    $flag = 1;
+                    $data['profile_validation'] = $this->upload->display_errors();
                 } else {
-                    $profile_pic = '';
+                    $file_info = $this->upload->data();
+                    $profile_pic = $file_info['file_name'];
+
+                    $src = './' . USER_PROFILE_IMAGE . '/' . $profile_pic;
+                    $thumb_dest = './' . PROFILE_THUMB_IMAGE . '/';
+                    $medium_dest = './' . PROFILE_MEDIUM_IMAGE . '/';
+                    thumbnail_image($src, $thumb_dest);
+                    medium_image_user($src, $medium_dest);
+                }
+            } else {
+                $profile_pic = '';
+            }
+
+            if ($flag != 1) {
+                $data = array(
+                    'fname' => $this->input->post('fname'),
+                    'lname' => $this->input->post('lname'),
+                    'email' => $useremail,
+                    'role_id' => $role_id,
+                    'profile_pic' => $profile_pic,
+                    'contactno' => $this->input->post('contactno'),
+                    'address' => $this->input->post('address'),
+                    'status' => 0,
+                    'is_verified' => 0,
+                    'is_delete' => 0,
+                    'created' => date('Y-m-d H:i:s'),
+                );
+$username = $this->input->post('fname').' '. $this->input->post('lname');
+                $this->Admin_model->manage_record($this->table, $data);
+                $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
+                if ($role_id == 2) {
+                    $staff_array = array(
+                        'user_id' => $lastUserId,
+                        'dept_id' => $this->input->post('dept_id')
+                    );
+                    $this->Admin_model->manage_record(TBL_STAFF, $staff_array);
                 }
 
-                if ($flag != 1) {
-                    $data = array(
-                        'fname' => $this->input->post('fname'),
-                        'lname' => $this->input->post('lname'),
-                        'email' => $useremail,
-                        'role_id' => $role_id,
-                        'profile_pic' => $profile_pic,
-                        'contactno' => $this->input->post('contactno'),
-                        'address' => $this->input->post('address'),
-                        'status' => 0,
-                        'is_verified' => 0,
-                        'is_delete' => 0,
-                        'created' => date('Y-m-d H:i:s'),
-                    );
+                /* To send mail to the user */
+                $configs = mail_config();
+                $this->load->library('email', $configs);
+                $this->email->initialize($configs);
+                $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+                $this->email->to($useremail);
+                
+                $unique_code = md5($useremail);
+                $url =  base_url() . '/home/verify?key=' . $unique_code . '&u=' . $lastUserId;
+                $message = 'Welcome, ' . $username . '! Thank you for registering with  Manazel Specialists, inc. We look forward to working with you. <br/><br/>
+                        Please confirm your email and registration by clicking on the link below. <br/>
+                        <a href=' . $url . '>' . $url . '</a>';
 
-                    $this->Admin_model->manage_record($this->table, $data);
-                    $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
-                    if ($role_id == 2) {
-                        $staff_array = array(
-                            'user_id' => $lastUserId,
-                            'dept_id' => $this->input->post('dept_id')
-                        );
-                        $this->Admin_model->manage_record(TBL_STAFF, $staff_array);
-                    }
+                //--- set email template
+                $data_array = array(
+                    'firstname' => $this->input->post('fname'),
+                    'lastname' => $this->input->post('lname'),
+                    'email' => $useremail,
+                    'url' => $url
+                );
+                $msg = $this->load->view('admin/emails/send_mail_new', $data_array, TRUE);
+                $this->email->subject('Your account is registed for dev.supportticket.com');
+                $this->email->message($msg);
+                $this->email->send();
+                $this->email->print_debugger();
 
-                    /* To send mail to the user */
-                    $configs = mail_config();
-                    $this->load->library('email', $configs);
-                    $this->email->initialize($configs);
-                    $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
-                    $this->email->to($useremail);
-
-                    //--- set email template
-                    $data_array = array(
-                        'firstname' => $this->input->post('fname'),
-                        'lastname' => $this->input->post('lname'),
-                        'email' => $useremail,
-                    );
-                    $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
-                    $this->email->subject('Your account is registered for dev.supportticket.com');
-                    $this->email->message($msg);
-                    $this->email->send();
-                    // $this->email->print_debugger();
+                // $this->email->print_debugger();
 // pr($data, 1);
-                    if ($user_type == 'tenant') {
-                        $this->session->set_flashdata('success_msg', 'Tenant added succesfully.');
-                        redirect('admin/tenants');
-                    } else {
-                        $this->session->set_flashdata('success_msg', 'Staff added succesfully.');
-                        redirect('admin/staff');
-                    }
+                if ($user_type == 'tenant') {
+                    $this->session->set_flashdata('success_msg', 'Tenant added succesfully.');
+                    redirect('admin/tenants');
+                } else {
+                    $this->session->set_flashdata('success_msg', 'Staff added succesfully.');
+                    redirect('admin/staff');
+                }
 //                }
 //                else {
 //                    if ($user_type == 'tenant') {
@@ -146,7 +155,7 @@ class Users extends CI_Controller {
 //                        redirect('admin/users/add/staff');
 //                    }
 //                }
-            } 
+            }
 //            else {
 //                if ($user_type == 'tenant') {
 ////                    $this->session->set_flashdata('error_msg', 'EmailId already exist. Please try again.');
@@ -178,10 +187,11 @@ class Users extends CI_Controller {
             return TRUE;
         }
     }
-    function check_email_edit($email,$id) {
-        $return_value = $this->User_model->check_email_edit($email,$id);
+
+    function check_email_edit($email, $id) {
+        $return_value = $this->User_model->check_email_edit($email, $id);
 //        pr($return_value,1);
-        if ($return_value== 1) {
+        if ($return_value == 1) {
             $this->form_validation->set_message('check_email_edit', 'Sorry, This email is already Exists..!');
             return FALSE;
         } else {
@@ -204,7 +214,7 @@ class Users extends CI_Controller {
 //            exit;
                 $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
                 $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
-           $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_check_email_edit[' . $record_id . ']');
+                $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_check_email_edit[' . $record_id . ']');
                 $this->form_validation->set_rules('contactno', 'Contact Number', 'trim|required');
                 $this->form_validation->set_rules('address', 'Address', 'trim|required');
                 if ($this->form_validation->run() == FALSE) {
@@ -225,62 +235,62 @@ class Users extends CI_Controller {
                     $useremail = $this->input->post('email');
 //                    $isUserUnique = $this->User_model->isUnique('email', $useremail, $this->table, $record_id, 'AND id!='. $id .'AND is_delete != 0');
 //                    if ($isUserUnique) {
-                        $flag = 0;
-                        if ($_FILES['profile_pic']['name'] != '') {
-                            $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
-                            $exts = explode(".", $_FILES['profile_pic']['name']);
-                            $name = $exts[0] . time() . "." . $exts[1];
-                            $name = "profile-" . date("mdYhHis") . "." . $exts[1];
+                    $flag = 0;
+                    if ($_FILES['profile_pic']['name'] != '') {
+                        $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
+                        $exts = explode(".", $_FILES['profile_pic']['name']);
+                        $name = $exts[0] . time() . "." . $exts[1];
+                        $name = "profile-" . date("mdYhHis") . "." . $exts[1];
 
-                            $config['upload_path'] = USER_PROFILE_IMAGE;
-                            $config['allowed_types'] = implode("|", $img_array);
-                            $config['max_size'] = '2048';
-                            $config['file_name'] = $name;
+                        $config['upload_path'] = USER_PROFILE_IMAGE;
+                        $config['allowed_types'] = implode("|", $img_array);
+                        $config['max_size'] = '2048';
+                        $config['file_name'] = $name;
 
-                            $this->upload->initialize($config);
+                        $this->upload->initialize($config);
 
-                            if (!$this->upload->do_upload('profile_pic')) {
-                                $flag = 1;
-                                $data['profile_validation'] = $this->upload->display_errors();
-                            } else {
-                                $file_info = $this->upload->data();
-                                $profile_pic = $file_info['file_name'];
-                                unlink('./' . USER_PROFILE_IMAGE . '/' . $image->profile_image);
-                                $src = './' . USER_PROFILE_IMAGE . '/' . $profile_pic;
-                                $thumb_dest = './' . PROFILE_THUMB_IMAGE . '/';
-                                $medium_dest = './' . PROFILE_MEDIUM_IMAGE . '/';
-                                thumbnail_image($src, $thumb_dest);
-                                medium_image_user($src, $medium_dest);
-                            }
-                        }
-
-                        if ($flag != 1) {
-                            $data = array(
-                                'fname' => $this->input->post('fname'),
-                                'lname' => $this->input->post('lname'),
-                                'email' => $useremail,
-                                'profile_pic' => $profile_pic,
-                                'contactno' => $this->input->post('contactno'),
-                                'address' => $this->input->post('address'),
-                            );
-//                        pr($data, 1);
-                            $this->Admin_model->manage_record($this->table, $data, $record_id);
-                            if ($this->data['user']->role_id == 2) {
-                                $staff_array = array(
-                                    'dept_id' => $this->input->post('dept_id')
-                                );
-                                $this->User_model->edit($staff_array, TBL_STAFF, 'user_id', $record_id);
-                            }
-                            if ($user_type == 'tenant') {
-                                $this->session->set_flashdata('success_msg', 'Tenant updated succesfully..!!');
-                                redirect('admin/tenants');
-                            } else {
-                                $this->session->set_flashdata('success_msg', 'Staff updated succesfully..!!');
-                                redirect('admin/staff');
-                            }
+                        if (!$this->upload->do_upload('profile_pic')) {
+                            $flag = 1;
+                            $data['profile_validation'] = $this->upload->display_errors();
                         } else {
-                            redirect('admin/users/edit');
+                            $file_info = $this->upload->data();
+                            $profile_pic = $file_info['file_name'];
+                            unlink('./' . USER_PROFILE_IMAGE . '/' . $image->profile_image);
+                            $src = './' . USER_PROFILE_IMAGE . '/' . $profile_pic;
+                            $thumb_dest = './' . PROFILE_THUMB_IMAGE . '/';
+                            $medium_dest = './' . PROFILE_MEDIUM_IMAGE . '/';
+                            thumbnail_image($src, $thumb_dest);
+                            medium_image_user($src, $medium_dest);
                         }
+                    }
+
+                    if ($flag != 1) {
+                        $data = array(
+                            'fname' => $this->input->post('fname'),
+                            'lname' => $this->input->post('lname'),
+                            'email' => $useremail,
+                            'profile_pic' => $profile_pic,
+                            'contactno' => $this->input->post('contactno'),
+                            'address' => $this->input->post('address'),
+                        );
+//                        pr($data, 1);
+                        $this->Admin_model->manage_record($this->table, $data, $record_id);
+                        if ($this->data['user']->role_id == 2) {
+                            $staff_array = array(
+                                'dept_id' => $this->input->post('dept_id')
+                            );
+                            $this->User_model->edit($staff_array, TBL_STAFF, 'user_id', $record_id);
+                        }
+                        if ($user_type == 'tenant') {
+                            $this->session->set_flashdata('success_msg', 'Tenant updated succesfully..!!');
+                            redirect('admin/tenants');
+                        } else {
+                            $this->session->set_flashdata('success_msg', 'Staff updated succesfully..!!');
+                            redirect('admin/staff');
+                        }
+                    } else {
+                        redirect('admin/users/edit');
+                    }
 //                    } else {
 //                        if ($user_type == 'tenant') {
 //                            $data['error_msg'] = 'EmailId already exist. Please try again.';

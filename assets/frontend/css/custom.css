@@ -421,13 +421,16 @@ btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
 .border-primary {
     border-color: #2196f3;
 }
+#header, #header-wrap, #logo img {
+    height: 102px;
+}
 @media(max-width:1200px){
     ul.bottom-section li {
         margin: 10px 0 0px 0px;
         width: 50%;
     }
-   
-   
+
+
 }
 @media(max-width:990px){
     ul.top-section{margin-bottom: 0px;}
@@ -445,7 +448,7 @@ btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
     li.view{float: none ;
             position: absolute;
             top:15px;
-            right: 50px; }
+            right: 15px; }
     ul.top-section li, ul.bottom-section li {
         padding-right: 5px;
     }
@@ -455,21 +458,34 @@ btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
     .container.ticket-listing {
         width: 100% !important;
     }
-     .sidebar.col_last, .sidebar-widgets-wrap {
+    .sidebar.col_last, .sidebar-widgets-wrap {
         clear: both;
     }
     .sidebar.nobottommargin.col_last.clearfix {
-  padding-left: 30px;
-}
+        padding-left: 30px;
+    }
 }
 @media(max-width:767px){
+    .container.ticket-listing , .container.article-listing{
+        width: 100% !important;
+    }
     .ticket-img {
         height: auto;
         padding-top: 15px;
     }
+    #page-title #searchform #s {
+        width:100%;
+    }
+    .column.col-half {
+        width: 100%;
+    }
+    .column.col-half:nth-child(2),
+    .column.col-half:nth-child(4){
+        margin: 0;
+    }
 }
 @media(max-width:480px){
-    .container.ticket-listing {
+    .container.ticket-listing , .container.article-listing{
         width: 100% !important;
     }
     ul.bottom-section{text-align: center;}

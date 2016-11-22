@@ -121,21 +121,24 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col_full">
-                                    <label for="address">Address:</label>
-                                    <textarea rows="5" cols="5" name="address" class="form-control" required="required" placeholder="Address" aria-required="true" aria-invalid="true"><?php
-                                        if (isset($user)) {
-                                            echo trim($user['address']);
-                                        } else {
-                                            if ($this->input->post('address')) {
-                                                echo $this->input->post('address');
-                                            } else {
-                                                echo '';
-                                            }
-                                        }
-                                        ?>
-                                    </textarea>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col_full">
+                                            <label for="address">Address:</label>
+                                            <textarea rows="5" cols="5" name="address" class="form-control" required="required" placeholder="Address" aria-required="true" aria-invalid="true"><?php
+                                                if (isset($user)) {
+                                                    echo trim($user['address']);
+                                                } else {
+                                                    if ($this->input->post('address')) {
+                                                        echo $this->input->post('address');
+                                                    } else {
+                                                        echo '';
+                                                    }
+                                                }
+                                                ?>
+                                            </textarea>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col_full">
@@ -213,7 +216,7 @@
         }
     }
     $("#profile-form").validate();
-        window.setTimeout(function () {
+    window.setTimeout(function () {
         $(".alert").fadeTo(500, 0).slideUp(500, function () {
             $(this).remove();
         });

@@ -1,8 +1,8 @@
 <?php
 $action = $this->uri->segment(1);
 $suffixUrl = '';
-if ($this->input->get('filter') && $this->input->get('search'))
-    $suffixUrl = "?filter=" . $this->input->get('filter') . "&search=" . $this->input->get('search');
+if ($this->input->get('filter'))
+    $suffixUrl = "?filter=" . $this->input->get('filter');
 ?>
 <!--<script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>-->
 <div class="content-wrap">
@@ -32,11 +32,12 @@ if ($this->input->get('filter') && $this->input->get('search'))
 
                 <div class="row">
                     <div class="col-sm-3">
-                        <?php $current = $this->uri->segment(3); 
+                        <?php
+                        $current = $this->uri->segment(3);
                         $current = $this->input->get('filter');
                         ?>
                         <!-- <label class="control-label">Filter by Status</label> -->
-                        <form method="get" id="category_search" action="<?php $_SERVER['PHP_SELF']; ?>">
+                        <form method="get" id="category_search" action="tickets">
                             <select class="select filter form-control" id="filter" name='filter' onchange="document.getElementById('category_search').submit();">
                                 <option <?php echo ($current == '') ? 'selected' : ''; ?> value="">All</option>
                                 <option <?php echo ($current == '3') ? 'selected' : ''; ?> value="3">Open</option>
@@ -54,7 +55,7 @@ if ($this->input->get('filter') && $this->input->get('search'))
                 </div>
 
                 <?php
-                if ($tickets > 0) {
+                if ($tickets) {
                     foreach ($tickets as $key => $record) {
                         ?>
                         <div class="row">
@@ -80,9 +81,11 @@ if ($this->input->get('filter') && $this->input->get('search'))
                                                 <!--<li><a><span class="label label-success">Read</span></span></a></li>-->
                                             <?php } ?>
                                             <li class="view"><a href="<?php echo base_url() . 'tickets/view/' . base64_encode($record['id']) ?>"><i class="icon-eye-open"></i></a></li>
-                                            <!--<li><a href="http://clientapp.narola.online/HD/spotashoot/admin/users/edit/251" class="btn border-primary text-primary-600 btn-flat btn-icon btn-rounded btn-sm"><i class="icon-pencil3"></i></a></li>-->
-                                            <li class="edit"><a href="<?php echo base_url() . 'tickets/reply/' . base64_encode($record['id']) ?>"><i class="icon-envelope2"></i></a></li>
-                                            <!--<li class="edit"><a href="#" class="button button-rounded button-reveal button-mini button-teal edit"><i class="icon-pencil"></i><span>edit</span></a></li>-->
+                                            <!--<li class="edit"><a href="<?php echo base_url() . 'tickets/reply/' . base64_encode($record['id']) ?>"><i class="icon-envelope2"></i></a></li>-->
+
+
+                                                                                                    <!--<li><a href="http://clientapp.narola.online/HD/spotashoot/admin/users/edit/251" class="btn border-primary text-primary-600 btn-flat btn-icon btn-rounded btn-sm"><i class="icon-pencil3"></i></a></li>-->
+                                                                                                    <!--<li class="edit"><a href="#" class="button button-rounded button-reveal button-mini button-teal edit"><i class="icon-pencil"></i><span>edit</span></a></li>-->
 
                                         </ul>
                                         <p><?php echo $record['title']; ?></p>
@@ -100,16 +103,23 @@ if ($this->input->get('filter') && $this->input->get('search'))
                     ?>
                     <div class="row">  
                         <div class='col-sm-12'>
-                            <?php // echo $links; ?>
+                            <?php echo $links; ?>
                         </div>
                     </div>
                 <?php } else {
                     ?>
-                    <div class="no-tickets">No tickets are available</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="style-msg infomsg">
+                                <div class="sb-msg"><i class="icon-info-sign"></i><strong>No tickets are available!!!</strong></div>
+                            </div>
+                        </div>
+                    </div>
                 <?php } ?>
+
+
             </div>
             <div class="line visible-xs-block"></div>
-
             <?php $this->load->view('frontend/User/rightsidebar'); ?>
 
         </div>
