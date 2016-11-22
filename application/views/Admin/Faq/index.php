@@ -51,7 +51,7 @@
                                         <i class="icon-help position-left text-slate"></i> <?php echo $val['question']; ?>
                                     </a>
 
-                                    <span><a class=" text-danger-600 delete" id="delete_<?php echo base64_encode($val['fid']); ?>" data-record="<?php echo base64_encode($val['fid']); ?>"><i class="icon-trash"></i></a>
+                                    <span class="faq-listing"><a class=" text-danger-600 delete" id="delete_<?php echo base64_encode($val['fid']); ?>" data-record="<?php echo base64_encode($val['fid']); ?>"><i class="icon-trash"></i></a>
                                         <a class="text-teal-600 edit" href="<?php echo base_url() . 'admin/faq/edit/' . base64_encode($val['fid']) ?>" id="edit_<?php echo base64_encode($val['fid']); ?>"><i class="icon-pencil7"></i></a></span>
                                 </h6>
                             </div>

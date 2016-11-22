@@ -21,5 +21,13 @@ and open the template in the editor.
 .articles .delete{margin-left: 5px;}
 .staff_head{ background-color: rgba(197, 155, 171, 0.33); color: darkcyan; }
 .file-drop-zone-title{
-	padding: 60px 10px !important;
+    padding: 60px 10px !important;
 }
+.panel-heading.tic-listing{padding-right: 0px;}
+.panel-heading.user-listing{padding-right: 0px;}
+.tic-listing .select2.select2-container.select2-container--default,
+.user-listing .select2.select2-container.select2-container--default {
+    margin-left: 26px;
+    width: 200px !important;
+}
+.faq-listing{float: right;padding-right: 24px;}

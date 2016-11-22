@@ -193,7 +193,7 @@ class Admin_model extends CI_Model {
 
     public function getFaq($query) {
         $result = $this->db->query($query);
-        echo $this->db->last_query();
+//        echo $this->db->last_query();
         $originalArray = $result->result_array();
         $new_arr = array();
         foreach ($originalArray as $key => $part) {

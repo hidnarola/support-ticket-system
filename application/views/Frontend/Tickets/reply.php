@@ -62,7 +62,7 @@
                                                 </a>
                                             <?php } ?>
 
-                                            </a>
+                                           
                                         </div>
 
                                         <div class="media-body">
@@ -93,7 +93,7 @@
                                                 if ($filename > 0) {
                                                     ?>
                                                     <a href="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>">
-                                                        <img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>" class="img-circle" alt="">
+                                                        <img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>" class="img-circle" alt=""></a>
                                                     <!--<div class="media-left"><img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?> " class="img-circle" alt=""></div>-->
                                                     <?php } else { ?>
                                                         <a href="assets/admin/images/placeholder.jpg">
@@ -117,6 +117,7 @@
                         ?>
 
                     </ul>
+                    <div class="clearfix"></div>
                     <form method="post" id="reply-form-user">
                         <textarea name="enter-message" required="" class="form-control content-group" rows="3" cols="1" placeholder="Enter your message..."></textarea>
 

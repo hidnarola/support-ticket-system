@@ -1,5 +1,5 @@
 <div class="content-wrap">
-    <div class="container clearfix">
+    <div class="container clearfix article-listing">
         <div class="row clearfix">
             <div id="primary" class="sidebar-off clearfix">
                 <div class="ht-container">

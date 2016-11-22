@@ -24,10 +24,14 @@
                 }
                 ?>
                 <form id="ticket-add-form" name="register-form" class="nobottommargin" action="tickets/add" method="post">
-                    <div class="col_full" style="margin-bottom: 0">
-                        <label for="title">Title:</label>
-                        <input type="text" id="title" name="title" value="<?php echo set_value('title'); ?>" required="required" class="form-control required" />
-                        <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col_full" style="margin-bottom: 0">
+                                <label for="title">Title:</label>
+                                <input type="text" id="title" name="title" value="<?php echo set_value('title'); ?>" required="required" class="form-control required" />
+                                <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -87,43 +91,47 @@
                                 <?php echo '<label id="priority_id-error" class="validation-error-label" for="priority_id">' . form_error('priority_id') . '</label>'; ?>
                             </div>
                         </div>
-<!--                        <div class="col-sm-6">
-                            <div class="col_full">
-                                <label>Ticket Category:</label>
-
-                                <select class="form-control" name="category_id" required="" id="category_id">
-                                    <option selected="" value="">Select Ticket Category</option> 
-                                    <?php
-                                    foreach ($tickets_categories as $row) {
-                                        if ($ticket->category_id == $row['id']) {
-                                            echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
-                                        } else {
-                                            echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                                <?php echo '<label id="category_id-error" class="validation-error-label" for="category_id">' . form_error('category_id') . '</label>'; ?>
-                            </div>
-                        </div>-->
+                        <!--                        <div class="col-sm-6">
+                                                    <div class="col_full">
+                                                        <label>Ticket Category:</label>
+                        
+                                                        <select class="form-control" name="category_id" required="" id="category_id">
+                                                            <option selected="" value="">Select Ticket Category</option> 
+                        <?php
+                        foreach ($tickets_categories as $row) {
+                            if ($ticket->category_id == $row['id']) {
+                                echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
+                            } else {
+                                echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
+                            }
+                        }
+                        ?>
+                                                        </select>
+                        <?php echo '<label id="category_id-error" class="validation-error-label" for="category_id">' . form_error('category_id') . '</label>'; ?>
+                                                    </div>
+                                                </div>-->
                     </div>
 
-                    <div class="col_full">
-                        <label>Description</label>
-                        <!--border-color: #E42C3E;-->
-                        <textarea rows="5" cols="5" name="description" class="form-control" required="required" placeholder="Description Here" aria-required="true" aria-invalid="true"><?php
-                            if (isset($ticket)) {
-                                echo trim($ticket->description);
-                            } else {
-                                if ($this->input->post('description')) {
-                                    echo $this->input->post('description');
-                                } else {
-                                    echo '';
-                                }
-                            }
-                            ?></textarea>
-                        <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col_full">
+                                <label>Description</label>
+                                <!--border-color: #E42C3E;-->
+                                <textarea rows="5" cols="5" name="description" class="form-control" required="required" placeholder="Description Here" aria-required="true" aria-invalid="true"><?php
+                                    if (isset($ticket)) {
+                                        echo trim($ticket->description);
+                                    } else {
+                                        if ($this->input->post('description')) {
+                                            echo $this->input->post('description');
+                                        } else {
+                                            echo '';
+                                        }
+                                    }
+                                    ?></textarea>
+                                <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
 
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col_full nobottommargin">

@@ -75,16 +75,23 @@ class News_model extends CI_Model {
         return $result->result_array();
     }
 
+//    function get_data_by_slug($slug) {
+//        $this->db->where('is_delete', 0);
+//        $this->db->where('slug', $slug);
+//        $result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
+//         $data = $result->row();
+//        if ($result->num_rows() > 0) {
+//            return $result->num_rows();
+//        } else {
+//            return FALSE;
+//        }
+//    }
+    
     function get_data_by_slug($slug) {
         $this->db->where('is_delete', 0);
         $this->db->where('slug', $slug);
         $result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
-         $data = $result->row();
-        if ($result->num_rows() > 0) {
-            return $result->num_rows();
-        } else {
-            return FALSE;
-        }
+        return $result->row_array();
     }
 
     /**

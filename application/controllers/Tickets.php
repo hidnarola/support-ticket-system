@@ -17,8 +17,8 @@ class Tickets extends CI_Controller {
         if ($this->input->get('perpage'))
             $this->perpageSuffix = "?perpage=" . $this->input->get('perpage');
 
-        if ($this->input->get('keyword')) {
-            $this->filterSuffix = "?keyword=" . $this->input->get('keyword');
+        if ($this->input->get('filter')) {
+            $this->filterSuffix = "?filter=" . $this->input->get('filter');
             if ($this->input->get('perpage'))
                 $this->perpageSuffix = "&perpage=" . $this->input->get('perpage');
         }
@@ -32,27 +32,35 @@ class Tickets extends CI_Controller {
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
         $config = init_pagination_tenant();
-//        pr($config,1);
+//        pr($config);
         $filter = '';
         if ($this->input->get('filter')) {
-                $filter = $this->input->get('filter');
+            $filter = $this->input->get('filter');
         }
-        
+
         if ($this->input->get('perpage')) {
             $config['per_page'] = $this->input->get('perpage');
             $config['first_url'] = base_url() . "tickets/index" . $this->perpageSuffix;
         }
-        if ($this->input->get('keyword'))
+        if ($this->input->get('filter'))
             $config['first_url'] = base_url() . "tickets/index" . $this->suffix;
         $config['suffix'] = $this->suffix;
         $config['base_url'] = base_url() . "tickets/index";
-        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
         $config['total_rows'] = count($this->User_model->getUserTickets_tenant($userid, $filter));
-         $this->pagination->initialize($config);
+        $this->pagination->initialize($config);
+        $num_pages = (int) ceil($this->pagination->total_rows / $this->pagination->per_page);
+        $v = $num_pages + $this->pagination->per_page;
+
+        if ($v == $page) {
+            $config['next_tag_open'] = '<li class="disabled">';
+        } else {
+            $config['next_tag_open'] = '<li>';
+        }
         $data["links"] = $this->pagination->create_links();
 //        pr($config,1);
-        $data['tickets'] = $this->User_model->getUserTickets_tenant($userid, $filter, $page, $config['per_page']);
+        $data['tickets'] = $this->User_model->getUserTickets_tenant($userid, $filter, $config['per_page'], $page);
 
         $data['news_announcements'] = $this->User_model->getlatestnews();
 //        p($data['tickets'],1);
@@ -71,6 +79,7 @@ class Tickets extends CI_Controller {
         $data['news_announcements'] = $this->User_model->getlatestnews();
 
         $userid = $this->session->userdata('user_logged_in')['id'];
+        $useremail = $this->session->userdata('user_logged_in')['email'];
 
         $this->form_validation->set_rules('title', 'Title', 'trim|required');
         $this->form_validation->set_rules('dept_id', 'Department', 'trim|required');
@@ -97,6 +106,37 @@ class Tickets extends CI_Controller {
                 'created' => date('Y-m-d H:i:s'),
             );
 //                    p($data, 1);
+
+            /* To send mail to the user */
+            $configs = mail_config();
+            $this->load->library('email', $configs);
+            $this->email->initialize($configs);
+            $this->email->from($useremail);
+            $get_email_admin = $this->User_model->getValueByField('value', 'email-notification', 'key', TBL_SETTINGS);
+            $get_email = $get_email_admin->value;
+            $this->email->to($get_email);
+
+            //--- set email template
+            $firstname = $this->session->userdata('user_logged_in')['fname'];
+            $lastname = $this->session->userdata('user_logged_in')['lname'];
+//            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
+
+            $message = "Hello Admin,<br/><br/><div>The new ticket has been geenrated by the <strong>" . $firstname . " " . $lastname . "</strong>"
+                    . "<br/><strong>Ticke Title</strong> : " . $this->input->post('title')
+                    . "<br/><strong>Description </strong>: " . $this->input->post('description')
+                    . "</div><br/>Thanks";
+
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body = $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+
+            $this->email->subject('The new ticket has been generated for dev.supportticket.com');
+            $this->email->message($mail_body);
+            $this->email->send();
+            $this->email->print_debugger();
+
             $this->Admin_model->manage_record($this->table, $data_tickets);
             $this->session->set_flashdata('success_msg', 'Ticket added succesfully.');
             redirect('tickets');
@@ -116,6 +156,26 @@ class Tickets extends CI_Controller {
             $data['header_title'] = 'View Ticket';
             $data['user'] = $this->User_model->getUserByID($userid);
             if (!empty($data['ticket'])) {
+                
+                $data['ticketname'] = $data['ticket']->title;
+                $data['ticket_coversation'] = $this->Ticket_model->get_ticket_conversation($record_id);
+//            p($data['ticket_coversation'],1);
+
+                if ($this->input->post()) {
+                    $msg_data = array(
+                        'ticket_id' => $record_id,
+                        'message' => $this->input->post('enter-message'),
+                        'sent_from' => $userid
+                    );
+                    if ($this->Ticket_model->save_ticket_conversation($msg_data)) {
+                        $this->session->set_flashdata('success_msg', 'Message sent successfully.');
+                    } else {
+                        $this->session->set_flashdata('error_msg', 'Unable to send message.');
+                    }
+
+                    redirect('tickets/view/' . $id);
+                }
+                
                 $this->template->load('frontend/page', 'Frontend/Tickets/view', $data);
             } else {
                 $flag = 0;

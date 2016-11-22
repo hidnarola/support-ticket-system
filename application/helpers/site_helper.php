@@ -130,10 +130,10 @@ function mail_config() {
         'protocol' => 'smtp',
         'smtp_host' => 'ssl://smtp.gmail.com',
         'smtp_port' => 465,
-        'smtp_user' => 'demo.narola@gmail.com',
-        'smtp_pass' => 'Ke6g7sE70Orq3Rqaqa',
-//        'smtp_user' => 'demo.narolainfotech@gmail.com',
-//        'smtp_pass' => 'Narola102',
+//        'smtp_user' => 'demo.narola@gmail.com',
+//        'smtp_pass' => 'Ke6g7sE70Orq3Rqaqa',
+        'smtp_user' => 'demo.narolainfotech@gmail.com',
+        'smtp_pass' => 'Narola102',
         'transport' => 'Smtp',
         'charset' => 'utf-8',
         'newline' => "\r\n",
@@ -248,9 +248,9 @@ function init_pagination_tenant() {
             break;
         }
     }
-    $segment = $CI->uri->segment(2);
+    $segment = $CI->uri->segment(3);
     $config['per_page'] = $per_page;
-    $config['uri_segment'] = 2;
+    $config['uri_segment'] = 3;
     //config for bootstrap pagination class integration
     $config['full_tag_open'] = '<ul class="pagination">';
     $config['full_tag_close'] = '</ul>';
@@ -278,6 +278,7 @@ function init_pagination_tenant() {
     $config['display_prev_link'] = TRUE;
     $config['display_next_link'] = TRUE;
     $config['enable_query_strings'] = TRUE;
+//    pr($config);
     return $config;
 }
 

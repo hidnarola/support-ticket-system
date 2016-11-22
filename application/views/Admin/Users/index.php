@@ -26,25 +26,29 @@
     <?php $this->load->view('admin/message_view'); ?>
     <!-- Table header styling -->
     <div class="panel panel-flat">
-        <div class="panel-heading">
-            <div class="col-md-12">
+        <div class="panel-heading user-listing">
+            <div class="col-md-12" style="padding-left: 0">
                 <!-- <div class="heading-elements"> -->
                 <?php if ($seg == 'staff') { ?>
-                    <div class="col-md-4">
+                    <div class="col-md-3" style="padding-left: 0">
                         <form method="get">
+                           
+
                             <div class="form-group">
-                                <label class="control-label">Select Department</label>
+                                <label class="col-lg-2 control-label" style="padding-left: 0">Department</label>
                                 <?php $get_dept = $this->input->get('department'); ?>
-                                <select name="department" class="form-control" onchange="this.form.submit()">
+                                 <div class="col-lg-10">
+                                <select name="department" class="form-control select" onchange="this.form.submit()">
                                     <option <?php echo ($get_dept == 'all') ? 'selected' : ''; ?> value="all">All</option>
                                     <?php foreach ($departments as $dept) { ?>
                                         <option <?php echo ($get_dept == $dept['name']) ? 'selected' : ''; ?> value="<?php echo $dept['name']; ?>"><?php echo $dept['name']; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
+                            </div>
                         </form>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <div class="row" style="margin-bottom: 10px;">
                         <?php } else { ?>
                             <div class="col-md-offset-4 col-md-8">
@@ -88,7 +92,9 @@
                                     <th>Address</th>
                                 <?php } ?>
                                 <th>Verified</th>
+
                                 <?php if ($seg == 'tenant') { ?>
+
                                     <th>Status</th>
                                 <?php } ?>
                                 <th>Action</th>
@@ -121,6 +127,7 @@
                                             <span class="label label-success">Verified</span> 
                                         <?php }
                                         ?></td>
+
     <?php if ($seg == 'tenant') { ?>
                                     <td><?php if ($record['status'] == 0) { ?>
                                             <span class="label bg-orange-600">Unapproved</span>
@@ -129,6 +136,7 @@
                                         <?php }
                                         ?></td>
 <?php } ?>
+
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="text-teal-600">
@@ -152,7 +160,7 @@
                                                         if ($record['contract'] != '') {
                                                             ?>
                                                             <li><a target="_blank" class="view_contract" href="<?php echo USER_CONTRACT . '/' . $record['contract']; ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-eye"></i> View Contract</a></li>
-                                                        <?php
+                                                            <?php
                                                         }
                                                     }
 

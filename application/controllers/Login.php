@@ -107,31 +107,30 @@ class Login extends CI_Controller {
         } else {
 
             if ($_FILES['contract']['name'] != '') {
-                    $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG', 'pdf', 'PDF');
-                    $exts = explode(".", $_FILES['contract']['name']);
-                    $name = $exts[0] . time() . "." . $exts[1];
-                    $name = "contract-" . date("mdYhHis") . "." . $exts[1];
+                $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG', 'pdf', 'PDF');
+                $exts = explode(".", $_FILES['contract']['name']);
+                $name = $exts[0] . time() . "." . $exts[1];
+                $name = "contract-" . date("mdYhHis") . "." . $exts[1];
 
-                    $config['upload_path'] = USER_CONTRACT;
-                    $config['allowed_types'] = implode("|", $type_array);
-                    $config['max_size'] = '2048';
-                    $config['file_name'] = $name;
+                $config['upload_path'] = USER_CONTRACT;
+                $config['allowed_types'] = implode("|", $type_array);
+                $config['max_size'] = '2048';
+                $config['file_name'] = $name;
 
-                    $this->upload->initialize($config);
+                $this->upload->initialize($config);
 
-                    if (!$this->upload->do_upload('contract')) {
-                        $flag = 1;
-                        $data['contract_validation'] = $this->upload->display_errors();
-                    } else {
-                        $file_info = $this->upload->data();
-                        $contract = $file_info['file_name'];
-
-                        $src = './' . USER_CONTRACT . '/' . $contract;
-                        
-                    }
+                if (!$this->upload->do_upload('contract')) {
+                    $flag = 1;
+                    $data['contract_validation'] = $this->upload->display_errors();
                 } else {
-                    $contract = '';
+                    $file_info = $this->upload->data();
+                    $contract = $file_info['file_name'];
+
+                    $src = './' . USER_CONTRACT . '/' . $contract;
                 }
+            } else {
+                $contract = '';
+            }
 
 
             $password = $this->encrypt->encode($this->input->post('password'));
@@ -147,24 +146,33 @@ class Login extends CI_Controller {
                 'status' => 0,
                 'is_delete' => 0,
                 'created' => date('Y-m-d H:i:s'),
-                'contract'=>$contract
+                'contract' => $contract
             );
+            $username = $this->input->post('fname').' '. $this->input->post('lname');
 //            p($data, 1);
             $this->Admin_model->manage_record($this->table, $data);
+            $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
             /* To send mail to the user */
             $configs = mail_config();
             $this->load->library('email', $configs);
             $this->email->initialize($configs);
             $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
             $this->email->to($useremail);
+            
+            $unique_code = md5($useremail);
+            $url = base_url() . '/home/tenantverify?key=' . $unique_code . '&u=' . $lastUserId;
+            $message = 'Welcome, ' . $username . '! Thank you for registering with  Manazel Specialists, inc. We look forward to working with you. <br/><br/>
+                        Please confirm your email and registration by clicking on the link below. <br/>
+                        <a href=' . $url . '>' . $url . '</a>';
 
             //--- set email template
             $data_array = array(
                 'firstname' => $this->input->post('fname'),
                 'lastname' => $this->input->post('lname'),
                 'email' => $useremail,
+                'url' => $url
             );
-            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
+            $msg = $this->load->view('admin/emails/send_mail_new', $data_array, TRUE);
             $this->email->subject('Your account is registed for dev.supportticket.com');
             $this->email->message($msg);
             $this->email->send();
@@ -198,7 +206,7 @@ class Login extends CI_Controller {
         }
     }
 
-    public function page_not_found(){
+    public function page_not_found() {
         $data['view'] = 'admin/404_notfound';
         $this->load->view('admin/error/404_notfound', $data);
     }
