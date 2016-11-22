@@ -384,5 +384,25 @@ class Users extends CI_Controller {
             exit;
         }
     }
+    
+    public function assign_head() {
+        $id = $this->input->post('id');
+        $action = ($this->input->post('action')=='assign') ? 1 : 0;
+        if ($id != null) {
+            $record_id = base64_decode($id);
+            
+            $this->User_model->updateField('user_id', $record_id, 'is_head', $action , TBL_STAFF);
+            if ($action == 0) {
+                $this->session->set_flashdata('success_msg', 'Unassigned successfully!');
+                $data['status'] = 1;
+            } else {
+                $this->session->set_flashdata('success_msg', 'Assigned Successfully');
+                $data['status'] = 0;
+            }
+            echo json_encode($data);
+            exit;
+        }
+    }
+
 
 }

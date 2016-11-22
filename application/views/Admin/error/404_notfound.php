@@ -44,13 +44,13 @@
                     <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
                 </ul>
             </div>
-
+    <?php if ($this->session->userdata('admin_logged_in') || $this->session->userdata('staffed_logged_in')) { ?>
             <div class="navbar-collapse collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav">
                     <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
 
                 </ul>               
-
+    
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown dropdown-user">
                         <a class="dropdown-toggle" data-toggle="dropdown">
@@ -71,6 +71,8 @@
                     </li>
                 </ul>
             </div>
+<?php } ?>
+
         </div>
         <!-- /main navbar -->
 

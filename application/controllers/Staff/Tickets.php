@@ -15,8 +15,12 @@ class Tickets extends CI_Controller {
     }
 
     public function staff_index(){
+         $this->data['icon_class'] = 'icon-user';
         $this->data['title'] = $this->data['page_header'] = 'Tickets';
         $this->data['tickets'] = $this->Staff_model->get_tickets($this->session->userdata('staffed_logged_in')['id']);
+        $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
+        $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
+        $this->data['priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
         $this->template->load('staff', 'Staff/Tickets/index', $this->data);
     }
 

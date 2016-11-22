@@ -15,6 +15,7 @@ class Dashboard extends CI_Controller {
     }
 
     public function index() {
+        $this->data['icon_class'] = 'icon-home4';
         
         $this->data['title'] = $this->data['page_header'] = 'Dashboard';
 
@@ -22,6 +23,9 @@ class Dashboard extends CI_Controller {
         $this->data['total_replies'] = $this->Staff_model->get_total_replies($this->session->userdata('staffed_logged_in')['id']);
         $this->data['tickets'] = $this->Staff_model->get_tickets($this->session->userdata('staffed_logged_in')['id']);
         // pr($this->data['tickets'],1);
+         $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
+        $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
+        $this->data['priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
         $this->template->load('staff', 'Staff/Dashboard/index', $this->data);       
     }
 
@@ -107,7 +111,16 @@ class Dashboard extends CI_Controller {
         redirect('staff/profile');
     }
 
-    
+     public function get_staff(){
+        $dept = $this->input->post('dept');
+        $staff = $this->Admin_model->get_staff($dept);
+        $html = '';
+        foreach ($staff as $row) {
+            $html .= '<option value="'. $row['user_id'] .'">'. $row['fname'].' '. $row['lname'] .'</option>';
+        }
+        echo $html;
+        exit;
+    }
     
    
 

@@ -15,10 +15,8 @@ class Login extends CI_Controller {
 //        if($_POST)
 //            p($_POST);
         $user_title = 'Tenant';
-        if ($this->uri->segment(1) == 'admin') {
-            $user_title = 'Admin';
-        } else if ($this->uri->segment(1) == 'staff') {
-            $user_title = 'Staff';
+        if ($this->uri->segment(1) == 'support') {
+            $user_title = 'Support';
         }
         $data['title'] = $user_title . ' Login';
         if ($user_title != 'Tenant') {
@@ -55,19 +53,20 @@ class Login extends CI_Controller {
                 } elseif ($result['role_id'] == 1 && $result['status'] == 0 && $result['is_verified'] == 1 && $user_title == 'Tenant') {
                     // login sucess Give error mesg for unapproved user
                     $userdata = $this->session->set_userdata('user_logged_in', $result);
-                    $this->session->set_flashdata('error_msg', 'You are not approved user by the admin!');
+                    $this->session->set_flashdata('error_msg', 'Your account approval is in progress.');
                     redirect('profile');
-                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title == 'Staff') {
+                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title == 'Support') {
                     // Give error msg for user is not approved by admin
-                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title == 'Staff') {
+                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title == 'Support') {
                     //pr($result,1);
-                    $if_head = $this->User_model->check_head_staff($result['id']);
-                    $result['is_head'] = $if_head;
+                    $head_staff = $this->User_model->check_head_staff($result['id']);
+                    $result['is_head'] = $head_staff['is_head'];
+                    $result['dept_id'] = $head_staff['dept_id'];
                     $userdata = $this->session->set_userdata('staffed_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     redirect('staff');
-                } elseif ($result['role_id'] == 3 && $user_title == 'Admin') {
+                } elseif ($result['role_id'] == 3 && $user_title == 'Support') {
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
@@ -170,7 +169,7 @@ class Login extends CI_Controller {
             $this->email->message($msg);
             $this->email->send();
             $this->email->print_debugger();
-            $this->session->set_flashdata('success_msg', 'Registration success! now please verify link on your email address.');
+            $this->session->set_flashdata('success_msg', 'Registration success! please verify link on your email address.');
             redirect('login');
         }
     }
@@ -186,12 +185,15 @@ class Login extends CI_Controller {
     }
 
     public function logout() {
-        $this->session->sess_destroy();
+        
         if ($this->uri->segment(1) == 'admin') {
-            redirect('admin/login');
+            $this->session->unset_userdata('admin_logged_in');
+            redirect('support/login');
         } else if ($this->uri->segment(1) == 'staff') {
-            redirect('staff/login');
+            $this->session->unset_userdata('staffed_logged_in');
+            redirect('support/login');
         } else {
+            $this->session->unset_userdata('user_logged_in');
             redirect('home');
         }
     }

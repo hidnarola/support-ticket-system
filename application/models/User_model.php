@@ -56,6 +56,7 @@ class User_model extends CI_Model {
         $this->db->join('staff as s', 's.user_id = users.id', 'left');
         $this->db->join('departments as d', 'd.id = s.dept_id', 'left');
         $this->db->where('users.is_delete', 0);
+        $this->db->order_by('users.created', 'desc');
         $records = $this->db->get($table_name);
         $rec = $records->result_array();
 
@@ -83,7 +84,7 @@ class User_model extends CI_Model {
         $this->db->join('staff as s', 's.user_id = users.id', 'left');
         $this->db->join('departments as d', 'd.id = s.dept_id', 'left');
         $this->db->where('users.is_delete', 0);
-        $this->db->order_by('is_head', 'desc');
+        $this->db->order_by('users.created,s.is_head', 'desc');
         $records = $this->db->get($table_name);
         $rec = $records->result_array();
 
@@ -253,6 +254,7 @@ class User_model extends CI_Model {
         $this->db->join(TBL_TICKET_STATUSES . ' status', 'status.id = tickets.status_id', 'left');
         $this->db->join(TBL_USERS . ' user', 'user.id = tickets.user_id', 'left');
         $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
+
         $query = $this->db->get();
 //         echo $this->db->last_query();
 
@@ -277,6 +279,7 @@ class User_model extends CI_Model {
         $this->db->join(TBL_TICKET_STATUSES . ' status', 'status.id = tickets.status_id', 'left');
         $this->db->join(TBL_USERS . ' user', 'user.id = tickets.user_id', 'left');
         $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
+        $this->db->order_by('created', 'desc');
         $query = $this->db->get();
 //         echo $this->db->last_query();
 
@@ -298,10 +301,10 @@ class User_model extends CI_Model {
     }
 
     public function check_head_staff($id){
-        $this->db->select('is_head');
+        $this->db->select('is_head, dept_id');
         $this->db->where('user_id', $id);
         $q = $this->db->get(TBL_STAFF);
         $result = $q->row_array();
-        return $result['is_head'];
+        return $result;
     }
 }

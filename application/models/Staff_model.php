@@ -82,4 +82,19 @@ class Staff_model extends CI_Model {
 //        exit;
     }
 
+    public function get_members($dept) {
+        $this->db->select('users.*');
+        $this->db->where('users.role_id', 2);
+        $this->db->where('d.id', $dept);
+        
+        $this->db->join('staff as s', 's.user_id = users.id', 'left');
+        $this->db->join('departments as d', 'd.id = s.dept_id', 'left');
+        $this->db->where('users.is_delete', 0);
+        $this->db->where('s.is_head', 0);
+        $this->db->order_by('users.created', 'desc');
+        $records = $this->db->get(TBL_USERS);
+        $rec = $records->result_array();
+        return $rec;
+    }
+
 }
