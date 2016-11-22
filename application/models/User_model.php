@@ -302,13 +302,10 @@ class User_model extends CI_Model {
         return $query->result_array();
     }
 
-<<<<<<< HEAD
+
     public function check_head_staff($id){
         $this->db->select('is_head, dept_id');
-=======
-    public function check_head_staff($id) {
-        $this->db->select('is_head');
->>>>>>> 364bef21210651fceff70c6bd824fa65f0c962ba
+
         $this->db->where('user_id', $id);
         $q = $this->db->get(TBL_STAFF);
         $result = $q->row_array();
