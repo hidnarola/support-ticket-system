@@ -10,9 +10,9 @@
                 <table class="table newTickets" data-alert="" data-all="189">
                     <tbody>
                         <tr class="">
-                                            <th>Series No.</th>
-                                            <td><?php echo $ticket->series_no ?></td>
-                                        </tr>
+                            <th>Series No.</th>
+                            <td><?php echo $ticket->series_no ?></td>
+                        </tr>
                         <tr class="">
                             <th>Assign To</th>
                             <td><?php if ($ticket->staff_fname == '' && $ticket->staff_lname == '') { ?>
@@ -113,28 +113,28 @@
                                             <?php if ($val['sent_from'] != $val['user_id'] && $val['sent_from'] != $val['staff_id']) { ?>
                                                 <div class="media-heading">
                                                     <a href="#" class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
-                                                   <span><strong><br><?php
-                                                        if ($val['role_id'] == 1) {
-                                                            echo 'Tenant';
-                                                        } elseif ($val['role_id'] == 2) {
-                                                            echo 'staff';
-                                                        } elseif ($val['role_id'] == 3) {
-                                                            echo 'Admin';
-                                                        }
-                                                        ?></strong></span>
+                                                    <span><strong><br><?php
+                                                            if ($val['role_id'] == 1) {
+                                                                echo 'Tenant';
+                                                            } elseif ($val['role_id'] == 2) {
+                                                                echo 'staff';
+                                                            } elseif ($val['role_id'] == 3) {
+                                                                echo 'Admin';
+                                                            }
+                                                            ?></strong></span>
                                                 </div>
                                             <?php } elseif ($val['sent_from'] == $val['staff_id']) { ?>
                                                 <div class="media-heading">
-                                                    <a href="#" class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                    <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
                                                     <span><strong><br><?php
-                                                        if ($val['role_id'] == 1) {
-                                                            echo 'Tenant';
-                                                        } elseif ($val['role_id'] == 2) {
-                                                            echo 'staff';
-                                                        } elseif ($val['role_id'] == 3) {
-                                                            echo 'Admin';
-                                                        }
-                                                        ?></strong></span>
+                                                            if ($val['role_id'] == 1) {
+                                                                echo 'Tenant';
+                                                            } elseif ($val['role_id'] == 2) {
+                                                                echo 'staff';
+                                                            } elseif ($val['role_id'] == 3) {
+                                                                echo 'Admin';
+                                                            }
+                                                            ?></strong></span>
                                                 </div>   
                                             <?php } ?>
                                             <div class="media-content"><?php echo $val['message']; ?></div>
@@ -149,6 +149,18 @@
                                     <!--<li class="media ">-->
                                     <li class="media reversed">
                                         <div class="media-body">
+                                            <div class="media-heading">
+                                                <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                <span><strong><br><?php
+                                                        if ($val['role_id'] == 1) {
+                                                            echo 'Tenant';
+                                                        } elseif ($val['role_id'] == 2) {
+                                                            echo 'staff';
+                                                        } elseif ($val['role_id'] == 3) {
+                                                            echo 'Admin';
+                                                        }
+                                                        ?></strong></span>
+                                            </div>
                                             <div class="media-content"><?php echo $val['message']; ?></div>
                                             <span class="media-annotation display-block mt-10"><?php echo $date = date('g:i a', strtotime($val['created_date'])); ?></span>
                                         </div>

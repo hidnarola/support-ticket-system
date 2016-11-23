@@ -52,7 +52,7 @@ $segment = $this->uri->segment(1);
                         <thead>
                             <tr class="bg-teal">
                                 <th>#</th>
-                                <th>Series No</th>
+                                <th>Ticket ID</th>
                                 <th>Assign To</th>
                                 <th>Title</th>
                                 <th>Tenant</th>

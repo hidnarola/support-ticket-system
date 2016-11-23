@@ -25,7 +25,7 @@
                 <thead>
                     <tr class="bg-teal">
                         <th>#</th>
-                        <th>Series No</th>
+                        <th>Ticket ID</th>
                         <th>Title</th>
                         <th>Tenant</th>
                         <th>Staff</th>

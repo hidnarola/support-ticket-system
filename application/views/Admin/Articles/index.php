@@ -73,18 +73,18 @@ $segment = $this->uri->segment(1);
                                     <?php if ($record['is_visible'] == 0) { ?>
 
                                         <div class="checkbox visible_chk">
-                                            <label>
-                                                <div class="checker border-success-600 text-success-800"><span class="checked"><input class="control-success" disabled="" checked="checked" type="checkbox"></span></div>
+                                            <!--<label>-->
+                                                <!--<div class="checker border-success-600 text-success-800"><span class="checked"><input class="control-success" disabled="" checked="checked" type="checkbox"></span></div>-->
                                                 Yes
-                                            </label>
+                                            <!--</label>-->
                                         </div>
 
                                     <?php } else { ?>
                                         <div class="checkbox visible_chk">
-                                            <label>
-                                                <div class="checker border-warning-600 text-warning-800"><i class="icon-cancel-square" style="margin-top: -4px;"></i></div>
+                                            <!--<label>-->
+                                                <!--<div class="checker border-warning-600 text-warning-800"><i class="icon-cancel-square" style="margin-top: -4px;"></i></div>-->
                                                 NO
-                                            </label>
+                                            <!--</label>-->
                                         </div>
                                     <?php } ?>
                                 </div>
