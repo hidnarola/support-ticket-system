@@ -331,7 +331,7 @@ class User_model extends CI_Model {
         foreach ($query->result() as $rows) {
             $email_key = $rows->email;
             if ($key == md5($email_key)) {
-                if ($rows->is_verified == 1) {
+                if ($rows->is_verified == 1 && $rows->password !='') {
                     $flag = 'used';
                 } else {
                     $flag = 'unused';
