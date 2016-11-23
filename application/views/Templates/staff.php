@@ -95,12 +95,6 @@
 
                                             
                                             echo $this->session->userdata('staffed_logged_in')['fname'].'!';
-                                            
-
-                                            if ($this->session->userdata('staffed_logged_in')) {
-                                                echo $this->session->userdata('staffed_logged_in')['fname'];
-                                                
-                                            }
 
 //                                        pr($this->session->userdata('admin_logged_in'),1);
                                             ?> </span>

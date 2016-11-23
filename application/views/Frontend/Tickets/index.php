@@ -5,6 +5,7 @@ if ($this->input->get('filter'))
     $suffixUrl = "?filter=" . $this->input->get('filter');
 ?>
 <!--<script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>-->
+<style>.series_no{font-size: 18px!important;line-height: 1!important;padding: 0 0 5px!important;}</style>
 <div class="content-wrap">
     <div class="container clearfix ticket-listing">
         <div class="row clearfix">
@@ -88,7 +89,8 @@ if ($this->input->get('filter'))
                                                                                                     <!--<li class="edit"><a href="#" class="button button-rounded button-reveal button-mini button-teal edit"><i class="icon-pencil"></i><span>edit</span></a></li>-->
 
                                         </ul>
-                                        <p><a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>"><?php echo $record['title']; ?></a></p>
+                                        <p class="series_no"><?php echo $record['series_no']; ?></p>
+                                        <p><a href="<?php echo base_url() . 'tickets/view/' . base64_encode($record['id']) ?>"><?php echo $record['title']; ?></a></p>
                                         <ul class="bottom-section">
                                             <li><a class="resolved"><?php echo $record['dept_name']; ?></a></li>
                                             <li><a><span>Priority: </span><?php echo $record['priority_name']; ?></a></li>

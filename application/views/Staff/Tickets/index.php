@@ -23,6 +23,7 @@
                 <thead>
                     <tr class="bg-teal">
                         <th>#</th>
+                        <th>Series No</th>
                         <th>Title</th>
                         <th>Tenant</th>
                         <th>Staff</th>
@@ -40,7 +41,8 @@
                         ?>
                         <tr>
                             <td><?php echo $key + 1; ?></td>
-                            <td><?php echo $record['title']; ?></td>
+                             <td><?php echo $record['series_no']; ?></td>
+                            <td><a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>"><?php echo $record['title']; ?></a></td>
                             <td><?php echo $record['fname'].' '.$record['lname']; ?></td>
                             <?php if ($record['staff_fname'] != '' && $record['staff_lname'] != '') { ?>
                                 <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>

@@ -50,6 +50,7 @@ $segment = $this->uri->segment(1);
                         <thead>
                             <tr class="bg-teal">
                                 <th>#</th>
+                                <th>Series No</th>
                                 <th>Assign To</th>
                                 <th>Title</th>
                                 <th>Tenant</th>
@@ -69,12 +70,13 @@ $segment = $this->uri->segment(1);
                                 ?>
                                 <tr>
                                     <td><?php echo $key + 1; ?></td>
+                                    <td><?php echo $record['series_no']; ?></td>
                                     <?php if ($record['staff_id'] != '') { ?>
                                         <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
                                     <?php } else { ?>
                                         <td class="text-center"><span class="label label-success">Free</span></td>
                                     <?php } ?>
-                                        <td><a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>"><?php echo $record['title']; ?></a></td>
+                                        <td><a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) ?>"><?php echo $record['title']; ?></a></td>
                                     <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
                                     <td><?php echo $record['dept_name']; ?></td>
                                     <td><?php echo $record['type_name']; ?></td>
