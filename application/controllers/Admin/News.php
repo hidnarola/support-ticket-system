@@ -200,7 +200,8 @@ class News extends CI_Controller {
     public function view($type, $id) {
         $this->data['icon_class'] = 'icon-newspaper';
         $record_id = base64_decode($id);
-        $this->data['title'] = $this->data['page_header'] = 'Add News/Announcement';
+        $this->data['page'] = ($type==0) ? 'Announcement' : 'News' ;
+        $this->data['title'] = $this->data['page_header'] = 'News/Announcement';
         $this->data['data'] = $this->News_model->get_data_by_id($record_id);
         $this->template->load('admin', 'Admin/News/view', $this->data);
     }

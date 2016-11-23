@@ -1,3 +1,18 @@
+<div class="page-header page-header-default">
+    
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4><i class="<?php echo $icon_class; ?> position-left"></i> <span class="text-semibold">Tickets</span></h4>
+        </div>
+    </div>
+    <div class="breadcrumb-line">
+        <ul class="breadcrumb">
+            <li><a href="<?php echo site_url('staff'); ?>"><i class="icon-home2 position-left"></i> Dashboard</a></li>
+             <li><a href="<?php echo site_url('staff/tickets'); ?>"><i class="icon-home2 position-left"></i> Tickets</a></li>
+            <li class="active">View Ticket</li>
+        </ul>
+    </div>
+</div>
 <div class="row">
 
 

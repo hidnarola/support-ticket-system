@@ -29,8 +29,6 @@
     </div>
 </div>
 <script type="text/javascript" src="assets/admin/js/plugins/uploaders/fileinput.min.js"></script>
-<script type="text/javascript" src="assets/admin/js/core/app.js"></script>
-<!-- <script type="text/javascript" src="assets/admin/js/pages/uploader_bootstrap.js"></script> -->
 <script type="text/javascript">
 $(function() {
     var base_url = "<?php echo base_url(); ?>";

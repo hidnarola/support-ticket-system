@@ -156,7 +156,7 @@
                                     <li class="<?php echo ($page == 'staff') ? 'active' : ''; ?>"><a href="admin/staff"><i class="icon-people"></i> <span>Staff</span></a></li>
                                     <li class="<?php echo ($page == 'tickets') ? 'active' : ''; ?>"><a href="admin/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
                                     <li class="<?php echo ($page == 'pages') ? 'active' : ''; ?>"><a href="admin/pages"><i class="icon-magazine"></i> <span>Manage Pages</span></a></li>
-                                    <!-- <li class="<?php echo ($page == 'header_footer_control') ? 'active' : ''; ?>"><a href="admin/header_footer_control"><i class="icon-cogs"></i> <span>Header/Footer Settings</span></a></li> -->
+                                    <li class="<?php echo ($page == 'header_footer_control') ? 'active' : ''; ?>"><a href="admin/header_footer_control"><i class="icon-cogs"></i> <span>Header/Footer Settings</span></a></li>
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
                                     <li class="<?php echo ($current_page == 'news_announcements') ? 'active' : ''; ?>"><a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a></li>
@@ -178,7 +178,7 @@
                                     <li class="<?php echo (in_array($current_page, $settings)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-gear"></i><span>Settings</span></a>
                                         <ul>
-                                            <li class="<?php echo ($current_page == 'roles') ? 'active' : ''; ?>"><a href="admin/manage/roles"><i class="icon-vcard"></i> <span>Roles</span></a></li>
+                                            <!-- <li class="<?php //echo ($current_page == 'roles') ? 'active' : ''; ?>"><a href="admin/manage/roles"><i class="icon-vcard"></i> <span>Roles</span></a></li> -->
                                             <li class="<?php echo ($current_page == 'ticket_priorities') ? 'active' : ''; ?>"><a href="admin/manage/ticket_priorities"><i class="icon-list-numbered"></i> <span>Ticket Priorities</span></a></li>
                                             <li class="<?php echo ($current_page == 'ticket_statuses') ? 'active' : ''; ?>"><a href="admin/manage/ticket_statuses"><i class="icon-stats-bars2"></i> <span>Ticket Statuses</span></a></li>
                                             <li class="<?php echo ($current_page == 'ticket_types') ? 'active' : ''; ?>"><a href="admin/manage/ticket_types"><i class="icon-grid-alt"></i> <span>Ticket Types</span></a></li>

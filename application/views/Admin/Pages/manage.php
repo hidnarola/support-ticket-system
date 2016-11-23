@@ -73,11 +73,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Button Text:</label>
-                                <input type="text" required="required" name="ext_txt" id="ext_txt" class="form-control" value="<?php echo isset($page_data['ext_txt']) ? $page_data['ext_txt'] : set_value('ext_txt'); ?>"> 
-                                <?php echo '<label id="ext_txt-error" class="validation-error-label" for="ext_txt">' . form_error('ext_txt') . '</label>'; ?>
-                            </div>
+                            
                             <div class="form-group">
                                 <label>Banner Url:</label>
                                 <input type="text" required="required" name="ext_url" id="ext_url" class="form-control" value="<?php echo isset($page_data['ext_url']) ? $page_data['ext_url'] : set_value('ext_url'); ?>">

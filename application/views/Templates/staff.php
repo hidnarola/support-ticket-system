@@ -118,6 +118,7 @@
                                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
                                     <li class="<?php echo ($current_page == 'dashboard') ? 'active' : ''; ?>"><a href="staff/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                                     <li class="<?php echo ($current_page == 'tickets') ? 'active' : ''; ?>"><a href="staff/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
+                                    <li class="<?php echo ($current_page == 'members') ? 'active' : ''; ?>"><a href="staff/members"><i class="icon-ticket"></i> <span>Staff</span></a></li>
                                 </ul>
                             </div>
                         </div>      
@@ -127,9 +128,9 @@
                 <div class="content-wrapper">
                     <div class="">
                         <div class="page-header-content">
-                            <div class="page-title">
-                                <h2><span class="text-semibold"><?php echo $page_header; ?></span></h2>
-                            </div>
+                           <!--  <div class="page-title">
+                               <h2><span class="text-semibold"><?php echo $page_header; ?></span></h2>
+                           </div> -->
                             <?php
                             if ($this->session->flashdata('success_msg')) {
                                 ?>

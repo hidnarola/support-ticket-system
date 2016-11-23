@@ -152,8 +152,12 @@ class Tickets extends CI_Controller {
         if ($type == 'dept_id') {
             $update_data = array(
                 'dept_id' => $dept_id,
-                'staff_id' => NULL
+                    //'staff_id'=>NULL
             );
+            $get_ticket = $this->User_model->getFieldById($record_id, 'dept_id', TBL_TICKETS);
+            if ($dept_id != $get_ticket->dept_id) {
+                $update_data['staff_id'] = NULL;
+            }
         } else if ($type == 'status_id') {
             $update_data = array(
                 'status_id' => $status_id

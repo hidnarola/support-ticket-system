@@ -186,17 +186,15 @@
                                             <i class="icon-menu9"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="dept" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                   data-modal-title="Change Department"><i class="icon-collaboration"></i>Change department</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="status" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"
-                                                   data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                   data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
-                                        
-                                             <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo $record['id']; ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                   data-modal-title="Assign Staff"><i class="icon-user"></i> <?php echo ($record['staff_id'] != '') ? 'Change' : 'Assign'; ?> Staff</a></li>
-                                        
-                                        </ul>
+                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="dept" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" data-dept="<?php echo $record['dept_id']; ?>"
+                                                           data-modal-title="Change Department"><i class="icon-collaboration"></i>Change department</a></li>
+                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="status" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"  data-status="<?php echo $record['status_id']; ?>"
+                                                           data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
+                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-priority="<?php echo $record['priority_id']; ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
+                                                           data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
+                                                    <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-staff="<?php echo $record['staff_id']; ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
+                                                   data-modal-title="Assign Staff"><i class="icon-user"></i><?php echo ($record['staff_id'] != '') ? 'Change' : 'Assign'; ?> Staff</a></li>
+                                                </ul>
                                     </li>
                                 </ul>
                             </td>
@@ -342,6 +340,9 @@
         var id = $(this).attr('data-record');
         $('#hidden_id').val(id);
         if (action == 'dept') {
+            selected  = $(this).attr('data-dept');
+            $("#dept_val").val(selected);
+            $("#dept_val").select2();
             $('#dept_id').show();
             $('#staff_id').hide();
             $('#priority_id').hide();
@@ -351,7 +352,11 @@
             $('.validation-error-label').hide();
             var card = document.getElementById("dept_val");
             var select_data = card.selectedIndex;
+            var selected = '';
         } else if (action == 'status') {
+            selected  = $(this).attr('data-status');
+            $("#status_val").val(selected);
+            $("#status_val").select2();
             $('#dept_id').hide();
             $('#staff_id').hide();
             $('#priority_id').hide();
@@ -362,6 +367,9 @@
             var action_type = 'status_id';
             $('.validation-error-label').hide();
         } else if (action == 'priority') {
+            selected  = $(this).attr('data-priority');
+            $("#priority_val").val(selected);
+            $("#priority_val").select2();
             $('#priority_id').show();
             $('#staff_id').hide();
             $('#status_id').hide();
@@ -372,6 +380,9 @@
             var action_type = 'priority_id';
             $('.validation-error-label').hide();
         }else if (action == 'assign') {
+            selected  = $(this).attr('data-staff');
+            $("#staff_val").val(selected);
+            $("#staff_val").select2();
             var dept = $(this).attr('data-dept');
              $.ajax({
                 url: 'admin/dashboard/get_staff',

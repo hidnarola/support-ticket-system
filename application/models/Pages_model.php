@@ -35,4 +35,50 @@ class Pages_model extends CI_Model {
             return 0;
         }
     }
+
+    public function rows_of_table($table,$condition = null){
+        $this->db->select('*');
+        if($condition != null)
+            $this->db->where($condition);
+        $query = $this->db->get($table);
+        return $query->num_rows();
+    }
+
+     public function get_pages_result($table, $select = null, $type) {
+        $columns = ['id', 'navigation_name', 'title'];
+        $this->db->select($select,FALSE);
+        $keyword = $this->input->get('search');
+        if (!empty($keyword['value'])) {
+            $this->db->having('navigation_name LIKE "%'.$this->db->escape_like_str($keyword['value']).'%" OR title LIKE "%'.$this->db->escape_like_str($keyword['value']).'%"',NULL);
+        }
+        $this->db->join(TBL_PAGES.' p1','p1.id = p.parent_id','LEFT');
+        $this->db->order_by($columns[$this->input->get('order')[0]['column']],$this->input->get('order')[0]['dir']);
+        $this->db->where('p.active',1);
+        if($type == 'count'){
+            $query = $this->db->get($table);
+            return $query->num_rows();
+        } else {
+            $query = $this->db->get($table);
+            $this->db->limit($this->input->get('length'),$this->input->get('start'));
+            return $query->result_array();
+        }
+    }
+    public function get_result_header_footer($table, $condition = null, $select = null, $order_type) {
+        if($select == null)
+            $this->db->select('*');
+        else 
+            $this->db->select($select);
+        if(!is_null($condition)){
+            $this->db->where($condition);                
+        }
+        if($order_type == 'footer_position'){
+            $this->db->having('is_parent = 0');
+        }
+
+        $this->db->order_by($order_type,'ASC');
+        $query = $this->db->get($table);
+        return $query->result_array();
+    }
+
+    
 }

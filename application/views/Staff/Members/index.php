@@ -1,22 +1,16 @@
 <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
 <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <div class="page-header page-header-default">
-    <?php
-    $segment = $this->uri->segment(2);
-    if ($segment == 'tenants')
-        $seg = 'tenant';
-    else
-        $seg = 'staff';
-    ?>
+    
     <div class="page-header-content">
         <div class="page-title">
-            <h4><i class="<?php echo $icon_class; ?> position-left"></i> <span class="text-semibold"><?php echo ($seg == 'tenant') ? 'Tenants' : 'Staff'; ?></span></h4>
+            <h4><i class="<?php echo $icon_class; ?> position-left"></i> <span class="text-semibold">Staff Members</span></h4>
         </div>
     </div>
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
-            <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
-            <li class="active"><?php echo ($seg == 'tenant') ? 'Tenants' : 'Staff'; ?></li>
+            <li><a href="<?php echo site_url('staff'); ?>"><i class="icon-home2 position-left"></i> Dashboard</a></li>
+            <li class="active">Staff Members</li>
         </ul>
     </div>
 </div>
@@ -26,53 +20,7 @@
     <?php $this->load->view('admin/message_view'); ?>
     <!-- Table header styling -->
     <div class="panel panel-flat">
-        <div class="panel-heading user-listing">
-            <div class="col-md-12" style="padding-left: 0">
-                <!-- <div class="heading-elements"> -->
-                <?php if ($seg == 'staff') { ?>
-                    <div class="col-md-3" style="padding-left: 0">
-                        <form method="get">
-                           
-
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label" style="padding-left: 0">Department</label>
-                                <?php $get_dept = $this->input->get('department'); ?>
-                                 <div class="col-lg-10">
-                                <select name="department" class="form-control select" onchange="this.form.submit()">
-                                    <option <?php echo ($get_dept == 'all') ? 'selected' : ''; ?> value="all">All</option>
-                                    <?php foreach ($departments as $dept) { ?>
-                                        <option <?php echo ($get_dept == $dept['name']) ? 'selected' : ''; ?> value="<?php echo $dept['name']; ?>"><?php echo $dept['name']; ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="row" style="margin-bottom: 10px;">
-                        <?php } else { ?>
-                            <div class="col-md-offset-4 col-md-8">
-                            <?php } ?>
-                            <ul class="icons-list pull-right">
-                                <?php if ($seg == 'tenant') { ?>
-                                    <a onclick="window.location = 'admin/users/add/tenant'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add new Tenant</a>
-                                       <!--<button type="button" class="btn bg-success" onclick="window.location = 'admin/users/add/tenant'"><i class="icon-user-plus position-left"></i>Add New Tenant</button>-->
-                                <?php } else { ?>
-                                    <a onclick="window.location = 'admin/users/add/staff'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add new Staff</a>
-                                       <!--<button type="button" class="btn bg-success" onclick="window.location = 'admin/users/add/staff'"><i class="icon-user-plus position-left"></i>Add New Staff</button>--> 
-                                <?php } ?>
-                                <!--<li><a data-action="collapse"></a></li>-->
-                            </ul>
-                            <?php if ($seg == 'staff') { ?>
-                            </div>
-                            <div class="row pull-right">
-                                <p style="color: red;">*Highlighted rows represents Head Staff</p>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
-
-            </div>
+       
             <div class="panel-body" style="clear: both;">
 
                 <div class="user_table">
@@ -83,93 +31,41 @@
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
-                                <?php
-                                if ($seg == 'staff') {
-                                    ?>
-                                    <th>Department</th>
-                                <?php } else { ?>
-
-                                    <th>Address</th>
-                                <?php } ?>
+                                
                                 <th>Verified</th>
-
-                                <?php if ($seg == 'tenant') { ?>
-
-                                    <th>Status</th>
-                                <?php } ?>
+                                
                                 <th>Action</th>
 
                             </tr>
                         </thead>
                         <tbody>
                             <?php
+
                             foreach ($users as $key => $record) {
-                                $is_head = '';
-                                if ($seg == 'staff') {
-                                    if ($record['is_head'] == 1) {
-                                        $is_head = 'staff_head';
-                                    }
-                                }
+                               
                                 ?>
-                                <tr class="<?php echo $is_head; ?>">
+                                <tr>
                                     <td><?php echo $key + 1; ?></td>
                                     <td><?php echo $record['fname']; ?></td>
                                     <td><?php echo $record['lname']; ?></td>
                                     <td><?php echo $record['email']; ?></td>
-                                    <?php if ($seg == 'staff') { ?>
-                                        <td><?php echo $record['name']; ?></td> 
-                                    <?php } else { ?>
-                                        <td><?php echo $record['address']; ?></td>
-                                    <?php } ?>
+                                    
+                                        
+                                   
                                     <td><?php if ($record['is_verified'] == 0) { ?>
                                             <span class="label label-danger">Not Verified</span>
                                         <?php } else { ?>
                                             <span class="label label-success">Verified</span> 
                                         <?php }
                                         ?></td>
-
-    <?php if ($seg == 'tenant') { ?>
-                                    <td><?php if ($record['status'] == 0) { ?>
-                                            <span class="label bg-orange-600">Unapproved</span>
-                                        <?php } else { ?>
-                                            <span class="label bg-green-600">Approved</span> 
-                                        <?php }
-                                        ?></td>
-<?php } ?>
-
+                                    
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="text-teal-600">
-                                                <a href="<?php echo base_url() . 'admin/users/edit/' . $seg . '/' . base64_encode($record['uid']) ?>" id="edit_<?php echo base64_encode($record['uid']); ?>" class="edit"><i class="icon-pencil7"></i></a>
+                                                <a href="<?php echo base_url() . 'staff/members/view/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-eye"></i></a>
                                             </li>
-                                            <li class="text-danger-600">
-                                                <a id="delete_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" class="delete"><i class="icon-trash"></i></a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Password</a></li>
-                                                  <?php if ($seg == 'tenant') { ?>  
-                                                    <li><a class="chang_status" data-status="<?php echo $record['status']; ?>" id="changestatus_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Status</a></li>
-
-                                                    <?php
-                                                    
-                                                        if ($record['contract'] != '') {
-                                                            ?>
-                                                            <li><a target="_blank" class="view_contract" href="<?php echo USER_CONTRACT . '/' . $record['contract']; ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-eye"></i> View Contract</a></li>
-                                                            <?php
-                                                        }
-                                                    }
-
-                                                    ?>
-                                                <?php if ($seg == 'staff') { ?>
-                                                 <li><a class="assign_head" data-action="<?php echo ($is_head) ? 'unassign' : 'assign'; ?>" id="assign_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-user"></i> <?php echo ($is_head) ? 'Unassign as Head Staff' : 'Assign as Head Staff'; ?></a></li>
-                                                <?php } ?>
-                                                </ul>
-                                            </li>
+                                           
+                                           
                                         </ul>
                                     </td>
 
@@ -292,7 +188,7 @@
         var type = '<?php echo $this->uri->segment(2); ?>';
 
         /* delete record function */
-        $(document).on('click', '.delete', function () {
+       /* $(document).on('click', '.delete', function () {
             var id = $(this).attr('id').replace('delete_', '');
             var url = base_url + 'users/delete';
             jconfirm("Do you really want to delete this record?", function (r) {
@@ -319,24 +215,9 @@
                     });
                 }
             });
-        });
+        });*/
 
         /* open modal click on quick action and get user's password */
-        $(document).on('click', 'a.assign_head', function () {
-            var action = $(this).attr('data-action');
-            var id = $(this).attr('data-record');
-            var url = base_url + 'users/assign_head';
-            $.ajax({
-                type: 'POST',
-                url: url,
-                async: false,
-                dataType: 'JSON',
-                data: {id: id, action: action},
-                success: function (data) {
-                    window.location.reload();
-                }
-            });
-        });
         $(document).on('click', 'a.chang_pwdd', function () {
             var id = $(this).attr('id').replace('changepwd_', '');
             $('#user_id').val(id);
@@ -366,31 +247,7 @@
             });
         });
 
-        $(document).on('click', '.chang_status', function () {
-            var id = $(this).attr('id').replace('changestatus_', '');
-            var status = $(this).attr('data-status');
-            var jconmessage = '';
-            if (status == 1) {
-                jconmessage = "Do you really want to Unapprove this user?";
-            } else {
-                jconmessage = "Do you really want to Approve this user?";
-            }
-            var url = base_url + 'users/changeUserStatus';
-            jconfirm(jconmessage, function (r) {
-                if (r) {
-                    $.ajax({
-                        type: 'POST',
-                        url: url,
-                        async: false,
-                        dataType: 'JSON',
-                        data: {id: id, status: status},
-                        success: function (data) {
-                            window.location.reload();
-                        }
-                    });
-                }
-            });
-        });
+        
 
         /*$(document).on('click', '.chang_dept', function () {
          var id = $(this).attr('data-record');
