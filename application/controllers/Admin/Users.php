@@ -101,7 +101,7 @@ class Users extends CI_Controller {
                     'is_delete' => 0,
                     'created' => date('Y-m-d H:i:s'),
                 );
-$username = $this->input->post('fname').' '. $this->input->post('lname');
+                $username = $this->input->post('fname') . ' ' . $this->input->post('lname');
                 $this->Admin_model->manage_record($this->table, $data);
                 $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
                 if ($role_id == 2) {
@@ -118,9 +118,17 @@ $username = $this->input->post('fname').' '. $this->input->post('lname');
                 $this->email->initialize($configs);
                 $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
                 $this->email->to($useremail);
-                
+
+                $lastUserId1 = base64_encode($lastUserId);
                 $unique_code = md5($useremail);
-                $url =  base_url() . '/home/verify?key=' . $unique_code . '&u=' . $lastUserId;
+                if ($role_id == 1) {
+                    $url = base_url() . '/home/verifytanant?key=' . $unique_code . '&u=' . $lastUserId1;
+                } else {
+                    $url = base_url() . '/home/verifyStaff?key=' . $unique_code . '&u=' . $lastUserId1;
+                }
+
+
+
                 $message = 'Welcome, ' . $username . '! Thank you for registering with  Manazel Specialists, inc. We look forward to working with you. <br/><br/>
                         Please confirm your email and registration by clicking on the link below. <br/>
                         <a href=' . $url . '>' . $url . '</a>';
@@ -394,14 +402,14 @@ $username = $this->input->post('fname').' '. $this->input->post('lname');
             exit;
         }
     }
-    
+
     public function assign_head() {
         $id = $this->input->post('id');
-        $action = ($this->input->post('action')=='assign') ? 1 : 0;
+        $action = ($this->input->post('action') == 'assign') ? 1 : 0;
         if ($id != null) {
             $record_id = base64_decode($id);
-            
-            $this->User_model->updateField('user_id', $record_id, 'is_head', $action , TBL_STAFF);
+
+            $this->User_model->updateField('user_id', $record_id, 'is_head', $action, TBL_STAFF);
             if ($action == 0) {
                 $this->session->set_flashdata('success_msg', 'Unassigned successfully!');
                 $data['status'] = 1;
@@ -413,6 +421,5 @@ $username = $this->input->post('fname').' '. $this->input->post('lname');
             exit;
         }
     }
-
 
 }

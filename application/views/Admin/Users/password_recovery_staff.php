@@ -1,33 +1,33 @@
 <div class="content-wrapper">
     <div class="content pb-20">
-        
+
         <!-- Password recovery -->
-        <form class="form-validate" action="<?php echo base_url() . "home/verifyPassword" ?>" method="post">
+        <form class="form-validate-jquery" action="<?php echo base_url() . "home/verifyPassword" ?>" method="post">
             <div class="panel panel-body login-form">
-                
+
                 <div class="text-center">
                     <div class="icon-object border-warning text-warning"><i class="icon-spinner11"></i></div>
                     <h5 class="content-group">Password Setting <small class="display-block"></small></h5>
                     <?php
-if ($this->session->flashdata('success_msg')) {
-    ?>
-    <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <?php echo $this->session->flashdata('success_msg'); ?>
-    </div>
-    <?php
-}
-?>
-<?php
-if ($this->session->flashdata('error_msg')) {
-    ?>
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <?php echo $this->session->flashdata('error_msg'); ?>
-    </div>
-    <?php
-}
-?>
+                    if ($this->session->flashdata('success_msg')) {
+                        ?>
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <?php echo $this->session->flashdata('success_msg'); ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if ($this->session->flashdata('error_msg')) {
+                        ?>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <?php echo $this->session->flashdata('error_msg'); ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
 
                 <div class="form-group has-feedback has-feedback-left">

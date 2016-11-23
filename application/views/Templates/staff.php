@@ -64,7 +64,7 @@
                                 
                                     echo $this->session->userdata('staffed_logged_in')['fname'].'!';
                                 
-//                                        pr($this->session->userdata('admin_logged_in'),1);
+
                                 ?> </span>
                             <i class="caret"></i>
                         </a>
@@ -92,9 +92,16 @@
                                     <a href="staff" class="media-left"><img src="<?php echo $image; ?>" class="img-circle img-sm" alt=""></a>
                                     <div class="media-body">
                                         <span class="media-heading text-semibold"><?php
+
                                             
                                             echo $this->session->userdata('staffed_logged_in')['fname'].'!';
                                             
+
+                                            if ($this->session->userdata('staffed_logged_in')) {
+                                                echo $this->session->userdata('staffed_logged_in')['fname'];
+                                                
+                                            }
+
 //                                        pr($this->session->userdata('admin_logged_in'),1);
                                             ?> </span>
                                         <div class="text-size-mini text-muted">
@@ -132,11 +139,11 @@
                 </div>
 
                 <div class="content-wrapper">
-                    <div class="">
+<!--                    <div class="">
                         <div class="page-header-content">
-                           <!--  <div class="page-title">
+                             <div class="page-title">
                                <h2><span class="text-semibold"><?php echo $page_header; ?></span></h2>
-                           </div> -->
+                           </div> 
                             <?php
                             if ($this->session->flashdata('success_msg')) {
                                 ?>
@@ -166,10 +173,15 @@
                             </div>
                         </div>
 
-                    </div>                                       
+
+                    </div>              -->                         
                     <!-- <div class="content"> -->
-                        <?php echo $body; ?>
+                        <?php echo $body; ?> 
                     <!-- </div> -->
+
+                    </div>                                       
+                    
+
                 </div>
             </div>
         </div>

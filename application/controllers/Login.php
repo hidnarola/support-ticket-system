@@ -162,9 +162,9 @@ class Login extends CI_Controller {
             $this->email->initialize($configs);
             $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
             $this->email->to($useremail);
-            
+            $lastUserId1 = base64_encode($lastUserId);
             $unique_code = md5($useremail);
-            $url = base_url() . '/home/tenantverify?key=' . $unique_code . '&u=' . $lastUserId;
+            $url = base_url() . '/home/tenantverify?key=' . $unique_code . '&u=' . $lastUserId1;
             $message = 'Welcome, ' . $username . '! Thank you for registering with  Manazel Specialists, inc. We look forward to working with you. <br/><br/>
                         Please confirm your email and registration by clicking on the link below. <br/>
                         <a href=' . $url . '>' . $url . '</a>';

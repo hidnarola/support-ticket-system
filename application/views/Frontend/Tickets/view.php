@@ -55,13 +55,13 @@
                     </tbody>
                 </table>
 
-<!--                <div class="text-right">
-                    <a href="tickets/reply/<?php echo base64_encode($ticket->id) ?>" class="button button-rounded button-reveal button-small pull-right blue-button"><i class="icon-envelope2"></i><span>Send Message</span></a>
-                    <button type="button" class="button button-3d button-small button-rounded button-white button-light pull-right" onclick="window.history.back()">Back</button>
-                    <button type="button" class="button button-3d button-small button-rounded button-white button-light pull-right" onclick="window.history.back()"></button>
-                </div>-->
+                <!--                <div class="text-right">
+                                    <a href="tickets/reply/<?php echo base64_encode($ticket->id) ?>" class="button button-rounded button-reveal button-small pull-right blue-button"><i class="icon-envelope2"></i><span>Send Message</span></a>
+                                    <button type="button" class="button button-3d button-small button-rounded button-white button-light pull-right" onclick="window.history.back()">Back</button>
+                                    <button type="button" class="button button-3d button-small button-rounded button-white button-light pull-right" onclick="window.history.back()"></button>
+                                </div>-->
                 <!-- /vertical form -->
-                
+
                 <div class="panel-body">
                     <div class="fancy-title title-dotted-border title-center">
                         <!--<h3><?php echo $ticketname; ?></h3>-->
@@ -102,14 +102,36 @@
                                                 </a>
                                             <?php } ?>
 
-                                           
+
                                         </div>
 
                                         <div class="media-body">
                                             <?php if ($val['sent_from'] != $val['user_id'] && $val['sent_from'] != $val['staff_id']) { ?>
                                                 <div class="media-heading">
                                                     <a href="#" class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                   <span><strong><br><?php
+                                                        if ($val['role_id'] == 1) {
+                                                            echo 'Tenant';
+                                                        } elseif ($val['role_id'] == 2) {
+                                                            echo 'staff';
+                                                        } elseif ($val['role_id'] == 3) {
+                                                            echo 'Admin';
+                                                        }
+                                                        ?></strong></span>
                                                 </div>
+                                            <?php } elseif ($val['sent_from'] == $val['staff_id']) { ?>
+                                                <div class="media-heading">
+                                                    <a href="#" class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                    <span><strong><br><?php
+                                                        if ($val['role_id'] == 1) {
+                                                            echo 'Tenant';
+                                                        } elseif ($val['role_id'] == 2) {
+                                                            echo 'staff';
+                                                        } elseif ($val['role_id'] == 3) {
+                                                            echo 'Admin';
+                                                        }
+                                                        ?></strong></span>
+                                                </div>   
                                             <?php } ?>
                                             <div class="media-content"><?php echo $val['message']; ?></div>
                                             <span class="media-annotation display-block mt-10"><?php echo $date = date('g:i a', strtotime($val['created_date'])); ?></span>
@@ -136,19 +158,19 @@
                                                     <a href="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>">
                                                         <img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>" class="img-circle" alt=""></a>
                                                     <!--<div class="media-left"><img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?> " class="img-circle" alt=""></div>-->
-                                                    <?php } else { ?>
-                                                        <a href="assets/admin/images/placeholder.jpg">
-                                                            <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
-                                                        </a>
-
-                                                        <?php
-                                                    }
-                                                } else {
-                                                    ?>
+                                                <?php } else { ?>
                                                     <a href="assets/admin/images/placeholder.jpg">
                                                         <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
                                                     </a>
-                                                <?php } ?>
+
+                                                    <?php
+                                                }
+                                            } else {
+                                                ?>
+                                                <a href="assets/admin/images/placeholder.jpg">
+                                                    <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
+                                                </a>
+                                            <?php } ?>
                                         </div>
                                     </li>
                                     <?php
@@ -175,7 +197,7 @@
                     </form>
                 </div>
             </div>
-            
+
             <div class="line visible-xs-block"></div>
 
             <?php $this->load->view('frontend/User/rightsidebar'); ?>

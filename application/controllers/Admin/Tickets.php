@@ -60,7 +60,7 @@ class Tickets extends CI_Controller {
                 'description' => $this->input->post('description'),
                 'is_delete' => 0,
                 'created' => date('Y-m-d H:i:s'),
-                'created_by'=>$created_by
+                'created_by' => $created_by
             );
 //                    pr($data, 1);
             $this->Admin_model->manage_record($this->table, $data);
@@ -104,7 +104,7 @@ class Tickets extends CI_Controller {
                         'description' => $this->input->post('description'),
                         'is_delete' => 0,
                         'created' => date('Y-m-d H:i:s'),
-                        'created_by'=>$created_by
+                        'created_by' => $created_by
                     );
 //                    pr($data, 1);
                     $this->Admin_model->manage_record($this->table, $data, $record_id);
@@ -129,16 +129,16 @@ class Tickets extends CI_Controller {
     public function changeAction() {
         $form = $this->input->get_post('form');
         $form = explode('&', $form);
-        
+
         $form['select_type'] = explode('=', $form[1]);
         $type = $form['select_type'][1];
-        
+
         $form['hidden_id'] = explode('=', $form[2]);
         $id = $form['hidden_id'][1];
 
         $record_id = base64_decode(urldecode($id));
-        
-        
+
+
         $form['dept_id'] = explode('=', $form[3]);
         $dept_id = $form['dept_id'][1];
         $form['status_id'] = explode('=', $form[4]);
@@ -147,29 +147,29 @@ class Tickets extends CI_Controller {
         $priority_id = $form['priority_id'][1];
         $form['staff_id'] = explode('=', $form[6]);
         $staff_id = $form['staff_id'][1];
-        
+
         $update_data = array();
         if ($type == 'dept_id') {
             $update_data = array(
-                'dept_id'=>$dept_id,
-                //'staff_id'=>NULL
-                );
+                'dept_id' => $dept_id,
+                    //'staff_id'=>NULL
+            );
             $get_ticket = $this->User_model->getFieldById($record_id, 'dept_id', TBL_TICKETS);
-            if($dept_id!=$get_ticket->dept_id){
+            if ($dept_id != $get_ticket->dept_id) {
                 $update_data['staff_id'] = NULL;
             }
         } else if ($type == 'status_id') {
             $update_data = array(
-                'status_id'=>$status_id
-                );
+                'status_id' => $status_id
+            );
         } else if ($type == 'priority_id') {
             $update_data = array(
-                'priority_id'=>$priority_id
-                );
-        }else if ($type == 'staff_id') {
+                'priority_id' => $priority_id
+            );
+        } else if ($type == 'staff_id') {
             $update_data = array(
-                'staff_id'=>$staff_id
-                );
+                'staff_id' => $staff_id
+            );
             $get_staff = $this->User_model->getFieldById($staff_id, 'email, fname, lname', TBL_USERS);
             $get_ticket = $this->User_model->getFieldById($record_id, 'title', TBL_TICKETS);
             $email = $get_staff->email;
@@ -180,9 +180,9 @@ class Tickets extends CI_Controller {
             $this->email->to($email);
 
             //--- set email template
-            
-            $msg = 'Hello '. $get_staff->fname.' '.$get_staff->lname;
-            $msg .= '<p>You have been assigned a Ticket - <a href="'.base_url().'staff/tickets/view/'.urldecode($id).'"><b>'. $get_ticket->title .'</b></a></p>';
+
+            $msg = 'Hello ' . $get_staff->fname . ' ' . $get_staff->lname;
+            $msg .= '<p>You have been assigned a Ticket - <a href="' . base_url() . 'staff/tickets/view/' . urldecode($id) . '"><b>' . $get_ticket->title . '</b></a></p>';
             $msg .= '<p>Thank you</p>';
             $msg .= '<p>Support Ticket</p>';
 
@@ -192,7 +192,7 @@ class Tickets extends CI_Controller {
         }
         //pr($update_data);
         $rec = $this->Ticket_model->updateField('id', $record_id, $update_data, $this->table);
-        
+
         if ($rec) {
             $this->session->set_flashdata('success_msg', 'Data is updated succesfully..!!');
             $data = 'success';
@@ -211,6 +211,12 @@ class Tickets extends CI_Controller {
 //            echo $segment; exit;
             $record_id = base64_decode($id);
             $ticket = $this->Ticket_model->get_ticket($record_id);
+            $this->data['ticket_coversation'] = $this->Ticket_model->get_ticket_conversation($record_id);
+//            pr($this->data['ticket_coversation'],1);
+            $sent_from = $this->session->userdata('admin_logged_in')['id'];
+            if ($segment == 'staff') {
+                $sent_from = $this->session->userdata('staffed_logged_in')['id'];
+            }
             if (!empty($ticket)) {
 
                 $this->data['ticket'] = $ticket;
@@ -225,34 +231,49 @@ class Tickets extends CI_Controller {
                 /* check ticket is read or not */
                 $check = $this->Ticket_model->isTicketRead($record_id);
                 $data = array();
-                if ($segment == 'admin'){
+                if ($segment == 'admin') {
                     if ($check == 0) {
                         /* if ticket is not read, change is_read = 1  */
                         $data = array(
                             'is_read' => 1
                         );
-                    }else if($check == 2){
+                    } else if ($check == 2) {
                         $data = array(
                             'is_read' => 3
                         );
                     }
-                    
-                    }else{
-                       if ($check == 0) {
+                } else {
+                    if ($check == 0) {
                         /* if ticket is not read, change is_read = 1  */
                         $data = array(
                             'is_read' => 2
                         );
-                    }else if($check == 1){
+                    } else if ($check == 1) {
                         $data = array(
                             'is_read' => 3
                         );
-                    } 
-                   
-                }
-                if(!empty($data)){
-                        $this->Admin_model->manage_record(TBL_TICKETS, $data, $record_id);
                     }
+                }
+                if (!empty($data)) {
+                    $this->Admin_model->manage_record(TBL_TICKETS, $data, $record_id);
+                }
+                if ($this->input->post()) {
+                    $msg_data = array(
+                        'ticket_id' => $record_id,
+                        'message' => $this->input->post('enter-message'),
+                        'sent_from' => $sent_from
+                    );
+                    if ($this->Ticket_model->save_ticket_conversation($msg_data)) {
+                        $this->session->set_flashdata('success_msg', 'Message send successfully.');
+                    } else {
+                        $this->session->set_flashdata('error_msg', 'Unable to send message.');
+                    }
+                    if ($segment == 'admin') {
+                        redirect('admin/tickets/view/' . $id);
+                    } else if ($segment == 'staff') {
+                        redirect('staff/tickets/view/' . $id);
+                    }
+                }
             } else {
                 $flag = 0;
             }

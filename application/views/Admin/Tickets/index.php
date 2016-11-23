@@ -74,7 +74,7 @@ $segment = $this->uri->segment(1);
                                     <?php } else { ?>
                                         <td class="text-center"><span class="label label-success">Free</span></td>
                                     <?php } ?>
-                                    <td><?php echo $record['title']; ?></td>
+                                        <td><a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>"><?php echo $record['title']; ?></a></td>
                                     <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
                                     <td><?php echo $record['dept_name']; ?></td>
                                     <td><?php echo $record['type_name']; ?></td>
@@ -95,9 +95,9 @@ $segment = $this->uri->segment(1);
                                             <li class="text-purple-700">
                                                 <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']); ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i></a>
                                             </li>
-                                            <li class="text-grey">
+<!--                                            <li class="text-grey">
                                                 <a href="<?php echo base_url() . 'admin/tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Reply' class="view"><i class="icon-reply"></i></a>
-                                            </li>
+                                            </li>-->
                                             <li class="text-danger-600">
                                                 <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Ticket' class="delete"><i class="icon-trash"></i></a>
                                             </li>

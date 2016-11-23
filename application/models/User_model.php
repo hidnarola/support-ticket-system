@@ -238,6 +238,16 @@ class User_model extends CI_Model {
         return $q->row_array();
     }
 
+    public function getUserByIdEmail($id, $email) {
+//        echo $id;
+        $this->db->select('*');
+        $this->db->where('id', $id);
+        $this->db->where('email', $email);
+        $q = $this->db->get(TBL_USERS);
+//        echo $this->db->last_query();
+        return $q->row_array();
+    }
+
     public function getUserTickets($id, $type = NULL, $limit = null, $start = null) {
         $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, staff.fname as staff_fname ,staff.lname as staff_lname');
         $this->db->where('tickets.is_delete', 0);
@@ -302,8 +312,7 @@ class User_model extends CI_Model {
         return $query->result_array();
     }
 
-
-    public function check_head_staff($id){
+    public function check_head_staff($id) {
         $this->db->select('is_head, dept_id');
 
         $this->db->where('user_id', $id);
@@ -311,6 +320,7 @@ class User_model extends CI_Model {
         $result = $q->row_array();
         return $result;
     }
+
     /**
      * 
      * @param type $value
@@ -326,18 +336,18 @@ class User_model extends CI_Model {
         return $result->row();
     }
 
-     public function add_user($data) {
+    public function add_user($data) {
         $this->db->insert(TBL_USERS, $data);
         return $this->db->insert_id();
     }
-    
+
     public function is_key_used($key) {
         $query = $this->db->get(TBL_USERS);
         $flag = '';
         foreach ($query->result() as $rows) {
             $email_key = $rows->email;
             if ($key == md5($email_key)) {
-                if ($rows->is_verified == 1) {
+                if ($rows->is_verified == 1 && $rows->password != '') {
                     $flag = 'used';
                 } else {
                     $flag = 'unused';
@@ -354,8 +364,8 @@ class User_model extends CI_Model {
         $data = $query->result_array();
         return $data[0]['email'];
     }
-    
-     public function get_activation_key($email) {
+
+    public function get_activation_key($email) {
 
         $this->db->where('email', $email);
         $q = $this->db->get(TBL_USERS);
@@ -364,12 +374,13 @@ class User_model extends CI_Model {
             return md5($email);
         }
     }
-    
+
     public function make_active($email) {
         $this->db->where('email', $email);
         $data = array('is_verified' => 1);
         $this->db->update(TBL_USERS, $data);
     }
+
 
      public function get_result($table,$condition = null) {
         $this->db->select('*');
@@ -378,6 +389,18 @@ class User_model extends CI_Model {
         }
         $query = $this->db->get($table);
         return $query->result_array();
+    }
+
+
+    public function idexists($id){
+        $this->db->select('id');
+        $this->db->where("id", $id);
+        $query = $this->db->get(TBL_USERS);
+        if ($query->num_rows() > 0) {
+            return TRUE;
+        }else{
+            return FALSE;
+        }
     }
 
 }
