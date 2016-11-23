@@ -9,6 +9,7 @@ class Pages extends CI_Controller {
         check_isvalidated();
         $this->load->model('Admin_model');
         $this->load->model('Pages_model');
+        $this->load->model('User_model');
     }
 
     public function index() {
@@ -51,7 +52,7 @@ class Pages extends CI_Controller {
                     $name = $exts[0] . time() . "." . $exts[1];
                     $name = "profile-" . date("mdYhHis") . "." . $exts[1];
 
-                    $config['upload_path'] = USER_PROFILE_IMAGE;
+                    $config['upload_path'] = PAGE_BANNER;
                     $config['allowed_types'] = implode("|", $img_array);
                     $config['max_size'] = '2048';
                     $config['file_name'] = $name;
@@ -65,9 +66,9 @@ class Pages extends CI_Controller {
                         $file_info = $this->upload->data();
                         $banner_image = $file_info['file_name'];
 
-                        $src = './' . USER_PROFILE_IMAGE . '/' . $banner_image;
-                        $thumb_dest = './' . PROFILE_THUMB_IMAGE . '/';
-                        $medium_dest = './' . PROFILE_MEDIUM_IMAGE . '/';
+                        $src = './' . PAGE_BANNER . '/' . $banner_image;
+                        $thumb_dest = './' . PAGE_THUMB_IMAGE . '/';
+                        $medium_dest = './' . PAGE_MEDIUM_IMAGE . '/';
                         thumbnail_image($src, $thumb_dest);
                         medium_image_user($src, $medium_dest);
                     }
@@ -82,15 +83,16 @@ class Pages extends CI_Controller {
                     if($data['page_data']['banner_image'] != '' && isset($update_array['banner_image'])){
                         unlink(PAGE_BANNER.'/'.$data['page_data']['banner_image']);
                     }
-                    // $update_array['url'] = slug_page($update_array['navigation_name'],TBL_PAGES,$id);
-                    $update_array['url'] = base_url().'/admin/pages'.$id;
+                    $update_array['url'] = slug_page($update_array['navigation_name'],TBL_PAGES,$id);
+                    // $update_array['url'] = base_url().'/admin/pages'.$id;
                     $update_array['modified'] = date('Y-m-d H:i:s');
                     $update_array['description'] = $_POST['description'];
                     $this->session->set_flashdata('success_msg', 'Page successfully updated!');
                     $this->Pages_model->update_record(TBL_PAGES, 'id = '.$id,$update_array);
                     $this->Pages_model->update_record(TBL_PAGES, 'id = '.$update_array['parent_id'],array('footer_position' => 0));
                 } else {
-                    $update_array['url'] = base_url.'/admin/pages';
+                    $update_array['url'] = slug_page($update_array['navigation_name'],TBL_PAGES);
+                    // $update_array['url'] = base_url.'/admin/pages';
                     $update_array['description'] = $_POST['description'];
                     $this->session->set_flashdata('success_msg', 'Page successfully added!');
                     $this->Pages_model->insert(TBL_PAGES, $update_array);

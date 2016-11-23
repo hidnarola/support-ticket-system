@@ -92,11 +92,40 @@
                                         </ul>
                                     </li>
                                 <?php } ?>
-                                <li class="mega-menu"><a href="login"><div>About us</div></a></li>
+<?php 
+                        $header_links = get_pages('header');
+                        
+                        if(count($header_links) > 0){
+                            ?>
+                            
+                            <?php
+                            foreach ($header_links as $key => $value) {
+                                if(isset($value['sub_menus'])){
+                                        foreach ($value['sub_menus'] as $key1 => $value1) {
+                                    ?>
+                                        <li class="mega-menu">
+                                            <a href="<?php echo site_url($value1['url']); ?>"><?php echo $value1['navigation_name']; ?></a>
+                                        </li>
+                                <?php
+                                        }
+                                } else {
+                                    ?>
+                                        <li class="mega-menu">
+                                            <a href="<?php echo site_url($value['url']); ?>"><div><?php echo $value['navigation_name']; ?></div></a>
+                                        </li>
+                                    <?php
+                                }
+                            }
+                        }
+                    ?>
+
+                               
+
+                                
 
                                 <!--<li class="mega-menu"><a href="login"><div>Privacy Policy</div></a></li>-->
-                                <li class="mega-menu"><a href="login"><div>Contact us</div></a></li>
-                                <li class="mega-menu"><a href="login"><div>Services</div></a></li>
+                                <!-- <li class="mega-menu"><a href="login"><div>Contact us</div></a></li> -->
+                                <!-- <li class="mega-menu"><a href="login"><div>Services</div></a></li> -->
                                 <!--<li class="mega-menu"><a href="login"><div>Gallery</div></a></li>-->
                                 <?php if ($this->session->userdata('user_logged_in') == '') { ?>
                                     <li class="mega-menu <?php echo ($page == 'login') ? 'current' : ''; ?>"><a href="login"><div>Login/Signup</div></a></li>

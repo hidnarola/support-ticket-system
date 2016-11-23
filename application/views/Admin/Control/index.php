@@ -67,25 +67,21 @@ if ($this->session->flashdata('success')) {
                         <td><?php echo date('F j, Y', strtotime($page['created'])); ?></td>
                         <td>
                         <?php if ($page['show_in_header'] == 0) { ?>
-                            <div class="checkbox"><label><div class="checker"><span class=""><input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_header">
-                            </span></div></label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_header">
+                            </label></div>
                     <?php }else { ?>
-                        <div class="checkbox"><label><div class="checker"><span class="checked"><input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_header"></span></div></label></div>';
+                        <div class="checkbox"><label><input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_header"></label></div>
                     <?php } ?>
                     </td>
                     <td>
                         <?php if ($page['show_in_footer'] == 0) { ?>
                             <div class="checkbox">
                                 <label>
-                                    <div class="checker">
-                                        <span class="">
-                                            <input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_footer">
-                                        </span>
-                                    </div>
+                                   <input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_footer">
                                 </label>
                             </div>
                     <?php }else { ?>
-                        <div class="checkbox"><label><div class="checker"><span class="checked"><input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_footer"></span></div></label></div>';
+                        <div class="checkbox"><label><input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_footer"></label></div>
                     <?php } ?>
                     </td>
                     </tr>

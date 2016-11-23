@@ -12,6 +12,7 @@
         </ul>
     </div>
 </div>
+<div class="content">
 <div class="panel panel-flat">
     
     <div class="panel-body">
@@ -23,6 +24,7 @@
                         <th>#</th>
                         <th>Title</th>
                         <th>Tenant</th>
+                        <th>Staff</th>
                         <th>Type</th>
                         <th>Priority</th>
                         <th>Status</th>
@@ -39,6 +41,11 @@
                             <td><?php echo $key + 1; ?></td>
                             <td><?php echo $record['title']; ?></td>
                             <td><?php echo $record['fname'].' '.$record['lname']; ?></td>
+                            <?php if ($record['staff_fname'] != '' && $record['staff_lname'] != '') { ?>
+                                <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
+                            <?php } else { ?>
+                                <td class="text-center"><span class="label label-success">Free</span></td>
+                            <?php } ?>
                             <td><?php echo $record['type_name']; ?></td>
                             <td><?php echo $record['priority_name']; ?></td>
                             <td><?php echo $record['status_name']; ?></td>
@@ -83,6 +90,7 @@
             
         </div>
     </div>
+</div>
 </div>
 <div id="modal_theme_success" class="modal fade">
     <div class="modal-dialog">

@@ -72,18 +72,18 @@ $route['admin/staff'] = "admin/users";
 $route['admin/tenants'] = "admin/users";
 $route['admin/news_announcements'] = "admin/news";
 
-
-$route['support/login'] = "login";
-$route['staff/logout'] = "login/logout";
 $route['staff'] = "staff/dashboard";
+$route['staff/logout'] = "login/logout";
 $route['staff/profile'] = "staff/dashboard/profile";
 $route['staff/tickets/view/(:any)'] = 'admin/tickets/view/$1';
 $route['staff/tickets'] = "staff/tickets/staff_index";
 $route['staff/tickets/reply/(:any)'] = "admin/tickets/reply/$1";
 
 $route['signup'] = "login/signup";
+$route['login'] = "login";
 $route['knowledgebase/(:any)'] = "knowledgebase/view/$1";
 $route['news/(:any)'] = "news/view/$1";
 $route['announcements/(:any)'] = "announcements/view/$1";
 $route['knowledgebase/add_comments'] = "knowledgebase/add_comments";
 
+$route['(:any)'] = 'page/index/$1';

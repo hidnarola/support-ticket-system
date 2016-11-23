@@ -135,3 +135,7 @@ define('GALLERY_MEDIUM_IMAGE', 'uploads/media/gallery/medium');
 define('TICKET_IMAGE', 'uploads/tickets/original');
 define('TICKET_THUMB_IMAGE', 'uploads/tickets/thumb');
 define('TICKET_MEDIUM_IMAGE', 'uploads/tickets/medium');
+
+define('PAGE_BANNER', 'uploads/pages/original');
+define('PAGE_THUMB_IMAGE', 'uploads/pages/thumb');
+define('PAGE_MEDIUM_IMAGE', 'uploads/pages/medium');

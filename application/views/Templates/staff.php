@@ -61,11 +61,11 @@
                             <img src="<?php echo $image; ?>" alt="">
 
                             <span><?php
-                                if ($this->session->userdata('staffed_logged_in')) {
-                                    echo $this->session->userdata('staffed_logged_in')['fname'];
-                                }
+                                
+                                    echo $this->session->userdata('staffed_logged_in')['fname'].'!';
+                                
 //                                        pr($this->session->userdata('admin_logged_in'),1);
-                                ?> !</span>
+                                ?> </span>
                             <i class="caret"></i>
                         </a>
 
@@ -80,6 +80,7 @@
         <?php
             $current_page = $this->uri->segment(2);
             $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
+            
         ?>
         <div class="page-container">
             <div class="page-content">
@@ -91,14 +92,16 @@
                                     <a href="staff" class="media-left"><img src="<?php echo $image; ?>" class="img-circle img-sm" alt=""></a>
                                     <div class="media-body">
                                         <span class="media-heading text-semibold"><?php
-                                            if ($this->session->userdata('staffed_logged_in')) {
-                                                echo $this->session->userdata('staffed_logged_in')['fname'];
-                                            }
+                                            
+                                            echo $this->session->userdata('staffed_logged_in')['fname'].'!';
+                                            
 //                                        pr($this->session->userdata('admin_logged_in'),1);
-                                            ?> !</span>
-<!--                                        <div class="text-size-mini text-muted">
-                                            <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
-                                        </div>-->
+                                            ?> </span>
+                                        <div class="text-size-mini text-muted">
+                                            <i class="iicon-collaboration text-size-small"></i>
+                                            <?php  echo ($this->session->userdata('staffed_logged_in')['is_head']) ? "Head Staff" : 'Staff Member'; ?>,
+                                            <?php echo $this->session->userdata('staffed_logged_in')['dept_name']; ?>
+                                        </div>
                                     </div>
 
 <!--                                    <div class="media-right media-middle">
@@ -118,7 +121,10 @@
                                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
                                     <li class="<?php echo ($current_page == 'dashboard') ? 'active' : ''; ?>"><a href="staff/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                                     <li class="<?php echo ($current_page == 'tickets') ? 'active' : ''; ?>"><a href="staff/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
+                                    <?php  if($this->session->userdata('staffed_logged_in')['is_head']){ ?>
                                     <li class="<?php echo ($current_page == 'members') ? 'active' : ''; ?>"><a href="staff/members"><i class="icon-ticket"></i> <span>Staff</span></a></li>
+                                    <?php } ?>
+
                                 </ul>
                             </div>
                         </div>      
@@ -161,9 +167,9 @@
                         </div>
 
                     </div>                                       
-                    <div class="content">
+                    <!-- <div class="content"> -->
                         <?php echo $body; ?>
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>

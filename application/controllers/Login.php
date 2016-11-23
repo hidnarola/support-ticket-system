@@ -58,10 +58,14 @@ class Login extends CI_Controller {
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title == 'Support') {
                     // Give error msg for user is not approved by admin
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title == 'Support') {
-                    //pr($result,1);
+                    
                     $head_staff = $this->User_model->check_head_staff($result['id']);
                     $result['is_head'] = $head_staff['is_head'];
                     $result['dept_id'] = $head_staff['dept_id'];
+                    $dept_name =(array) $this->User_model->getFieldById($head_staff['dept_id'], 'name', TBL_DEPARTMENTS);
+                    
+                    $result['dept_name'] = $dept_name['name'];
+
                     $userdata = $this->session->set_userdata('staffed_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);

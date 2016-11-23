@@ -36,6 +36,7 @@ class Pages_model extends CI_Model {
         }
     }
 
+
     public function rows_of_table($table,$condition = null){
         $this->db->select('*');
         if($condition != null)
@@ -80,5 +81,28 @@ class Pages_model extends CI_Model {
         return $query->result_array();
     }
 
-    
+    public function get_menu_pages($type){
+        $this->db->select('navigation_name, id, url, parent_id, active, (SELECT count(*) FROM '.TBL_PAGES.' WHERE parent_id = p.id) AS is_parent');
+        if($type == 'header'){
+            $this->db->where('show_in_header = 1');
+            $this->db->order_by('header_position','ASC');
+        }
+        if($type == 'footer'){
+            $this->db->where('show_in_footer = 1');
+            $this->db->order_by('footer_position','ASC');
+            $this->db->having('is_parent = 0');
+        }
+        $this->db->where('active', 1);
+        $query = $this->db->get(TBL_PAGES.' p');
+        return $query->result_array();
+    }
+
+    public function get_result($table,$condition = null) {
+        $this->db->select('*');
+        if(!is_null($condition)){
+            $this->db->where($condition);                
+        }
+        $query = $this->db->get($table);
+        return $query->result_array();
+    }
 }

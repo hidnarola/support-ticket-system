@@ -42,28 +42,42 @@ function userRoles() {
 function check_isvalidated() {
     $ci = & get_instance();
     if (!$ci->session->userdata('admin_logged_in')) {
-        $ci->session->set_flashdata('error_msg', "You are not authorized to access this page. Please login first!");
+        $ci->session->set_flashdata('error_msg', "You are not authorized to access this page. Please login!");
         if (isset($_SERVER['HTTP_REFERER'])) {
             $redirect_to = str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
         } else {
             $redirect_to = $ci->uri->uri_string();
         }
 //        redirect('home?redirect=' . base64_encode($redirect_to));
-        redirect('admin/login');
+        redirect('support/login');
     }
 }
 
 function check_if_staff_validated() {
     $ci = & get_instance();
     if (!$ci->session->userdata('staffed_logged_in')) {
-        $ci->session->set_flashdata('error_msg', "You are not authorized to access this page. Please login first!");
+        $ci->session->set_flashdata('error_msg', "You are not authorized to access this page. Please login!");
         if (isset($_SERVER['HTTP_REFERER'])) {
             $redirect_to = str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
         } else {
             $redirect_to = $ci->uri->uri_string();
         }
 //        redirect('home?redirect=' . base64_encode($redirect_to));
-        redirect('staff/login');
+        redirect('support/login');
+    }
+}
+
+function check_if_support_login(){
+    $ci = & get_instance();
+    if (!$ci->session->userdata('staffed_logged_in') && !$ci->session->userdata('admin_logged_in')) {
+        $ci->session->set_flashdata('error_msg', "You are not authorized to access this page. Please login!");
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $redirect_to = str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
+        } else {
+            $redirect_to = $ci->uri->uri_string();
+        }
+//        redirect('home?redirect=' . base64_encode($redirect_to));
+        redirect('support/login');
     }
 }
 
@@ -335,3 +349,101 @@ function strip_all_tags($string, $remove_breaks = false) {
     }
     return trim($string);
 }
+function slug_page($text, $table = '', $id = NULL) {
+    $ci = & get_instance();
+    $ci->load->model('User_model');        
+
+    // replace non letter or digits by -
+    $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+
+    // trim
+    $text = trim($text, '-');
+
+    if(!mb_ereg('[\x{0600}-\x{06FF}]', $text)){
+        
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w\?&]+~', '', $text);
+    }
+
+    if (empty($text)) {
+        return 'n-a';
+    }
+    if ($table != '') {
+        //--- when text with table name then check generated slug is already exist or not
+        for ($i = 0; $i < 1; $i++) {
+            if ($id != NULL) {
+                $where = 'url = '.$ci->db->escape($text).' AND id != '.$id;
+            } else {
+                $where = 'url = '.$ci->db->escape($text);
+            }
+            $result = $ci->User_model->get_result($table,$where);
+            if (sizeof($result) > 0) {
+                $explode_slug = explode("-", $text);
+                $last_char = $explode_slug[count($explode_slug) - 1];
+                if (is_numeric($last_char)) {
+                    $last_char++;
+                    unset($explode_slug[count($explode_slug) - 1]);
+                    $text = implode($explode_slug, "-");
+                    $text.="-" . $last_char;
+                } else {
+                    $text.="-1";
+                }
+                $i--;
+            } else {
+                return $text;
+            }
+        }
+    } else {
+        return $text;
+    }
+}
+
+function get_pages($type){
+    $CI = & get_instance();
+    $CI->load->model('Pages_model');
+    if($type == 'header'){
+        $result = $CI->Pages_model->get_menu_pages($type);
+        if($result){
+            $menu_array = array();
+            foreach ($result as $key => $value) {
+                if($value['parent_id'] == 0 && $value['active'] == 1){
+                    $menu_array[$value['id']] = $value;             
+                } 
+            }
+            foreach ($result as $key => $value) {
+                if($value['parent_id'] != 0){
+                    if(isset($menu_array[$value['parent_id']])){
+                        $menu_array[$value['parent_id']]['sub_menus'][] = $value;             
+                    }
+                } 
+            }
+            return $menu_array;
+        }
+    }
+
+    if($type == 'footer'){
+        $result = $CI->Pages_model->get_menu_pages($type);
+        if($result){
+            $menu_array = array();
+            foreach ($result as $key => $value) {
+                // if($value['parent_id'] == 0){
+                    $menu_array[$key] = $value;             
+                // } 
+            }
+            // foreach ($result as $key => $value) {
+            //     if($value['parent_id'] != 0){
+            //         $menu_array[$value['parent_id']] = $value;             
+            //     } 
+            // }
+            // p($menu_array);
+            return $menu_array;
+        }
+    }
+}
+

@@ -125,7 +125,7 @@
                                 <?php } ?>
 
                                 <div class="form-group col-xs-12 user_profile_pic">
-                                    <label>User Profile:</label>                               
+                                    <label>Profile Image:</label>                               
                                     <input type="file" name="profile_pic" class="file-styled" onchange="readURL(this)">
                                     
                                     <!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->                               

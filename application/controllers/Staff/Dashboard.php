@@ -15,6 +15,7 @@ class Dashboard extends CI_Controller {
     }
 
     public function index() {
+
         $this->data['icon_class'] = 'icon-home4';
         
         $this->data['title'] = $this->data['page_header'] = 'Dashboard';
@@ -22,6 +23,7 @@ class Dashboard extends CI_Controller {
         $this->data['total_tickets'] = $this->Staff_model->get_total_tickets($this->session->userdata('staffed_logged_in')['id']);
         $this->data['total_replies'] = $this->Staff_model->get_total_replies($this->session->userdata('staffed_logged_in')['id']);
         $this->data['tickets'] = $this->Staff_model->get_tickets($this->session->userdata('staffed_logged_in')['id']);
+
         // pr($this->data['tickets'],1);
          $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
@@ -33,7 +35,7 @@ class Dashboard extends CI_Controller {
         $this->data['title'] = $this->data['page_header'] = 'My Profile';
         $id = $this->session->userdata('staffed_logged_in')['id'];
         $profile = $this->Staff_model->get_profile($id);
-       // pr($profile,1);
+        
         $this->data['profile'] = $profile;
         $this->template->load('staff', 'Staff/Dashboard/profile', $this->data);
 

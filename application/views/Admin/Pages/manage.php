@@ -56,7 +56,7 @@
                                 if (isset($page_data['banner_image'])) {
                                     ?>
                                     <div class="col-md-3">
-                                        <img heigth="100" width="170" src="<?php echo base_url(USER_PROFILE_IMAGE . '/' . $page_data['banner_image']) ?>" alt="">
+                                        <img heigth="100" width="170" src="<?php echo base_url(PAGE_MEDIUM_IMAGE . '/' . $page_data['banner_image']) ?>" alt="">
                                     </div>
                                     <?php
                                 }

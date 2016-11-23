@@ -94,6 +94,9 @@ class Dashboard extends CI_Controller {
                     'name' => $name,
                     'created' => date('Y-m-d H:i:s')
                 );
+                if($type == 'departments'){
+
+                }
                 if ($record_id != '') {
                     $record_exist_condition = array(
                         'id' => $record_id
@@ -286,5 +289,25 @@ class Dashboard extends CI_Controller {
             $this->session->set_flashdata('error_msg', 'Incorrect Old Password');
         }
         redirect('admin/profile');
+    }
+
+    public function get_series_name($name){
+        $words = explode(" ", $name);
+        $word_cnt = sizeof($words);
+        $acronym = "";
+        if($word_cnt > 0){
+            foreach ($words as $w) {
+              $acronym .= strtoupper($w[0]);
+            }
+        }else{
+            $acronym = substr(first($words), 0, 3);
+        }
+        $conditions = array(
+            'series_name'=>$acronym
+            );
+        $exist = $this->Admin_model->record_exist(TBL_DEPARTMENTS, $conditions);
+        if($exist > 0){
+            
+        }
     }
 }

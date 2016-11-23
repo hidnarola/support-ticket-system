@@ -371,4 +371,13 @@ class User_model extends CI_Model {
         $this->db->update(TBL_USERS, $data);
     }
 
+     public function get_result($table,$condition = null) {
+        $this->db->select('*');
+        if(!is_null($condition)){
+            $this->db->where($condition);                
+        }
+        $query = $this->db->get($table);
+        return $query->result_array();
+    }
+
 }
