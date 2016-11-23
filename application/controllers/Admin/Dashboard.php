@@ -95,7 +95,8 @@ class Dashboard extends CI_Controller {
                     'created' => date('Y-m-d H:i:s')
                 );
                 if($type == 'departments'){
-
+                    $series_name = $this->get_series_name($name);
+                    $record_array['series_name']= $series_name;
                 }
                 if ($record_id != '') {
                     $record_exist_condition = array(
@@ -291,23 +292,33 @@ class Dashboard extends CI_Controller {
         redirect('admin/profile');
     }
 
-    public function get_series_name($name){
+    public function get_series_name($name, $i=0){
+        $name = urldecode($name);
         $words = explode(" ", $name);
         $word_cnt = sizeof($words);
         $acronym = "";
-        if($word_cnt > 0){
+
+        
+        if($word_cnt > 1){
+                
             foreach ($words as $w) {
-              $acronym .= strtoupper($w[0]);
+                $acronym .= strtoupper($w[0]);
             }
-        }else{
-            $acronym = substr(first($words), 0, 3);
-        }
-        $conditions = array(
-            'series_name'=>$acronym
-            );
-        $exist = $this->Admin_model->record_exist(TBL_DEPARTMENTS, $conditions);
-        if($exist > 0){
             
+            }else{
+                $acronym = strtoupper(substr(reset($words), 0, 3));
+            }
+                
+        return $acronym;
+    }
+
+    public function series_no(){
+        $records = $this->Admin_model->get_tickets_series();
+        
+        foreach ($records as $record) {
+            $series_no = $record['dept_name'].'-T'.$record['id'];
+            $this->User_model->updateField('id', $record['id'], 'series_no', $series_no, TBL_TICKETS);
         }
+        exit;
     }
 }

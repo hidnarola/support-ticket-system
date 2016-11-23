@@ -72,7 +72,7 @@ $segment = $this->uri->segment(1);
                         <th>Staff</th>
                         <th>Title</th>
                         <th>Tenant</th>
-                        <th>Department</th>
+                        <!-- <th>Department</th> -->
                         <th>Type</th>
                         <th>Priority</th>
                         <th>Status</th>
@@ -94,7 +94,7 @@ $segment = $this->uri->segment(1);
                             <?php } ?>
                             <td><?php echo $record['title']; ?></td>
                             <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
-                            <td><?php echo $record['dept_name']; ?></td>
+                            <!-- <td><?php //echo $record['dept_name']; ?></td> -->
                             <td><?php echo $record['type_name']; ?></td>
                             <td><?php echo $record['priority_name']; ?></td>
                             <td><?php echo $record['status_name']; ?></td>
@@ -110,9 +110,9 @@ $segment = $this->uri->segment(1);
                                     <li class="text-purple-700">
                                         <a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i> </a>
                                     </li>
-                                    <li class="text-grey">
-                                        <a href="<?php echo base_url() . 'staff/tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Reply' class="view"><i class="icon-reply"></i> </a>
-                                    </li>
+                                    <!-- <li class="text-grey">
+                                        <a href="<?php //echo base_url() . 'staff/tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php //echo base64_encode($record['id']); ?>" data-record="<?php //echo base64_encode($record['id']); ?>" title='Reply' class="view"><i class="icon-reply"></i> </a>
+                                    </li> -->
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="icon-menu9"></i>

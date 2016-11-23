@@ -67,21 +67,21 @@ if ($this->session->flashdata('success')) {
                         <td><?php echo date('F j, Y', strtotime($page['created'])); ?></td>
                         <td>
                         <?php if ($page['show_in_header'] == 0) { ?>
-                            <div class="checkbox"><label><input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_header">
-                            </label></div>
+                            <input type="checkbox" class="check_btn" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_header">
+                            
                     <?php }else { ?>
-                        <div class="checkbox"><label><input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_header"></label></div>
+                        <input type="checkbox" class="check_btn" checked="checked" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_header">
                     <?php } ?>
                     </td>
                     <td>
                         <?php if ($page['show_in_footer'] == 0) { ?>
-                            <div class="checkbox">
-                                <label>
-                                   <input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_footer">
-                                </label>
-                            </div>
+                            
+                                
+                                   <input type="checkbox" class="check_btn" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_footer">
+                                
+                            
                     <?php }else { ?>
-                        <div class="checkbox"><label><input type="checkbox" class="styled" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_footer"></label></div>
+                        <input type="checkbox" class="check_btn" checked="checked" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_footer">
                     <?php } ?>
                     </td>
                     </tr>
@@ -89,51 +89,12 @@ if ($this->session->flashdata('success')) {
             </tbody>
         </table>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h6 class="panel-title text-semibold">Arrange header links</h6>
-                </div>
-                <div class="panel-body">
-                    <div class="text-center">
-                        <ul class="selectable-demo-list" id="header_sortable">
-                        </ul>
-                    </div>
-                    <hr>
-                    <div>
-                        <button class="btn btn-primary" onclick="save_header_footer_arrangment('header')" id="header_save">
-                            Save
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h6 class="panel-title text-semibold">Arrange footer links</h6>
-                </div>
-                <div class="panel-body">
-                    <div class="text-center">
-                        <ul class="selectable-demo-list" id="footer_soratable">
-                        </ul>
-                    </div>
-                    <hr>
-                    <div>
-                        <button class="btn btn-primary" onclick="save_header_footer_arrangment('footer')" id="footer_save">
-                            Save
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>                    
-    </div>
+    
     <?php //$this->load->view('Templates/admin_footer'); ?>
 </div>
 <script>
 
-$(document).on('click','.styled', function () {
+$(document).on('click','.check_btn', function () {
     data_type = $(this).data('type');
     data_id = $(this).data('id');
     if($(this).parent().attr('class') == 'checked') {
@@ -153,7 +114,7 @@ $(document).on('click','.styled', function () {
         type : "POST",
         success: function(result){
             swal("Success!", "Your changes was successfully arranged!", "success");
-            common_ajax_call();
+            //common_ajax_call();
         }
     });
 });
@@ -165,7 +126,7 @@ $(function () {
         minimumResultsForSearch: Infinity,
         width: 'auto'
     });
-    common_ajax_call();
+    //common_ajax_call();
 });
 
 function common_ajax_call(){

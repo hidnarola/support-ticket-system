@@ -12,6 +12,7 @@ class Faq extends CI_Controller {
         $this->load->model('User_model');
         $this->load->model('Article_model');
         $this->load->model('Admin_model');
+        $this->data['company'] = $this->User_model->get_company_details();
     }
 
     public function index() {

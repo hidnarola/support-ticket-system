@@ -81,6 +81,9 @@ $route['staff/tickets/reply/(:any)'] = "admin/tickets/reply/$1";
 
 $route['signup'] = "login/signup";
 $route['login'] = "login";
+$route['profile'] = "profile";
+$route['home'] = "home";
+$route['tickets'] = "tickets";
 $route['knowledgebase/(:any)'] = "knowledgebase/view/$1";
 $route['news/(:any)'] = "news/view/$1";
 $route['announcements/(:any)'] = "announcements/view/$1";

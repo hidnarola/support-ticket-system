@@ -20,6 +20,7 @@ class Home extends CI_Controller {
         $images = $this->Media_model->get_home_images();
         $data['images'] = $images;
         $data['user'] = $this->User_model->getUserByID($userid);
+        $data['news_announcements'] = $this->User_model->getlatestnews();
         $this->template->load('frontend/home', 'Frontend/home', $data);
     }
 
