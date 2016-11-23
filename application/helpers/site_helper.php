@@ -447,3 +447,23 @@ function get_pages($type){
     }
 }
 
+function company_details(){
+    $CI = & get_instance();
+    $CI->load->model('User_model');
+    $company_details = $CI->User_model->get_company_details();
+    return $company_details;
+}
+
+function get_total_count(){
+    $CI = & get_instance();
+    $CI->load->model('Admin_model');
+     $clients_this_month = $CI->Admin_model->get_clients_this_month();
+        $tickets_this_month = $CI->Admin_model->get_tickets_this_month();
+        
+        $clients_array = array_column($clients_this_month, 'clients');
+        $tickets_array = array_column($tickets_this_month, 'tickets');
+        $data = array();
+        $data['total_clients'] = array_sum($clients_array);
+        $data['total_tickets'] = array_sum($tickets_array);
+        return $data;
+}

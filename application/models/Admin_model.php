@@ -239,6 +239,19 @@ class Admin_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_tickets_series() {
+        $this->db->select('tickets.id, dept.series_name as dept_name');
+        
+        
+        
+        $this->db->from(TBL_TICKETS);
+        $this->db->join(TBL_DEPARTMENTS . ' dept', 'dept.id = tickets.dept_id', 'left');
+        
+        
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
 
 
 }

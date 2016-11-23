@@ -11,6 +11,7 @@ class Announcements extends CI_Controller {
         check_isvalidated_user();
         $this->load->model('User_model');
         $this->load->model('News_model');
+        
     }
 
     public function index() {
@@ -20,7 +21,8 @@ class Announcements extends CI_Controller {
         $data['title'] = 'Announcements | Support-Ticket-System';
         $data['header_title'] = 'Announcements';
         $data['data'] = $this->News_model->get_news_announcements($type = 0);
-         $data['num_rows'] = $this->News_model->get_news_announcements_num($type = 0);
+        $data['num_rows'] = $this->News_model->get_news_announcements_num($type = 0);
+        
 //        pr($data['data'],1);
         $this->template->load('frontend/page', 'Frontend/News/index', $data);
     }

@@ -403,5 +403,11 @@ class User_model extends CI_Model {
             return FALSE;
         }
     }
+    public function get_company_details() {
+        $this->db->from(TBL_SETTINGS);
+        $this->db->like('key', 'company');
+        return $this->db->get()->result_array();
+    }
+
 
 }

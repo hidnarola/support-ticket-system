@@ -81,12 +81,25 @@ $route['staff/tickets/reply/(:any)'] = "admin/tickets/reply/$1";
 
 $route['signup'] = "login/signup";
 $route['login'] = "login";
-$route['home'] = "home";
+
 $route['profile'] = "profile";
+$route['home'] = "home";
+
 $route['tickets'] = "tickets";
 $route['knowledgebase/(:any)'] = "knowledgebase/view/$1";
 $route['news/(:any)'] = "news/view/$1";
 $route['announcements/(:any)'] = "announcements/view/$1";
 $route['knowledgebase/add_comments'] = "knowledgebase/add_comments";
-
-$route['(:any)'] = 'page/index/$1';
+require_once( BASEPATH .'database/DB.php' );
+$db =& DB();
+// $route['(:any)'] = 'page/index/$1';
+$query = $db->get( 'pages' );
+    $result = $query->result();
+// print_r($result);
+    foreach( $result as $row )
+    {
+      $slug = strtolower(str_replace(' ', '-', $row->navigation_name));
+     
+      $route[ $slug ] = 'page/index/'.$slug;
+    }
+// exit;

@@ -21,12 +21,14 @@ class Pages extends CI_Controller {
 
     public function manage(){
     	 $id = $this->uri->segment(4);
+         $banner_image = '';
         if($id != ''){
             $data['title'] = 'Edit page';
             $data['heading'] = 'Edit page';
             $result = $this->Pages_model->get_page($id);
             if(isset($result)){
                 $data['page_data'] = $result[0];
+                $banner_image = $data['page_data']['banner_image'];
             } else {
                 show_404();
             }
@@ -45,6 +47,7 @@ class Pages extends CI_Controller {
 //            $this->form_validation->set_error_delimiters('<div class="alert alert-error alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
         } else {
             $update_array = $this->input->post(null);
+
             if(!empty($_FILES['banner_image']['name'])){
             	
                     $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
@@ -72,16 +75,12 @@ class Pages extends CI_Controller {
                         thumbnail_image($src, $thumb_dest);
                         medium_image_user($src, $medium_dest);
                     }
-                } else {
-                    $banner_image = '';
-                
-               
-            }
+                } 
                 $update_array['banner_image'] = $banner_image;
             if(!isset($data['error'])){
                 if($id != ''){
                     if($data['page_data']['banner_image'] != '' && isset($update_array['banner_image'])){
-                        unlink(PAGE_BANNER.'/'.$data['page_data']['banner_image']);
+                        //unlink(PAGE_BANNER.'/'.$data['page_data']['banner_image']);
                     }
                     $update_array['url'] = slug_page($update_array['navigation_name'],TBL_PAGES,$id);
                     // $update_array['url'] = base_url().'/admin/pages'.$id;
