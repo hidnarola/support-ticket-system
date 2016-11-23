@@ -88,7 +88,7 @@ if ($this->input->get('filter'))
                                                                                                     <!--<li class="edit"><a href="#" class="button button-rounded button-reveal button-mini button-teal edit"><i class="icon-pencil"></i><span>edit</span></a></li>-->
 
                                         </ul>
-                                        <p><?php echo $record['title']; ?></p>
+                                        <p><a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>"><?php echo $record['title']; ?></a></p>
                                         <ul class="bottom-section">
                                             <li><a class="resolved"><?php echo $record['dept_name']; ?></a></li>
                                             <li><a><span>Priority: </span><?php echo $record['priority_name']; ?></a></li>

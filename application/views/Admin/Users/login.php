@@ -1,6 +1,6 @@
 <div class="content-wrapper">
     <div class="content pb-20">
-        <form method="post" class="form-validate">
+        <form method="post" class="form-validate-jquery">
             <div class="panel panel-body login-form">
                 <div class="text-center">
                     <!--                    <div class="icon-object login_logo">

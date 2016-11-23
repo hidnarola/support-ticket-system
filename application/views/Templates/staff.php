@@ -62,7 +62,7 @@
 
                             <span><?php
                                 if ($this->session->userdata('staffed_logged_in')) {
-                                    echo $this->session->userdata('staffed_logged_in')['fname'];
+                                    echo $this->session->userdata('staffed_logged_in')['fname'];                                    
                                 }
 //                                        pr($this->session->userdata('admin_logged_in'),1);
                                 ?> !</span>
@@ -93,6 +93,7 @@
                                         <span class="media-heading text-semibold"><?php
                                             if ($this->session->userdata('staffed_logged_in')) {
                                                 echo $this->session->userdata('staffed_logged_in')['fname'];
+                                                echo '<br>'.$this->session->userdata('staffed_logged_in')['dept_id'];
                                             }
 //                                        pr($this->session->userdata('admin_logged_in'),1);
                                             ?> !</span>
@@ -126,11 +127,11 @@
                 </div>
 
                 <div class="content-wrapper">
-                    <div class="">
+<!--                    <div class="">
                         <div class="page-header-content">
-                           <!--  <div class="page-title">
+                             <div class="page-title">
                                <h2><span class="text-semibold"><?php echo $page_header; ?></span></h2>
-                           </div> -->
+                           </div> 
                             <?php
                             if ($this->session->flashdata('success_msg')) {
                                 ?>
@@ -160,10 +161,10 @@
                             </div>
                         </div>
 
-                    </div>                                       
-                    <div class="content">
+                    </div>                                       -->
+                    <!--<div class="content">-->
                         <?php echo $body; ?>
-                    </div>
+                    <!--</div>-->
                 </div>
             </div>
         </div>

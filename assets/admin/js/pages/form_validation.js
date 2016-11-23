@@ -27,9 +27,9 @@ $(function() {
 
 
     // Bootstrap multiselect
-    $('.multiselect').multiselect({
-        checkboxName: 'vali'
-    });
+//    $('.multiselect').multiselect({
+//        checkboxName: 'vali'
+//    });
 
 
     // Touchspin
@@ -43,19 +43,19 @@ $(function() {
 
 
     // Select2 select
-    $('.select').select2({
-        minimumResultsForSearch: Infinity
-    });
+//    $('.select').select2({
+//        minimumResultsForSearch: Infinity
+//    });
 
 
     // Styled checkboxes, radios
-    $(".styled, .multiselect-container input").uniform({ radioClass: 'choice' });
+//    $(".styled, .multiselect-container input").uniform({ radioClass: 'choice' });
 
 
     // Styled file input
-    $(".file-styled").uniform({
-        fileButtonClass: 'action btn bg-blue'
-    });
+//    $(".file-styled").uniform({
+//        fileButtonClass: 'action btn bg-blue'
+//    });
 
 
 

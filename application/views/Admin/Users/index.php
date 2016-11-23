@@ -353,6 +353,7 @@
                         $('#password_form').show();
                         $('#save_pasword').show();
                         $('#labelpaas').html(data);
+                        $('.pass-set').hide();
                         //                    $('#user_id').val(id);
                     } else {
                         $('#password_form').hide();

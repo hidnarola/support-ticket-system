@@ -1,3 +1,24 @@
+<style> .fancy-title.title-dotted-border {
+        background: url(assets/frontend/images/icons/dotted.png) repeat-x center;
+    }
+    .title-center {
+        text-align: center;
+    }
+    .fancy-title {
+        position: relative;
+        margin-bottom: 30px;
+    }
+    .fancy-title h3 {
+        position: relative;
+        display: inline-block;
+        background-color: #FFF;
+        padding-right: 15px;
+        margin-bottom: 20px;
+    }
+    .title-center h3 {
+        padding: 0 15px;
+    }
+</style>
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
@@ -22,7 +43,7 @@
                     <div class="panel-heading " role="tab" id="heading1">
                         <h4 class="panel-title">
 
-                            Ticket Details
+                            <?php echo $ticket->title; ?>
                             <a data-toggle="collapse" data-parent="#accordion1" href="#collapse1" aria-expanded="true" aria-controls="collapse1" class="pull-right">
                                 <i class="solsoCollapseIcon fa fa-chevron-up"></i>	
                             </a>
@@ -75,14 +96,12 @@
                                 </table>
                             </div>
                         </div>					
-                        <div class="panel-heading">
-            <h6 class="panel-title"><?php echo $ticket->title; ?></h6>
-            <div class="heading-elements">
-                <ul class="icons-list">
-                    <li><a data-action="collapse"></a></li>
-                </ul>
-            </div>
-        </div>
+
+
+                        <div class="fancy-title title-dotted-border title-center">
+                       <!--<h3><?php echo $ticketname; ?></h3>-->
+                            <h3>Comments </h3>
+                        </div>
 
                         <ul class="media-list chat-list content-group">
                             <?php foreach ($ticket_coversation as $key => $value) { ?>
@@ -126,6 +145,15 @@
                                             <div class="media-body">
                                                 <div class="media-heading">
                                                     <a href="#" class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                    <span><strong><br><?php
+                                                        if ($val['role_id'] == 1) {
+                                                            echo 'Tenant';
+                                                        } elseif ($val['role_id'] == 2) {
+                                                            echo 'staff';
+                                                        } elseif ($val['role_id'] == 3) {
+                                                            echo 'Admin';
+                                                        }
+                                                        ?></strong></span>
                                                     <span class="media-annotation pull-right"> 
                                                         <?php echo $date = date('g:i a', strtotime($val['created_date'])); ?>
                                                     </span>
