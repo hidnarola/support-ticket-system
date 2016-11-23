@@ -61,31 +61,45 @@ class Home extends CI_Controller {
 
         if ($u == $en) {
             $email = $this->User_model->get_email_by_id($user);
-            $compare_key = $this->User_model->get_activation_key($email);
-            $user_array = $this->User_model->getUserByIdEmail($user, $email);
-            $is_key_used = $this->User_model->is_key_used($key);
-            if ($key == $compare_key && $user_array) {
-                if ($is_key_used == 'used' && $user_array['status'] == 1) {
+            if ($email) {
+                $compare_key = $this->User_model->get_activation_key($email);
+                $user_array = $this->User_model->getUserByIdEmail($user, $email);
+                $is_key_used = $this->User_model->is_key_used($key);
+                if ($key == $compare_key && $user_array) {
+                    if ($is_key_used == 'used' && $user_array['status'] == 1) {
 //                echo $is_key_used;exit;
-                    $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
-                    redirect('support/login');
-                } elseif ($user_array['is_verified'] == 1 && $user_array['status'] == 0 && $user_array['password'] != '') {
-                    $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
-                    redirect('support/login');
-                } else {
-                    $email = $this->User_model->get_email_by_id($user);
-                    $compare_key = $this->User_model->get_activation_key($email);
-                    if ($key == $compare_key) {
-                        $this->User_model->make_active($email);
-                        $this->data['email'] = $email;
+                        $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
+                        redirect('support/login');
+                    } elseif ($user_array['is_verified'] == 1 && $user_array['status'] == 0 && $user_array['password'] != '') {
+                        $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
+                        redirect('support/login');
+                    } else {
+                        $email = $this->User_model->get_email_by_id($user);
+                        $compare_key = $this->User_model->get_activation_key($email);
+                        if ($key == $compare_key) {
+                            if ($user_array['is_verified'] == 1 && $user_array['password'] == '') {
+                                $this->User_model->make_active($email);
+                                $this->data['email'] = $email;
 //                        $this->data['title'] = 'Password Setup | Support-Ticket-System';
 //                        $this->data['header_title'] = 'Password Setup';
-                        $this->session->set_flashdata('success_msg', 'Your Email Id is verified. Please set your password!');
-                        $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
-                    } else {
-                        $this->session->set_flashdata('error_msg', 'There is no such staff Exists!');
-                        redirect('support/login');
+                                $this->session->set_flashdata('success_msg', 'Your Email Id is already verified. Please set your password!');
+                                $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
+                            } else {
+                                $this->User_model->make_active($email);
+                                $this->data['email'] = $email;
+//                        $this->data['title'] = 'Password Setup | Support-Ticket-System';
+//                        $this->data['header_title'] = 'Password Setup';
+                                $this->session->set_flashdata('success_msg', 'Your Email Id is verified. Please set your password!');
+                                $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
+                            }
+                        } else {
+                            $this->session->set_flashdata('error_msg', 'There is no such staff Exists!');
+                            redirect('support/login');
+                        }
                     }
+                } else {
+                    $this->session->set_flashdata('error_msg', 'There is no such staff Exists!');
+                    redirect('support/login');
                 }
             } else {
                 $this->session->set_flashdata('error_msg', 'There is no such staff Exists!');
@@ -107,35 +121,49 @@ class Home extends CI_Controller {
 
         if ($u == $en) {
             $email = $this->User_model->get_email_by_id($user);
-            $compare_key = $this->User_model->get_activation_key($email);
-            $user_array = $this->User_model->getUserByIdEmail($user, $email);
-            if ($user_array['role_id'] == 1) {
-                if ($key == $compare_key) {
-                    $is_key_used = $this->User_model->is_key_used($key);
-                    if ($is_key_used == 'used' && $user_array['status'] == 1) {
+            if ($email) {
+                $compare_key = $this->User_model->get_activation_key($email);
+                $user_array = $this->User_model->getUserByIdEmail($user, $email);
+                if ($user_array['role_id'] == 1) {
+                    if ($key == $compare_key) {
+                        $is_key_used = $this->User_model->is_key_used($key);
+                        if ($is_key_used == 'used' && $user_array['status'] == 1) {
 //                echo $is_key_used;exit;
-                        $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
-                        redirect('login');
-                    } elseif ($user_array['is_verified'] == 1 && $user_array['status'] == 0 && $user_array['password'] != '') {
-                        $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
-                        redirect('login');
-                    } else {
-                        if ($key == $compare_key) {
-                            $this->User_model->make_active($email);
-                            $this->data['email'] = $email;
-                            $this->data['title'] = 'Password Setup | Support-Ticket-System';
-                            $this->data['header_title'] = 'Password Setup';
-                            $this->session->set_flashdata('success_msg', 'Your Email Id is verified. Please set your password!');
-                            $this->template->load('frontend/page', 'Frontend/User/password_recovery_tenant', $this->data);
-                        } else {
-                            $this->session->set_flashdata('error_msg', 'There is no such tenant exists!');
+                            $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
                             redirect('login');
+                        } elseif ($user_array['is_verified'] == 1 && $user_array['status'] == 0 && $user_array['password'] != '') {
+                            $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
+                            redirect('login');
+                        } else {
+                            if ($key == $compare_key) {
+                                if ($user_array['is_verified'] == 1 && $user_array['password'] == '') {
+                                    $this->User_model->make_active($email);
+                                    $this->data['email'] = $email;
+                                    $this->data['title'] = 'Password Setup | Support-Ticket-System';
+                                    $this->data['header_title'] = 'Password Setup';
+                                    $this->session->set_flashdata('success_msg', 'Your Email Id is already verified. Please set your password!');
+                                    $this->template->load('frontend/page', 'Frontend/User/password_recovery_tenant', $this->data);
+                                } else {
+                                    $this->User_model->make_active($email);
+                                    $this->data['email'] = $email;
+                                    $this->data['title'] = 'Password Setup | Support-Ticket-System';
+                                    $this->data['header_title'] = 'Password Setup';
+                                    $this->session->set_flashdata('success_msg', 'Your Email Id is verified. Please set your password!');
+                                    $this->template->load('frontend/page', 'Frontend/User/password_recovery_tenant', $this->data);
+                                }
+                            } else {
+                                $this->session->set_flashdata('error_msg', 'There is no such tenant exists!');
+                                redirect('login');
+                            }
                         }
+                    } else {
+                        $this->session->set_flashdata('error_msg', 'There is no such tenant exists!');
+                        redirect('login');
                     }
-                } else {
-                    $this->session->set_flashdata('error_msg', 'There is no such tenant exists!');
-                    redirect('login');
                 }
+            } else {
+                $this->session->set_flashdata('error_msg', 'There is no such tenant exists!');
+                redirect('login');
             }
         } else {
             $this->session->set_flashdata('error_msg', 'There is no such tenant exists!');

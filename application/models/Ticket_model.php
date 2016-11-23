@@ -105,4 +105,32 @@ class Ticket_model extends CI_Model {
         }
     }
 
+    public function getSeriesName($dept_id){
+        $this->db->select('series_name');
+        $this->db->from(TBL_DEPARTMENTS);
+        $this->db->where('id', $dept_id);
+        $q = $this->db->get();
+        $data = $q->row();
+        return $data->series_name;
+    }
+    
+    public function getDeptStaff($dept_id){
+        $this->db->select('*');
+        $this->db->from(TBL_STAFF);
+        $this->db->where('id', $dept_id);
+        $this->db->where('is_head', 1);
+        $q = $this->db->get();
+//        echo $this->db->last_query();
+         $data = $q->row();
+        return $data->user_id;
+    }
+    public function getStaffEmail($id){
+        $this->db->select('*');
+        $this->db->from(TBL_USERS);
+        $this->db->where('id', $id);
+        $q = $this->db->get();
+//        echo $this->db->last_query();
+         $data = $q->row();
+        return $data->email;
+    }
 }

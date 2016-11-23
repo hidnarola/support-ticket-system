@@ -10,6 +10,10 @@
                 <table class="table newTickets" data-alert="" data-all="189">
                     <tbody>
                         <tr class="">
+                                            <th>Series No.</th>
+                                            <td><?php echo $ticket->series_no ?></td>
+                                        </tr>
+                        <tr class="">
                             <th>Assign To</th>
                             <td><?php if ($ticket->staff_fname == '' && $ticket->staff_lname == '') { ?>
                                 <span class="label label-success">Free</span>

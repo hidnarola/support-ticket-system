@@ -55,31 +55,41 @@
                                 <table class="table table-striped table-bordered newTickets" data-alert="" data-all="189">
                                     <tbody>
                                         <tr class="alpha-teal">
-                                            <th>Assign To</th>
-                                            <td><?php echo $ticket->staff_fname . ' ' . $ticket->staff_lname; ?></td>
+                                            <th>Series No.</th>
+                                            <td><?php echo $ticket->series_no ?></td>
                                         </tr>
                                         <tr>
+                                            <th>Assign To</th>
+                                            <td><?php
+                                                if ($ticket->staff_fname != '' && $ticket->staff_lname != '') {
+
+                                                    echo $ticket->staff_fname . ' ' . $ticket->staff_lname;
+                                                } else { ?>
+                                                    <span class="label label-success">Free</span>
+                                               <?php }
+                                                ?></td>
+                                        </tr>
+                                        <tr class="alpha-teal">
                                             <th>Tenant</th>
                                             <td><?php echo $ticket->fname . ' ' . $ticket->lname; ?></td>
                                         </tr>
-
-                                        <tr class="alpha-teal">
+                                        <tr>
                                             <th>Title</th>
                                             <td><?php echo $ticket->title ?></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="alpha-teal">
                                             <th>Department</th>
                                             <td><?php echo $ticket->dept_name ?></td>
                                         </tr>
-                                        <tr class="alpha-teal">
+                                        <tr>
                                             <th>Ticket Type</th>
                                             <td><?php echo $ticket->type_name ?></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="alpha-teal">
                                             <th>Ticket Priority</th>
                                             <td><?php echo $ticket->priority_name ?></td>
                                         </tr>                                
-                                        <tr class="alpha-teal">
+                                        <tr>
                                             <th>Ticket Status</th>
                                             <td><?php echo $ticket->status_name ?></td>
                                         </tr>                                
@@ -146,14 +156,14 @@
                                                 <div class="media-heading">
                                                     <a href="#" class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
                                                     <span><strong><br><?php
-                                                        if ($val['role_id'] == 1) {
-                                                            echo 'Tenant';
-                                                        } elseif ($val['role_id'] == 2) {
-                                                            echo 'staff';
-                                                        } elseif ($val['role_id'] == 3) {
-                                                            echo 'Admin';
-                                                        }
-                                                        ?></strong></span>
+                                                            if ($val['role_id'] == 1) {
+                                                                echo 'Tenant';
+                                                            } elseif ($val['role_id'] == 2) {
+                                                                echo 'staff';
+                                                            } elseif ($val['role_id'] == 3) {
+                                                                echo 'Admin';
+                                                            }
+                                                            ?></strong></span>
                                                     <span class="media-annotation pull-right"> 
                                                         <?php echo $date = date('g:i a', strtotime($val['created_date'])); ?>
                                                     </span>

@@ -243,6 +243,7 @@ class User_model extends CI_Model {
         $this->db->select('*');
         $this->db->where('id', $id);
         $this->db->where('email', $email);
+        $this->db->where('is_delete', 0);
         $q = $this->db->get(TBL_USERS);
 //        echo $this->db->last_query();
         return $q->row_array();

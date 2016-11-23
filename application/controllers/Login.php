@@ -177,7 +177,7 @@ class Login extends CI_Controller {
                 'url' => $url
             );
             $msg = $this->load->view('admin/emails/send_mail_new', $data_array, TRUE);
-            $this->email->subject('Your account is registed for dev.supportticket.com');
+            $this->email->subject('Your account is registred for dev.supportticket.com');
             $this->email->message($msg);
             $this->email->send();
             $this->email->print_debugger();

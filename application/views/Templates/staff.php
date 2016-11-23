@@ -93,7 +93,11 @@
                                     <div class="media-body">
                                         <span class="media-heading text-semibold"><?php
                                             echo $this->session->userdata('staffed_logged_in')['fname'].'!';
+
                                           ?> </span>
+
+
+
                                         <div class="text-size-mini text-muted">
                                             <i class="iicon-collaboration text-size-small"></i>
                                             <?php  echo ($this->session->userdata('staffed_logged_in')['is_head']) ? "Head Staff" : 'Staff Member'; ?>,
