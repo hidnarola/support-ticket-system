@@ -136,7 +136,7 @@
                 <thead>
                     <tr class="bg-teal">
                         <th>#</th>
-                         <th>Series No</th>
+                        <th>Ticket ID</th>
                         <th>Assigned To</th>
                         <th>Title</th>
                         <th>Tenant</th>

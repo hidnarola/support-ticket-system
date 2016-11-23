@@ -173,6 +173,7 @@
                                                         ?>
                                                         <a href="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>">
                                                             <img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>" class="img-circle" alt="">
+                                                        </a>
                                                         <!--<div class="media-left"><img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?> " class="img-circle" alt=""></div>-->
                                                         <?php } else { ?>
                                                             <a href="assets/admin/images/placeholder.jpg">
@@ -194,7 +195,16 @@
                                             <div class="media-body">
                                                 <?php if ($val['sent_from'] != $val['user_id'] && $val['sent_from'] != $val['staff_id']) { ?>
                                                     <div class="media-heading">
-                                                        <a href="#" class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                        <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                        <span><strong><br><?php
+                                                            if ($val['role_id'] == 1) {
+                                                                echo 'Tenant';
+                                                            } elseif ($val['role_id'] == 2) {
+                                                                echo 'staff';
+                                                            } elseif ($val['role_id'] == 3) {
+                                                                echo 'Admin';
+                                                            }
+                                                            ?></strong></span>
                                                     </div>
                                                 <?php } ?>
                                                 <div class="media-content"><?php echo $val['message']; ?></div>
@@ -206,6 +216,18 @@
 
                                         <li class="media reversed">
                                             <div class="media-body">
+                                                <div class="media-heading">
+                                                      <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                    <span><strong><br><?php
+                                                            if ($val['role_id'] == 1) {
+                                                                echo 'Tenant';
+                                                            } elseif ($val['role_id'] == 2) {
+                                                                echo 'staff';
+                                                            } elseif ($val['role_id'] == 3) {
+                                                                echo 'Admin';
+                                                            }
+                                                            ?></strong></span>
+                                                </div>
                                                 <div class="media-content"><?php echo $val['message']; ?></div>
                                                 <span class="media-annotation display-block mt-10"><?php echo $date = date('g:i a', strtotime($val['created_date'])); ?></span>
                                             </div>
@@ -218,6 +240,7 @@
                                                         ?>
                                                         <a href="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>">
                                                             <img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>" class="img-circle" alt="">
+                                                        </a>
                                                         <!--<div class="media-left"><img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?> " class="img-circle" alt=""></div>-->
                                                         <?php } else { ?>
                                                             <a href="assets/admin/images/placeholder.jpg">
