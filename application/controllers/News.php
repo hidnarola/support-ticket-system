@@ -20,6 +20,7 @@ class News extends CI_Controller {
         $data['title'] = 'News | Support-Ticket-System';
         $data['header_title'] = 'News';
         $data['data'] = $this->News_model->get_news_announcements($type = 1);
+        $data['news_announcements'] = $this->User_model->getlatestnews();
         $data['num_rows'] = $this->News_model->get_news_announcements_num($type = 1);
         $this->template->load('frontend/page', 'Frontend/News/index', $data);
     }

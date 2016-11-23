@@ -124,10 +124,10 @@
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h6 class="panel-title">Latest Tickets</h6>
+                <span style="padding:5px; color: red;">*Highlighted rows represents unread tickets</span>
             <div class="heading-elements">
 
                 <a href="admin/tickets" class="label bg-success heading-text">View All Tickets</a></div>
-                
                 
         </div>
         <div class="panel-body">
@@ -145,16 +145,22 @@
                         <th>Priority</th>
                         <th>Status</th>
                         <th>Created At</th>
-                        <th>State</th>
+                        <!-- <th>State</th> -->
                         <th style="width:10%;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+
                     <?php
-                    foreach ($tickets as $key => $record) {
-                       // pr($record);
-                        ?>
-                        <tr>
+                            foreach ($tickets as $key => $record) {
+                                $is_read = 'is_read';
+                                
+                                    if ($record['is_read'] == 1 || $record['is_read'] == 3) {
+                                        $is_read = '';
+                                    }
+                                
+                                ?>
+                                <tr class="<?php echo $is_read; ?>">
                             <td><?php echo $key + 1; ?></td>
                             <td><?php echo $record['series_no']; ?></td>
                             <?php if ($record['staff_id'] != '') { ?>
@@ -169,11 +175,11 @@
                             <td><?php echo $record['priority_name']; ?></td>
                             <td><?php echo $record['status_name']; ?></td>
                             <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                            <?php if ($record['is_read'] == 1 || $record['is_read'] == 3) { ?>
+                            <?php /* if ($record['is_read'] == 1 || $record['is_read'] == 3) { ?>
                                 <td><span class="label label-success">Read</span></td>
                             <?php } else { ?>
                                 <td><span class="label label-warning">Unread</span></td>
-                            <?php } ?>
+                            <?php } */ ?>
                             <td class="text-center">
                                 <ul class="icons-list">
 

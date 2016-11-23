@@ -219,7 +219,7 @@
                                 <div class="col-xs-6 text-right">
 
                                     <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Back</button>
-                                    <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right"><b><i class="icon-circle-right2"></i></b> Send</button>
+                                    <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right"><b><i class="icon-circle-right2"></i></b> Comment</button>
 
                                 </div>
                             </div>

@@ -163,7 +163,7 @@
                                     <li class="<?php echo ($page == 'media') ? 'active' : ''; ?>"><a href="admin/media"><i class="icon-images3"></i> <span>Media</span></a>
                                         <ul>
                                             <li class="<?php echo ($current_page == 'home_slider') ? 'active' : ''; ?>"><a href="admin/media/home_slider"><i class="icon-image3"></i> <span>Home Page Slider</span></a></li>
-                                            <li class="<?php echo ($current_page == 'gallery') ? 'active' : ''; ?>"><a href="admin/media/gallery"><i class="icon-images2"></i> <span>Gallery Page</span></a></li>
+                                            <!-- <li class="<?php // echo ($current_page == 'gallery') ? 'active' : ''; ?>"><a href="admin/media/gallery"><i class="icon-images2"></i> <span>Gallery Page</span></a></li> -->
 
                                         </ul>
                                     </li>

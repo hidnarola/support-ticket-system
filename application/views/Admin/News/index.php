@@ -66,7 +66,7 @@
                                     ?>
 
                                     <div class="col-md-2">
-                                        <img src="<?php echo $image; ?>"/>
+                                        <img style="width:100%" src="<?php echo $image; ?>"/>
                                     </div>
                                 <?php } ?>
 

@@ -19,7 +19,7 @@ and open the template in the editor.
 .alpha-teal {background-color: #e0f2f1 !important;}
 
 .articles .delete{margin-left: 5px;}
-.staff_head{ background-color: rgba(197, 155, 171, 0.33); color: darkcyan; }
+.staff_head, .is_read{ background-color: rgba(197, 155, 171, 0.33); color: darkcyan; }
 .file-drop-zone-title{
     padding: 60px 10px !important;
 }

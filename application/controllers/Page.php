@@ -18,6 +18,7 @@ class Page extends CI_Controller    {
        		$data['header_title'] = $get_result[0]['title'];
        		$data['page_data'] = $get_result[0];
           $data['icon_class'] = 'icon-question3';
+          $data['news_announcements'] = $this->User_model->getlatestnews();
           $data['user'] = $this->User_model->getUserByID($userid);
             
         	$this->template->load('frontend/page', 'Frontend/page/index', $data);

@@ -130,7 +130,7 @@
 
                             </div>
 
-                            <!-- <div class="widget subscribe-widget clearfix">
+                            <div class="widget subscribe-widget clearfix">
                                 <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
                                 <div class="widget-subscribe-form-result"></div>
                                 <form id="widget-subscribe-form" action="include/subscribe.php" role="form" method="post" class="nobottommargin">
@@ -142,7 +142,7 @@
                                         </span>
                                     </div>
                                 </form>
-                            </div> -->
+                            </div>
 
                             <div class="widget clearfix" style="margin-bottom: -20px;">
 
@@ -155,13 +155,13 @@
                                         </a>
                                         <a href="#"><small style="display: block; margin-top: 3px;"><strong>Like us</strong><br>on Facebook</small></a>
                                     </div>
-                                    <!-- <div class="col-md-6 clearfix">
+                                    <div class="col-md-6 clearfix">
                                         <a href="#" class="social-icon si-dark si-colored si-rss nobottommargin" style="margin-right: 10px;">
                                             <i class="icon-rss"></i>
                                             <i class="icon-rss"></i>
                                         </a>
                                         <a href="#"><small style="display: block; margin-top: 3px;"><strong>Subscribe</strong><br>to RSS Feeds</small></a>
-                                    </div> -->
+                                    </div>
 
                                 </div>
 

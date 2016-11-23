@@ -61,10 +61,11 @@ $segment = $this->uri->segment(1);
 
     <div class="panel">
     <div class="panel-heading">
-        
+        <span style="padding:5px; color: red;">*Highlighted rows represents unread tickets</span>
     </div>
     <div class="panel-body">
         <div class="row">
+
             <table class="table table-bordered table-hover table-striped datatable-basic">
                 <thead>
                     <tr class="bg-teal">
@@ -78,15 +79,22 @@ $segment = $this->uri->segment(1);
                         <th>Priority</th>
                         <th>Status</th>
                         <th>Created At</th>
-                        <th>state</th>
+                        <!-- <th>state</th> -->
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($tickets as $key => $record) {
-                        ?>
-                        <tr>
+                            foreach ($tickets as $key => $record) {
+                                $is_read = 'is_read';
+                                
+                                    if ($record['is_read'] == 2 || $record['is_read'] == 3) {
+                                        $is_read = '';
+                                    }
+                                
+                                ?>
+                                <tr class="<?php echo $is_read; ?>">
+                        
                             <td><?php echo $key + 1; ?></td>
                             <td><?php echo $record['series_no']; ?></td>
                             <?php if ($record['staff_fname'] != '' && $record['staff_lname'] != '') { ?>
@@ -101,11 +109,11 @@ $segment = $this->uri->segment(1);
                             <td><?php echo $record['priority_name']; ?></td>
                             <td><?php echo $record['status_name']; ?></td>
                             <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                            <?php if ($record['is_read'] == 2 || $record['is_read'] == 3) { ?>
+                            <?php /* if ($record['is_read'] == 2 || $record['is_read'] == 3) { ?>
                                 <td><span class="label label-success">Read</span></td>
                             <?php } else { ?>
                                 <td><span class="label label-warning">Unread</span></td>
-                            <?php } ?>
+                            <?php } */ ?>
                             <td class="text-center">
                                 <ul class="icons-list">
 

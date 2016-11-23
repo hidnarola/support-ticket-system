@@ -194,7 +194,7 @@
                             </div>
 
                             <div class="col-xs-6 text-right">
-                                <button type="submit" class="button button-rounded button-small pull-right blue-button"><b><i class="icon-reply"></i></b> Send</button>
+                                <button type="submit" class="button button-rounded button-small pull-right blue-button"><b><i class="icon-reply"></i></b> Comment</button>
                                 <button type="button" class="button button-3d button-small button-rounded button-white button-light pull-right" onclick="window.history.back()">Cancel</button>
                             </div>
                         </div>

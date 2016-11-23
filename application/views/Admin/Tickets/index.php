@@ -23,6 +23,7 @@ $segment = $this->uri->segment(1);
     <div class="panel panel-flat">
         <div class="panel-heading tic-listing">
             <!--        <h5 class="panel-title">Tickets List</h5>-->
+                     <p class="text-right" style="padding:5px; color: red;">*Highlighted rows represents unread tickets</p>
             <div class="col-md-2">
     <?php $current = $this->uri->segment(4); ?>
                     <!-- <label class="control-label">Filter by Status</label> -->
@@ -40,7 +41,8 @@ $segment = $this->uri->segment(1);
                      <a onclick="window.location = 'admin/tickets/add'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Ticket</a>
                     <!--<button type="button" class="btn bg-pink-400" onclick="window.location = 'admin/tickets/add'"><i class="icon-plus-circle2 position-left"></i>Add New Ticket</button>-->
                 <!-- </ul> -->
-            </div></div>
+            </div>
+            </div>
         </div>
         <style>/* #ticket_table .dataTables_length {margin: 5px 0 20px 20px;} */</style>
         <div class="panel-body">
@@ -59,7 +61,7 @@ $segment = $this->uri->segment(1);
                                 <th>Priority</th>
                                 <th>Status</th>
                                 <th>Created At</th>
-                                <th>State</th>
+                                <!-- <th>State</th> -->
                                 <th style="width:12%;text-align: center;">Actions</th>
                                 <!--<th>Actions</th>-->
                             </tr>
@@ -67,8 +69,14 @@ $segment = $this->uri->segment(1);
                         <tbody>
                             <?php
                             foreach ($tickets as $key => $record) {
+                                $is_read = 'is_read';
+                                
+                                    if ($record['is_read'] == 1 || $record['is_read'] == 3) {
+                                        $is_read = '';
+                                    }
+                                
                                 ?>
-                                <tr>
+                                <tr class="<?php echo $is_read; ?>">
                                     <td><?php echo $key + 1; ?></td>
                                     <td><?php echo $record['series_no']; ?></td>
                                     <?php if ($record['staff_id'] != '') { ?>
@@ -84,11 +92,11 @@ $segment = $this->uri->segment(1);
                                     <td><?php echo $record['status_name']; ?></td>
                                     <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
                                     <!--<td>ABC</td>-->
-                                    <?php if ($record['is_read'] == 1 || $record['is_read'] == 3) { ?>
+                                    <?php /* if ($record['is_read'] == 1 || $record['is_read'] == 3) { ?>
                                         <td  class="text-center"><span class="label label-success">Read</span></td>
                                     <?php } else { ?>
                                         <td class="text-center"><span class="label label-warning">Unread</span></td>
-                                    <?php } ?>
+                                    <?php } */ ?>
                                     <td>
                                         <ul class="icons-list">
                                             <li class="text-teal-600">

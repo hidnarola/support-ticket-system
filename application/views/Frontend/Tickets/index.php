@@ -39,14 +39,20 @@ if ($this->input->get('filter'))
                         ?>
                         <!-- <label class="control-label">Filter by Status</label> -->
                         <form method="get" id="category_search" action="tickets">
-                            <select class="select filter form-control" id="filter" name='filter' onchange="document.getElementById('category_search').submit();">
+                        <select class="select filter form-control" id="filter" name='filter' onchange="document.getElementById('category_search').submit();">
+                        <option <?php echo ($current == '') ? 'selected' : ''; ?> value="">Select Status</option>
+                        <?php foreach ($statuses as $status) { ?>
+                            <option <?php echo ($current == $status['id'] ) ? 'selected' : ''; ?> value="<?php echo $status['id'] ?>"><?php echo $status['name'] ?></option>
+                        <?php } ?>
+                    </select>
+                            <!-- <select class="select filter form-control" id="filter" name='filter' onchange="document.getElementById('category_search').submit();">
                                 <option <?php echo ($current == '') ? 'selected' : ''; ?> value="">All</option>
                                 <option <?php echo ($current == '3') ? 'selected' : ''; ?> value="3">Open</option>
                                 <option <?php echo ($current == '5') ? 'selected' : ''; ?> value="5">Pending</option>
                                 <option <?php echo ($current == '2') ? 'selected' : ''; ?> value="2">In Progress</option>
                                 <option <?php echo ($current == '4') ? 'selected' : ''; ?> value="4">Paused</option>
                                 <option <?php echo ($current == '1') ? 'selected' : ''; ?> value="1">Closed</option>
-                            </select>
+                            </select> -->
                         </form>
                     </div>
                     <div class="col-sm-9">

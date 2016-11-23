@@ -14,6 +14,7 @@ class Login extends CI_Controller {
     public function index() {
 //        if($_POST)
 //            p($_POST);
+           $data['news_announcements'] = $this->User_model->getlatestnews();
         $user_title = 'Tenant';
         if ($this->uri->segment(1) == 'support') {
             $user_title = 'Support';

@@ -31,6 +31,7 @@ class Tickets extends CI_Controller {
         $data['header_title'] = 'My Tickets';
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
+        $data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
         $config = init_pagination_tenant();
 //        pr($config);
         $filter = '';
@@ -159,6 +160,7 @@ class Tickets extends CI_Controller {
     }
 
     public function view($id) {
+        $data['news_announcements'] = $this->User_model->getlatestnews();
         $flag = 1;
         if ($id != '') {
             $segment = $this->uri->segment(1);
