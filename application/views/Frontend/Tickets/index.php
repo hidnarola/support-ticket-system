@@ -73,10 +73,10 @@ if ($this->input->get('filter'))
                                     <div class="col-md-2 col-sm-2 col-xs-12">
                                         <div class="ticket-img">
                                         <?php if($record['image']!=''){ ?>
-
-                                            <img src="<?php echo TICKET_MEDIUM_IMAGE.'/'.$record['image'] ?>"/>
+                                            <a class="fancybox" href="<?php echo TICKET_IMAGE.'/'.$record['image'] ?>" data-fancybox-group="gallery"><img src="<?php echo TICKET_MEDIUM_IMAGE.'/'.$record['image']; ?>" alt="" /></a>
+                                            
                                         <?php }else{ ?>
-                                            <img src="assets/frontend/images/restaurant/slider/3.jpg"/>
+                                            <img src="assets/admin/images/ticket_section.png"/>
                                         <?php }?>
                                         
                                         </div>
@@ -160,9 +160,12 @@ if ($this->input->get('filter'))
         </div>
     </div>
 </div>
+<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
 <script>
-    $(document).ready(function () {
-        $('#datatable1').DataTable();
+    jQuery(document).ready(function ($) {
+         $('.fancybox').fancybox();
+        // $('#datatable1').DataTable();
     });
 </script>
 <script type="text/javascript">

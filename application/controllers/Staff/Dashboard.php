@@ -22,7 +22,7 @@ class Dashboard extends CI_Controller {
 
         $this->data['total_tickets'] = $this->Staff_model->get_total_tickets($this->session->userdata('staffed_logged_in')['id']);
         $this->data['total_replies'] = $this->Staff_model->get_total_replies($this->session->userdata('staffed_logged_in')['id']);
-        $this->data['tickets'] = $this->Staff_model->get_tickets($this->session->userdata('staffed_logged_in')['id']);
+        $this->data['tickets'] = $this->Staff_model->get_tickets($this->session->userdata('staffed_logged_in')['id'],10);
 
         // pr($this->data['tickets'],1);
          $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);

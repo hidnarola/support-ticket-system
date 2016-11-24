@@ -62,7 +62,7 @@
                          
                         <?php if ($ticket->image != '') { ?>
                             <tr>
-                                <th>Tenant Image</th>
+                                <th>Ticket Image</th>
                                 <td> 
                                     <!--<div class="entry-image">-->
 									<a href="<?php echo TICKET_IMAGE . '/' . $ticket->image; ?>" data-lightbox="image"><img class="image_fade" src="<?php echo TICKET_THUMB_IMAGE . '/' .  $ticket->image; ?>" height="90px" width="90px" alt="" style="opacity: 1;"></a>

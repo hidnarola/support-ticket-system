@@ -15,9 +15,15 @@
 <div class="content">
 
     <div class="panel panel-flat">
-        <div class="panel-heading">
-            <span style="padding:5px; color: red;">*Highlighted rows represents unread tickets</span>   
+    <div class="panel-heading">
+            <h6 class="panel-title">Latest Tickets</h6>
+                <span style="padding:5px; color: red;">*Highlighted rows represents unread tickets</span>
+            <div class="heading-elements">
+
+                <a href="staff/tickets" class="label bg-success heading-text">View All Tickets</a></div>
+                
         </div>
+       
         <div class="panel-body">
             <table class="table table-bordered table-hover table-striped datatable-basic">
                 <thead>
@@ -251,8 +257,9 @@
             }).done(function (data) {
                 console.log(data);
                 $("select#staff_val").html(data);
+                $("select#staff_val").select2();
+                $('#staff_id').show();
             });
-            $('#staff_id').show();
             $('#priority_id').hide();
             $('#status_id').hide();
             $('#dept_id').hide();

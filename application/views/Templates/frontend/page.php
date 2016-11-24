@@ -173,7 +173,7 @@
                                 <li class="active"><?php echo 'Knowledge Base'; ?></li>
                             <?php } else { ?>
 
-                                <li class="active"><?php echo $page; ?></li>
+                                <li class="active"><?php echo ucwords(str_replace("-", " ", $page)); ?></li>
                                 <?php
                             }
                         } else if ($page != '' && $sec_segment != '') {
@@ -181,7 +181,7 @@
                             <li><a href="<?php echo $page; ?>"><?php echo $page; ?></a></li>
                         <?php } ?>
                         <?php if ($sec_segment != '') { ?>
-                            <li class="active"><?php echo $sec_segment; ?></li>
+                            <li class="active"><?php echo ucwords(str_replace("-", " ", $sec_segment));  ?></li>
                         <?php } ?>
                     </ol>
                 </div>

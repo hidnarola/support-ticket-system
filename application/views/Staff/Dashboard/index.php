@@ -61,7 +61,12 @@ $segment = $this->uri->segment(1);
 
     <div class="panel">
         <div class="panel-heading">
-            <span style="padding:5px; color: red;">*Highlighted rows represents unread tickets</span>
+            <h6 class="panel-title">Latest Tickets</h6>
+                <span style="padding:5px; color: red;">*Highlighted rows represents unread tickets</span>
+            <div class="heading-elements">
+
+                <a href="staff/tickets" class="label bg-success heading-text">View All Tickets</a></div>
+                
         </div>
         <div class="panel-body">
             <div class="row">
@@ -238,7 +243,7 @@ $segment = $this->uri->segment(1);
 </div>
 <script type="text/javascript">
     $(function () {
-        $('.datatable-basic').dataTable();
+        //$('.datatable-basic').dataTable();
     });
     var base_url = '<?php echo base_url(); ?>admin/';
     $(document).on('click', 'a.chang_pwdd', function () {
@@ -300,8 +305,9 @@ $segment = $this->uri->segment(1);
             }).done(function (data) {
                 console.log(data);
                 $("select#staff_val").html(data);
+                $("select#staff_val").select2();
+                $('#staff_id').show();
             });
-            $('#staff_id').show();
             $('#priority_id').hide();
             $('#status_id').hide();
             $('#dept_id').hide();
@@ -343,7 +349,7 @@ $segment = $this->uri->segment(1);
                     $('#status_val').val('');
                     $('#priority_val').val('');
                     $('.loader').hide();
-                    window.location.reload();
+                   window.location.reload();
                 } else {
                 }
             });

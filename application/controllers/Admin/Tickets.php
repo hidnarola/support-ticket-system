@@ -63,7 +63,38 @@ class Tickets extends CI_Controller {
                 'created_by' => $created_by,
                 'staff_id'=>$getDeptStaff
             );
-//                    pr($data, 1);
+
+            if ($_FILES['ticket_image']['name'] != '') {
+              
+                $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
+                $exts = explode(".", $_FILES['ticket_image']['name']);
+                $name = $exts[0] . time() . "." . $exts[1];
+                $name = "ticket-" . date("mdYhHis") . "." . $exts[1];
+
+                $config['upload_path'] = TICKET_IMAGE;
+                $config['allowed_types'] = implode("|", $type_array);
+                $config['max_size'] = '2048';
+                $config['file_name'] = $name;
+
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload('ticket_image')) {
+                    $flag = 1;
+                    $data['contract_validation'] = $this->upload->display_errors();
+                    // pr($data['contract_validation'],1);
+                } else {
+                    $file_info = $this->upload->data();
+                    $image = $file_info['file_name'];
+
+                    $src = './' . TICKET_IMAGE . '/' . $image;
+                    $thumb_dest = './' . TICKET_THUMB_IMAGE . '/';
+                    $medium_dest = './' . TICKET_MEDIUM_IMAGE . '/';
+                    thumbnail_image($src, $thumb_dest);
+                    medium_image_user($src, $medium_dest);
+                }
+            $data['image'] = $name;
+            }
+                   // pr($data, 1);
             $this->Admin_model->manage_record($this->table, $data);
             $this->session->set_flashdata('success_msg', 'Ticket added succesfully.');
             /* --- Get department series name and update ticket for series number --- */
@@ -154,7 +185,38 @@ class Tickets extends CI_Controller {
                         'created' => date('Y-m-d H:i:s'),
                         'created_by' => $created_by
                     );
-//                    pr($data, 1);
+                   
+                    if ($_FILES['ticket_image']['name'] != '') {
+              
+                $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
+                $exts = explode(".", $_FILES['ticket_image']['name']);
+                $name = $exts[0] . time() . "." . $exts[1];
+                $name = "ticket-" . date("mdYhHis") . "." . $exts[1];
+
+                $config['upload_path'] = TICKET_IMAGE;
+                $config['allowed_types'] = implode("|", $type_array);
+                $config['max_size'] = '2048';
+                $config['file_name'] = $name;
+
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload('ticket_image')) {
+                    $flag = 1;
+                    $data['contract_validation'] = $this->upload->display_errors();
+                    
+                } else {
+                    $file_info = $this->upload->data();
+                    $image = $file_info['file_name'];
+
+                    $src = './' . TICKET_IMAGE . '/' . $image;
+                    $thumb_dest = './' . TICKET_THUMB_IMAGE . '/';
+                    $medium_dest = './' . TICKET_MEDIUM_IMAGE . '/';
+                    thumbnail_image($src, $thumb_dest);
+                    medium_image_user($src, $medium_dest);
+                }
+            $data['image'] = $name;
+            }
+                   // pr($data, 1);
                     $this->Admin_model->manage_record($this->table, $data, $record_id);
                     $this->session->set_flashdata('success_msg', 'Ticket updated succesfully.');
                     redirect('admin/tickets');

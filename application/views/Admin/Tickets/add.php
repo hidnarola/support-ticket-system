@@ -165,6 +165,13 @@
                                             <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
 
                                         </div>
+                                        <div class="form-group col-xs-12">
+                                            <label class="display-block">Ticket Image:</label>
+                                            <div class="uploader">
+                                                <input name="ticket_image" type="file" class="file-styled">
+                                            </div>
+                                            <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

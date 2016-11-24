@@ -100,6 +100,7 @@ class Tickets extends CI_Controller {
                 'created' => date('Y-m-d H:i:s'),
                 'staff_id'=>$getDeptStaff
             );
+             
             if ($_FILES['ticket_image']['name'] != '') {
               
                 $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');

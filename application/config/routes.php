@@ -86,6 +86,7 @@ $route['login'] = "login";
 
 $route['profile'] = "profile";
 $route['home'] = "home";
+$route['forgot_password'] = "home/forgot_password";
 
 $route['tickets'] = "tickets";
 $route['knowledgebase/(:any)'] = "knowledgebase/view/$1";

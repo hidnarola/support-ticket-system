@@ -34,10 +34,9 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
         <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
-<<<<<<< HEAD
+
             // $segment = $this->uri->segment(4);
-=======
->>>>>>> c90df325407447eba5ada80a9a33828f5b6d4255
+
             $edit_segment = $this->uri->segment(3);
 
             if (isset($user)) {
