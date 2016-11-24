@@ -238,6 +238,13 @@ class User_model extends CI_Model {
         return $q->row_array();
     }
 
+    public function getAdmin() {
+        $this->db->select('*');
+        $this->db->where('role_id', 3);
+        $q = $this->db->get(TBL_USERS);
+        return $q->row_array();
+    }
+    
     public function getUserByIdEmail($id, $email) {
 //        echo $id;
         $this->db->select('*');

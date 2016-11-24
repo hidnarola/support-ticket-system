@@ -19,8 +19,6 @@
      <span style="padding:5px; color: red;">*Highlighted rows represents unread tickets</span>   
     </div>
     <div class="panel-body">
-        
-        <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped datatable-basic">
                 <thead>
                     <tr class="bg-teal">
@@ -99,8 +97,6 @@
                         ?>
                     </tbody>
                 </table>
-
-            </div>
         </div>
     </div>
 </div>
@@ -267,7 +263,7 @@
                         $('#staff_val').val('');
                         $('#status_val').val('');
                         $('#priority_val').val('');
-                        window.location.reload();
+//                        window.location.reload();
                     } else {
                     }
                 });

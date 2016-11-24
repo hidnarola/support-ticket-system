@@ -114,16 +114,28 @@ class Ticket_model extends CI_Model {
         return $data->series_name;
     }
     
+    
+    /**
+     * To get department head staff id
+     * @param type $dept_id
+     * @return type
+     */
     public function getDeptStaff($dept_id){
         $this->db->select('*');
         $this->db->from(TBL_STAFF);
-        $this->db->where('id', $dept_id);
+        $this->db->where('dept_id', $dept_id);
         $this->db->where('is_head', 1);
         $q = $this->db->get();
 //        echo $this->db->last_query();
          $data = $q->row();
         return $data->user_id;
     }
+    
+    /**
+     * To get email Id from the id
+     * @param type $id
+     * @return type
+     */
     public function getStaffEmail($id){
         $this->db->select('*');
         $this->db->from(TBL_USERS);
