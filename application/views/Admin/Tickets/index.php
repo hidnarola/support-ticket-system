@@ -2,6 +2,8 @@
 <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <script type="text/javascript" src="assets/admin/js/plugins/loaders/progressbar.min.js"></script>
 <script type="text/javascript" src="assets/admin/js/pages/components_loaders.js"></script>
+<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
+<link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
 <?php
 $segment = $this->uri->segment(1);
 ?>
@@ -244,9 +246,7 @@ $segment = $this->uri->segment(1);
     $(function () {
         $('#ticket_table').DataTable();
     });
-
     var base_url = '<?php echo base_url(); ?>admin/';
-
     $(document).on('click', 'a.chang_pwdd', function () {
         var modal_title = $(this).attr('data-modal-title');
         var action = $(this).attr('data-act');
@@ -294,13 +294,10 @@ $segment = $this->uri->segment(1);
             //                var id = $(this).attr('id').replace('changepriority_', '');
             var action_type = 'priority_id';
             $('.validation-error-label').hide();
-<<<<<<< HEAD
+
         } else if (action == 'assign') {
             selected = $(this).attr('data-staff');
-=======
-        }else if (action == 'assign') {
-            selected  = $(this).attr('data-staff');
->>>>>>> 5b9d553d3e4a7ed095b6764a424c6e0f021567ab
+
             $("#staff_val").val(selected);
             $("#staff_val").select2();
             var dept = $(this).attr('data-dept');
@@ -311,7 +308,7 @@ $segment = $this->uri->segment(1);
             }).done(function (data) {
                 console.log(data);
                 $("select#staff_val").html(data);
-                    $("select#staff_val").select2();
+                $("select#staff_val").select2();
                 $('#staff_id').show();
             });
             $('#priority_id').hide();
@@ -331,7 +328,6 @@ $segment = $this->uri->segment(1);
         $('.modal-title').html(modal_title);
         var select = card.selectedIndex;
         console.log("select", select);
-
         var hidden_val = select;
         $('#hidden_value').val(hidden_val);
         $('#select_type').val(action_type);
@@ -356,18 +352,17 @@ $segment = $this->uri->segment(1);
                     $('#staff_val').val('');
                     $('#status_val').val('');
                     $('#priority_val').val('');
-<<<<<<< HEAD
+
                     $('.loader').hide();
-=======
->>>>>>> 5b9d553d3e4a7ed095b6764a424c6e0f021567ab
+
+
                     window.location.reload();
                 } else {
                 }
             });
             event.preventDefault();
         });
-    });
-</script>
+    });</script>
 <script type="text/javascript">
     var jconfirm = function (message, callback) {
         var options = {
@@ -418,7 +413,6 @@ $segment = $this->uri->segment(1);
             }
         });
     });
-
     function load_news(val) {
         if (val == '') {
             window.location = "admin/tickets";
@@ -426,4 +420,8 @@ $segment = $this->uri->segment(1);
             window.location = "admin/tickets/index/" + val;
         }
     }
+
+    $(function () {
+        $('.fancybox').fancybox();
+    });
 </script>
