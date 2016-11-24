@@ -95,7 +95,8 @@ class Tickets extends CI_Controller {
             $this->template->load('frontend/page', 'Frontend/Tickets/add', $data);
         } else {
             $getDeptStaff = $this->Ticket_model->getDeptStaff($this->input->post('dept_id'));
-            $data_tickets = array(
+            
+             $data_tickets = array(
                 'user_id' => $userid,
                 'title' => $this->input->post('title'),
                 'dept_id' => $this->input->post('dept_id'),
@@ -107,11 +108,8 @@ class Tickets extends CI_Controller {
                 'created' => date('Y-m-d H:i:s'),
                 'staff_id'=>$getDeptStaff
             );
-//                    p($data, 1);
-            $ticket_id = $this->Admin_model->manage_record($this->table, $data_tickets);
-
-            /*if ($_FILES['ticket_image']['name'] != '') {
-               
+            if ($_FILES['ticket_image']['name'] != '') {
+              
                 $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
                 $exts = explode(".", $_FILES['ticket_image']['name']);
                 $name = $exts[0] . time() . "." . $exts[1];
@@ -137,11 +135,12 @@ class Tickets extends CI_Controller {
                     thumbnail_image($src, $thumb_dest);
                     medium_image_user($src, $medium_dest);
                 }
-            $update_image = array('image' => $name);
-            $this->User_model->edit($update_image, TBL_TICKETS, 'id', $ticket_id);
-            
-            }*/
-            
+            $data_tickets['image'] = $name;
+            }
+           
+//                    p($data, 1);
+            $this->Admin_model->manage_record($this->table, $data_tickets);
+           
             $this->session->set_flashdata('success_msg', 'Ticket added succesfully.');
 
             /* --- Get department series name and update ticket for series number --- */

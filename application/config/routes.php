@@ -72,6 +72,7 @@ $route['admin/staff'] = "admin/users";
 $route['admin/tenants'] = "admin/users";
 $route['admin/news_announcements'] = "admin/news";
 $route['admin/home_slider'] = "admin/media/home_slider";
+$route['admin/social_media'] = "admin/social_media/manage/social_media";
 
 $route['staff'] = "staff/dashboard";
 $route['staff/logout'] = "login/logout";

@@ -101,6 +101,7 @@ define('TBL_TICKET_TYPES','ticket_types');
 define('TBL_TICKETS','tickets');
 define('TBL_USERS','users');
 define('TBL_SETTINGS','settings');
+define('TBL_SOCIAL_MEDIA','social_media');
 define('TBL_ARTICLE_COMMENTS','article_comments');
 
 
@@ -139,3 +140,5 @@ define('TICKET_MEDIUM_IMAGE', 'uploads/tickets/medium');
 define('PAGE_BANNER', 'uploads/pages/original');
 define('PAGE_THUMB_IMAGE', 'uploads/pages/thumb');
 define('PAGE_MEDIUM_IMAGE', 'uploads/pages/medium');
+
+define('SOCIAL_IMAGE', 'uploads/social_media');
