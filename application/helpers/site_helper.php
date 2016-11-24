@@ -462,13 +462,27 @@ function company_details(){
 function get_total_count(){
     $CI = & get_instance();
     $CI->load->model('Admin_model');
-     $clients_this_month = $CI->Admin_model->get_clients_this_month();
-        $tickets_this_month = $CI->Admin_model->get_tickets_this_month();
-        
-        $clients_array = array_column($clients_this_month, 'clients');
-        $tickets_array = array_column($tickets_this_month, 'tickets');
-        $data = array();
-        $data['total_clients'] = array_sum($clients_array);
-        $data['total_tickets'] = array_sum($tickets_array);
+    $data['total_clients'] = $CI->Admin_model->get_total_users(1);
+        $data['total_tickets'] = $CI->Admin_model->get_total(TBL_TICKETS);
+     
         return $data;
+}
+
+function get_social_media(){
+    $CI = & get_instance();
+    $CI->load->model('Admin_model');
+    $social_media = $CI->Admin_model->get_social_media();
+    return $social_media;
+}
+
+function get_page($id){
+    $CI = & get_instance();
+    $CI->load->model('Pages_model');
+    $result = $CI->Pages_model->get_page($id);
+    $name='#';
+    if(!empty($result)){
+        $page = $result[0];
+        $name = strtolower(str_replace(" ", "-", $page['navigation_name']));
+    }
+    return $name;
 }

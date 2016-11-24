@@ -1,3 +1,7 @@
+<?php
+            $segment = $this->uri->segment(4); 
+$seg = ($segment=='tenant') ? 'tenants' : 'staff';
+            ?>
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
@@ -16,7 +20,9 @@
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
             <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
-            <li><a href="<?php echo site_url($url); ?>"><i class="<?php echo $icon_class; ?> position-left"></i> <?php echo $page; ?></a></li>
+
+            <li><a href="<?php echo site_url('admin/'.$seg); ?>"><i class="<?php echo $icon_class; ?> position-left"></i> <?php echo $page; ?></a></li>
+
             <li class="active"><?php echo $title; ?></li>
         </ul>
     </div>
@@ -28,6 +34,10 @@
         <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
+<<<<<<< HEAD
+            // $segment = $this->uri->segment(4);
+=======
+>>>>>>> c90df325407447eba5ada80a9a33828f5b6d4255
             $edit_segment = $this->uri->segment(3);
 
             if (isset($user)) {

@@ -254,5 +254,10 @@ class Admin_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_social_media(){
+        $this->db->where('is_delete', 0);
+        $result = $this->db->get(TBL_SOCIAL_MEDIA);
+        return $result->result_array();
+    }
 
 }

@@ -50,8 +50,8 @@ class Dashboard extends CI_Controller {
         $this->data['title'] = $this->data['page_header'] = 'Dashboard';
         $this->data['icon_class'] = 'icon-home4';
         $this->data['total_departments'] = $this->Admin_model->get_total(TBL_DEPARTMENTS);
-        $this->data['total_tenants'] = $this->Admin_model->get_total_users(1);
         $this->data['total_staffs'] = $this->Admin_model->get_total_users(2);
+        $this->data['total_tenants'] = $this->Admin_model->get_total_users(1);
         $this->data['total_tickets'] = $this->Admin_model->get_total(TBL_TICKETS);
         $this->data['tickets'] = $this->Admin_model->get_tickets($type,10);
         $this->data['clients_chart'] = $clients_arr;
