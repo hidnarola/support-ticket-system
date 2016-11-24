@@ -76,8 +76,8 @@
                             
                             <div class="form-group">
                                 <label>Banner Url:</label>
-                                <input type="text" required="required" name="ext_url" id="ext_url" class="form-control" value="<?php echo isset($page_data['ext_url']) ? $page_data['ext_url'] : set_value('ext_url'); ?>">
-                                <?php echo '<label id="ext_url-error" class="validation-error-label" for="ext_url">' . form_error('ext_url') . '</label>'; ?>
+                                <input type="text" name="ext_url" id="ext_url" class="form-control" value="<?php echo isset($page_data['ext_url']) ? $page_data['ext_url'] : set_value('ext_url'); ?>">
+                                
                             </div>
 
                             <div class="text-right">
@@ -107,18 +107,8 @@
                     description: {
                         required: true,
                     },
-                    ext_url: {
-                        url: true
-                    },
-                    meta_title: {
-                        required: true
-                    },
-                    meta_description: {
-                        required: true,
-                    },
-                    meta_keyword: {
-                        required: true,
-                    },
+                   
+                    
                     banner_image: {
                         // required: true,
                         extension: "jpg|png|jpeg",

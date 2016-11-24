@@ -83,7 +83,7 @@ if ($this->session->flashdata('success')) {
                     <?php }else { ?>
                         <input type="checkbox" class="check_btn" checked="checked" value="1" data-id="<?php echo $page['id']; ?>" data-type="show_in_footer">
                     <?php } ?>
-                    </td>
+                    </td>   
                     </tr>
 <?php } ?>
             </tbody>

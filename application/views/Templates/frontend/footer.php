@@ -146,24 +146,22 @@
 
                             <div class="widget clearfix" style="margin-bottom: -20px;">
 
-                                <div class="row">
-
-                                    <div class="col-md-6 clearfix bottommargin-sm">
-                                        <a href="#" class="social-icon si-dark si-colored si-facebook nobottommargin" style="margin-right: 10px;">
-                                            <i class="icon-facebook"></i>
-                                            <i class="icon-facebook"></i>
+                                
+                                <div class="clearfix">
+                                    <?php $social_medias = get_social_media();
+                                       // pr($social_medias);
+                                     ?>
+                                     <?php foreach ($social_medias as $social_media) { ?>
+                                        
+                                        <a href="<?php echo $social_media['url']; ?>" class="social-icon si-small si-borderless" style="margin-right: 10px;">
+                                            <img style="width:30px;" src="<?php echo SOCIAL_IMAGE.'/'. $social_media['image']; ?>">
                                         </a>
-                                        <a href="#"><small style="display: block; margin-top: 3px;"><strong>Like us</strong><br>on Facebook</small></a>
-                                    </div>
-                                    <div class="col-md-6 clearfix">
-                                        <a href="#" class="social-icon si-dark si-colored si-rss nobottommargin" style="margin-right: 10px;">
-                                            <i class="icon-rss"></i>
-                                            <i class="icon-rss"></i>
-                                        </a>
-                                        <a href="#"><small style="display: block; margin-top: 3px;"><strong>Subscribe</strong><br>to RSS Feeds</small></a>
-                                    </div>
-
-                                </div>
+                                        
+                                        
+                                     <?php } ?>
+                                    
+</div>
+                                
 
                             </div>
 
@@ -181,7 +179,7 @@
 
                         <div class="col_half">
                             Copyrights &copy; 2014 All Rights Reserved by Manazel Specialists.<br>
-                            <div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
+                            <div class="copyright-links"><a href="<?php echo get_page(2); ?>">Terms of Use</a> / <a href="<?php echo get_page(3); ?>">Privacy Policy</a></div>
                         </div>
 
                         <div class="col_half col_last tright">
@@ -239,7 +237,7 @@
             </footer><!-- #footer end -->
             <script type="text/javascript">
                 jQuery(document).ready(function($) {
-                    $('a.sf-with-ul').click(function(event) {
+                    $('a[href="#"]').click(function(event) {
                         event.preventDefault();
                     });
                 });

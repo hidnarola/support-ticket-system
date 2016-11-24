@@ -78,7 +78,7 @@
                                     ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
-                                        <td><img style="width:80px;" src="<?php echo SOCIAL_IMAGE.'/'.$record['image']; ?>"></td>
+                                        <td><img style="width:30px;" src="<?php echo SOCIAL_IMAGE.'/'.$record['image']; ?>"></td>
                                         <td><?php echo $record['url']; ?></td>
                                         <td>
                                             <ul class="icons-list">
