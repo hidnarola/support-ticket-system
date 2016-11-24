@@ -23,7 +23,7 @@
                     <?php
                 }
                 ?>
-                <form id="ticket-add-form" name="register-form" class="nobottommargin" action="tickets/add" method="post">
+                <form id="ticket-add-form" name="register-form" class="nobottommargin" action="tickets/add" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col_full" style="margin-bottom: 0">
@@ -91,25 +91,21 @@
                                 <?php echo '<label id="priority_id-error" class="validation-error-label" for="priority_id">' . form_error('priority_id') . '</label>'; ?>
                             </div>
                         </div>
-                        <!--                        <div class="col-sm-6">
+                                               <div class="col-sm-6">
                                                     <div class="col_full">
-                                                        <label>Ticket Category:</label>
-                        
-                                                        <select class="form-control" name="category_id" required="" id="category_id">
-                                                            <option selected="" value="">Select Ticket Category</option> 
-                        <?php
-                        foreach ($tickets_categories as $row) {
-                            if ($ticket->category_id == $row['id']) {
-                                echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
-                            } else {
-                                echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
-                            }
-                        }
-                        ?>
-                                                        </select>
-                        <?php echo '<label id="category_id-error" class="validation-error-label" for="category_id">' . form_error('category_id') . '</label>'; ?>
+                                                        <label>Upload Image:</label>
+                            <style>.btn-file {cursor: pointer;margin-top: 5px;overflow: hidden;position: relative; text-transform: uppercase;}
+                                        .btn-file input[type=file] {background: white;cursor: inherit;display: block;font-size: 100px;  min-height: 100%; min-width: 100%;opacity: 0;outline: medium none;position: absolute;right: 0; text-align: right;top: -16px; z-index: 99;}
+                                    </style>
+                                                        <div class="btn-file">
+                                                <input type="file" name="ticket_image" id="ticket_image">
+                                                <span class="custom-file-control"></span>
+                                                <button type="submit" class="button button-light nomargin" id="submit" name="save" value="save">Upload</button>
+                                        <span class="help-block">Accepted formats: gif, png, jpg, Max file size 2Mb</span>
+                                            </div>
+                       
                                                     </div>
-                                                </div>-->
+                                                </div>
                     </div>
 
                     <div class="row">

@@ -428,8 +428,9 @@
             }).done(function (data) {
                 console.log(data);
                 $("select#staff_val").html(data);
+                    $("select#staff_val").select2();
+                $('#staff_id').show();
             });
-            $('#staff_id').show();
             $('#priority_id').hide();
             $('#status_id').hide();
             $('#dept_id').hide();

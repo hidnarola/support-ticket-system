@@ -37,6 +37,8 @@ class Dashboard extends CI_Controller {
         // pr($tickets_this_month);
         $clients_array = array_column($clients_this_month, 'clients');
         $tickets_array = array_column($tickets_this_month, 'tickets');
+        $this->data['total_clients'] = array_sum($clients_array);
+        $this->data['total_tickets'] = array_sum($tickets_array);
 
         foreach ($clients_this_month as $client) {
             $clients_arr[$client['day']-1] = (int)$client['clients'];
@@ -58,8 +60,6 @@ class Dashboard extends CI_Controller {
         $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
         $this->data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
         $this->data['priorities'] = $this->Admin_model->get_records(TBL_TICKET_PRIORITIES);
-        $this->data['total_clients'] = array_sum($clients_array);
-        $this->data['total_tickets'] = array_sum($tickets_array);
         $this->template->load('admin', 'Admin/Dashboard/index', $this->data);
     }
 
@@ -96,8 +96,10 @@ class Dashboard extends CI_Controller {
                 );
                 if($type == 'departments'){
                     $series_name = $this->get_series_name($name);
+                    // var_dump($series_name);
                     $record_array['series_name']= $series_name;
                 }
+                // pr($record_array,1);
                 if ($record_id != '') {
                     $record_exist_condition = array(
                         'id' => $record_id
@@ -300,16 +302,45 @@ class Dashboard extends CI_Controller {
 
         
         if($word_cnt > 1){
-                
+            if($i==0){
             foreach ($words as $w) {
+                
                 $acronym .= strtoupper($w[0]);
             }
-            
             }else{
-                $acronym = strtoupper(substr(reset($words), 0, 3));
+               $j=1;
+              foreach ($words as $w) {
+                if($j==$i){
+                    
+                    $acronym .= strtoupper(substr($w, 0, $i));
+                    
+                }else if($i%$j==0){
+                    $acronym .= strtoupper(substr($w, 0, $i));
+
+                }else{
+                    $acronym .= strtoupper($w[0]);
+                }
+                $j++;
+            }  
             }
-                
-        return $acronym;
+            }else{
+                $j=3;
+                if($i>0)
+                    $acronym = strtoupper(substr(reset($words), 0, $j+$i));
+            }
+            $turn=$i+1;
+              
+              $conditions=array('series_name'=>$acronym);
+              $check = $this->Admin_model->record_exist(TBL_DEPARTMENTS, $conditions);
+
+            if($check>0){
+                return $this->get_series_name($name, $turn);
+            }else{
+                // echo 'here'; exit;
+              return $acronym;
+                //exit;
+            }
+            
     }
 
     public function series_no(){

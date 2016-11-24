@@ -49,7 +49,7 @@ class Tickets extends CI_Controller {
             $this->data['title'] = $this->data['page_header'] = 'Add ticket';
             $this->template->load('admin', 'Admin/Tickets/add', $this->data);
         } else {
-
+            $getDeptStaff = $this->Ticket_model->getDeptStaff($this->input->post('dept_id'));
             $data = array(
                 'user_id' => $this->input->post('user_id'),
                 'title' => $this->input->post('title'),
@@ -60,7 +60,8 @@ class Tickets extends CI_Controller {
                 'description' => $this->input->post('description'),
                 'is_delete' => 0,
                 'created' => date('Y-m-d H:i:s'),
-                'created_by' => $created_by
+                'created_by' => $created_by,
+                'staff_id'=>$getDeptStaff
             );
 //                    pr($data, 1);
             $this->Admin_model->manage_record($this->table, $data);
@@ -75,7 +76,7 @@ class Tickets extends CI_Controller {
             );
             $upadte = $this->Admin_model->manage_record($this->table, $ticArray, $lastTicketId);
 
-            $getDeptStaff = $this->Ticket_model->getDeptStaff($dept_id);
+            
 //            echo $getDeptStaff;
             $getStaffEmail = $this->Ticket_model->getStaffEmail($getDeptStaff);
 //            echo $getStaffEmail;exit;
@@ -197,9 +198,10 @@ class Tickets extends CI_Controller {
 
         $update_data = array();
         if ($type == 'dept_id') {
+            $getDeptStaff = $this->Ticket_model->getDeptStaff($dept_id);
             $update_data = array(
                 'dept_id' => $dept_id,
-                    //'staff_id'=>NULL
+                'staff_id'=>$getDeptStaff
             );
 //            echo $dept_id;
             $get_ticket = $this->User_model->getFieldById($record_id, 'dept_id', TBL_TICKETS);

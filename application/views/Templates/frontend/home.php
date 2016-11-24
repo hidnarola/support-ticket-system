@@ -81,9 +81,10 @@
                                     <a href="#" class="sf-with-ul"><div>Knowledge Base</div></a>                                        <ul>
                                             <li><a href="knowledgebase"><div>Articles</div></a></li>                                      
                                             <li><a href="faq"><div>FAQ'S</div></a></li>                                      
-                                            <li><a href="news"><div>News</div></a></li>
-                                            <li><a href="announcements"><div>Announcements</div></a></li>
-                                        </ul>
+                                            </ul>
+                                    </li>
+                                    <li class="mega-menu <?php echo ($page == 'news') ? 'current' : ''; ?>"><a href="news"><div>News</div></a></li>
+                                    <li class="mega-menu <?php echo ($page == 'announcements') ? 'current' : ''; ?>"><a href="announcements"><div>Announcements</div></a></li>
                                     </li>
                                 <?php } ?>
                                <?php 

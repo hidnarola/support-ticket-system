@@ -72,7 +72,13 @@ if ($this->input->get('filter'))
 
                                     <div class="col-md-2 col-sm-2 col-xs-12">
                                         <div class="ticket-img">
+                                        <?php if($record['image']!=''){ ?>
+
+                                            <img src="<?php echo TICKET_MEDIUM_IMAGE.'/'.$record['image'] ?>"/>
+                                        <?php }else{ ?>
                                             <img src="assets/frontend/images/restaurant/slider/3.jpg"/>
+                                        <?php }?>
+                                        
                                         </div>
                                     </div>
                                     <div class="col-md-10 col-sm-10 col-xs-12">

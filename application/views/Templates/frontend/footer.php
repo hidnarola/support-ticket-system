@@ -123,7 +123,7 @@
 
                                     <div class="col-md-6 bottommargin-sm">
                                         <div class="counter counter-small"><span data-from="2" data-to="<?php echo $total_counts['total_clients'] ?>" data-refresh-interval="20" data-speed="2000" data-comma="true"></span></div>
-                                        <h5 class="nobottommargin">Clients</h5>
+                                        <h5 class="nobottommargin">Tenants</h5>
                                     </div>
 
                                 </div>
@@ -237,3 +237,10 @@
                 </div><!-- #copyrights end -->
 
             </footer><!-- #footer end -->
+            <script type="text/javascript">
+                jQuery(document).ready(function($) {
+                    $('a.sf-with-ul').click(function(event) {
+                        event.preventDefault();
+                    });
+                });
+            </script>

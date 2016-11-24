@@ -105,10 +105,19 @@ class Users extends CI_Controller {
                 $this->Admin_model->manage_record($this->table, $data);
                 $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
                 if ($role_id == 2) {
+                    $conditions = array('is_head'=>1,
+                        'dept_id'=>$this->input->post('dept_id'),
+                        'is_delete'=>0
+                        );
+                    $if_first = $this->Admin_model->record_exist(TBL_STAFF, $conditions);
+
                     $staff_array = array(
                         'user_id' => $lastUserId,
                         'dept_id' => $this->input->post('dept_id')
                     );
+                    if($if_first==0){
+                        $staff_array['is_head'] =1;
+                    }
                     $this->Admin_model->manage_record(TBL_STAFF, $staff_array);
                 }
 
@@ -144,7 +153,7 @@ class Users extends CI_Controller {
                 $this->email->subject('Your account is registred for dev.supportticket.com');
                 $this->email->message($msg);
                 $this->email->send();
-                $this->email->print_debugger();
+                // $this->email->print_debugger();
 
                 // $this->email->print_debugger();
 // pr($data, 1);
@@ -405,10 +414,11 @@ class Users extends CI_Controller {
 
     public function assign_head() {
         $id = $this->input->post('id');
+        $dept = $this->input->post('dept');
         $action = ($this->input->post('action') == 'assign') ? 1 : 0;
         if ($id != null) {
             $record_id = base64_decode($id);
-
+            $this->User_model->updateField('dept_id', $dept, 'is_head', 0, TBL_STAFF);
             $this->User_model->updateField('user_id', $record_id, 'is_head', $action, TBL_STAFF);
             if ($action == 0) {
                 $this->session->set_flashdata('success_msg', 'Unassigned successfully!');

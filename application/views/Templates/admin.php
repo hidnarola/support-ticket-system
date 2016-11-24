@@ -160,12 +160,9 @@
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
                                     <li class="<?php echo ($current_page == 'news_announcements') ? 'active' : ''; ?>"><a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a></li>
-                                    <li class="<?php echo ($page == 'media') ? 'active' : ''; ?>"><a href="admin/media"><i class="icon-images3"></i> <span>Media</span></a>
-                                        <ul>
-                                            <li class="<?php echo ($current_page == 'home_slider') ? 'active' : ''; ?>"><a href="admin/media/home_slider"><i class="icon-image3"></i> <span>Home Page Slider</span></a></li>
-                                            <!-- <li class="<?php // echo ($current_page == 'gallery') ? 'active' : ''; ?>"><a href="admin/media/gallery"><i class="icon-images2"></i> <span>Gallery Page</span></a></li> -->
-
-                                        </ul>
+                                    <li class="<?php echo ($page == 'home_slider') ? 'active' : ''; ?>"><a href="admin/home_slider"><i class="icon-images3"></i> <span>Home Page Slider</span></a>
+                                    </li>
+                                     <li class="<?php echo ($page == 'social_media') ? 'active' : ''; ?>"><a href="admin/social_media"><i class="icon-facebook"></i> <span>Social Media</span></a>
                                     </li>
                                     <li class="<?php echo (in_array($page, $knowledgebase)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-book"></i><span>Knowledge Base</span></a>

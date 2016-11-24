@@ -206,6 +206,7 @@ $segment = $this->uri->segment(1);
 
         </div>
     </div>
+
 </div>
 <style>
     .loading-image {
@@ -245,6 +246,7 @@ $segment = $this->uri->segment(1);
     });
 
     var base_url = '<?php echo base_url(); ?>admin/';
+
     $(document).on('click', 'a.chang_pwdd', function () {
         var modal_title = $(this).attr('data-modal-title');
         var action = $(this).attr('data-act');
@@ -252,7 +254,6 @@ $segment = $this->uri->segment(1);
         // var id = $(this).attr('id').replace('changedept_', '');
         var id = $(this).attr('data-record');
         $('#hidden_id').val(id);
-        var selected = '';
         if (action == 'dept') {
             selected = $(this).attr('data-dept');
             $("#dept_val").val(selected);
@@ -266,6 +267,7 @@ $segment = $this->uri->segment(1);
             $('.validation-error-label').hide();
             var card = document.getElementById("dept_val");
             var select_data = card.selectedIndex;
+            var selected = '';
         } else if (action == 'status') {
             selected = $(this).attr('data-status');
             $("#status_val").val(selected);
@@ -292,8 +294,13 @@ $segment = $this->uri->segment(1);
             //                var id = $(this).attr('id').replace('changepriority_', '');
             var action_type = 'priority_id';
             $('.validation-error-label').hide();
+<<<<<<< HEAD
         } else if (action == 'assign') {
             selected = $(this).attr('data-staff');
+=======
+        }else if (action == 'assign') {
+            selected  = $(this).attr('data-staff');
+>>>>>>> 5b9d553d3e4a7ed095b6764a424c6e0f021567ab
             $("#staff_val").val(selected);
             $("#staff_val").select2();
             var dept = $(this).attr('data-dept');
@@ -304,8 +311,9 @@ $segment = $this->uri->segment(1);
             }).done(function (data) {
                 console.log(data);
                 $("select#staff_val").html(data);
+                    $("select#staff_val").select2();
+                $('#staff_id').show();
             });
-            $('#staff_id').show();
             $('#priority_id').hide();
             $('#status_id').hide();
             $('#dept_id').hide();
@@ -322,12 +330,16 @@ $segment = $this->uri->segment(1);
         }
         $('.modal-title').html(modal_title);
         var select = card.selectedIndex;
+        console.log("select", select);
+
         var hidden_val = select;
         $('#hidden_value').val(hidden_val);
         $('#select_type').val(action_type);
     });
     $(function () {
         $("#change_action").submit(function (event) {
+            // var card = document.getElementById("staff_val");
+            // var select_data = card.selectedIndex;
             var url = $(this).attr('action');
             $('.loader').show();
             $.ajax({
@@ -335,8 +347,6 @@ $segment = $this->uri->segment(1);
                 data: {form: $('#change_action').serialize()},
                 type: $(this).attr('method')
             }).done(function (data) {
-                // console.log("data", data);
-                // return false;
                 if (data = 'success') {
                     $('#modal_theme_success').modal('hide');
                     $('#change_action')[0].reset();
@@ -346,7 +356,10 @@ $segment = $this->uri->segment(1);
                     $('#staff_val').val('');
                     $('#status_val').val('');
                     $('#priority_val').val('');
+<<<<<<< HEAD
                     $('.loader').hide();
+=======
+>>>>>>> 5b9d553d3e4a7ed095b6764a424c6e0f021567ab
                     window.location.reload();
                 } else {
                 }

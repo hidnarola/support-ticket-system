@@ -103,6 +103,7 @@
                         </thead>
                         <tbody>
                             <?php
+
                             foreach ($users as $key => $record) {
                                 $is_head = '';
                                 if ($seg == 'staff') {
@@ -166,7 +167,7 @@
 
                                                     ?>
                                                 <?php if ($seg == 'staff') { ?>
-                                                 <li><a class="assign_head" data-action="<?php echo ($is_head) ? 'unassign' : 'assign'; ?>" id="assign_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-user"></i> <?php echo ($is_head) ? 'Unassign as Head Staff' : 'Assign as Head Staff'; ?></a></li>
+                                                 <li><a class="assign_head" data-dept="<?php echo $record['dept_id']; ?>" data-action="<?php echo ($is_head) ? 'unassign' : 'assign'; ?>" id="assign_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-user"></i> <?php echo ($is_head) ? 'Unassign as Head Staff' : 'Assign as Head Staff'; ?></a></li>
                                                 <?php } ?>
                                                 </ul>
                                             </li>
@@ -325,13 +326,14 @@
         $(document).on('click', 'a.assign_head', function () {
             var action = $(this).attr('data-action');
             var id = $(this).attr('data-record');
+            var dept = $(this).attr('data-dept');
             var url = base_url + 'users/assign_head';
             $.ajax({
                 type: 'POST',
                 url: url,
                 async: false,
                 dataType: 'JSON',
-                data: {id: id, action: action},
+                data: {id: id, action: action, dept: dept},
                 success: function (data) {
                     window.location.reload();
                 }

@@ -69,14 +69,19 @@ function check_if_staff_validated() {
 
 function check_if_support_login(){
     $ci = & get_instance();
-    if (!$ci->session->userdata('staffed_logged_in') && !$ci->session->userdata('admin_logged_in')) {
+    $url = $ci->uri->uri_string(); 
+    $url_array = explode("/", $url);
+    $role = reset($url_array); 
+    $flag=0;
+    if ($ci->session->userdata('staffed_logged_in') && $role!='staff') {
+        $flag=1;
+    }
+    if($ci->session->userdata('admin_logged_in') && $role!='admin'){
+        $flag=1;
+    }
+    
+    if($flag==1){
         $ci->session->set_flashdata('error_msg', "You are not authorized to access this page. Please login!");
-        if (isset($_SERVER['HTTP_REFERER'])) {
-            $redirect_to = str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
-        } else {
-            $redirect_to = $ci->uri->uri_string();
-        }
-//        redirect('home?redirect=' . base64_encode($redirect_to));
         redirect('support/login');
     }
 }

@@ -13,24 +13,46 @@
 </div>
 
 <div class="content">
+
     <?php $this->load->view('admin/message_view'); ?>
+    <div class="panel panel-flat">
+    <div class="panel-heading"></div>     
+    <div class="panel-body">
     <div class="form-group">
-        <label class="col-lg-2 control-label text-semibold">Upload:</label>
+        <label class="col-lg-2 control-label text-semibold text-center">Upload:</label>
         <div class="col-lg-10">
             <input type="file" class="file-input-ajax" multiple="multiple">
         </div>
     </div>
+    </div>
+    </div>
 
-    <div class="panel">
+    <div class="panel panel-flat">
     <div class="panel-heading"></div>     
     <div class="panel-body">
+    <div class="col-md-12">
         
+            <?php //pr($images); ?>
+            <?php foreach ($images as $image) { ?>
+        <div class="col-md-3 home_image text-center">
+        <div class="row ">
+                <a class="fancybox" href="<?php echo HOME_IMAGE.'/'.$image['image']; ?>" data-fancybox-group="gallery"><img src="<?php echo HOME_MEDIUM_IMAGE.'/'.$image['image']; ?>" alt="" /></a>
+                </div><div class="row">
+                <a class="text-danger-600 delete" onClick="return confirm('Are you sure you want to delete?')" href="admin/media/delete/<?php echo base64_encode($image['id']); ?>" data-record=""><i class="icon-trash"></i></a>
+                </div>
+
+        </div>
+            <?php } ?>
+    </div>     
     </div>     
     </div>
 </div>
 <script type="text/javascript" src="assets/admin/js/plugins/uploaders/fileinput.min.js"></script>
+<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
 <script type="text/javascript">
 $(function() {
+    $('.fancybox').fancybox();
     var base_url = "<?php echo base_url(); ?>";
     var controller = '/media';
     var upload_url = base_url + '/admin' +controller + '/file_upload/home';
@@ -40,8 +62,8 @@ $(function() {
         maxFileCount: 5,
         initialPreview: [],
         fileActionSettings: {
-            removeIcon: '<i class="icon-bin"></i>',
-            removeClass: 'btn btn-link btn-xs btn-icon',
+            // removeIcon: '<i class="icon-bin"></i>',
+            // removeClass: 'btn btn-link btn-xs btn-icon',
             uploadIcon: '<i class="icon-upload"></i>',
             uploadClass: 'btn btn-link btn-xs btn-icon',
             indicatorNew: '<i class="icon-file-plus text-slate"></i>',
@@ -49,10 +71,10 @@ $(function() {
             indicatorError: '<i class="icon-cross2 text-danger"></i>',
             indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>',
         }
-    }).on('filebatchpreupload', function(event, data, id, index) {
-        }).on('filebatchuploadsuccess', function(event, data) {
-            console.log(data);
-            // window.location.reload();
+    }).on('fileuploaded', function(event, data) {
+            window.location.reload(true);
+
+            
     });
 });
 </script>
