@@ -277,6 +277,35 @@
         </div>
     </div>
 </div>
+<style>
+    .loading-image {
+        background: #fff none repeat scroll 0 0;
+        border-radius: 5px;
+        left: 50%;
+        padding: 10px;
+        position: absolute;
+        top: 50%;
+        z-index: 10;
+    }
+    .loader{
+        display: none;
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+        bottom: 0;
+        left:0;
+        overflow: auto;
+        position: fixed;
+        right: 0;
+        text-align: center;
+        top: 0;
+        z-index: 9999;
+
+    }
+</style>
+<div class="loader">
+    <center>
+        <img class="loading-image" src="assets/frontend/images/preloader@2x.gif" alt="loading..">
+    </center>
+</div>
 <!-- /success modal -->
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -428,6 +457,7 @@
             // var card = document.getElementById("staff_val");
             // var select_data = card.selectedIndex;
             var url = $(this).attr('action');
+             $('.loader').show();
             $.ajax({
                 url: url,
                 data: {form: $('#change_action').serialize()},
@@ -442,6 +472,7 @@
                     $('#staff_val').val('');
                     $('#status_val').val('');
                     $('#priority_val').val('');
+                    $('.loader').hide();
                     window.location.reload();
                 } else {
                 }

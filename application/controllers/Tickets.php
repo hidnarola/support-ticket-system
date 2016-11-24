@@ -186,7 +186,7 @@ class Tickets extends CI_Controller {
                         'sent_from' => $userid
                     );
                     if ($this->Ticket_model->save_ticket_conversation($msg_data)) {
-                        $this->session->set_flashdata('success_msg', 'Message sent successfully.');
+                        $this->session->set_flashdata('success_msg', 'Comment sent successfully.');
                     } else {
                         $this->session->set_flashdata('error_msg', 'Unable to send message.');
                     }

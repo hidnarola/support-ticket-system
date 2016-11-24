@@ -72,7 +72,7 @@
                                         </tr>
                                         <tr class="alpha-teal">
                                             <th>Tenant</th>
-                                            <td><?php echo $ticket->fname . ' ' . $ticket->lname; ?></td>
+                                            <td><a href="#" data-toggle="modal" data-target="#modal_theme_success"><?php echo $ticket->fname . ' ' . $ticket->lname; ?></a></td>
                                         </tr>
                                         <tr>
                                             <th>Title</th>
@@ -242,23 +242,45 @@
                     </div>	
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Success modal -->
+<div id="modal_theme_success" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal-400">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Tenant Details</h6>
+            </div>
+            <div class="modal-body panel-body login-form" id="password_form" >
+                <table class="table table-striped table-bordered newTickets ticket_details" data-alert="" data-all="189">
+                    <tbody>
+                        <tr>
+                            <th>Tenant Name</th>
+                            <td><?php echo $user['fname'] . ' ' . $user['lname']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Email ID</th>
+                            <td><?php echo $user['email']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Contact No.</th>
+                            <td><?php echo $user['contactno']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Address </th>
+                            <td><?php echo $user['address']; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
 
 
-            <!--            <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <h6 class="panel-title"><?php echo $ticket->title; ?></h6>
-                                <div class="heading-elements">
-                                    <ul class="icons-list">
-                                        <li><a data-action="collapse"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-            
-                            
-                        </div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-teal legitRipple" data-dismiss="modal">Close</button>
+            </div>          
 
-
-            <!-- /vertical form -->
         </div>
     </div>
 </div>

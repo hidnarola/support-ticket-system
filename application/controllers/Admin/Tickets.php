@@ -529,7 +529,8 @@ class Tickets extends CI_Controller {
             $record_id = base64_decode($id);
             $ticket = $this->Ticket_model->get_ticket($record_id);
             $this->data['ticket_coversation'] = $this->Ticket_model->get_ticket_conversation($record_id);
-//            pr($this->data['ticket_coversation'],1);
+            $this->data['user'] = $this->User_model->getUserById($ticket->user_id);
+//            pr($this->data['user'],1);
             $sent_from = $this->session->userdata('admin_logged_in')['id'];
             if ($segment == 'staff') {
                 $sent_from = $this->session->userdata('staffed_logged_in')['id'];
@@ -581,7 +582,7 @@ class Tickets extends CI_Controller {
                         'sent_from' => $sent_from
                     );
                     if ($this->Ticket_model->save_ticket_conversation($msg_data)) {
-                        $this->session->set_flashdata('success_msg', 'Message send successfully.');
+                        $this->session->set_flashdata('success_msg', 'Comment sent successfully.');
                     } else {
                         $this->session->set_flashdata('error_msg', 'Unable to send message.');
                     }

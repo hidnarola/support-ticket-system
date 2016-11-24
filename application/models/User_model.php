@@ -244,7 +244,7 @@ class User_model extends CI_Model {
         $q = $this->db->get(TBL_USERS);
         return $q->row_array();
     }
-    
+
     public function getUserByIdEmail($id, $email) {
 //        echo $id;
         $this->db->select('*');
@@ -389,32 +389,55 @@ class User_model extends CI_Model {
         $this->db->update(TBL_USERS, $data);
     }
 
-
-     public function get_result($table,$condition = null) {
+    public function get_result($table, $condition = null) {
         $this->db->select('*');
-        if(!is_null($condition)){
-            $this->db->where($condition);                
+        if (!is_null($condition)) {
+            $this->db->where($condition);
         }
         $query = $this->db->get($table);
         return $query->result_array();
     }
 
-
-    public function idexists($id){
+    public function idexists($id) {
         $this->db->select('id');
         $this->db->where("id", $id);
         $query = $this->db->get(TBL_USERS);
         if ($query->num_rows() > 0) {
             return TRUE;
-        }else{
+        } else {
             return FALSE;
         }
     }
+
     public function get_company_details() {
         $this->db->from(TBL_SETTINGS);
         $this->db->like('key', 'company');
         return $this->db->get()->result_array();
     }
 
+    public function email_exists($email) {
+        $this->db->where("email", $email);
+        $query = $this->db->get(TBL_USERS);
+        if ($query->num_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function get_User_by_email($email) {
+        $this->db->where("email", $email);
+        $this->db->where("is_delete", 0);
+        $query = $this->db->get(TBL_USERS);
+        return $query->row();
+    }
+
+    public function reset_password($password, $email) {
+        $data = array(
+            'password' => $password
+        );
+        $this->db->where('email', $email);
+        $this->db->where('is_delete', 0);
+        return $this->db->update(TBL_USERS, $data);
+    }
 
 }

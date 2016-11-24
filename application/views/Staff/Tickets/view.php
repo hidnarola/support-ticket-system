@@ -1,6 +1,5 @@
-<style> .fancy-title.title-dotted-border {
-        background: url(assets/frontend/images/icons/dotted.png) repeat-x center;
-    }
+<style> 
+    .fancy-title.title-dotted-border {background: url(assets/frontend/images/icons/dotted.png) repeat-x center;}
     .title-center {
         text-align: center;
     }
@@ -17,6 +16,15 @@
     }
     .title-center h3 {
         padding: 0 15px;
+    }
+
+    .ticket_details > .panel-heading {
+        background-color: #333;
+        border-color: #ddd;
+        color: #fff;
+    }
+    .alpha-teal {
+        background-color: #e0f2f1 !important;
     }
 </style>
 <div class="page-header page-header-default">
@@ -97,22 +105,25 @@
                                     <tbody>
                                         <tr class="alpha-teal">
                                             <th>Series No.</th>
-                                            <td><?php echo $ticket->series_no ?></td>
+                                            <td><?php
+                                                echo $ticket->series_no
+                                                ?></td>
                                         </tr>
                                         <tr>
                                             <th>Assign To</th>
-                                           <td><?php
+                                            <td><?php
                                                 if ($ticket->staff_fname != '' && $ticket->staff_lname != '') {
 
                                                     echo $ticket->staff_fname . ' ' . $ticket->staff_lname;
-                                                } else { ?>
+                                                } else {
+                                                    ?>
                                                     <span class="label label-success">Free</span>
-                                               <?php }
+                                                <?php }
                                                 ?></td>
                                         </tr>
                                         <tr class="alpha-teal">
                                             <th>Tenant</th>
-                                            <td><?php echo $ticket->fname . ' ' . $ticket->lname; ?></td>
+                                            <td><a href="#" data-toggle="modal" data-target="#modal_theme_success"><?php echo $ticket->fname . ' ' . $ticket->lname; ?></a></td>
                                         </tr>
                                         <tr>
                                             <th>Title</th>
@@ -160,7 +171,7 @@
                                 </li>
                                 <?php
                                 foreach ($value as $val) {
-                                    //pr($val);
+                                    
                                     if ($val['sent_from'] != $this->session->userdata('staffed_logged_in')['id']) {
                                         ?>
 
@@ -175,19 +186,19 @@
                                                             <img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>" class="img-circle" alt="">
                                                         </a>
                                                         <!--<div class="media-left"><img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?> " class="img-circle" alt=""></div>-->
-                                                        <?php } else { ?>
-                                                            <a href="assets/admin/images/placeholder.jpg">
-                                                                <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
-                                                            </a>
-
-                                                            <?php
-                                                        }
-                                                    } else {
-                                                        ?>
+                                                    <?php } else { ?>
                                                         <a href="assets/admin/images/placeholder.jpg">
                                                             <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
                                                         </a>
-                                                    <?php } ?>
+
+                                                        <?php
+                                                    }
+                                                } else {
+                                                    ?>
+                                                    <a href="assets/admin/images/placeholder.jpg">
+                                                        <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
+                                                    </a>
+                                                <?php } ?>
 
                                                 </a>
                                             </div>
@@ -197,14 +208,14 @@
                                                     <div class="media-heading">
                                                         <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
                                                         <span><strong><br><?php
-                                                            if ($val['role_id'] == 1) {
-                                                                echo 'Tenant';
-                                                            } elseif ($val['role_id'] == 2) {
-                                                                echo 'staff';
-                                                            } elseif ($val['role_id'] == 3) {
-                                                                echo 'Admin';
-                                                            }
-                                                            ?></strong></span>
+                                                                if ($val['role_id'] == 1) {
+                                                                    echo 'Tenant';
+                                                                } elseif ($val['role_id'] == 2) {
+                                                                    echo 'staff';
+                                                                } elseif ($val['role_id'] == 3) {
+                                                                    echo 'Admin';
+                                                                }
+                                                                ?></strong></span>
                                                     </div>
                                                 <?php } ?>
                                                 <div class="media-content"><?php echo $val['message']; ?></div>
@@ -217,7 +228,7 @@
                                         <li class="media reversed">
                                             <div class="media-body">
                                                 <div class="media-heading">
-                                                      <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                    <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
                                                     <span><strong><br><?php
                                                             if ($val['role_id'] == 1) {
                                                                 echo 'Tenant';
@@ -242,19 +253,19 @@
                                                             <img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?>" class="img-circle" alt="">
                                                         </a>
                                                         <!--<div class="media-left"><img src="<?php echo base_url() . USER_PROFILE_IMAGE . '/' . $val['profile_pic'] ?> " class="img-circle" alt=""></div>-->
-                                                        <?php } else { ?>
-                                                            <a href="assets/admin/images/placeholder.jpg">
-                                                                <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
-                                                            </a>
-
-                                                            <?php
-                                                        }
-                                                    } else {
-                                                        ?>
+                                                    <?php } else { ?>
                                                         <a href="assets/admin/images/placeholder.jpg">
                                                             <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
                                                         </a>
-                                                    <?php } ?>
+
+                                                        <?php
+                                                    }
+                                                } else {
+                                                    ?>
+                                                    <a href="assets/admin/images/placeholder.jpg">
+                                                        <img src="assets/admin/images/placeholder.jpg" class="img-circle" alt="">
+                                                    </a>
+                                                <?php } ?>
                                             </div>
                                         </li>
                                         <?php
@@ -285,14 +296,42 @@
         </div>
     </div>
 </div>	
+<!-- Success modal -->
+<div id="modal_theme_success" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal-400">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Tenant Details</h6>
+            </div>
+            <div class="modal-body panel-body login-form" id="password_form" >
+                <table class="table table-striped table-bordered newTickets ticket_details" data-alert="" data-all="189">
+                    <tbody>
+                        <tr>
+                            <th>Tenant Name</th>
+                            <td><?php echo $user['fname'] . ' ' . $user['lname']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Email ID</th>
+                            <td><?php echo $user['email']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Contact No.</th>
+                            <td><?php echo $user['contactno']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Address </th>
+                            <td><?php echo $user['address']; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-<style>
-    .ticket_details > .panel-heading {
-        background-color: #333;
-        border-color: #ddd;
-        color: #fff;
-    }
-    .alpha-teal {
-        background-color: #e0f2f1 !important;
-    }
-</style>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-teal legitRipple" data-dismiss="modal">Close</button>
+            </div>          
+
+        </div>
+    </div>
+</div>

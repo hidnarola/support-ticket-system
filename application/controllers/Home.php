@@ -442,9 +442,97 @@ class Home extends CI_Controller {
         echo json_encode($data);
         exit;
     }
-    
-    public function forgot_password(){
-        
+
+    public function forgot_password() {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        if ($this->form_validation->run() === FALSE) {
+            $data['title'] = 'Forgot Password';
+            $data['header_title'] = 'Forgot Password';
+            $this->template->load('frontend/page', 'Frontend/User/forgot_password', $data);
+        } else {
+            $email = $this->input->post('email');
+            if ($this->User_model->email_exists($email) == true) {
+                $user = $this->User_model->get_User_by_email($email);
+                $user_name = $user->fname . ' ' . $user->lname;
+                $pass = $user->password;
+                $decrypted_pass = $this->encrypt->decode($pass);
+                $configs = mail_config('service');
+                $unique_code = $this->encrypt->encode($email);
+                $url = 'http://' . $_SERVER['SERVER_NAME'] . '/home/reset_password?key=' . urlencode($unique_code);
+                $message = 'Hello ' . $user_name . ',<br/><br/> Please follow this link to reset your password<br/>
+                    <a href="' . $url . '">' . $url . '</a>
+                <br/><br/>Thank You.';
+//       
+//                $this->load->library('email', $configs);
+                $configs = mail_config();
+                $this->load->library('email', $configs);
+                $this->email->initialize($configs);
+                $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+                $this->email->to($email);
+                $this->email->subject('Reset Password');
+                $this->email->message($message);
+                $e = $this->email->send();
+                if ($e) {
+                    $this->session->set_flashdata('success_msg', 'Email successfully sent.');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Email could not be sent.');
+                    show_error($this->email->print_debugger());
+                }
+            } else {
+                $this->session->set_flashdata('error_msg', 'This email is not in use.. Please enter valid email.');
+            }
+            redirect('home/forgot_password');
+        }
+    }
+
+    public function reset_password() {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('password', 'Passsword', 'required');
+        $this->form_validation->set_rules('confirm_password', 'Confirm Passsword', 'required');
+
+        if ($this->form_validation->run() === FALSE) {
+            $data['title'] = 'Reset Password';
+            $data['header_title'] = 'Reset Password';
+            $this->template->load('frontend/page', 'Frontend/User/reset_password', $data);
+        } else {
+            if (isset($_GET['key']) && $_GET['key'] != '') {
+                $key = $_GET['key'];
+                $email = $this->encrypt->decode($key);
+                if ($email != '') {
+                    if ($this->User_model->email_exists($email) == true) {
+                        $pass = $this->input->post('password');
+                        $confirm_pass = $this->input->post('confirm_password');
+                        if ($pass != $confirm_pass) {
+                            $this->session->set_flashdata('error_msg', 'Password Mismatch.');
+                            redirect('home/reset_password?key=' . $key);
+                        } else {
+                            $encrypted_pass = $this->encrypt->encode($pass);
+                            if ($this->User_model->reset_password($encrypted_pass, $email)) {
+                                $this->session->set_flashdata('success_msg', 'Password Reset Successfully.');
+                                redirect('login');
+                            } else {
+                                $this->session->set_flashdata('error_msg', 'Unable to Reset Password.');
+                                redirect('home/reset_password?key=' . $key);
+                            }
+                        }
+                    } else {
+                        $this->session->set_flashdata('error_msg', 'Something went wrong. Please try again.');
+                        redirect('home/forgot_password');
+                    }
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Something went wrong. Please try again.');
+                    redirect('home/forgot_password');
+                }
+            } else {
+                $this->session->set_flashdata('error_msg', 'Please provide the email to proceed with Reset password.');
+                redirect('home/forgot_password');
+            }
+        }
     }
 
 }
