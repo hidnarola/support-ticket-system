@@ -94,7 +94,7 @@ class Tickets extends CI_Controller {
             $data['user'] = $this->User_model->getUserByID($userid);
             $this->template->load('frontend/page', 'Frontend/Tickets/add', $data);
         } else {
-
+            $getDeptStaff = $this->Ticket_model->getDeptStaff($this->input->post('dept_id'));
             $data_tickets = array(
                 'user_id' => $userid,
                 'title' => $this->input->post('title'),
@@ -105,9 +105,43 @@ class Tickets extends CI_Controller {
                 'description' => $this->input->post('description'),
                 'is_delete' => 0,
                 'created' => date('Y-m-d H:i:s'),
+                'staff_id'=>$getDeptStaff
             );
 //                    p($data, 1);
-            $this->Admin_model->manage_record($this->table, $data_tickets);
+            $ticket_id = $this->Admin_model->manage_record($this->table, $data_tickets);
+
+            /*if ($_FILES['ticket_image']['name'] != '') {
+               
+                $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
+                $exts = explode(".", $_FILES['ticket_image']['name']);
+                $name = $exts[0] . time() . "." . $exts[1];
+                $name = "ticket-" . date("mdYhHis") . "." . $exts[1];
+
+                $config['upload_path'] = TICKET_IMAGE;
+                $config['allowed_types'] = implode("|", $type_array);
+                $config['max_size'] = '2048';
+                $config['file_name'] = $name;
+
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload('ticket_image')) {
+                    $flag = 1;
+                    $data['contract_validation'] = $this->upload->display_errors();
+                } else {
+                    $file_info = $this->upload->data();
+                    $image = $file_info['file_name'];
+
+                    $src = './' . TICKET_IMAGE . '/' . $image;
+                    $thumb_dest = './' . TICKET_THUMB_IMAGE . '/';
+                    $medium_dest = './' . TICKET_MEDIUM_IMAGE . '/';
+                    thumbnail_image($src, $thumb_dest);
+                    medium_image_user($src, $medium_dest);
+                }
+            $update_image = array('image' => $name);
+            $this->User_model->edit($update_image, TBL_TICKETS, 'id', $ticket_id);
+            
+            }*/
+            
             $this->session->set_flashdata('success_msg', 'Ticket added succesfully.');
             
             /*--- Get department series name and update ticket for series number ---*/
@@ -119,7 +153,7 @@ class Tickets extends CI_Controller {
                 'series_no' => $series_no
             );
             $upadte =  $this->Admin_model->manage_record($this->table, $ticArray,$lastTicketId);
-            $getDeptStaff = $this->Ticket_model->getDeptStaff($dept_id);
+            
 //            echo $getDeptStaff;
             $getStaffEmail = $this->Ticket_model->getStaffEmail($getDeptStaff);
                     /* To send mail to the user */

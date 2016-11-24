@@ -71,6 +71,7 @@ $route['admin/delete'] = "admin/dashboard/delete";
 $route['admin/staff'] = "admin/users";
 $route['admin/tenants'] = "admin/users";
 $route['admin/news_announcements'] = "admin/news";
+$route['admin/home_slider'] = "admin/media/home_slider";
 
 $route['staff'] = "staff/dashboard";
 $route['staff/logout'] = "login/logout";

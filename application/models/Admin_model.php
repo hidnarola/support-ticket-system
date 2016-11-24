@@ -36,6 +36,7 @@ class Admin_model extends CI_Model {
                 return 0;
             }
         } else {
+            // pr($record_array,1);
             if ($this->db->insert($table_name, $record_array)) {
                 return 1;
             } else {

@@ -18,10 +18,6 @@ class Media extends CI_Controller {
         $images = $this->Media_model->get_home_images();
         $this->data['images'] = $images;
 
-        if($this->input->post()){
-
-        }
-
         $this->template->load('admin', 'Admin/Media/home_slider', $this->data);
     }
 
@@ -77,5 +73,13 @@ class Media extends CI_Controller {
             $this->Media_model->add_images($image_data);
 
         echo json_encode("success");
+    }
+
+    public function delete($id){
+        $record_id = base64_decode(urldecode($id));
+        if($this->Media_model->delete($record_id)){
+            $this->session->set_flashdata('success_msg', 'Deleted successfully.');
+            redirect('admin/home_slider');
+        }
     }
 }

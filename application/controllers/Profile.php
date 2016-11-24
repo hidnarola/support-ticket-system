@@ -78,6 +78,31 @@ class Profile extends CI_Controller {
                     }
                 }
             }
+            if ($_FILES['contract']['name'] != '') {
+                $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG', 'pdf', 'PDF');
+                $exts = explode(".", $_FILES['contract']['name']);
+                $name = $exts[0] . time() . "." . $exts[1];
+                $name = "contract-" . date("mdYhHis") . "." . $exts[1];
+
+                $config['upload_path'] = USER_CONTRACT;
+                $config['allowed_types'] = implode("|", $type_array);
+                $config['max_size'] = '2048';
+                $config['file_name'] = $name;
+
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload('contract')) {
+                    $flag = 1;
+                    $data['contract_validation'] = $this->upload->display_errors();
+                } else {
+                    $file_info = $this->upload->data();
+                    $contract = $file_info['file_name'];
+
+                    $src = './' . USER_CONTRACT . '/' . $contract;
+                }
+            $update_contract = array('contract' => $contract);
+            $this->User_model->edit($update_contract, TBL_USERS, 'id', $userid);
+            }
             $this->session->set_flashdata('success_msg', 'Your profile is updated successfully!');
             redirect('profile');
         }

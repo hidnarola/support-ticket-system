@@ -1,5 +1,6 @@
 <script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
 <!--<section id="content">-->
+
 <div class="content-wrap">
     <div class="container clearfix">
         <div class="row clearfix">
@@ -180,7 +181,37 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+                                <div class="col_full">
+                                    <div class="col-md-4" style="margin-top: 5px;">
+                                <?php if($user['contract'] != ''){ ?>
+
+                                    <a class="button button-light nomargin" href="<?php echo USER_CONTRACT.'/'.$user['contract']; ?>" target="_blank">View Contract</a>
+                                    <?php }else{ ?>
+                                        <label>Contract:</label>
+                                    <?php } ?>
+                                    <!--<input name="profile_pic" id="profile_pic" type="file" accept="image/*" class="file-loading" data-allowed-file-extensions='[]'>-->
+
+                                    <style>.btn-file {cursor: pointer;margin-top: 5px;overflow: hidden;position: relative; text-transform: uppercase;}
+                                        .btn-file input[type=file] {background: white;cursor: inherit;display: block;font-size: 100px;  min-height: 100%; min-width: 100%;opacity: 0;outline: medium none;position: absolute;right: 0; text-align: right;top: -16px; z-index: 99;}
+                                    </style></div>
+                                    <!--<input type="file" id="profile_pic" name="profile_pic" class="form-control" onchange="readURL(this)">-->
+                                        <div class="col-md-8">
+                                            <div class="btn-file">
+                                                <input type="file" name="contract" id="contract">
+                                                <span class="custom-file-control"></span>
+                                                <button type="submit" class="button button-light nomargin" id="submit" name="save" value="save">Upload<?php echo ($user['contract'] != '') ? ' New' : ''; ?></button>
+                                        <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
+                                            </div>
+                                        </div>
+
+                                        
+                                    
+
+                                </div>
+
+
                                 <!--</div>-->
                                 <div class="col_full nobottommargin text-right">
                                     <button type="submit" class="button button-3d button-small button-rounded nomargin blue-button" id="submit" name="save" value="save">Save</button>
