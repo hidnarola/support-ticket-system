@@ -8,10 +8,21 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
             <h4><i class="<?php echo $icon_class; ?> position-left"></i> <span class="text-semibold"><?php echo $title; ?></h4>
         </div>
     </div>
+    <?php
+    $segment = $this->uri->segment(4);
+    if($segment == 'tenant'){
+        $url = 'admin/tenants';
+    }else{
+        $url = 'admin/staff';
+        
+    }
+    ?>
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
             <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
+
             <li><a href="<?php echo site_url('admin/'.$seg); ?>"><i class="<?php echo $icon_class; ?> position-left"></i> <?php echo $page; ?></a></li>
+
             <li class="active"><?php echo $title; ?></li>
         </ul>
     </div>
@@ -20,10 +31,13 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
 <div class="content">
 
     <div class="row">
-         <?php $this->load->view('admin/message_view'); ?>
+        <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
+<<<<<<< HEAD
             // $segment = $this->uri->segment(4);
+=======
+>>>>>>> c90df325407447eba5ada80a9a33828f5b6d4255
             $edit_segment = $this->uri->segment(3);
 
             if (isset($user)) {
@@ -54,7 +68,7 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
                                         echo trim($user->fname);
                                     } else {
 
-                                      echo set_value('fname');
+                                        echo set_value('fname');
                                     }
                                     ?>">
                                            <?php echo '<label id="fname-error" class="validation-error-label" for="fname">' . form_error('fname') . '</label>'; ?>
@@ -131,8 +145,8 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
                                 <div class="form-group col-xs-12 user_profile_pic">
                                     <label>Profile Image:</label>                               
                                     <input type="file" name="profile_pic" class="file-styled" onchange="readURL(this)">
-                                    
-                                    <!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->                               
+
+<!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->                               
                                     <div class="clearfix"></div>
                                     <div class="col-lg-2"></div>
                                     <div class="col-lg-5">
@@ -146,9 +160,11 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
                                         </div>
                                     </div>
                                     <br>
-                                    <?php if(isset($profile_validation)){
-                                        echo '<label id="profile_pic-error" class="validation-error-label" for="profile_pic">' . $profile_validation . '</label>'; 
-                                    } ?>
+                                    <?php
+                                    if (isset($profile_validation)) {
+                                        echo '<label id="profile_pic-error" class="validation-error-label" for="profile_pic">' . $profile_validation . '</label>';
+                                    }
+                                    ?>
                                 </div>
 
                                 <div class="form-group col-xs-12">
@@ -162,11 +178,10 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
 //                                            } else {
 //                                                echo '';
 //                                            }
-                                           echo set_value('address');
-                                            
+                                            echo set_value('address');
                                         }
                                         ?></textarea>
-                                    <?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
+<?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
                                 </div>
                             </div>
                             <div class="col-md-12">

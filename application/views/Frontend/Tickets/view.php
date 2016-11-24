@@ -1,3 +1,5 @@
+<!--<link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
+<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>-->
 <div class="content-wrap">
     <div class="container clearfix">
         <div class="row clearfix">
@@ -56,15 +58,22 @@
                             <th>Description</th>
                             <td style="width: 70%;"><?php echo $ticket->description ?></td>
                         </tr>
+                        
+                         
+                        <?php if ($ticket->image != '') { ?>
+                            <tr>
+                                <th>Tenant Image</th>
+                                <td> 
+                                    <!--<div class="entry-image">-->
+									<a href="<?php echo TICKET_IMAGE . '/' . $ticket->image; ?>" data-lightbox="image"><img class="image_fade" src="<?php echo TICKET_THUMB_IMAGE . '/' .  $ticket->image; ?>" height="90px" width="90px" alt="" style="opacity: 1;"></a>
+								<!--</div>-->
+                                    <!--<a class="fancybox" href="<?php echo USER_CONTRACT . '/' . $user['contract']; ?>" data-fancybox-group="gallery"><img src="<?php echo USER_CONTRACT . '/' . $user['contract']; ?>" alt="" height="90px" width="90px" /></a>-->
+                                </td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
 
-                <!--                <div class="text-right">
-                                    <a href="tickets/reply/<?php echo base64_encode($ticket->id) ?>" class="button button-rounded button-reveal button-small pull-right blue-button"><i class="icon-envelope2"></i><span>Send Message</span></a>
-                                    <button type="button" class="button button-3d button-small button-rounded button-white button-light pull-right" onclick="window.history.back()">Back</button>
-                                    <button type="button" class="button button-3d button-small button-rounded button-white button-light pull-right" onclick="window.history.back()"></button>
-                                </div>-->
-                <!-- /vertical form -->
 
                 <div class="panel-body">
                     <div class="fancy-title title-dotted-border title-center">
@@ -230,3 +239,8 @@
         background-color: #e0f2f1 !important;
     }
 </style>
+<script>
+    $(function () {
+//        $('.fancybox').fancybox();
+    });
+</script>

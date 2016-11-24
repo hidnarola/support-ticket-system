@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
+<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
 <style> 
     .fancy-title.title-dotted-border {background: url(assets/frontend/images/icons/dotted.png) repeat-x center;}
     .title-center {
@@ -45,53 +47,10 @@
 <div class="content">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <!-- Vertical form -->
-            <!--        <div class="panel panel-flat">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead><tr><th colspan="2"><center><h6>Ticket Details</h6></center></th></tr></thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>Name</th>
-                                            <td><?php echo $ticket->title ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Department</th>
-                                            <td><?php echo $ticket->dept_name ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ticket Type</th>
-                                            <td><?php echo $ticket->type_name ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ticket Priority</th>
-                                            <td><?php echo $ticket->priority_name ?></td>
-                                        </tr>                                
-                                        <tr>
-                                            <th>Ticket Status</th>
-                                            <td><?php echo $ticket->status_name ?></td>
-                                        </tr>                                
-                                        <tr>
-                                            <th>Ticket Category</th>
-                                            <td><?php echo $ticket->category_name ?></td>
-                                        </tr>                          
-                                        <tr>
-                                            <th>Added On</th>
-                                            <td><?php echo date('d-M-Y', strtotime($ticket->created)) ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>-->
-
-
             <div class="panel-group ticket-view-panel" id="accordion1" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default ticket_details">
                     <div class="panel-heading" role="tab" id="heading1">
                         <h4 class="panel-title">
-
                             Ticket Details
                             <a data-toggle="collapse" data-parent="#accordion1" href="#collapse1" aria-expanded="true" aria-controls="collapse1" class="pull-right">
                                 <i class="solsoCollapseIcon fa fa-chevron-up"></i>	
@@ -154,6 +113,14 @@
                                             <th>Description</th>
                                             <td><?php echo $ticket->description ?></td>
                                         </tr>
+                                        <?php if($ticket->image != ''){ ?>
+                                        <tr>
+                                            <th>Tenant Contract</th>
+                                            <td> <a class="fancybox" href="<?php echo TICKET_IMAGE . '/' . $ticket->image; ?>" data-fancybox-group="gallery"><img src="<?php echo TICKET_THUMB_IMAGE . '/' . $ticket->image; ?>" alt="" height="90px" width="90px" /></a></td>
+                                        </tr>
+                                        <?php } ?>
+
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -171,7 +138,7 @@
                                 </li>
                                 <?php
                                 foreach ($value as $val) {
-                                    
+
                                     if ($val['sent_from'] != $this->session->userdata('staffed_logged_in')['id']) {
                                         ?>
 
@@ -335,3 +302,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('.fancybox').fancybox();
+    });
+</script>

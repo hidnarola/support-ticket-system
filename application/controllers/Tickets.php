@@ -33,7 +33,6 @@ class Tickets extends CI_Controller {
         $data['user'] = $this->User_model->getUserByID($userid);
         $data['statuses'] = $this->Admin_model->get_records(TBL_TICKET_STATUSES);
         $config = init_pagination_tenant();
-//        pr($config);
         $filter = '';
         if ($this->input->get('filter')) {
             $filter = $this->input->get('filter');
@@ -60,16 +59,9 @@ class Tickets extends CI_Controller {
             $config['next_tag_open'] = '<li>';
         }
         $data["links"] = $this->pagination->create_links();
-//        pr($config,1);
         $data['tickets'] = $this->User_model->getUserTickets_tenant($userid, $filter, $config['per_page'], $page);
-
         $data['news_announcements'] = $this->User_model->getlatestnews();
-//        p($data['tickets'],1);
         $this->template->load('frontend/page', 'Frontend/Tickets/index', $data);
-    }
-
-    public function test() {
-        $this->load->view('Frontend/Tickets/test');
     }
 
     public function add() {
@@ -177,7 +169,9 @@ class Tickets extends CI_Controller {
                     . "<br/><strong>Series Number</strong> : " . $series_no
                     . "<br/><strong>Ticke Title</strong> : " . $this->input->post('title')
                     . "<br/><strong>Description </strong>: " . $this->input->post('description')
-                    . "</div><br/>Thanks";
+                    . "</div><br/>Thanks"
+                     . "<p>Support Ticket</p>";
+            
 
             $mail_body = "<html>\n";
             $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
@@ -200,9 +194,9 @@ class Tickets extends CI_Controller {
         $flag = 1;
         if ($id != '') {
             $segment = $this->uri->segment(1);
-//            echo $segment; exit;
             $record_id = base64_decode($id);
             $data['ticket'] = $this->Ticket_model->get_ticket($record_id);
+            $data['user'] = $this->User_model->getUserById($data['ticket']->user_id);
             $data['news_announcements'] = $this->User_model->getlatestnews();
             $userid = $this->session->userdata('user_logged_in')['id'];
             $data['title'] = 'Tickets | Support-Ticket-System';
@@ -212,8 +206,6 @@ class Tickets extends CI_Controller {
 
                 $data['ticketname'] = $data['ticket']->title;
                 $data['ticket_coversation'] = $this->Ticket_model->get_ticket_conversation($record_id);
-//            p($data['ticket_coversation'],1);
-
                 if ($this->input->post()) {
                     $msg_data = array(
                         'ticket_id' => $record_id,
@@ -225,7 +217,6 @@ class Tickets extends CI_Controller {
                     } else {
                         $this->session->set_flashdata('error_msg', 'Unable to send message.');
                     }
-
                     redirect('tickets/view/' . $id);
                 }
 
