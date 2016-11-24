@@ -56,7 +56,7 @@ class News extends CI_Controller {
                 $upload_thumb = ANNOUNCEMENT_THUMB_IMAGE;
             }
             if ($_FILES['userfile']['name'] != '') {
-                pr($_FILES);
+//                pr($_FILES);
                 $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
                 $exts = explode(".", $_FILES['userfile']['name']);
                 $name = $exts[0] . time() . "." . end($exts);

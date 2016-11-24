@@ -103,6 +103,7 @@ define('TBL_USERS','users');
 define('TBL_SETTINGS','settings');
 define('TBL_SOCIAL_MEDIA','social_media');
 define('TBL_ARTICLE_COMMENTS','article_comments');
+define('TBL_PROJECTS','projects');
 
 
 /*  |	set upload folder constants */
@@ -112,6 +113,7 @@ define('PROFILE_THUMB_IMAGE', 'uploads/user_profile_image/thumb');
 define('PROFILE_MEDIUM_IMAGE', 'uploads/user_profile_image/medium');
 
 define('USER_CONTRACT', 'uploads/contracts');
+define('PROJECTS_IMAGES', 'uploads/projects');
 
 define('NEWS_IMAGE', 'uploads/news/original');
 define('NEWS_THUMB_IMAGE', 'uploads/news/thumb');

@@ -11,6 +11,7 @@ class Home extends CI_Controller {
         $this->load->model('Article_model');
         $this->load->model('Media_model');
         $this->load->model('News_model');
+        $this->load->model('Project_model');
     }
 
     public function index() {
@@ -18,6 +19,7 @@ class Home extends CI_Controller {
         $data['title'] = 'Home | Support-Ticket-System';
         $userid = $this->session->userdata('user_logged_in')['id'];
         $images = $this->Media_model->get_home_images();
+        $data['projects'] = $this->Project_model->get_data();
         $data['images'] = $images;
         $data['user'] = $this->User_model->getUserByID($userid);
         $data['news_announcements'] = $this->User_model->getlatestnews();
