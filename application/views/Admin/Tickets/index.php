@@ -312,7 +312,7 @@ $segment = $this->uri->segment(1);
                     $('#staff_val').val('');
                     $('#status_val').val('');
                     $('#priority_val').val('');
-                    window.location.reload();
+//                    window.location.reload();
                 } else {
                 }
             });

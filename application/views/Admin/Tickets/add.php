@@ -126,24 +126,26 @@
                                             </select>
                                             <?php echo '<label id="dept_id-error" class="validation-error-label" for="dept_id">' . form_error('dept_id') . '</label>'; ?>
                                         </div>
-<!--                                        <div class="form-group col-xs-12">
+                                        <?php  if (isset($ticket)) { ?>
+                                       <div class="form-group col-xs-12">
                                             <label>Ticket Status</label>
 
                                             <select class="select" name="status_id" required="" id="status_id">
                                                 <option selected="" value="">Select Ticket Status</option> 
                                                 <?php
-//                                                foreach ($tickets_statuses as $row) {
-//                                                    if ($ticket->status_id == $row['id']) {
-//                                                        echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
-//                                                    } else {
-//                                                        echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
-//                                                    }
-//                                                }
+                                                foreach ($tickets_statuses as $row) {
+                                                    if ($ticket->status_id == $row['id']) {
+                                                        echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
+                                                    } else {
+                                                        echo "<option value='" . $row['id'] . "' >" . $row['name'] . "</option>"; //                                                
+                                                    }
+                                                }
                                                 ?>
                                             </select>
                                             <?php echo '<label id="status_id-error" class="validation-error-label" for="status_id">' . form_error('status_id') . '</label>'; ?>
 
-                                        </div>-->
+                                        </div>
+                                        <?php }?>
 
 
                                         <div class="form-group col-xs-12">

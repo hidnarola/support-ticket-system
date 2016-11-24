@@ -39,7 +39,7 @@
 
                     <div class="col_full nobottommargin">
                         <button class="button button-3d button-black nomargin" type="submit" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-                        <a href="#" class="fright">Forgot Password?</a>
+                        <a href="home/forgot_password" class="fright">Forgot Password?</a>
                     </div>
                 </form>
             </div>

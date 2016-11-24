@@ -1,12 +1,12 @@
 
 <div class="page-header page-header-default">
-    
+
     <div class="page-header-content">
         <div class="page-title">
             <h4><i class="<?php echo $icon_class; ?> position-left"></i> <span class="text-semibold">Dashboard</span></h4>
         </div>
     </div>
-    
+
 </div>
 <?php
 $segment = $this->uri->segment(1);
@@ -16,141 +16,140 @@ $segment = $this->uri->segment(1);
     <!-- Main charts -->
     <div class="row dashboard_layout">
 
-            <?php // if($total_tickets != 0) { ?>
-            <div class="col-lg-3">
-                <!-- Members online -->
-                <div class="panel bg-warning-400">
-                    <div class="panel-body">
-                        <div class="heading-elements icon-dasboard" style="margin-top: 0px;">
-                            <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
-                            <div class="icon-object border-white text-white"><i class=" icon-ticket"></i></div>
-                        </div>
-                        <h3 class="no-margin"><?php echo $total_tickets; ?></h3>
+        <?php // if($total_tickets != 0) { ?>
+        <div class="col-lg-3">
+            <!-- Members online -->
+            <div class="panel bg-warning-400">
+                <div class="panel-body">
+                    <div class="heading-elements icon-dasboard" style="margin-top: 0px;">
+                        <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
+                        <div class="icon-object border-white text-white"><i class=" icon-ticket"></i></div>
+                    </div>
+                    <h3 class="no-margin"><?php echo $total_tickets; ?></h3>
 
-                        <?php echo ($total_tickets == 1) ? 'Ticket' : 'Tickets'; ?>
-                        <!--<div class="text-muted text-size-small">489 avg</div>-->
-                    </div>
-                    <div class="container-fluid">
-                        <div id="members-online"></div>
-                    </div>
+                    <?php echo ($total_tickets == 1) ? 'Ticket' : 'Tickets'; ?>
+                    <!--<div class="text-muted text-size-small">489 avg</div>-->
                 </div>
-                <!-- /members online -->
+                <div class="container-fluid">
+                    <div id="members-online"></div>
+                </div>
             </div>
-            <?php // } ?>
-            <div class="col-lg-3">
-                <!-- Members online -->
-                <div class="panel bg-slate-400">
-                    <div class="panel-body">
-                        <div class="heading-elements icon-dasboard" style="margin-top: 0px;">
-                            <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
-                            <div class="icon-object border-white text-white"><i class=" icon-reply"></i></div>
-
-                        </div>
-                        <h3 class="no-margin"><?php echo $total_replies; ?></h3>
-                        Replies
-                        <!--<div class="text-muted text-size-small">489 avg</div>-->
-                    </div>
-                    <div class="container-fluid">
-                        <div id="members-online"></div>
-                    </div>
-                </div>
-                <!-- /members online -->
-            </div> 
+            <!-- /members online -->
         </div>
-    
+        <?php // } ?>
+        <div class="col-lg-3">
+            <!-- Members online -->
+            <div class="panel bg-slate-400">
+                <div class="panel-body">
+                    <div class="heading-elements icon-dasboard" style="margin-top: 0px;">
+                        <!--<span class="heading-text badge bg-teal-800">+53,6%</span>-->
+                        <div class="icon-object border-white text-white"><i class=" icon-reply"></i></div>
+
+                    </div>
+                    <h3 class="no-margin"><?php echo $total_replies; ?></h3>
+                    Replies
+                    <!--<div class="text-muted text-size-small">489 avg</div>-->
+                </div>
+                <div class="container-fluid">
+                    <div id="members-online"></div>
+                </div>
+            </div>
+            <!-- /members online -->
+        </div> 
+    </div>
+
 
     <div class="panel">
-    <div class="panel-heading">
-        <span style="padding:5px; color: red;">*Highlighted rows represents unread tickets</span>
-    </div>
-    <div class="panel-body">
-        <div class="row">
+        <div class="panel-heading">
+            <span style="padding:5px; color: red;">*Highlighted rows represents unread tickets</span>
+        </div>
+        <div class="panel-body">
+            <div class="row">
 
-            <table class="table table-bordered table-hover table-striped datatable-basic">
-                <thead>
-                    <tr class="bg-teal">
-                        <th>#</th>
-                        <th>Ticket ID</th>
-                        <th>Staff</th>
-                        <th>Title</th>
-                        <th>Tenant</th>
-                        <!-- <th>Department</th> -->
-                        <th>Type</th>
-                        <th>Priority</th>
-                        <th>Status</th>
-                        <th>Created At</th>
-                        <!-- <th>state</th> -->
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                            foreach ($tickets as $key => $record) {
-                                $is_read = 'is_read';
-                                
-                                    if ($record['is_read'] == 2 || $record['is_read'] == 3) {
-                                        $is_read = '';
-                                    }
-                                
-                                ?>
-                                <tr class="<?php echo $is_read; ?>">
-                        
-                            <td><?php echo $key + 1; ?></td>
-                            <td><?php echo $record['series_no']; ?></td>
-                            <?php if ($record['staff_fname'] != '' && $record['staff_lname'] != '') { ?>
-                                <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
-                            <?php } else { ?>
-                                <td class="text-center"><span class="label label-success">Free</span></td>
-                            <?php } ?>
-                                <td><a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>"><?php echo $record['title']; ?></a></td>
-                            <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
-                            <!-- <td><?php //echo $record['dept_name']; ?></td> -->
-                            <td><?php echo $record['type_name']; ?></td>
-                            <td><?php echo $record['priority_name']; ?></td>
-                            <td><?php echo $record['status_name']; ?></td>
-                            <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
-                            <?php /* if ($record['is_read'] == 2 || $record['is_read'] == 3) { ?>
-                                <td><span class="label label-success">Read</span></td>
-                            <?php } else { ?>
-                                <td><span class="label label-warning">Unread</span></td>
-                            <?php } */ ?>
-                            <td class="text-center">
-                                <ul class="icons-list">
-
-                                    <li class="text-purple-700">
-                                        <a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i> </a>
-                                    </li>
-
-                                    <!-- <li class="text-grey">
-                                        <a href="<?php //echo base_url() . 'staff/tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php //echo base64_encode($record['id']); ?>" data-record="<?php //echo base64_encode($record['id']); ?>" title='Reply' class="view"><i class="icon-reply"></i> </a>
-                                    </li> -->
-
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="dept" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" data-dept="<?php echo $record['dept_id']; ?>"
-                                                           data-modal-title="Change Department"><i class="icon-collaboration"></i>Change department</a></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="status" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"  data-status="<?php echo $record['status_id']; ?>"
-                                                           data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-priority="<?php echo $record['priority_id']; ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                           data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
-                                                    <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-staff="<?php echo $record['staff_id']; ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
-                                                   data-modal-title="Assign Staff"><i class="icon-user"></i><?php echo ($record['staff_id'] != '') ? 'Change' : 'Assign'; ?> Staff</a></li>
-                                                </ul>
-                                    </li>
-                                </ul>
-                            </td>
+                <table class="table table-bordered table-hover table-striped datatable-basic">
+                    <thead>
+                        <tr class="bg-teal">
+                            <th>#</th>
+                            <th>Ticket ID</th>
+                            <th>Staff</th>
+                            <th>Title</th>
+                            <th>Tenant</th>
+                            <!-- <th>Department</th> -->
+                            <th>Type</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <!-- <th>state</th> -->
+                            <th>Actions</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-</div>
-</div>
-</div>
+                        foreach ($tickets as $key => $record) {
+                            $is_read = 'is_read';
+
+                            if ($record['is_read'] == 2 || $record['is_read'] == 3) {
+                                $is_read = '';
+                            }
+                            ?>
+                            <tr class="<?php echo $is_read; ?>">
+
+                                <td><?php echo $key + 1; ?></td>
+                                <td><?php echo $record['series_no']; ?></td>
+                                <?php if ($record['staff_fname'] != '' && $record['staff_lname'] != '') { ?>
+                                    <td><?php echo $record['staff_fname'] . ' ' . $record['staff_lname']; ?></td>
+                                <?php } else { ?>
+                                    <td class="text-center"><span class="label label-success">Free</span></td>
+                                <?php } ?>
+                                <td><a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>"><?php echo $record['title']; ?></a></td>
+                                <td><?php echo $record['fname'] . ' ' . $record['lname']; ?></td>
+                                <!-- <td><?php //echo $record['dept_name'];  ?></td> -->
+                                <td><?php echo $record['type_name']; ?></td>
+                                <td><?php echo $record['priority_name']; ?></td>
+                                <td><?php echo $record['status_name']; ?></td>
+                                <td><?php echo date('Y-m-d', strtotime($record['created'])); ?></td>
+                                <?php /* if ($record['is_read'] == 2 || $record['is_read'] == 3) { ?>
+                                  <td><span class="label label-success">Read</span></td>
+                                  <?php } else { ?>
+                                  <td><span class="label label-warning">Unread</span></td>
+                                  <?php } */ ?>
+                                <td class="text-center">
+                                    <ul class="icons-list">
+
+                                        <li class="text-purple-700">
+                                            <a href="<?php echo base_url() . 'staff/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i> </a>
+                                        </li>
+
+                                        <!-- <li class="text-grey">
+                                            <a href="<?php //echo base_url() . 'staff/tickets/reply/' . base64_encode($record['id'])  ?>" id="view_<?php //echo base64_encode($record['id']);  ?>" data-record="<?php //echo base64_encode($record['id']);  ?>" title='Reply' class="view"><i class="icon-reply"></i> </a>
+                                        </li> -->
+
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="icon-menu9"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="dept" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" data-dept="<?php echo $record['dept_id']; ?>"
+                                                       data-modal-title="Change Department"><i class="icon-collaboration"></i>Change department</a></li>
+                                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="status" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"  data-status="<?php echo $record['status_id']; ?>"
+                                                       data-modal-title="Change Status"><i class="icon-stats-bars2"></i>Change status</a></li>
+                                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="priority" class="chang_pwdd" id="changedept_<?php echo base64_encode($record['id']); ?>" data-priority="<?php echo $record['priority_id']; ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
+                                                       data-modal-title="Change Priority"><i class="icon-list-numbered"></i>Change priority</a></li>
+                                                <li><a data-dept="<?php echo $record['dept_id']; ?>" href="#" data-toggle="modal" data-target="#modal_theme_success" data-act="assign" class="chang_pwdd" id="assign_<?php echo base64_encode($record['id']); ?>" data-staff="<?php echo $record['staff_id']; ?>" data-record="<?php echo base64_encode($record['id']); ?>" 
+                                                       data-modal-title="Assign Staff"><i class="icon-user"></i><?php echo ($record['staff_id'] != '') ? 'Change' : 'Assign'; ?> Staff</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 <div id="modal_theme_success" class="modal fade">
     <div class="modal-dialog">
@@ -209,7 +208,7 @@ $segment = $this->uri->segment(1);
     </div>
 </div>  
 <script type="text/javascript">
-$(function() {
+    $(function () {
         $('.datatable-basic').dataTable();
     });
     var base_url = '<?php echo base_url(); ?>admin/';
@@ -222,7 +221,7 @@ $(function() {
         $('#hidden_id').val(id);
         var selected = '';
         if (action == 'dept') {
-            selected  = $(this).attr('data-dept');
+            selected = $(this).attr('data-dept');
             $("#dept_val").val(selected);
             $("#dept_val").select2();
             $('#dept_id').show();
@@ -235,7 +234,7 @@ $(function() {
             var card = document.getElementById("dept_val");
             var select_data = card.selectedIndex;
         } else if (action == 'status') {
-            selected  = $(this).attr('data-status');
+            selected = $(this).attr('data-status');
             $("#status_val").val(selected);
             $("#status_val").select2();
             $('#dept_id').hide();
@@ -248,7 +247,7 @@ $(function() {
             var action_type = 'status_id';
             $('.validation-error-label').hide();
         } else if (action == 'priority') {
-            selected  = $(this).attr('data-priority');
+            selected = $(this).attr('data-priority');
             $("#priority_val").val(selected);
             $("#priority_val").select2();
             $('#priority_id').show();
@@ -260,14 +259,14 @@ $(function() {
             //                var id = $(this).attr('id').replace('changepriority_', '');
             var action_type = 'priority_id';
             $('.validation-error-label').hide();
-        }else if (action == 'assign') {
-             selected  = $(this).attr('data-staff');
+        } else if (action == 'assign') {
+            selected = $(this).attr('data-staff');
             $("#staff_val").val(selected);
             $("#staff_val").select2();
             var dept = $(this).attr('data-dept');
-             $.ajax({
+            $.ajax({
                 url: 'staff/dashboard/get_staff',
-                data: {'dept':dept},
+                data: {'dept': dept},
                 type: 'post',
             }).done(function (data) {
                 console.log(data);
@@ -313,11 +312,11 @@ $(function() {
                     $('#staff_val').val('');
                     $('#status_val').val('');
                     $('#priority_val').val('');
-                    window.location.reload();
+//                    window.location.reload();
                 } else {
                 }
             });
             event.preventDefault();
         });
-    });  
+    });
 </script>

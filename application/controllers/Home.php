@@ -442,5 +442,9 @@ class Home extends CI_Controller {
         echo json_encode($data);
         exit;
     }
+    
+    public function forgot_password(){
+        
+    }
 
 }
