@@ -71,7 +71,7 @@ class Articles extends CI_Controller {
 
                 if (!$this->upload->do_upload('image')) {
                     $flag = 1;
-                    $data['profile_ validation'] = $this->upload->display_errors();
+                    $data['profile_validation'] = $this->upload->display_errors();
                 } else {
                     $file_info = $this->upload->data();
                     $article_pic = $file_info['file_name'];
