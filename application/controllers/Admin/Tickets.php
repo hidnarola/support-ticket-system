@@ -533,6 +533,7 @@ class Tickets extends CI_Controller {
             $this->data['ticket_coversation'] = $this->Ticket_model->get_ticket_conversation($record_id);
             $this->data['user'] = $this->User_model->getUserById($ticket->user_id);
 //            pr($this->data['user'],1);
+
             $sent_from = $this->session->userdata('admin_logged_in')['id'];
             if ($segment == 'staff') {
                 $sent_from = $this->session->userdata('staffed_logged_in')['id'];

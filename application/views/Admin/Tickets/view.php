@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
+<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
 <style> .fancy-title.title-dotted-border {
         background: url(assets/frontend/images/icons/dotted.png) repeat-x center;
     }
@@ -103,6 +105,12 @@
                                             <th>Description</th>
                                             <td><?php echo $ticket->description ?></td>
                                         </tr>
+                                        <?php if($ticket->image != ''){ ?>
+                                        <tr>
+                                            <th>Tenant Contract</th>
+                                            <td> <a class="fancybox" href="<?php echo TICKET_IMAGE . '/' . $ticket->image; ?>" data-fancybox-group="gallery"><img src="<?php echo TICKET_THUMB_IMAGE . '/' . $ticket->image; ?>" alt="" height="90px" width="90px" /></a></td>
+                                        </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -284,3 +292,8 @@
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $('.fancybox').fancybox();
+    });
+</script>

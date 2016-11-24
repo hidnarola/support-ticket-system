@@ -2,8 +2,6 @@
 <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <script type="text/javascript" src="assets/admin/js/plugins/loaders/progressbar.min.js"></script>
 <script type="text/javascript" src="assets/admin/js/pages/components_loaders.js"></script>
-<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
-<link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
 <?php
 $segment = $this->uri->segment(1);
 ?>
@@ -421,7 +419,5 @@ $segment = $this->uri->segment(1);
         }
     }
 
-    $(function () {
-        $('.fancybox').fancybox();
-    });
+    
 </script>

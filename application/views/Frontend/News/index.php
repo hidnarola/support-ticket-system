@@ -28,7 +28,6 @@
                             }
                             ?>
 
-
                             <div class="entry-image">
                                 <a href="<?php echo $image; ?>" data-lightbox="image"><img class="image_fade" src="<?php echo $image; ?>" alt="Standard Post with Image"></a>
                             </div>
