@@ -74,6 +74,14 @@ class News_model extends CI_Model {
         $result = $this->db->get(TBL_NEWS_ANNOUNCEMENTS);
         return $result->result_array();
     }
+    public function update_record($table, $condition, $user_array) {
+        $this->db->where($condition);
+        if ($this->db->update($table, $user_array)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
 //    function get_data_by_slug($slug) {
 //        $this->db->where('is_delete', 0);
@@ -160,6 +168,15 @@ class News_model extends CI_Model {
             $new_arr[$key]['m'] = date('M', strtotime($part['modified']));
         }
         return $new_arr;
+    }
+    
+    public function get_result($table,$condition = null) {
+        $this->db->select('*');
+        if(!is_null($condition)){
+            $this->db->where($condition);                
+        }
+        $query = $this->db->get($table);
+        return $query->result_array();
     }
 
 }

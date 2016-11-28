@@ -30,8 +30,12 @@
             $key = rawurlencode($_GET['key']);
 //            $key = urldecode($raw);
         }
+        if (isset($_GET['token'])) {
+            $token = $_GET['token'];
+//            $key = urldecode($raw);
+        }
         if ($key != '') {
-            $action = base_url() . "home/reset_password?key=" . $key;
+            $action = base_url() . "home/reset_password?key=" . $key.'&token='.$token;
         }
         ?>
         <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">

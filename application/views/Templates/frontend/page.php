@@ -195,32 +195,14 @@
                 <?php echo $body; ?>
 
             </section><!-- #content end -->
-
-            <!-- Footer
-            ============================================= -->
-             <?php $this->load->view('Templates/frontend/footer'); ?>
-
-        </div><!-- #wrapper end -->
-
-        <!-- Go To Top
-        ============================================= -->
-        <div id="gotoTop" class="icon-angle-up"></div>
-
-        <!-- External JavaScripts
-        ============================================= -->
         <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+             <?php $this->load->view('Templates/frontend/footer'); ?>
         <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
-        <!-- Bootstrap Data Table Plugin -->
         <script type="text/javascript" src="assets/frontend/js/components/bs-datatable.js"></script>
-        <!-- Bootstrap File Upload Plugin -->
-        <!--<script type="text/javascript" src="assets/frontend/js/components/bs-filestyle.js"></script>-->
-        <!-- Footer Scripts
-        ============================================= -->
         <script type="text/javascript" src="assets/frontend/js/functions.js"></script>
-
         <script type="text/javascript">
-$("#s").autocomplete({
+    $("#s").autocomplete({
     minLength: 1,
     source:
             function (req, add) {
@@ -259,5 +241,24 @@ $("#s").autocomplete({
     }
 });
         </script>
+            <!-- Footer
+            ============================================= -->
+
+        </div><!-- #wrapper end -->
+
+        <!-- Go To Top
+        ============================================= -->
+        <div id="gotoTop" class="icon-angle-up"></div>
+
+        <!-- External JavaScripts
+        ============================================= -->
+        
+        <!-- Bootstrap Data Table Plugin -->
+        <!-- Bootstrap File Upload Plugin -->
+        <!--<script type="text/javascript" src="assets/frontend/js/components/bs-filestyle.js"></script>-->
+        <!-- Footer Scripts
+        ============================================= -->
+
+        
     </body>
 </html>

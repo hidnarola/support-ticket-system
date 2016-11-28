@@ -67,19 +67,10 @@
             <div class="clear"></div><div class="line"></div>
 
             <div id="oc-clients-full" class="owl-carousel image-carousel carousel-widget" data-margin="30" data-nav="false" data-loop="true" data-autoplay="5000" data-pagi="false" data-items-xxs="2" data-items-xs="3" data-items-sm="4" data-items-md="5" data-items-lg="6">
-
-                <a href="#"><img src="assets/frontend/images/clients/1.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/2.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/3.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/4.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/5.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/6.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/7.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/8.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/9.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/10.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/11.png" alt="Clients"></a>
-                <a href="#"><img src="assets/frontend/images/clients/12.png" alt="Clients"></a>
+                <?php foreach ($logo_images as $img) { ?>
+                    <a href="#"><img src="<?php echo HOME_MEDIUM_IMAGE.'/'.$img['logo_image']; ?>" alt="Clients"></a>
+                <?php } ?>
+               
 
             </div>
 

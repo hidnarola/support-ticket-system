@@ -130,6 +130,7 @@
                         $page = $this->uri->segment(2);
                         $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
                         $knowledgebase = array('faq', 'articles');
+                        $newsletters = array('newsletters','subscribers');
                         ?>
                         <!-- Main navigation -->
                         <div class="sidebar-category sidebar-category-visible">
@@ -151,6 +152,18 @@
                                     <li class="<?php echo ($current_page == 'news_announcements') ? 'active' : ''; ?>"><a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a></li>
                                     <li class="<?php echo ($page == 'home_slider') ? 'active' : ''; ?>"><a href="admin/home_slider"><i class="icon-images3"></i> <span>Home Page Slider</span></a>
                                     </li>
+                                    <li class="<?php echo ($page == 'logos') ? 'active' : ''; ?>"><a href="admin/logos"><i class="icon-images2"></i> <span>Logos</span></a>
+                                    </li>
+                                    <li class="<?php echo (in_array($page, $newsletters)) ? 'active' : ''; ?>">
+                                        <a href="#"><i class="icon-book"></i><span>Manage Newsletters</span></a>
+                                        <ul>
+                                            <li class="<?php echo ($page == 'newsletters') ? 'active' : ''; ?>"><a href="admin/newsletters"><i class="icon-envelop4"></i> <span>Newsletters</span></a></li>
+                                            <li class="<?php echo ($page == 'subscribers') ? 'active' : ''; ?>"><a href="admin/subscribers"><i class="icon-person"></i> <span>Subscribers</span></a></li>
+
+                                        </ul>
+                                    </li>
+
+
                                      <li class="<?php echo ($page == 'social_media') ? 'active' : ''; ?>"><a href="admin/social_media"><i class="icon-facebook"></i> <span>Social Media</span></a></li>
                                     <li class="<?php echo ($page == 'projects') ? 'active' : ''; ?>"><a href="admin/projects"><i class="icon-calendar2"></i> <span>Projects</span></a></li>
                                     <li class="<?php echo (in_array($page, $knowledgebase)) ? 'active' : ''; ?>">

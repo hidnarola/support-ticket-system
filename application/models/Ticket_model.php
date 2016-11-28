@@ -44,6 +44,7 @@ class Ticket_model extends CI_Model {
     public function get_ticket($id) {
         $this->db->select('tickets.*, dept.name as dept_name, type.name as type_name, priority.name as priority_name, status.name as status_name, user.fname, user.lname, staff.fname as staff_fname ,staff.lname as staff_lname');
         $this->db->where('tickets.is_delete', 0);
+        $this->db->where('dept.is_delete', 0);
         $this->db->where('tickets.id', $id);
         $this->db->where('tickets.title !=', '');
         $this->db->from(TBL_TICKETS);

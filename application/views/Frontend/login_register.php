@@ -1,4 +1,5 @@
 <script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
+<?php $segment = $this->uri->segment(2); ?>
 <div class="content-wrap">
 
     <div class="container clearfix">
@@ -105,48 +106,15 @@
         </div>
     </div>
 </div>
-<?php
-$segment = $this->uri->segment(2);
-if ($segment == 'signup') {
-//    echo 'in';
-//    echo $segment;
-    ?>
-    <style>
-        /*        .register_accordion{display: block; !important}
-                .login_accordion{display: none; !important}*/
-    </style>
-<?php } ?>
-<script>
-    $(function () {
-        var segment = '<?php echo $this->uri->segment(2); ?>';
-        if (segment == 'signup') {
-//            alert('ready');
-//            console.log("ready!");
-//            $(".acctitle_register").trigger('click');
-//            document.getElementById('hiddenFields').style.display = 'block';
-//            var $accordionEl = $('.accordion');
-//            if ($accordionEl.length > 0) {
-//                $accordionEl.each(function () {
-//                    var element = $(this),
-//                            elementState = element.attr('data-state'),
-//                            accordionActive = element.attr('data-active');
-////
-////                    if (elementState != 'closed') {
-////                        element.find('.acctitle:eq(' + Number(accordionActive) + ')').addClass('acctitlec').next().show();
-////                    }
-////                    element.find('.acc_content').show();
-////                    element.find('.acctitle').bind(function () {
-//                        if ($('.acctitle').prev().is(':visible')) {
-//                            console.log("ready!");
-//                            element.find('.acctitle').removeClass('acctitlec').next().slideUp("normal");
-//                            $(this).toggleClass('acctitlec').next().slideDown("normal");
-////                            $(".register_accordion").css('display', 'block');
-//                        }
-////                    return false;
-////                    });
-//                });
-//            }
 
+<script type="text/javascript">
+    $(function () {
+        var segment = "<?php echo $segment; ?>";
+        if(segment=='signup'){
+           setTimeout(function(){
+            $(document).find(".acctitle_register.acctitle").click();
+           }, 300);
+           
         }
     });
 

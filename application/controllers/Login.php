@@ -15,6 +15,17 @@ class Login extends CI_Controller {
 //        if($_POST)
 //            p($_POST);
            $data['news_announcements'] = $this->User_model->getlatestnews();
+if ($this->uri->segment(1) == 'support') {
+    if($this->session->userdata('staffed_logged_in')){
+         redirect('staff');
+    }else if($this->session->userdata('admin_logged_in')){
+        
+        redirect('admin');
+    }
+}else if($this->session->userdata('user_logged_in')){
+    redirect('home');
+    
+    }
         $user_title = 'Tenant';
         if ($this->uri->segment(1) == 'support') {
             $user_title = 'Support';
@@ -94,6 +105,7 @@ class Login extends CI_Controller {
     }
 
     public function signup() {
+        $data['news_announcements'] = $this->User_model->getlatestnews();
         $useremail = $this->input->post('email');
         $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
         $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
@@ -154,7 +166,7 @@ class Login extends CI_Controller {
                 'contract' => $contract
             );
             $username = $this->input->post('fname').' '. $this->input->post('lname');
-//            p($data, 1);
+          
             $this->Admin_model->manage_record($this->table, $data);
             $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
             /* To send mail to the user */
@@ -181,7 +193,7 @@ class Login extends CI_Controller {
             $this->email->subject('Your account is registred for dev.supportticket.com');
             $this->email->message($msg);
             $this->email->send();
-            $this->email->print_debugger();
+            // $this->email->print_debugger();
             $this->session->set_flashdata('success_msg', 'Registration success! please verify link on your email address.');
             redirect('login');
         }

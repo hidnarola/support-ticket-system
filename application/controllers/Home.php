@@ -11,6 +11,7 @@ class Home extends CI_Controller {
         $this->load->model('Article_model');
         $this->load->model('Media_model');
         $this->load->model('News_model');
+        $this->load->model('Newsletter_model');
         $this->load->model('Project_model');
     }
 
@@ -19,8 +20,10 @@ class Home extends CI_Controller {
         $data['title'] = 'Home | Support-Ticket-System';
         $userid = $this->session->userdata('user_logged_in')['id'];
         $images = $this->Media_model->get_home_images();
+        $logo_images = $this->Media_model->get_logo_images();
         $data['projects'] = $this->Project_model->get_data();
         $data['images'] = $images;
+        $data['logo_images'] = $logo_images;
         $data['user'] = $this->User_model->getUserByID($userid);
         $data['news_announcements'] = $this->User_model->getlatestnews();
         $this->template->load('frontend/home', 'Frontend/home', $data);
@@ -43,7 +46,7 @@ class Home extends CI_Controller {
                     $compare_key = $this->User_model->get_activation_key($email);
                     if ($key == $compare_key) {
                         $this->User_model->make_active($email);
-                        $this->session->set_flashdata('success_msg', 'our Email has been verified Successfully!');
+                        $this->session->set_flashdata('success_msg', 'Your Email has been verified Successfully!');
                         redirect('login');
                     }
                 }
@@ -448,7 +451,7 @@ class Home extends CI_Controller {
     public function forgot_password() {
         $this->load->helper('form');
         $this->load->library('form_validation');
-
+        $data['news_announcements'] = $this->User_model->getlatestnews();
         $this->form_validation->set_rules('email', 'Email', 'required');
         if ($this->form_validation->run() === FALSE) {
             $data['title'] = 'Forgot Password';
@@ -463,7 +466,10 @@ class Home extends CI_Controller {
                 $decrypted_pass = $this->encrypt->decode($pass);
                 $configs = mail_config('service');
                 $unique_code = $this->encrypt->encode($email);
-                $url = 'http://' . $_SERVER['SERVER_NAME'] . '/home/reset_password?key=' . urlencode($unique_code);
+
+                $token = $this->generate_token();
+
+                $url = base_url(). '/home/reset_password?key=' . urlencode($unique_code).'&token='.$token;
                 $message = 'Hello ' . $user_name . ',<br/><br/> Please follow this link to reset your password<br/>
                     <a href="' . $url . '">' . $url . '</a>
                 <br/><br/>Thank You.';
@@ -478,10 +484,16 @@ class Home extends CI_Controller {
                 $this->email->message($message);
                 $e = $this->email->send();
                 if ($e) {
+                    $condition = array('email'=>$email);
+                    $user_array = array('is_reset_on'=>1,
+                        'tstamp'=>$_SERVER["REQUEST_TIME"],
+                        'token'=>$token
+                        );
+                    $this->News_model->update_record(TBL_USERS, $condition, $user_array);
                     $this->session->set_flashdata('success_msg', 'Email successfully sent.');
                 } else {
                     $this->session->set_flashdata('error_msg', 'Email could not be sent.');
-                    show_error($this->email->print_debugger());
+                    //show_error($this->email->print_debugger());
                 }
             } else {
                 $this->session->set_flashdata('error_msg', 'This email is not in use.. Please enter valid email.');
@@ -491,9 +503,32 @@ class Home extends CI_Controller {
     }
 
     public function reset_password() {
+        if (isset($_GET['key']) && $_GET['key'] != '') {
+                $key = $_GET['key'];
+                $get_token = (isset($_GET['token'])) ? $_GET['token'] : '';
+                $email = $this->encrypt->decode($key);
+                if ($email != '') {
+                    if ($this->User_model->email_exists($email) == true) {
+                        $condition = array('email'=>$email);
+                        $user_arr = $this->User_model->get_result(TBL_USERS,$condition);
+                        $user = $user_arr[0];
+                        $tstamp = $user['tstamp'];
+                        $is_reset_on = $user['is_reset_on'];
+                        $delta = 1800;
+                        
+                        $token = $user['token'];
+                        $test_time = $_SERVER["REQUEST_TIME"] - $tstamp;
+                        // Check to see if link has expired
+                        if (($test_time > $delta && $is_reset_on==1) || $get_token != $token || $is_reset_on==0) {
+                            $this->session->set_flashdata('error_msg', "Reset Link has expired.");
+                            redirect('home/forgot_password');
+                        }
+                    }
+                }
+            }
         $this->load->helper('form');
         $this->load->library('form_validation');
-
+        $data['news_announcements'] = $this->User_model->getlatestnews();
         $this->form_validation->set_rules('password', 'Passsword', 'required');
         $this->form_validation->set_rules('confirm_password', 'Confirm Passsword', 'required');
 
@@ -504,22 +539,44 @@ class Home extends CI_Controller {
         } else {
             if (isset($_GET['key']) && $_GET['key'] != '') {
                 $key = $_GET['key'];
+                $get_token = (isset($_GET['token'])) ? $_GET['token'] : '';
                 $email = $this->encrypt->decode($key);
                 if ($email != '') {
                     if ($this->User_model->email_exists($email) == true) {
+                        $condition = array('email'=>$email);
+                        $user_arr = $this->User_model->get_result(TBL_USERS,$condition);
+                        $user = $user_arr[0];
+                        $tstamp = $user['tstamp'];
+                        $is_reset_on = $user['is_reset_on'];
+                        $delta = 1800;
+                        
+                        $token = $user['token'];
+                        $test_time = $_SERVER["REQUEST_TIME"] - $tstamp;
+                        // Check to see if link has expired
+                        if (($test_time > $delta && $is_reset_on==1) || $get_token != $token || $is_reset_on==0) {
+                            $this->session->set_flashdata('error_msg', "Reset Link has expired.");
+                            redirect('home/forgot_password');
+                        }
+
                         $pass = $this->input->post('password');
                         $confirm_pass = $this->input->post('confirm_password');
                         if ($pass != $confirm_pass) {
                             $this->session->set_flashdata('error_msg', 'Password Mismatch.');
-                            redirect('home/reset_password?key=' . $key);
+                            redirect('home/reset_password?key=' . $key.'&token='.$token);
                         } else {
                             $encrypted_pass = $this->encrypt->encode($pass);
                             if ($this->User_model->reset_password($encrypted_pass, $email)) {
+                                $condition = array('email'=>$email);
+                                $user_array = array('is_reset_on'=>0,
+                                    'tstamp'=>NULL,
+                                    'token'=>NULL
+                                    );
+                                $this->News_model->update_record(TBL_USERS, $condition, $user_array);
                                 $this->session->set_flashdata('success_msg', 'Password Reset Successfully.');
                                 redirect('login');
                             } else {
                                 $this->session->set_flashdata('error_msg', 'Unable to Reset Password.');
-                                redirect('home/reset_password?key=' . $key);
+                                redirect('home/reset_password?key=' . $key.'&token='.$token);
                             }
                         }
                     } else {
@@ -537,4 +594,59 @@ class Home extends CI_Controller {
         }
     }
 
+    function generate_token($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    function subscribe(){
+        $email = $this->input->post('email');
+        $array = array('email'=>$email,
+            'created'=>date('Y-m-d H:i:s')
+            );
+        $company_details = company_details();
+        $keys = array_column($company_details, 'key');
+        $values = array_column($company_details, 'value');
+        $combined = array_combine($keys, $values);
+        $company = $combined;
+
+        if($this->Newsletter_model->insert(TBL_NEWSLETTER_SUBSCRIBERS,$array)){
+            $message = "Hello,<br/><br/><div>Thank you for Subscribing."
+                    
+                    . "</div><br/>";
+                    $message .=$company['company_name'].'<br/>';
+                    $message .=$company['company_contact_no'].'<br/>';
+
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body = $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+            
+            $configs = mail_config();
+            $this->load->library('email', $configs);
+            $this->email->initialize($configs);
+            $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+            $this->email->to($email);
+            $this->email->subject('Newsletter Subscription');
+            $this->email->message($mail_body);
+            if($this->email->send()){
+                $data = array('status'=>'subscribed');
+            }
+
+            if ( isset( $data['status'] ) AND $data['status'] == 'subscribed' ){
+                echo '{ "alert": "success", "message": "You have been <strong>successfully</strong> subscribed to our Email List." }';
+            } else {
+                echo '{ "alert": "error", "message": "Something went wrong, please try again." }';
+            }
+           // return json_encode($data);
+            // $this->session->set_flashdata('success_msg', 'Subscribed Successfully.');
+            // redirect('home');
+        }
+    }
 }

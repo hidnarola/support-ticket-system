@@ -57,20 +57,30 @@ class Media extends CI_Controller {
             } else {
                 $image = '';
             }
-            $home_page = $gallery = 0;
-            if($page=='home'){
-                $home_page = 1;
-            }else{
-                $gallery = 1;
-            }
-            $image_data = array(
-                'home_page' => $home_page,
-                'gallery' => $gallery,
-                'is_visible' => 1,
-                'image' => $image
-            );
 
-            $this->Media_model->add_images($image_data);
+            if($page=='home' || $page=='gallery' ){
+                $home_page = $gallery = 0;
+                if($page=='home'){
+                    $home_page = 1;
+                }else{
+                    $gallery = 1;
+                }
+
+                $image_data = array(
+                    'home_page' => $home_page,
+                    'gallery' => $gallery,
+                    'is_visible' => 1,
+                    'image' => $image
+                );
+
+                $this->Media_model->add_images($image_data, TBL_MEDIA);
+            }else{
+                $image_data = array(
+                    'logo_image' => $image,
+                    'created' => date('Y-m-d H:i:s'),
+                );
+                 $this->Media_model->add_images($image_data, TBL_LOGOS);
+            }
 
         echo json_encode("success");
     }
@@ -81,5 +91,14 @@ class Media extends CI_Controller {
             $this->session->set_flashdata('success_msg', 'Deleted successfully.');
             redirect('admin/home_slider');
         }
+    }
+
+    public function logos() {
+        $this->data['title'] = $this->data['page_header'] = 'Logos';
+        $this->data['icon_class'] = 'icon-image3';
+        $images = $this->Media_model->get_logo_images();
+        $this->data['images'] = $images;
+
+        $this->template->load('admin', 'Admin/Media/logos', $this->data);
     }
 }

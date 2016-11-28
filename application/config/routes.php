@@ -72,7 +72,13 @@ $route['admin/staff'] = "admin/users";
 $route['admin/tenants'] = "admin/users";
 $route['admin/news_announcements'] = "admin/news";
 $route['admin/home_slider'] = "admin/media/home_slider";
+$route['admin/logos'] = "admin/media/logos";
 $route['admin/social_media'] = "admin/social_media/manage/social_media";
+$route['admin/subscribers'] = "admin/newsletters/subscribers";
+$route['admin/subscribers/add'] = "admin/newsletters/add_subscriber";
+$route['admin/newsletters/add'] = 'admin/newsletters/edit';
+$route['admin/newsletters/delete/(:any)'] = 'admin/newsletters/action/delete/$1';
+$route['admin/subscribers/delete/(:any)'] = 'admin/newsletters/action/delete/$1/subscriber';
 
 $route['staff'] = "staff/dashboard";
 $route['staff/logout'] = "login/logout";

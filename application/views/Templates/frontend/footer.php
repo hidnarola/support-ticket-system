@@ -130,13 +130,13 @@
 
                             </div>
 
-                            <div class="widget subscribe-widget clearfix">
+                            <div class="widget subscribe-widget clearfix" >
                                 <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
                                 <div class="widget-subscribe-form-result"></div>
-                                <form id="widget-subscribe-form" action="include/subscribe.php" role="form" method="post" class="nobottommargin">
+                                <form id="widget-subscribe-form" action="home/subscribe" role="form" method="post" class="nobottommargin">
                                     <div class="input-group divcenter">
                                         <span class="input-group-addon"><i class="icon-email2"></i></span>
-                                        <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email">
+                                        <input type="email" id="widget-subscribe-form-email" name="email" class="form-control required email" placeholder="Enter your Email">
                                         <span class="input-group-btn">
                                             <button class="btn btn-success" type="submit">Subscribe</button>
                                         </span>
@@ -235,8 +235,8 @@
                 </div><!-- #copyrights end -->
 
             </footer><!-- #footer end -->
-            <script type="text/javascript">
-                jQuery(document).ready(function($) {
+            <script>
+                $(function () {
                     $('a[href="#"]').click(function(event) {
                         event.preventDefault();
                     });

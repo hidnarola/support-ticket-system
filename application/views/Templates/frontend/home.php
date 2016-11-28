@@ -135,6 +135,8 @@
             </header><!-- #header end -->
 
             <?php echo $body; ?>
+            <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+        <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
             <!-- Footer
             ============================================= -->
              <?php $this->load->view('Templates/frontend/footer'); ?>
@@ -147,8 +149,7 @@
 
         <!-- External JavaScripts
         ============================================= -->
-        <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
-        <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
+        
 
         <!-- Footer Scripts
         ============================================= -->

@@ -17,8 +17,15 @@ class Media_model extends CI_Model {
         return $result;
     }
 
-    public function add_images($img_array){
-        $this->db->insert(TBL_MEDIA, $img_array);
+    public function get_logo_images(){
+        $this->db->where('is_delete', 0);
+        $query = $this->db->get(TBL_LOGOS);
+        $result = $query->result_array();
+        return $result;
+    }
+
+    public function add_images($img_array, $table_name){
+        $this->db->insert($table_name, $img_array);
     }
 
     public function delete($record_id){

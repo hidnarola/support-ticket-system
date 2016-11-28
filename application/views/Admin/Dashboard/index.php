@@ -182,10 +182,15 @@
                             <?php } */ ?>
                             <td class="text-center">
                                 <ul class="icons-list">
-
+                                    <li class="text-teal-600">
+                                            <a href="<?php echo base_url() . 'admin/tickets/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>" title='Edit Ticket' class="edit"><i class="icon-pencil7"></i></a>
+                                        </li>
                                     <li class="text-purple-700">
                                         <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i> </a>
                                     </li>
+                                    <li class="text-danger-600">
+                                            <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Ticket' class="delete"><i class="icon-trash"></i></a>
+                                        </li>
 <!--                                    <li class="text-grey">
                                         <a href="<?php echo base_url() . 'admin/tickets/reply/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Reply' class="view"><i class="icon-reply"></i> </a>
                                     </li>-->

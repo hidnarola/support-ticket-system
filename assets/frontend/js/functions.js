@@ -3229,7 +3229,6 @@ var SEMICOLON = SEMICOLON || {};
 		},
 
 		subscription: function(){
-
 			if( !$().validate ) {
 				console.log('subscription: Form Validate not Defined.');
 				return true;
@@ -3252,6 +3251,7 @@ var SEMICOLON = SEMICOLON || {};
 
 				element.find('form').validate({
 					submitHandler: function(form) {
+					
 
 						elementResult.hide();
 
@@ -3269,6 +3269,7 @@ var SEMICOLON = SEMICOLON || {};
 							dataType: 'json',
 							resetForm: true,
 							success: function( data ) {
+								console.log('here');
 								if( elementLoader == 'button' ) {
 									defButton.html( defButtonText );
 								} else {

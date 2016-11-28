@@ -104,6 +104,11 @@ define('TBL_SETTINGS','settings');
 define('TBL_SOCIAL_MEDIA','social_media');
 define('TBL_ARTICLE_COMMENTS','article_comments');
 define('TBL_PROJECTS','projects');
+define('TBL_LOGOS','logos');
+define('TBL_NEWSLETTERS','newsletters');
+define('TBL_NEWSLETTER_SUBSCRIBERS','newsletter_subscribers');
+define('TBL_NEWSLETTER_SETTINGS','newsletter_settings');
+define('TBL_NEWSLETTERS_TEST_EMAILS','newsletters_test_emails');
 
 
 /*  |	set upload folder constants */

@@ -81,11 +81,11 @@
                                         <label class="col-lg-2 control-label">Description</label>
                                         <div class="col-lg-10">
     <!--                                        <textarea rows="5" cols="5" name="description" class="form-control" required="required" placeholder="Description Here" aria-required="true" aria-invalid="true"><?php
-                                            if (isset($data)) {
+                                            /*if (isset($data)) {
                                                 echo trim($data['description']);
                                             } else {
                                                 echo '';
-                                            }
+                                            }*/
                                             ?></textarea>-->
                                             <div class="panel panel-flat">
                                                 <div class="panel-heading">
