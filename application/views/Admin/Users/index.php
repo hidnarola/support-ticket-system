@@ -1,4 +1,4 @@
-<!--<script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>-->
+<script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
 <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <div class="page-header page-header-default">
     <?php
@@ -67,103 +67,109 @@
                 </div>
             </div>
             <div class="panel-body" style="clear: both;">
-                <div class="user_table">
-                    <table class="table datatable-basic" id="datatable-basic-users">
-                        <thead>
-                            <tr class="bg-teal">
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <?php
-                                if ($seg == 'staff') { ?>
-                                    <th>Department</th>
-                                <?php } else { ?>
-                                    <th>Address</th>
-                                <?php } ?>
-                                <th>Verified</th>
-                                <?php if ($seg == 'tenant') { ?>
-                                    <th>Status</th>
-                                <?php } ?>
-                                <th>Action</th>
+                <!--<div class="user_table">-->
+                <table class="table datatable-basic" id="datatable-basic-users">
+                    <thead>
+                        <tr class="bg-teal">
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <?php if ($seg == 'staff') { ?>
+                                <th>Department</th>
+                            <?php } else { ?>
+                                <th>Address</th>
+                            <?php } ?>
+                            <th>Verified</th>
+                            <?php if ($seg == 'tenant') { ?>
+                                <th>Status</th>
+                            <?php } ?>
+                            <th>Action</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($users as $key => $record) {
-                                $is_head = '';
-                                if ($seg == 'staff') {
-                                    if ($record['is_head'] == 1) {
-                                        $is_head = 'staff_head';
-                                    }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($users as $key => $record) {
+                            $is_head = '';
+                            if ($seg == 'staff') {
+                                if ($record['is_head'] == 1) {
+                                    $is_head = 'staff_head';
                                 }
-                                ?>
-                                <tr class="<?php echo $is_head; ?>">
-                                    <td><?php echo $key + 1; ?></td>
-                                    <td><?php echo $record['fname']; ?></td>
-                                    <td><?php echo $record['lname']; ?></td>
-                                    <td><?php echo $record['email']; ?></td>
-                                    <?php if ($seg == 'staff') { ?>
-                                        <td><?php echo $record['name']; ?></td> 
-                                    <?php } else { ?>
-                                        <td><?php echo $record['address']; ?></td>
-                                    <?php } ?>
-                                    <td><?php if ($record['is_verified'] == 0) { ?>
-                                            <span class="label label-danger">Not Verified</span>
-                                        <?php } else { ?>
-                                            <span class="label label-success">Verified</span> 
-                                        <?php }
-                                        ?></td>
-
-                                    <?php if ($seg == 'tenant') { ?>
-                                        <td><?php if ($record['status'] == 0) { ?>
-                                                <span class="label bg-orange-600">Unapproved</span>
-                                            <?php } else { ?>
-                                                <span class="label bg-green-600">Approved</span> 
-                                            <?php }
-                                            ?></td>
-                                    <?php } ?>
-
-                                    <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="text-teal-600">
-                                                <a href="<?php echo base_url() . 'admin/users/edit/' . $seg . '/' . base64_encode($record['uid']) ?>" id="edit_<?php echo base64_encode($record['uid']); ?>" class="edit"><i class="icon-pencil7"></i></a>
-                                            </li>
-                                            <li class="text-danger-600">
-                                                <a id="delete_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" class="delete"><i class="icon-trash"></i></a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Password</a></li>
-                                                    <?php if ($seg == 'tenant') { ?>  
-                                                        <li><a class="chang_status" data-status="<?php echo $record['status']; ?>" id="changestatus_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Status</a></li>
-
-                                                        <?php
-                                                        if ($record['contract'] != '') {
-                                                            ?>
-                                                            <li><a target="_blank" class="view_contract" href="<?php echo USER_CONTRACT . '/' . $record['contract']; ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-eye"></i> View Contract</a></li>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                    <?php if ($seg == 'staff') { ?>
-                                                        <li><a class="assign_head" data-dept="<?php echo $record['dept_id']; ?>" data-action="<?php echo ($is_head) ? 'unassign' : 'assign'; ?>" id="assign_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-user"></i> <?php echo ($is_head) ? 'Unassign as Head Staff' : 'Assign as Head Staff'; ?></a></li>
-                                                    <?php } ?>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <?php
                             }
                             ?>
-                        </tbody>
-                    </table>
-                </div>
+                            <tr class="<?php echo $is_head; ?>">
+                                <td><?php echo $key + 1; ?></td>
+                                <td><?php echo $record['fname']; ?></td>
+                                <td><?php echo $record['lname']; ?></td>
+                                <td><?php echo $record['email']; ?></td>
+                                <?php if ($seg == 'staff') { ?>
+                                    <td><?php echo $record['name']; ?></td> 
+                                <?php } else { ?>
+                                    <td><?php echo $record['address']; ?></td>
+                                <?php } ?>
+                                <td><?php if ($record['is_verified'] == 0) { ?>
+                                        <span class="label label-danger">Not Verified</span>
+                                    <?php } else { ?>
+                                        <span class="label label-success">Verified</span> 
+                                    <?php }
+                                    ?></td>
+
+                                <?php if ($seg == 'tenant') { ?>
+                                    <td><?php if ($record['status'] == 0) { ?>
+                                            <span class="label bg-orange-600">Unapproved</span>
+                                        <?php } else { ?>
+                                            <span class="label bg-green-600">Approved</span> 
+                                        <?php }
+                                        ?></td>
+                                <?php } ?>
+
+                                <td class="text-center">
+                                    <ul class="icons-list">
+                                        <li class="text-teal-600">
+                                            <a href="<?php echo base_url() . 'admin/users/edit/' . $seg . '/' . base64_encode($record['uid']) ?>" id="edit_<?php echo base64_encode($record['uid']); ?>" class="edit"><i class="icon-pencil7"></i></a>
+                                        </li>
+                                        <li class="text-danger-600">
+                                            <a id="delete_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" class="delete"><i class="icon-trash"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="icon-menu9"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_success" class="chang_pwdd" id="changepwd_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Password</a></li>
+                                                <?php if ($seg == 'tenant') { ?>  
+                                                    <li><a class="chang_status" data-status="<?php echo $record['status']; ?>" id="changestatus_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-pencil3"></i> Change Status</a></li>
+
+                                                    <?php
+                                                    if ($record['contract'] != '') {
+                                                        ?>
+                                                        <li><a target="_blank" class="view_contract" href="<?php echo USER_CONTRACT . '/' . $record['contract']; ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-eye"></i> View Contract</a></li>
+                                                        <?php
+                                                    }
+                                                    $data = $this->User_model->get_contracts($record['uid']);
+                                                    if (!empty($data)) {
+                                                        ?>
+
+                                                        <li><a class="view_previous_contract" id="view_previous_contract_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-eye"></i>Previous Contracts</a></li>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                                <?php if ($seg == 'staff') { ?>
+                                                    <li><a class="assign_head" data-dept="<?php echo $record['dept_id']; ?>" data-action="<?php echo ($is_head) ? 'unassign' : 'assign'; ?>" id="assign_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-user"></i> <?php echo ($is_head) ? 'Unassign as Head Staff' : 'Assign as Head Staff'; ?></a></li>
+                                                <?php } ?>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <!--</div>-->
             </div>
         </div>
     </div>
@@ -217,15 +223,36 @@
         </div>
     </div>
 </div>
+
+
+<div id="modal_theme_contract" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal-400">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Previous Contracts</h6>
+            </div>
+            <div class="modal-body panel-body login-form" id="contract_form">
+
+            </div>
+            <hr>
+            <div class="modal-footer">
+                <button type="button" class="btn border-slate text-slate-800 btn-flat" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <style>
     .user_verified{display: none;font-size: 18px;margin-left: 16px;margin-top: 10px;}
-    .user_table .dataTables_length > label > span:first-child {margin: 7px 15px 8px 0;}
-    .dataTables_length {margin: 12px 0 12px 20px;}
-    .datatable-scroll {overflow-x: hidden;}
+    /*.user_table .dataTables_length > label > span:first-child {margin: 7px 15px 8px 0;}*/
+    /*.dataTables_length {margin: 12px 0 12px 20px;}*/
+    /*.datatable-scroll {overflow-x: hidden;}*/
 </style>
 <!-- /success modal -->
 <script>
-$(function () {
+    $(function () {
         $('.datatable-basic').dataTable({
             scrollX: true,
             scrollCollapse: true,
@@ -395,5 +422,30 @@ $(function () {
                 });
             }
         });
+    });
+    $(document).on('click', '.view_previous_contract', function () {
+        var id = $(this).attr('data-record');
+//        var status = $(this).attr('data-status');
+        var url = base_url + 'users/view_previous_contract';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'JSON',
+            data: {id: id},
+            success: function (data) {
+                console.log()
+                str = '';
+                $.each(data, function (i, item) {
+                    str += '<div class="row" style="margin-top: 5px;">';
+                    var image = '<?php echo base_url() . USER_CONTRACT . '/' ?>' + item.contract;
+                    str += '<center><a class="btn border-slate text-slate-800 btn-flat" target="_blank" href="' + image + '">' + item.contract + '</center></a>';
+                    str += '</div>';
+                });
+                $('#modal_theme_contract').modal('show');
+                $('#contract_form').html(str);
+
+            }
+        });
+
     });
 </script>

@@ -210,7 +210,6 @@
                 dataType: 'JSON',
                 data: {subject: subject, comment: comment, type: type, link: link, article_id: article_id},
                 success: function (data) {
-//                    return false;
                     $('.loader').hide();
                     $('#confirm').modal('hide');
 //                    window.location.reload();
@@ -219,41 +218,8 @@
 //                    SEMICOLON.widget.notifications(this);
                     $("#succeess_message").trigger("click");
                     return false;
-                  
                 },
             });
         }
-    });
-
-    $(function () {
-//        $("#commentform").submit(function (event) {
-//            event.preventDefault();
-//          console.log('here');
-//          return false;
-//            var base_url = '<?php echo base_url(); ?>';
-//            var url_action = base_url + 'home/add_comments';
-//            var subject = $('#subject').val();
-//            var comment = $('#comment').val();
-//            var type = $('#type').val();
-//        var url = 'http://dev.supportticket.com/knowledgebase/digital-marketing';
-////            var pathname = window.location.pathname; // Returns path only
-////            var url = window.location.href;     // Returns full URL
-//            if (subject !== '' && comment !== '') {
-//                $.ajax({
-//                    url: url_action,
-//                    dataType: 'JSON',
-//                     data: {subject: subject, comment: comment,type:type,url:url},
-//                    type: $(this).attr('method')
-//                }).done(function (data) {
-//                    return false;
-////                window.location.reload();
-//
-//                });
-//            }
-//            event.preventDefault();
-//        });
-
-
-
     });
 </script>

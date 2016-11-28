@@ -13,14 +13,11 @@ class Profile extends CI_Controller {
     }
 
     public function index() {
-//                echo "<pre>";
-//print_r($this->session->all_userdata());
-//echo "</pre>";exit;
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
         $data['news_announcements'] = $this->User_model->getlatestnews();
         $data['previous_contracts'] = $this->User_model->get_contracts($userid);
-        // pr($data['previous_contracts'],1);
+//         pr($data['previous_contracts'],1);
 
         $data['title'] = 'User Profile | Support-Ticket-System';
         $this->template->load('frontend/profile', 'Frontend/User/profile', $data);

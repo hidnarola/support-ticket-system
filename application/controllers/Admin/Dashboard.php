@@ -351,4 +351,21 @@ class Dashboard extends CI_Controller {
         }
         exit;
     }
+    public function get_emails() {
+        $keyword = $this->input->post('term');
+        echo $keyword;exit;
+        $data['response'] = 'false'; //Set default response
+        if (!empty($keyword) && isset($keyword)) {
+            $query = $this->Newsletter_model->get_emails($keyword);
+            if (!empty($query)) {
+                $data['response'] = 'true'; //Set response
+                $data['message'] = array(); //Create array
+                foreach ($query as $row) {
+                    $data['message'][] = array('value' => $row['email'], 'id' => $row['id']);
+                }
+                echo json_encode($data);
+                exit;
+            }
+        }
+    }
 }

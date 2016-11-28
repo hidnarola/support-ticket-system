@@ -31,6 +31,7 @@ class Users extends CI_Controller {
             }
             $this->data['users'] = $users;
         }
+//            pr($this->data['users'],1);
         $this->template->load('admin', 'Admin/Users/index', $this->data);
     }
 
@@ -427,6 +428,17 @@ class Users extends CI_Controller {
                 $this->session->set_flashdata('success_msg', 'Assigned Successfully');
                 $data['status'] = 0;
             }
+            echo json_encode($data);
+            exit;
+        }
+    }
+    
+    public function view_previous_contract() {
+        $id = $this->input->post('id');
+        if ($id != null) {
+            $record_id = base64_decode($id);
+             $data = $this->User_model->get_contracts($record_id);
+//             pr($data,1);
             echo json_encode($data);
             exit;
         }
