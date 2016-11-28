@@ -184,10 +184,37 @@
 
                                 </div>
                                 <div class="col_full">
-                                    <div class="col-md-4" style="margin-top: 5px;">
+                                    <div class="col-md-5" style="margin-top: 5px;">
                                 <?php if($user['contract'] != ''){ ?>
-
-                                    <a class="button button-light nomargin" href="<?php echo USER_CONTRACT.'/'.$user['contract']; ?>" target="_blank">View Contract</a>
+                                    <div class="row">
+                                        <a class="button button-light nomargin" href="<?php echo USER_CONTRACT.'/'.$user['contract']; ?>" target="_blank">View Contract</a>
+                                    </div>
+                                    <?php 
+                                        if(!empty($previous_contracts)){ ?>
+                                        <div style="margin-top: 5px;" class="row">
+                                            <a class="button button-light nomargin" href="#" data-toggle="modal" data-target="#contract_modal">View Previous Contracts</a>
+                                        </div>
+                                        <div id="contract_modal" class="modal fade">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-teal-400">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h6 class="modal-title">Previously Added Contracts</h6>
+                                                    </div>
+                                                    <div class="modal-body text-center">
+                                                    <?php foreach ($previous_contracts as $contract) { ?>
+                                                    <div class="row" style="margin-top: 5px;">
+                                                        <a class="button button-light nomargin" target="_blank" href="<?php echo USER_CONTRACT.'/'.$contract['contract']; ?>"><?php echo $contract['contract']; ?></a>
+                                                        </div>
+                                                    <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php }
+                                    
+                                    ?>
+    
                                     <?php }else{ ?>
                                         <label>Contract:</label>
                                     <?php } ?>
@@ -197,7 +224,7 @@
                                         .btn-file input[type=file] {background: white;cursor: inherit;display: block;font-size: 100px;  min-height: 100%; min-width: 100%;opacity: 0;outline: medium none;position: absolute;right: 0; text-align: right;top: -16px; z-index: 99;}
                                     </style></div>
                                     <!--<input type="file" id="profile_pic" name="profile_pic" class="form-control" onchange="readURL(this)">-->
-                                        <div class="col-md-8">
+                                        <div class="col-md-7">
                                             <div class="btn-file">
                                                 <input type="file" name="contract" id="contract">
                                                 <span class="custom-file-control"></span>
@@ -205,9 +232,6 @@
                                         <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
                                             </div>
                                         </div>
-
-                                        
-                                    
 
                                 </div>
 

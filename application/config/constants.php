@@ -109,6 +109,7 @@ define('TBL_NEWSLETTERS','newsletters');
 define('TBL_NEWSLETTER_SUBSCRIBERS','newsletter_subscribers');
 define('TBL_NEWSLETTER_SETTINGS','newsletter_settings');
 define('TBL_NEWSLETTERS_TEST_EMAILS','newsletters_test_emails');
+define('TBL_TENANT_CONTRACTS','tenant_contracts');
 
 
 /*  |	set upload folder constants */

@@ -438,6 +438,23 @@ class User_model extends CI_Model {
         $this->db->where('email', $email);
         $this->db->where('is_delete', 0);
         return $this->db->update(TBL_USERS, $data);
-    }
+   }
 
+   public function get_contracts($user_id){
+        $this->db->where("user_id", $user_id);
+        $this->db->where("current", 0);
+        $query = $this->db->get(TBL_TENANT_CONTRACTS);
+        return $query->result_array(); 
+   }
+
+   public function update_contracts($user_id){
+        $this->db->where('user_id', $user_id);
+        $data = array('current'=>0);
+        return $this->db->update(TBL_TENANT_CONTRACTS, $data);
+   }
+
+   public function insert_contract($contract_array){
+        $this->db->insert(TBL_TENANT_CONTRACTS, $contract_array);
+   }
+   
 }

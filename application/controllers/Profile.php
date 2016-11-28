@@ -19,6 +19,8 @@ class Profile extends CI_Controller {
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
         $data['news_announcements'] = $this->User_model->getlatestnews();
+        $data['previous_contracts'] = $this->User_model->get_contracts($userid);
+        // pr($data['previous_contracts'],1);
 
         $data['title'] = 'User Profile | Support-Ticket-System';
         $this->template->load('frontend/profile', 'Frontend/User/profile', $data);
@@ -101,7 +103,18 @@ class Profile extends CI_Controller {
                     $src = './' . USER_CONTRACT . '/' . $contract;
                 }
             $update_contract = array('contract' => $contract);
-            $this->User_model->edit($update_contract, TBL_USERS, 'id', $userid);
+                if($this->User_model->edit($update_contract, TBL_USERS, 'id', $userid)){
+                    $contract_array = array(
+                        'contract'=>$contract,
+                        'user_id'=> $userid,
+                        'current'=>1
+                    );
+
+                    $this->User_model->update_contracts($userid);
+                    $this->User_model->insert_contract($contract_array);
+                    
+                }
+
             }
             $this->session->set_flashdata('success_msg', 'Your profile is updated successfully!');
             redirect('profile');
@@ -111,7 +124,7 @@ class Profile extends CI_Controller {
     public function changepassword() {
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
- $data['news_announcements'] = $this->User_model->getlatestnews();
+        $data['news_announcements'] = $this->User_model->getlatestnews();
         $data['title'] = 'Profile | Support-Ticket-System';
          $data['header_title'] = 'Change Password';
         $this->template->load('frontend/page', 'Frontend/User/change_password', $data);

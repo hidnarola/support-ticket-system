@@ -50,10 +50,10 @@ if ($this->session->flashdata('success')) {
                     <th>Sr No.</th>
                     <th>Title</th>
                     <th>Created Date</th>
-                    <th>Is auto</th>
+                    <!-- <th>Is auto</th> -->
                     <th>Action</th>
                     <th>Send Newsletter</th>
-                    <th>Test Newsletter</th>
+                    <!-- <th>Test Newsletter</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -64,7 +64,7 @@ if ($this->session->flashdata('success')) {
                     <td><?php echo $i; ?></th>
                     <td><?php echo $newsletter['title']; ?></td>
                     <td><?php echo date('F j, Y',strtotime($newsletter['created_date'])); ?></td>
-                    <td><?php 
+                   <?php /* <td><?php 
                             $status = '';
                         if($newsletter['is_auto'] != '' && $newsletter['is_auto'] != 0 && $newsletter['is_auto'] != null){
                             $status = '<span class="label bg-success">Is Auto</span>';
@@ -73,7 +73,7 @@ if ($this->session->flashdata('success')) {
                         }
                         echo $status;
 
-                    ?></td>
+                    ?></td> */ ?>
                     <td>
                         <a href="admin/newsletters/edit/<?php echo $newsletter['id']; ?>" class="btn border-primary text-primary-600 btn-flat btn-icon btn-rounded btn-sm"><i class="icon-pencil3"></i></a>
                        <a href="admin/newsletters/settings/<?php echo $newsletter['id']; ?>" class="btn border-brown text-brown-600 btn-flat btn-icon btn-rounded btn-sm"><i class="icon-gear"></i></a>
@@ -90,7 +90,7 @@ if ($this->session->flashdata('success')) {
                         <?php }
                         ?>
                     </td>
-                    <td>Test Newsletter</td>
+                    <!-- <td>Test Newsletter</td> -->
                 </tr>
             <?php } ?>
                 
