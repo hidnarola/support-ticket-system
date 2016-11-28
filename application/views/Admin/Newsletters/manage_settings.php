@@ -57,7 +57,7 @@ if ($this->session->flashdata('success')) {
             <form class="form-horizontal form-validate" action="" id="newsletter_settings" method="POST">
                 <div class="panel panel-flat">
                     <div class="panel-body">
-                        
+                        <?php /*
                         <fieldset>
                             <legend class="text-semibold">
                                 <i class="icon-gear position-left"></i>
@@ -135,6 +135,7 @@ if ($this->session->flashdata('success')) {
                             </div>
                             
                         </fieldset>
+                        */ ?>
                         <fieldset>
                             <legend class="text-semibold">
                                 <i class="icon-wrench position-left"></i>
@@ -182,9 +183,6 @@ if ($this->session->flashdata('success')) {
             $('.tags-input').tagsinput({
                 maxTags: 5,
                 trimValue: true,
-                typeahead: {
-                 source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
-              }
             });
         // }, 300);
    jQuery(document).ready(function($) {

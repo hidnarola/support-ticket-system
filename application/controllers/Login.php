@@ -56,11 +56,11 @@ if ($this->uri->segment(1) == 'support') {
                     redirect('home');
                 } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $user_title == 'Tenant') {
                     // Give error mesg for verify link
-                    $this->session->set_flashdata('error_msg', 'Please verify your link before login!');
+                    $this->session->set_flashdata('error_msg', 'Please verify your email address before login!');
                     redirect('login');
                 } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $result['password'] != '' && $user_title == 'Tenant') {
                     // Give error mesg for verify link
-                    $this->session->set_flashdata('error_msg', 'Please verify your link before login!');
+                    $this->session->set_flashdata('error_msg', 'Please verify your email address before login!');
                     redirect('login');
                 } elseif ($result['role_id'] == 1 && $result['status'] == 0 && $result['is_verified'] == 1 && $user_title == 'Tenant') {
                     // login sucess Give error mesg for unapproved user
@@ -169,6 +169,14 @@ if ($this->uri->segment(1) == 'support') {
           
             $this->Admin_model->manage_record($this->table, $data);
             $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
+            if($contract != ''){
+                $contract_array = array(
+                        'contract'=>$contract,
+                        'user_id'=> $lastUserId,
+                        'current'=>1
+                    );
+                $this->User_model->insert_contract($contract_array);
+            }
             /* To send mail to the user */
             $configs = mail_config();
             $this->load->library('email', $configs);
@@ -179,7 +187,7 @@ if ($this->uri->segment(1) == 'support') {
             $unique_code = md5($useremail);
             $url = base_url() . '/home/tenantverify?key=' . $unique_code . '&u=' . $lastUserId1;
             $message = 'Welcome, ' . $username . '! Thank you for registering with  Manazel Specialists, inc. We look forward to working with you. <br/><br/>
-                        Please confirm your email and registration by clicking on the link below. <br/>
+                        Please confirm your email address and registration by clicking on the link below. <br/>
                         <a href=' . $url . '>' . $url . '</a>';
 
             //--- set email template
@@ -194,7 +202,7 @@ if ($this->uri->segment(1) == 'support') {
             $this->email->message($msg);
             $this->email->send();
             // $this->email->print_debugger();
-            $this->session->set_flashdata('success_msg', 'Registration success! please verify link on your email address.');
+            $this->session->set_flashdata('success_msg', 'Registration success! please verify your email address.');
             redirect('login');
         }
     }
