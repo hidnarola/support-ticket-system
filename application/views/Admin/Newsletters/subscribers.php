@@ -40,13 +40,17 @@ if ($this->session->flashdata('success')) {
 }
 ?>
 <div class="content">
+    <?php
+    $this->load->view('admin/message_view');
+    echo validation_errors();
+    ?>
     <div class="panel panel-flat">
         <div class="panel-heading text-right">
             <a href="<?php echo site_url('admin/subscribers/add'); ?>" class="btn btn-success btn-labeled"><b><i class="icon-newspaper2"></i></b> Add Subscriber</a>
         </div>
         <table class="table datatable-basic">
             <thead>
-                <tr>
+                <tr class="bg-teal">
                     <th>Sr No.</th>
                     <th>Email</th>
                     <th>Created Date</th>

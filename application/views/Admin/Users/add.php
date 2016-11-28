@@ -1,7 +1,7 @@
 <?php
-            $segment = $this->uri->segment(4); 
-$seg = ($segment=='tenant') ? 'tenants' : 'staff';
-            ?>
+$segment = $this->uri->segment(4);
+$seg = ($segment == 'tenant') ? 'tenants' : 'staff';
+?>
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
@@ -10,18 +10,17 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
     </div>
     <?php
     $segment = $this->uri->segment(4);
-    if($segment == 'tenant'){
+    if ($segment == 'tenant') {
         $url = 'admin/tenants';
-    }else{
+    } else {
         $url = 'admin/staff';
-        
     }
     ?>
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
             <li><a href="<?php echo site_url('admin'); ?>"><i class="icon-home2 position-left"></i> Home</a></li>
 
-            <li><a href="<?php echo site_url('admin/'.$seg); ?>"><i class="<?php echo $icon_class; ?> position-left"></i> <?php echo $page; ?></a></li>
+            <li><a href="<?php echo site_url('admin/' . $seg); ?>"><i class="<?php echo $icon_class; ?> position-left"></i> <?php echo $page; ?></a></li>
 
             <li class="active"><?php echo $title; ?></li>
         </ul>
@@ -34,9 +33,6 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
         <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
-
-            // $segment = $this->uri->segment(4);
-
             $edit_segment = $this->uri->segment(3);
 
             if (isset($user)) {
@@ -60,13 +56,12 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group col-xs-12">
-                                    <label>First Name:</label>
+                                    <label>First Name<font color="red">*</font></label>
 
                                     <input type="text" name="fname" class="form-control" placeholder="First Name" required="required" value="<?php
                                     if (isset($user)) {
                                         echo trim($user->fname);
                                     } else {
-
                                         echo set_value('fname');
                                     }
                                     ?>">
@@ -74,17 +69,12 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
 
                                 </div>
                                 <div class="form-group col-xs-12">
-                                    <label>Last Name:</label>
+                                    <label>Last Name<font color="red">*</font></label>
 
                                     <input type="text" name="lname" class="form-control" placeholder="Last Name" required="required" value="<?php
                                     if (isset($user)) {
                                         echo trim($user->lname);
                                     } else {
-//                                        if ($this->input->post('lname')) {
-//                                            echo $this->input->post('lname');
-//                                        } else {
-//                                            echo '';
-//                                        }
                                         echo set_value('lname');
                                     }
                                     ?>">
@@ -92,7 +82,7 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
 
                                 </div>
                                 <div class="form-group col-xs-12">
-                                    <label>Email:</label>                                    
+                                    <label>Email<font color="red">*</font></label>                                    
                                     <input type="email" class="form-control" placeholder="Email Address" name="email" required="required" value="<?php
                                     if (isset($user)) {
                                         echo trim($user->email);
@@ -104,16 +94,11 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
 
                                 </div>
                                 <div class="form-group col-xs-12">
-                                    <label>Contact Number:</label>
+                                    <label>Contact Number<font color="red">*</font></label>
                                     <input type="text" name="contactno" class="form-control" placeholder="Contact Number" required="required" value="<?php
                                     if (isset($user)) {
                                         echo trim($user->contactno);
                                     } else {
-//                                        if ($this->input->post('contactno')) {
-//                                            echo $this->input->post('contactno');
-//                                        } else {
-//                                            echo '';
-//                                        }
                                         echo set_value('contactno');
                                     }
                                     ?>"> 
@@ -124,7 +109,7 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
 
                                 <?php if ($segment == 'staff') { ?>
                                     <div class="form-group col-xs-12">
-                                        <label>Department:</label>                                                                    
+                                        <label>Department<font color="red">*</font></label>                                                                    
                                         <select class="form-control" name="dept_id" required="">
                                             <option selected="" value="">Select Department</option> 
                                             <?php
@@ -144,8 +129,7 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
                                 <div class="form-group col-xs-12 user_profile_pic">
                                     <label>Profile Image:</label>                               
                                     <input type="file" name="profile_pic" class="file-styled" onchange="readURL(this)">
-
-<!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->                               
+                                    <!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->                               
                                     <div class="clearfix"></div>
                                     <div class="col-lg-2"></div>
                                     <div class="col-lg-5">
@@ -167,20 +151,15 @@ $seg = ($segment=='tenant') ? 'tenants' : 'staff';
                                 </div>
 
                                 <div class="form-group col-xs-12">
-                                    <label>Address:</label>                               
+                                    <label>Address<font color="red">*</font></label>                               
                                     <textarea rows="5" cols="5" name="address" class="form-control" required="required" placeholder="Address" aria-required="true" aria-invalid="true"><?php
                                         if (isset($user)) {
                                             echo trim($user->address);
                                         } else {
-//                                            if ($this->input->post('address')) {
-//                                                echo $this->input->post('address');
-//                                            } else {
-//                                                echo '';
-//                                            }
                                             echo set_value('address');
                                         }
                                         ?></textarea>
-<?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
+                                    <?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
                                 </div>
                             </div>
                             <div class="col-md-12">

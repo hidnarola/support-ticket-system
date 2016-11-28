@@ -1,4 +1,4 @@
-<script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
+<!--<script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>-->
 <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <script type="text/javascript" src="assets/admin/js/plugins/loaders/progressbar.min.js"></script>
 <script type="text/javascript" src="assets/admin/js/pages/components_loaders.js"></script>
@@ -34,15 +34,11 @@ $segment = $this->uri->segment(1);
                     <?php foreach ($statuses as $status) { ?>
                         <option <?php echo ($current == $status['id'] ) ? 'selected' : ''; ?> value="<?php echo $status['id'] ?>"><?php echo $status['name'] ?></option>
                     <?php } ?>
-                </select></div>
+                </select>
+            </div>
             <div class="col-md-10">
                 <div class="pull-right">
-                    <!-- <ul class="icons-list">                -->
-                    <!--<li><a data-action="collapse"></a></li>-->
-
                     <a onclick="window.location = 'admin/tickets/add'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Ticket</a>
-                   <!--<button type="button" class="btn bg-pink-400" onclick="window.location = 'admin/tickets/add'"><i class="icon-plus-circle2 position-left"></i>Add New Ticket</button>-->
-                    <!-- </ul> -->
                 </div>
             </div>
         </div>
@@ -129,11 +125,6 @@ $segment = $this->uri->segment(1);
                                         </li>
                                     </ul>
                                 </td>
-    <!--                                    <td class="text-center">
-                                    <ul class="icons-list">
-                                        
-                                    </ul>
-                                </td>-->
                             </tr>
                             <?php
                         }
@@ -206,31 +197,11 @@ $segment = $this->uri->segment(1);
 
         </div>
     </div>
-
 </div>
+<!-- /success modal -->
 <style>
-    .loading-image {
-        background: #fff none repeat scroll 0 0;
-        border-radius: 5px;
-        left: 50%;
-        padding: 10px;
-        position: absolute;
-        top: 50%;
-        z-index: 10;
-    }
-    .loader{
-        display: none;
-        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
-        bottom: 0;
-        left:0;
-        overflow: auto;
-        position: fixed;
-        right: 0;
-        text-align: center;
-        top: 0;
-        z-index: 9999;
-
-    }
+    .loading-image {background: #fff none repeat scroll 0 0;border-radius: 5px;left: 50%;padding: 10px;position: absolute;top: 50%;z-index: 10;}
+    .loader{display: none;background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;bottom: 0;left:0;overflow: auto;position: fixed;right: 0;text-align: center;top: 0;z-index: 9999;}
 </style>
 <div class="loader">
     <center>
@@ -238,12 +209,28 @@ $segment = $this->uri->segment(1);
     </center>
 </div>
 
-
-<!-- /success modal -->
 <script type="text/javascript">
     $(function () {
-        $('#ticket_table').DataTable();
+        $('.datatable-basic').dataTable({
+            scrollX: true,
+            scrollCollapse: true,
+            autoWidth: false,
+            processing: true,
+            //serverSide: true,
+            language: {
+                search: '<span>Filter:</span> _INPUT_',
+                lengthMenu: '<span>Show:</span> _MENU_',
+                paginate: {'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;'}
+            },
+            dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+            order: [[2, "asc"]],
+        });
+        $('.dataTables_length select').select2({
+            minimumResultsForSearch: Infinity,
+            width: 'auto'
+        });
     });
+
     var base_url = '<?php echo base_url(); ?>admin/';
     $(document).on('click', 'a.chang_pwdd', function () {
         var modal_title = $(this).attr('data-modal-title');
@@ -418,6 +405,4 @@ $segment = $this->uri->segment(1);
             window.location = "admin/tickets/index/" + val;
         }
     }
-
-    
 </script>

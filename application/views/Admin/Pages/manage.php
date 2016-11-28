@@ -35,17 +35,17 @@
                         <div class="panel-body">
 
                             <div class="form-group">
-                                <label>Navigation Name:</label>
+                                <label>Navigation Name<font color="red">*</font></label>
                                 <input type="text" name="navigation_name" required="required" id="navigation_name" class="form-control" value="<?php echo isset($page_data['navigation_name']) ? $page_data['navigation_name'] : set_value('navigation_name'); ?>">
                                 <?php echo '<label id="navigation_name-error" class="validation-error-label" for="navigation_name">' . form_error('navigation_name') . '</label>'; ?>
                             </div>
                             <div class="form-group">
-                                <label>Page Title:</label>
+                                <label>Page Title<font color="red">*</font></label>
                                 <input type="text" name="title" id="title" required="required" class="form-control" value="<?php echo isset($page_data['title']) ? $page_data['title'] : set_value('title'); ?>">
                                 <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
                             </div>
                             <div class="form-group">
-                                <label>Description:</label>
+                                <label>Description<font color="red">*</font></label>
                                 <textarea name="description" id="editor-full" required="required" rows="4" cols="4">
                                     <?php echo isset($page_data['description']) ? $page_data['description'] : set_value('description'); ?>
                                 </textarea>
@@ -73,11 +73,11 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label>Banner Url:</label>
                                 <input type="text" name="ext_url" id="ext_url" class="form-control" value="<?php echo isset($page_data['ext_url']) ? $page_data['ext_url'] : set_value('ext_url'); ?>">
-                                
+
                             </div>
 
                             <div class="text-right">
@@ -89,8 +89,7 @@
                 <!-- /basic layout -->
             </div>
         </div>
-    </div>
-
+    </div>  
     <script type="text/javascript">
         $('document').ready(function () {
 //            CKEDITOR.replace('description', {
@@ -107,8 +106,6 @@
                     description: {
                         required: true,
                     },
-                   
-                    
                     banner_image: {
                         // required: true,
                         extension: "jpg|png|jpeg",

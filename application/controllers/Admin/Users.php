@@ -247,17 +247,17 @@ class Users extends CI_Controller {
                         $this->template->load('admin', 'Admin/Users/add', $this->data);
                     }
                 } else {
-
                     $flag = 0;
                     $useremail = $this->input->post('email');
 //                    $isUserUnique = $this->User_model->isUnique('email', $useremail, $this->table, $record_id, 'AND id!='. $id .'AND is_delete != 0');
 //                    if ($isUserUnique) {
-                    $flag = 0;
+
                     if ($_FILES['profile_pic']['name'] != '') {
                         $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
                         $exts = explode(".", $_FILES['profile_pic']['name']);
-                        $name = $exts[0] . time() . "." . $exts[1];
-                        $name = "profile-" . date("mdYhHis") . "." . $exts[1];
+//                        $name = $exts[0] . time() . "." . $exts[1];
+//                        $name = "profile-" . date("mdYhHis") . "." . $exts[1];
+                         $name = $exts[0] . time() . "." . end($exts);
 
                         $config['upload_path'] = USER_PROFILE_IMAGE;
                         $config['allowed_types'] = implode("|", $img_array);

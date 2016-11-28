@@ -39,7 +39,6 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
 
         <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
-        <!--<script type="text/javascript" src="assets/js/pages/form_validation.js"></script>-->
         <script type="text/javascript" src="assets/admin/js/pages/form_validation.js"></script>
         <!-- /theme JS files -->
 
@@ -149,7 +148,7 @@
                                     <li class="<?php echo ($page == 'header_footer_control') ? 'active' : ''; ?>"><a href="admin/header_footer_control"><i class="icon-cogs"></i> <span>Header/Footer Settings</span></a></li>
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
-                                    <li class="<?php echo ($current_page == 'news_announcements') ? 'active' : ''; ?>"><a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a></li>
+                                    <li class="<?php echo ($page == 'news_announcements') ? 'active' : ''; ?>"><a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a></li>
                                     <li class="<?php echo ($page == 'home_slider') ? 'active' : ''; ?>"><a href="admin/home_slider"><i class="icon-images3"></i> <span>Home Page Slider</span></a>
                                     </li>
                                     <li class="<?php echo ($page == 'logos') ? 'active' : ''; ?>"><a href="admin/logos"><i class="icon-images2"></i> <span>Logos</span></a>

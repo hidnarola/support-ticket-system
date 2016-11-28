@@ -17,17 +17,19 @@
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h5 class="panel-title">FAQ'S List
-                <div class="pull-right col-md-2">           
-                    <a onclick="window.location = 'admin/faq/add'" class="btn btn-success btn-labeled pull-right"><b><i class="icon-plus-circle2"></i></b> Add FAQ</a>
-                   <!--<button type="button" class="btn bg-pink-400 pull-right" onclick="window.location = 'admin/faq/add'"><i class="icon-plus-circle2 position-left"></i>Add FAQ</button>-->
-                </div>
-                <div class="col-md-3 pull-right form-group has-feedback">
-                    <form method="get" action="admin/faq">
-                        <input type="text" name="keyword" value="<?php echo ($keyword != '') ? $keyword : ''; ?>" class="form-control" placeholder="Search FAQ">
-                        <div class="form-control-feedback">
-                            <i class="icon-search4 text-size-base"></i>
-                        </div>
-                    </form>
+                <div class="row">
+                    <div class="col-md-3 pull-right form-group has-feedback">
+                        <form method="get" action="admin/faq">
+                            <input type="text" name="keyword" value="<?php echo ($keyword != '') ? $keyword : ''; ?>" class="form-control" placeholder="Search FAQ">
+                            <div class="form-control-feedback">
+                                <i class="icon-search4 text-size-base"></i>
+                            </div>
+                        </form>
+                    </div>
+                     <div class="pull-right col-md-2">           
+                        <a onclick="window.location = 'admin/faq/add'" class="btn btn-success btn-labeled pull-right"><b><i class="icon-plus-circle2"></i></b> Add FAQ</a>
+                    </div>
+                    
                 </div>
             </h5>
         </div>
@@ -37,20 +39,16 @@
             <!-- Questions list -->
             <?php foreach ($faq as $key => $value) { ?>
 
-
-                <div class="text-size-small text-uppercase text-semibold text-muted mb-10"><?php echo $key;?></div>
+                <div class="text-size-small text-uppercase text-semibold text-muted mb-10"><?php echo $key; ?></div>
                 <?php foreach ($value as $val) { ?>
-
                     <div class="panel-group panel-group-control panel-group-control-right">
 
                         <div class="panel panel-white">
                             <div class="panel-heading">
                                 <h6 class="panel-title">
-
                                     <a class="collapsed" data-toggle="collapse" href="<?php echo "#question" . $val['fid'] ?>">
                                         <i class="icon-help position-left text-slate"></i> <?php echo $val['question']; ?>
                                     </a>
-
                                     <span class="faq-listing"><a class=" text-danger-600 delete" id="delete_<?php echo base64_encode($val['fid']); ?>" data-record="<?php echo base64_encode($val['fid']); ?>"><i class="icon-trash"></i></a>
                                         <a class="text-teal-600 edit" href="<?php echo base_url() . 'admin/faq/edit/' . base64_encode($val['fid']) ?>" id="edit_<?php echo base64_encode($val['fid']); ?>"><i class="icon-pencil7"></i></a></span>
                                 </h6>
@@ -73,7 +71,6 @@
                 </div>
             <?php } ?>
             <!-- /questions list -->
-
         </div>
     </div>
     <div class="row pull-right">  

@@ -18,7 +18,7 @@ $segment = $this->uri->segment(1);
 </div>
 
 <div class="content">
-<?php $this->load->view('admin/message_view');?>
+    <?php $this->load->view('admin/message_view'); ?>
     <!-- Table header styling -->
     <div class="panel panel-flat">
         <div class="panel-heading">
@@ -33,7 +33,7 @@ $segment = $this->uri->segment(1);
                 </div>
 
                 <div class="col-md-9">
-                    <div class="pull-right">
+                    <div class="pull-right" style="margin-top: 10px;">
                         <a onclick="window.location = 'admin/articles/add'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Article</a>
                     </div>
                 </div>
@@ -73,18 +73,11 @@ $segment = $this->uri->segment(1);
                                     <?php if ($record['is_visible'] == 0) { ?>
 
                                         <div class="checkbox visible_chk">
-                                            <!--<label>-->
-                                                <!--<div class="checker border-success-600 text-success-800"><span class="checked"><input class="control-success" disabled="" checked="checked" type="checkbox"></span></div>-->
-                                                Yes
-                                            <!--</label>-->
+                                            Yes
                                         </div>
-
                                     <?php } else { ?>
                                         <div class="checkbox visible_chk">
-                                            <!--<label>-->
-                                                <!--<div class="checker border-warning-600 text-warning-800"><i class="icon-cancel-square" style="margin-top: -4px;"></i></div>-->
-                                                NO
-                                            <!--</label>-->
+                                            NO
                                         </div>
                                     <?php } ?>
                                 </div>
@@ -95,24 +88,16 @@ $segment = $this->uri->segment(1);
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                     <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"><i class="icon-trash"></i></a>
                     <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/articles/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>"><i class="icon-pencil7"></i></a>
                 </div>
-
             </div>
-
             <?php
         }
         ?>
     </div>
-    <!--</div>-->
 </div>
-</div>
-</div>
-
 <style>
     .visible_chk {display: inline;}
     .checkbox .checker{top: 0;}
@@ -120,10 +105,6 @@ $segment = $this->uri->segment(1);
     .checker .icon-cancel-square{font-size: 17px;}
 </style>
 <script type="text/javascript">
-    $(function () {
-        $('.datatable-basic').DataTable();
-    });
-
     var jconfirm = function (message, callback) {
         var options = {
             message: message

@@ -14,14 +14,12 @@
 </div>
 
 <div class="content">
-
     <div class="row">
         <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
             $segment = $this->uri->segment(4);
             $edit_segment = $this->uri->segment(3);
-
             if (isset($data)) {
                 $action = base_url() . "admin/projects/edit/" . base64_encode($data['id']);
             } else {
@@ -32,9 +30,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <!--<h5 class="panel-title"><?php echo (isset($data)) ? 'Edit Project' : 'Add Project' ?></h5>-->
-                            </div>
+                            <div class="panel-heading"></div>
 
                             <div class="panel-body">
                                 <div class="center-block">
@@ -49,7 +45,6 @@
                                         <label class="col-lg-2 control-label">Short Description</label>
                                         <div class="col-lg-10">
                                             <div class="content-group">
-
                                                 <textarea rows="2" cols="2" name="short_desc" class="form-control" required="required" placeholder="Short Description" aria-required="true" aria-invalid="true"><?php
                                                     if (isset($data)) {
                                                         echo trim($data['short_desc']);
@@ -59,8 +54,6 @@
                                                     ?></textarea>
                                                 <?php echo '<label id="short_desc-error" class="validation-error-label" for="short_desc">' . form_error('short_desc') . '</label>'; ?>
                                             </div>
-
-
                                         </div>
                                     </div>
 
@@ -82,9 +75,6 @@
                                                     ?>
                                                 </div>
                                             </div>
-
-
-
                                             <?php
                                             if (isset($profile_validation)) {
                                                 echo '<label id="logo_image-error" class="validation-error-label" for="logo_image">' . $profile_validation . '</label>';
@@ -92,7 +82,6 @@
                                             ?>
                                         </div>
                                     </div>
-
                                     <div class="text-right">
                                         <button type="button" class="btn border-slate btn-flat cancel-btn" onclick="window.history.back()">Cancel</button>
                                         <button type="submit" class="btn bg-teal">Save <i class="icon-arrow-right14 position-right"></i></button>
@@ -107,16 +96,16 @@
     </div>
 </div>
 <script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
-            reader.onload = function (e) {
-                var html = '<img src="' + e.target.result + '" height="73px" width="73px" alternate="Image" />';
-                $('#imgpreview').html(html);
+        reader.onload = function (e) {
+            var html = '<img src="' + e.target.result + '" height="73px" width="73px" alternate="Image" />';
+            $('#imgpreview').html(html);
 //            $('#imgpreview').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
+        };
+        reader.readAsDataURL(input.files[0]);
     }
+}
 </script>

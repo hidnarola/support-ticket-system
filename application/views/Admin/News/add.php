@@ -18,7 +18,7 @@
 <div class="content">
 
     <div class="row">
-        <?php $this->load->view('admin/message_view');?>
+        <?php $this->load->view('admin/message_view'); ?>
         <div class="col-md-12">
             <?php
             $segment = $this->uri->segment(4);
@@ -73,36 +73,30 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">Title</label>
                                         <div class="col-lg-10">
-                                            <input type="text" class="form-control" required="" name="title" placeholder="Enter Title" value="<?php echo (isset($data)) ? $data['title'] : ''; ?>">   
-                                             <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
+                                            <input type="text" class="form-control" required="" name="title" placeholder="Enter Title" value="<?php echo (isset($data)) ? $data['title'] : set_value('description');
+                                        ;
+                                        ?>">   
+<?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">Description</label>
                                         <div class="col-lg-10">
-    <!--                                        <textarea rows="5" cols="5" name="description" class="form-control" required="required" placeholder="Description Here" aria-required="true" aria-invalid="true"><?php
-                                            /*if (isset($data)) {
-                                                echo trim($data['description']);
-                                            } else {
-                                                echo '';
-                                            }*/
-                                            ?></textarea>-->
                                             <div class="panel panel-flat">
                                                 <div class="panel-heading">
                                                 </div>
 
                                                 <div class="panel-body">
-
                                                     <div class="content-group">
                                                         <textarea name="description" required="" id="editor-full" rows="4" cols="4"><?php
                                                             if (isset($data)) {
                                                                 echo trim($data['description']);
                                                             } else {
-                                                                echo '';
+                                                                echo set_value('description');
                                                             }
                                                             ?>	
                                                         </textarea>
-                                                         <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
+<?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,12 +104,18 @@
                                     </div>
 
                                     <div class="form-group">
-                                    <label class="col-lg-2 control-label">Image</label>
+                                        <label class="col-lg-2 control-label">Image</label>
                                         <div class="col-lg-10">
                                             <div class="uploader">
                                                 <input name="userfile" type="file" class="file-styled">
                                             </div>
                                             <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                                           
+                                            <?php
+                                            if (isset($profile_validation)) {
+                                                echo '<label id="userfile-error" class="validation-error-label" for="userfile">' . $profile_validation . '</label>';
+                                            }
+                                            ?>
                                         </div>
                                     </div>
 

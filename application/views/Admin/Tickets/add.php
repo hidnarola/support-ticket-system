@@ -35,16 +35,14 @@
                             <div class="panel-heading">
                                 <!--<h5 class="panel-title"><?php echo (isset($ticket)) ? 'Edit Ticket' : 'Add Ticket' ?></h5>-->
                             </div>
-
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group col-xs-12">
-                                            <label>Tenant</label>                                  
+                                            <label>Tenant<font color="red">*</font></label>                                  
                                             <select class="select" name="user_id" required="" id="user_id">
                                                 <option selected="" value="">Select Tenant</option> 
                                                 <?php
-
                                                 foreach ($tenants as $row) {
                                                     if (isset($ticket) && $ticket->user_id == $row['id']) {
                                                         echo "<option value='" . $row['id'] . "' selected>" . $row['fname'] .' '. $row['lname']. "</option>";
@@ -58,7 +56,7 @@
                                         </div>
 
                                         <div class="form-group col-xs-12">
-                                            <label>Title</label>
+                                            <label>Title<font color="red">*</font></label>
                                             <input type="text" name="title" class="form-control" placeholder="Title" required="required" value="<?php
                                             if (isset($ticket)) {
                                                 echo trim($ticket->title);
@@ -75,7 +73,7 @@
 
                                         
                                         <div class="form-group col-xs-12">
-                                            <label>Ticket Type</label>                                                                      
+                                            <label>Ticket Type<font color="red">*</font></label>                                                                      
                                             <select class="select" name="ticket_type_id" required="" id="ticket_type_id">
                                                 <option selected="" value="">Select Ticket Type</option> 
                                                 <?php
@@ -91,7 +89,7 @@
                                             <?php echo '<label id="ticket_type_id-error" class="validation-error-label" for="ticket_type_id">' . form_error('ticket_type_id') . '</label>'; ?>
                                         </div>
                                         <div class="form-group col-xs-12">
-                                            <label>Ticket Priority</label>
+                                            <label>Ticket Priority<font color="red">*</font></label>
 
                                             <select class="select" name="priority_id" required="" id="priority_id">
                                                 <option selected="" value="">Select Ticket Priority</option> 
@@ -111,7 +109,7 @@
                                     </div>
                                     <div class="col-md-6">
                                     <div class="form-group col-xs-12">
-                                            <label>Department</label>                                  
+                                            <label>Department<font color="red">*</font></label>                                  
                                             <select class="select" name="dept_id" required="" id="dept_id">
                                                 <option selected="" value="">Select Department</option> 
                                                 <?php
@@ -128,7 +126,7 @@
                                         </div>
                                         <?php  if (isset($ticket)) { ?>
                                        <div class="form-group col-xs-12">
-                                            <label>Ticket Status</label>
+                                            <label>Ticket Status<font color="red">*</font></label>
 
                                             <select class="select" name="status_id" required="" id="status_id">
                                                 <option selected="" value="">Select Ticket Status</option> 
@@ -149,7 +147,7 @@
 
 
                                         <div class="form-group col-xs-12">
-                                            <label>Description</label>
+                                            <label>Description<font color="red">*</font></label>
 
                                             <textarea rows="5" cols="5" name="description" class="form-control" required="required" placeholder="Description Here" aria-required="true" aria-invalid="true"><?php
                                                 if (isset($ticket)) {

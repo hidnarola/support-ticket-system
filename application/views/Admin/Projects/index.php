@@ -27,16 +27,13 @@
                     </form>
                 </div>
                 <div class="col-md-9">
-                    <div class="col-md-4">
-                    <!--<button type="button" class="btn bg-pink-400 pull-right" onclick="window.location = 'admin/news/add'"><i class="icon-plus-circle2 position-left"></i>Add New</button>-->
-                        <?php $current = $this->uri->segment(4); ?>
-
+                    <div class="col-md-4">                    
                     </div>
                     <div class="col-md-8"> 
-                        <a onclick="window.location = 'admin/projects/add'" class="btn btn-success btn-labeled pull-right"><b><i class="icon-plus-circle2"></i></b> Add New</a></div>
+                        <a onclick="window.location = 'admin/projects/add'" class="btn btn-success btn-labeled pull-right"><b><i class="icon-plus-circle2"></i></b> Add New</a>
+                    </div>
                 </div>
             </div>
-            <!-- </h5> -->
         </div>
     </div>
     <div class="row">
@@ -55,7 +52,6 @@
                                 if ($record['logo_image'] != '') {
                                     $image = PROJECTS_IMAGES . '/' . $record['logo_image'];
                                     ?>
-
                                     <div class="col-md-2">
                                         <img style="width:100%" src="<?php echo $image; ?>">
                                     </div>
@@ -71,7 +67,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <a class="pull-right text-danger-600 delete" id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>"><i class="icon-trash"></i></a>
                             <a class="pull-right text-teal-600 edit" href="<?php echo base_url() . 'admin/projects/edit/' . base64_encode($record['id']) ?>" id="edit_<?php echo base64_encode($record['id']); ?>"><i class="icon-pencil7"></i></a>
                         </div>
@@ -79,12 +74,10 @@
                     </div>
                 </div>
             <?php } ?>
-
             <!-- /questions list -->
         </div>
     </div>
 </div>
-
 <!-- /questions area -->
 <script type="text/javascript">
     var jconfirm = function (message, callback) {

@@ -30,11 +30,9 @@ class Dashboard extends CI_Controller {
             $tickets_arr[$i] = 0;
         }
        
-        
         $clients_this_month = $this->Admin_model->get_clients_this_month();
         $tickets_this_month = $this->Admin_model->get_tickets_this_month();
-        // pr($clients_this_month);
-        // pr($tickets_this_month);
+
         $clients_array = array_column($clients_this_month, 'clients');
         $tickets_array = array_column($tickets_this_month, 'tickets');
         $this->data['total_clients'] = array_sum($clients_array);
@@ -106,7 +104,7 @@ class Dashboard extends CI_Controller {
                     );
                     if ($this->Admin_model->record_exist($table_name, $record_exist_condition)) {
                         if ($this->Admin_model->manage_record($table_name, $record_array, $record_id)) {
-                            $this->session->set_flashdata('success_msg', 'Detail saved successfully.');
+                            $this->session->set_flashdata('success_msg', 'Record saved successfully.');
                             redirect('admin/manage/' . $type);
                         } else {
                             $this->session->set_flashdata('error_msg', 'Issue to save detail. Please try again..!!');
@@ -133,7 +131,6 @@ class Dashboard extends CI_Controller {
     }
 
     public function get_detail() {
-
         $type = strtolower($this->input->post('type'));
         $id = $this->input->post('id');
         if ($type != '' && array_key_exists($type, $this->type_table) && $id != '') {
@@ -164,15 +161,17 @@ class Dashboard extends CI_Controller {
         if ($id != '') {
             $record_id = base64_decode($id);
             if ($this->Admin_model->delete($table_name, $record_id)) {
-                $msg = 'Record deleted successfully';
+                 $this->session->set_flashdata('success_msg', 'Record deleted successfully!');
+//                $msg = 'Record deleted successfully';
                 $status = 1;
             } else {
-                $msg = 'Unable to delete the record.';
+                 $this->session->set_flashdata('error_msg', 'Unable to delete the record.');
+//                $msg = 'Unable to delete the record.';
                 $status = 0;
             }
             $return_array = array(
                 'status' => $status,
-                'msg' => $msg,
+//                'msg' => $msg,
                 'id' => $id
             );
             echo json_encode($return_array);

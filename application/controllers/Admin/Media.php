@@ -31,9 +31,9 @@ class Media extends CI_Controller {
         if ($_FILES['file_data']['name'] != '') {
                 $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
                 $exts = explode(".", $_FILES['file_data']['name']);
+//                $name = $exts[0] . time() . "." . end($exts);
+//                $name = $page."-" . date("mdYhHis") . "." . $exts[1];
                 $name = $exts[0] . time() . "." . end($exts);
-                $name = $page."-" . date("mdYhHis") . "." . $exts[1];
-
                 $config['upload_path'] = HOME_IMAGE;
                 $config['allowed_types'] = implode("|", $img_array);
                 $config['max_size'] = '2048';

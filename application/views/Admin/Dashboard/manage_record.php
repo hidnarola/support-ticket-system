@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
@@ -54,51 +55,47 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="table-responsive">
-                        <table id="example" class="table table-bordered table-hover" cellspacing="0" width="100%">
-                            <thead>
-                                <tr class="bg-teal">
-                                    <th>#</th>
-                                    <th><?php echo $record_type . ' Name'; ?></th>
-                                    <th>Action</th>
+                    <table class="table datatable-basic">
+                   <!--<table id="example" class="table table-bordered table-hover" cellspacing="0" width="100%">-->
+                        <thead>
+                            <tr class="bg-teal">
+                                <th>#</th>
+                                <th><?php echo $record_type . ' Name'; ?></th>
+                                <th>Action</th>
 
-                                </tr>
-                            </thead>
+                            </tr>
+                        </thead>
 
-                            <tbody>
-                                <?php
-                                foreach ($records as $key => $record) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $key + 1; ?></td>
-                                        <td><?php echo $record['name']; ?></td>
-                                        <td>
-                                            <ul class="icons-list">
-                                                <li class="text-teal-600">
-                                                    <a id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-pencil7"></i></a>
-                                                </li>
-                                                <li class="text-danger-600">
-                                                    <?php $url = urlencode("admin/delete/" . $this->uri->segment(3) . "/" . base64_encode($record['id'])); ?>
-                                                    <a data-record="<?php echo base64_encode($record['id']); ?>" id="delete_<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
-                                                </li>
-                                            </ul>
-                                        </td>
-
-
-                                    </tr>
-                                    <?php
-                                }
+                        <tbody>
+                            <?php
+                            foreach ($records as $key => $record) {
                                 ?>
+                                <tr>
+                                    <td><?php echo $key + 1; ?></td>
+                                    <td><?php echo $record['name']; ?></td>
+                                    <td>
+                                        <ul class="icons-list">
+                                            <li class="text-teal-600">
+                                                <a id="edit_<?php echo base64_encode($record['id']); ?>" class="edit"><i class="icon-pencil7"></i></a>
+                                            </li>
+                                            <li class="text-danger-600">
+                                                <?php $url = urlencode("admin/delete/" . $this->uri->segment(3) . "/" . base64_encode($record['id'])); ?>
+                                                <a data-record="<?php echo base64_encode($record['id']); ?>" id="delete_<?php echo base64_encode($record['id']); ?>" class="delete"><i class="icon-trash"></i></a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
 
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <script type="text/javascript">
     var base_url = '<?php echo base_url(); ?>admin/';
     var type = '<?php echo $this->uri->segment(3); ?>';
@@ -135,9 +132,10 @@
                 console.log(data.status);
                 console.log(data.msg);
                 console.log(data.id);
+                window.location.reload();
                 if (data.status == 1) {
                     $("div.div_alert_error").addClass('alert-success');
-                    $('a.delete[data-record="' + data.id + '"]').closest('tr').remove();
+//                    $('a.delete[data-record="' + data.id + '"]').closest('tr').remove();
                 } else if (data.status == 0) {
                     $("div.div_alert_error").addClass('alert-danger');
                 }
@@ -147,6 +145,24 @@
         });
     });
     $(function () {
-        $('#example').DataTable();
+        $('.datatable-basic').dataTable({
+            scrollX: true,
+            scrollCollapse: true,
+            autoWidth: false,
+            processing: true,
+            //serverSide: true,
+            language: {
+                search: '<span>Filter:</span> _INPUT_',
+                lengthMenu: '<span>Show:</span> _MENU_',
+                paginate: {'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;'}
+            },
+            dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+            order: [[2, "asc"]],
+        });
+        $('.dataTables_length select').select2({
+            minimumResultsForSearch: Infinity,
+            width: 'auto'
+        });
     });
+
 </script>
