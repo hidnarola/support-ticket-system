@@ -71,16 +71,17 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label">Title</label>
+                                        <label class="col-lg-2 control-label">Title<font color="red">*</font></label>
                                         <div class="col-lg-10">
-                                            <input type="text" class="form-control" required="" name="title" placeholder="Enter Title" value="<?php echo (isset($data)) ? $data['title'] : set_value('description');
-                                        ;
-                                        ?>">   
-<?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
+                                            <input type="text" class="form-control" required="" name="title" placeholder="Enter Title" value="<?php
+                                            echo (isset($data)) ? $data['title'] : set_value('description');
+                                            ;
+                                            ?>">   
+                                                   <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label">Description</label>
+                                        <label class="col-lg-2 control-label">Description<font color="red">*</font></label>
                                         <div class="col-lg-10">
                                             <div class="panel panel-flat">
                                                 <div class="panel-heading">
@@ -96,7 +97,7 @@
                                                             }
                                                             ?>	
                                                         </textarea>
-<?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
+                                                        <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,7 +111,7 @@
                                                 <input name="userfile" type="file" class="file-styled">
                                             </div>
                                             <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
-                                           
+
                                             <?php
                                             if (isset($profile_validation)) {
                                                 echo '<label id="userfile-error" class="validation-error-label" for="userfile">' . $profile_validation . '</label>';
@@ -131,3 +132,4 @@
             </form>
         </div>
     </div>
+</div>

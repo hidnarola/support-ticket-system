@@ -30,7 +30,7 @@ and open the template in the editor.
     margin-left: 26px;
     width: 200px !important;
 }
-.faq-listing{float: right;padding-right: 24px;}
+.faq-listing{float:right;padding-right: 24px;}
 .fancybox-close:after, .fancybox-next span:after, .fancybox-prev span:after { content: none !important; }
 .home_image{ padding:10px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);}
 
@@ -39,3 +39,16 @@ and open the template in the editor.
         margin-top: 10px;
     }
 }
+@media(max-width:550px){
+    .faq_collapsed{display: table-cell !important;width: 86%;}
+    .faq-listing {
+        display: table-cell;
+        vertical-align: middle;
+        width: 63px;
+        padding-right: 5px;
+        float: none;
+    }
+}
+@media(max-width:480px){.faq_collapsed{display: table-cell !important;width: 83% !important;;}}
+@media(max-width:380px){    .faq_collapsed{width: 80% !important;}}
+@media(max-width:340px){    .faq_collapsed{width: 77% !important;}}

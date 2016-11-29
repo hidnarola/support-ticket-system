@@ -45,11 +45,12 @@
     </head>
 
     <body>
-    <?php 
-        $image = USER_PROFILE_IMAGE.'/'.$this->session->userdata('admin_logged_in')['profile_pic'];
-        if($this->session->userdata('admin_logged_in')['profile_pic'] == ''){
+        <?php
+        $image = USER_PROFILE_IMAGE . '/' . $this->session->userdata('admin_logged_in')['profile_pic'];
+        if ($this->session->userdata('admin_logged_in')['profile_pic'] == '') {
             $image = "assets/admin/images/placeholder.jpg";
-        } ?>
+        }
+        ?>
         <!-- Main navbar -->
         <div class="navbar navbar-inverse">
             <div class="navbar-header">
@@ -73,7 +74,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown dropdown-user">
                         <a class="dropdown-toggle" data-toggle="dropdown">
-                        
+
                             <img src="<?php echo $image; ?>" alt="">
                             <span><?php
                                 if ($this->session->userdata('admin_logged_in')) {
@@ -129,7 +130,7 @@
                         $page = $this->uri->segment(2);
                         $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
                         $knowledgebase = array('faq', 'articles');
-                        $newsletters = array('newsletters','subscribers');
+                        $newsletters = array('newsletters', 'subscribers');
                         ?>
                         <!-- Main navigation -->
                         <div class="sidebar-category sidebar-category-visible">
@@ -148,7 +149,17 @@
                                     <li class="<?php echo ($page == 'header_footer_control') ? 'active' : ''; ?>"><a href="admin/header_footer_control"><i class="icon-cogs"></i> <span>Header/Footer Settings</span></a></li>
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
-                                    <li class="<?php echo ($page == 'news_announcements') ? 'active' : ''; ?>"><a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a></li>
+                                    <li class="<?php
+                                            if ($page == 'news_announcements') {
+                                                echo 'active';
+                                            } elseif ($page == 'news') {
+                                                echo 'active';
+                                            } else {
+                                                echo '';
+                                            }
+                                        ?>">
+                                        <a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a>
+                                    </li>
                                     <li class="<?php echo ($page == 'home_slider') ? 'active' : ''; ?>"><a href="admin/home_slider"><i class="icon-images3"></i> <span>Home Page Slider</span></a>
                                     </li>
                                     <li class="<?php echo ($page == 'logos') ? 'active' : ''; ?>"><a href="admin/logos"><i class="icon-images2"></i> <span>Logos</span></a>
@@ -162,8 +173,7 @@
                                         </ul>
                                     </li>
 
-
-                                     <li class="<?php echo ($page == 'social_media') ? 'active' : ''; ?>"><a href="admin/social_media"><i class="icon-facebook"></i> <span>Social Media</span></a></li>
+                                    <li class="<?php echo ($page == 'social_media') ? 'active' : ''; ?>"><a href="admin/social_media"><i class="icon-facebook"></i> <span>Social Media</span></a></li>
                                     <li class="<?php echo ($page == 'projects') ? 'active' : ''; ?>"><a href="admin/projects"><i class="icon-calendar2"></i> <span>Projects</span></a></li>
                                     <li class="<?php echo (in_array($page, $knowledgebase)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-book"></i><span>Knowledge Base</span></a>
@@ -176,7 +186,7 @@
                                     <li class="<?php echo (in_array($current_page, $settings)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-gear"></i><span>Settings</span></a>
                                         <ul>
-                                            <!-- <li class="<?php //echo ($current_page == 'roles') ? 'active' : ''; ?>"><a href="admin/manage/roles"><i class="icon-vcard"></i> <span>Roles</span></a></li> -->
+                                            <!-- <li class="<?php //echo ($current_page == 'roles') ? 'active' : '';    ?>"><a href="admin/manage/roles"><i class="icon-vcard"></i> <span>Roles</span></a></li> -->
                                             <li class="<?php echo ($current_page == 'ticket_priorities') ? 'active' : ''; ?>"><a href="admin/manage/ticket_priorities"><i class="icon-list-numbered"></i> <span>Ticket Priorities</span></a></li>
                                             <li class="<?php echo ($current_page == 'ticket_statuses') ? 'active' : ''; ?>"><a href="admin/manage/ticket_statuses"><i class="icon-stats-bars2"></i> <span>Ticket Statuses</span></a></li>
                                             <li class="<?php echo ($current_page == 'ticket_types') ? 'active' : ''; ?>"><a href="admin/manage/ticket_types"><i class="icon-grid-alt"></i> <span>Ticket Types</span></a></li>
@@ -201,12 +211,12 @@
                 <!-- Main content -->
                 <div class="content-wrapper">                    
 
-<!--                    <div class="alert alert-dismissible div_alert_error" role="alert" style="display: none;">
-                        <button type="button" class="close alert_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <div id="error_msg_div">
-                            <p class="alert_error_msg"></p>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="alert alert-dismissible div_alert_error" role="alert" style="display: none;">
+                                            <button type="button" class="close alert_close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <div id="error_msg_div">
+                                                <p class="alert_error_msg"></p>
+                                            </div>
+                                        </div>-->
 
                     <!-- Page header -->
                     <?php echo $body; ?>

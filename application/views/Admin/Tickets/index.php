@@ -42,7 +42,7 @@ $segment = $this->uri->segment(1);
                 </div>
             </div>
         </div>
-        <style>/* #ticket_table .dataTables_length {margin: 5px 0 20px 20px;} */</style>
+       
         <div class="panel-body">
             <div class="row">
                 <!--<div class="table-responsive ticket_table">-->
@@ -60,7 +60,7 @@ $segment = $this->uri->segment(1);
                             <th>Status</th>
                             <th>Created At</th>
                             <!-- <th>State</th> -->
-                            <th style="width:12%;text-align: center;">Actions</th>
+                            <th style="width:12%;text-align: left;">Actions</th>
                             <!--<th>Actions</th>-->
                         </tr>
                     </thead>
@@ -202,6 +202,8 @@ $segment = $this->uri->segment(1);
 <style>
     .loading-image {background: #fff none repeat scroll 0 0;border-radius: 5px;left: 50%;padding: 10px;position: absolute;top: 50%;z-index: 10;}
     .loader{display: none;background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;bottom: 0;left:0;overflow: auto;position: fixed;right: 0;text-align: center;top: 0;z-index: 9999;}
+    .table > tbody > tr > td {padding: 12px 18px;}
+    .dataTables_wrapper {margin-top: 20px;}
 </style>
 <div class="loader">
     <center>
@@ -212,7 +214,7 @@ $segment = $this->uri->segment(1);
 <script type="text/javascript">
     $(function () {
         $('.datatable-basic').dataTable({
-            scrollX: true,
+//            scrollX: true,
             scrollCollapse: true,
             autoWidth: false,
             processing: true,
