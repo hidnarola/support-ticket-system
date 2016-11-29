@@ -153,7 +153,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="btn-file">
-                                                <input type="file" name="profile_pic" id="profile_pic" onchange="readURL(this);">
+                                                <input type="file" name="profile_pic" id="profile_pic" onchange="ValidateSingleInput(this);readURL(this);">
                                                 <span class="custom-file-control"></span>
                                                 <button type="submit" class="button button-light nomargin" id="submit" name="save" value="save">Upload</button>
                                             </div>
@@ -226,7 +226,7 @@
                                     <!--<input type="file" id="profile_pic" name="profile_pic" class="form-control" onchange="readURL(this)">-->
                                         <div class="col-md-7">
                                             <div class="btn-file">
-                                                <input type="file" name="contract" id="contract">
+                                                <input type="file" name="contract" id="contract" onchange="ValidateSingleInput(this,2)">
                                                 <span class="custom-file-control"></span>
                                                 <button type="submit" class="button button-light nomargin" id="submit" name="save" value="save">Upload<?php echo ($user['contract'] != '') ? ' New' : ''; ?></button>
                                         <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
@@ -253,8 +253,56 @@
         </div>
     </div>
 </div>
+<div id="validation_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body validation_alert">
+                    <label></label>
+                </div>
+        </div>
+    </div>
+</div>
 <!--</section>-->
 <script>
+var _validFileExtensions = [".jpg", ".jpeg", ".gif", ".png"];    
+var _validFileExtensionsContract = [".jpg", ".jpeg", ".gif", ".png", ".pdf"];    
+function ValidateSingleInput(oInput,type=1) {
+   var exts = '';
+    if(type==1){
+        exts = _validFileExtensions;
+    }else{
+        exts = _validFileExtensionsContract;
+    }
+    if (oInput.type == "file") {
+        var sFileName = oInput.value;
+         if (sFileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < exts.length; j++) {
+
+                var sCurExtension = exts[j];
+                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+
+                    blnValid = true;
+                    break;
+                }
+            }
+             
+            if (!blnValid) {
+               
+                $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + exts.join(", "));
+            
+                $("#validation_modal").modal();
+                oInput.value = "";
+                return false;
+            }
+        }
+    }
+    return true;
+}
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();

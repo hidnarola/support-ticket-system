@@ -59,6 +59,7 @@
                                     uploadUrl: upload_url, // server upload action
                                     uploadAsync: true,
                                     maxFileCount: 5,
+                                    allowedFileExtensions: ['jpg', 'jpeg', 'png','gif'],
                                     initialPreview: [],
                                     fileActionSettings: {
                                         // removeIcon: '<i class="icon-bin"></i>',

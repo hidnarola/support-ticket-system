@@ -29,9 +29,17 @@ class Media_model extends CI_Model {
     }
 
     public function delete($record_id){
-    	$this->db->where('id', $record_id);
+        $this->db->where('id', $record_id);
         $data = array('is_delete'=>1);
         return $this->db->update(TBL_MEDIA, $data);
     }
+
+    public function delete_logo($record_id){
+    	$this->db->where('id', $record_id);
+        $data = array('is_delete'=>1);
+        return $this->db->update(TBL_LOGOS, $data);
+    }
+
+
 
 }

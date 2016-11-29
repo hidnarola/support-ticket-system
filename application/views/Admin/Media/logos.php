@@ -38,7 +38,7 @@
         <div class="row ">
                 <a class="fancybox" href="<?php echo HOME_IMAGE.'/'.$image['logo_image']; ?>" data-fancybox-group="gallery"><img src="<?php echo HOME_MEDIUM_IMAGE.'/'.$image['logo_image']; ?>" alt="" /></a>
                 </div><div class="row">
-                <a class="text-danger-600 delete" onClick="return confirm('Are you sure you want to delete?')" href="admin/media/delete/<?php echo base64_encode($image['id']); ?>" data-record=""><i class="icon-trash"></i></a>
+                <a class="text-danger-600 delete" onClick="return confirm('Are you sure you want to delete?')" href="admin/media/delete_logo/<?php echo base64_encode($image['id']); ?>" data-record=""><i class="icon-trash"></i></a>
                 </div>
 
         </div>
@@ -61,6 +61,7 @@ $(function() {
         uploadAsync: true,
         maxFileCount: 5,
         initialPreview: [],
+        allowedFileExtensions: ['jpg', 'jpeg', 'png','gif'],
         fileActionSettings: {
             // removeIcon: '<i class="icon-bin"></i>',
             // removeClass: 'btn btn-link btn-xs btn-icon',

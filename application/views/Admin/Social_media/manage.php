@@ -32,8 +32,11 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Image:</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control" name="social_image" id="social_image" required="required">
+                                <input type="file" class="form-control" name="social_image" id="social_image" onchange="ValidateSingleInput(this);readURL(this);">
                                 <input type="hidden" name="record_id" id="record_id">
+                                <div id="imgpreview" style="margin-top: 10px;">
+                                            
+                                        </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -102,8 +105,46 @@
         </div>
     </div>
 </div>
+<div id="validation_modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-teal-400">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"></h6>
+                </div>
+                <div class="modal-body panel-body validation_alert">
+                    <label></label>
+                </div>
+           </div>
+        </div>
+    </div>
+
 <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <script type="text/javascript">
+ var _validFileExtensions = [".jpg", ".jpeg", ".gif", ".png"];    
+function ValidateSingleInput(oInput) {
+    if (oInput.type == "file") {
+        var sFileName = oInput.value;
+         if (sFileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+             
+            if (!blnValid) {
+                $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + _validFileExtensions.join(", "));
+                $("#validation_modal").modal();
+                oInput.value = "";
+                return false;
+            }
+        }
+    }
+    return true;
+}
     var base_url = '<?php echo base_url(); ?>admin/';
     var type = 'social_media/';
     $(document).on('click', '.edit', function () {
@@ -119,7 +160,10 @@
                 if (data.status == 1) {
                     var record = data.record[0];
                     //console.clear();
-                    $('#image').val(record.image);
+                    var img_url = "<?php echo base_url().SOCIAL_IMAGE.'/'; ?>"+record.image;
+                    // console.log("img_url",img_url);
+                    readURL(img_url);
+                    // $('#image').val();
                     $('#record_id').val(record.id);
                     $('#url').val(record.url);
                 }
@@ -171,4 +215,26 @@
             width: 'auto'
         });
     });
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var arr = [ 'image/png', 'image/jpeg', 'image/gif' ];
+            if($.inArray( input.files[0].type , arr )!=-1){
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var html = '<img src="' + e.target.result + '" height="30px" width="30px" alternate="Image" />';
+                    $('#imgpreview').html(html);
+             };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }else{
+            if(typeof input=='string'){
+                var html = '<img src="' + input + '" height="30px" width="30px" alternate="Image" />';
+                $('#imgpreview').html(html);
+            }
+        }
+    }
+
+
 </script>

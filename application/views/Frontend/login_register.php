@@ -93,7 +93,7 @@
                     </div>
                     <div class="col_full">
                         <label for="register-form-phone">Contract:</label>
-                        <input type="file" id="contract" name="contract" value="<?php echo set_value('contract'); ?>" class="form-control" />
+                        <input type="file" id="contract" name="contract" onchange="ValidateSingleInput(this)" value="<?php echo set_value('contract'); ?>" class="form-control" />
                         <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
                         <?php // echo '<label id="contract-error" class="validation-error-label" for="contract">' . form_error('contract') . '</label>'; ?>
                     </div>
@@ -106,8 +106,48 @@
         </div>
     </div>
 </div>
-
+<div id="validation_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body validation_alert">
+                    <label></label>
+                </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
+var _validFileExtensionsContract = [".jpg", ".jpeg", ".gif", ".png", ".pdf"];    
+function ValidateSingleInput(oInput) {
+   
+    if (oInput.type == "file") {
+        var sFileName = oInput.value;
+         if (sFileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensionsContract.length; j++) {
+                var sCurExtension = _validFileExtensionsContract[j];
+                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+             
+            if (!blnValid) {
+               
+                $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + _validFileExtensionsContract.join(", "));
+            
+
+                $("#validation_modal").modal();
+                oInput.value = "";
+                return false;
+            }
+        }
+    }
+    return true;
+}
     $(function () {
         var segment = "<?php echo $segment; ?>";
         if(segment=='signup'){

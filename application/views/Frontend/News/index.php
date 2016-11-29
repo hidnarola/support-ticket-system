@@ -22,16 +22,19 @@
                         </div>
                         <?php
                         if ($value['image'] != '') {
-                            $image = NEWS_IMAGE . '/' . $value['image'];
+                            $image = base_url(). NEWS_IMAGE . '/' . $value['image'];
                             if ($value['is_news'] == 0) {
-                                $image = ANNOUNCEMENT_MEDIUM_IMAGE . '/' . $value['image'];
+                                $image = base_url().ANNOUNCEMENT_MEDIUM_IMAGE . '/' . $value['image'];
                             }
+                            if(file_exists($image)){
                             ?>
-
+                            
+                            
                             <div class="entry-image">
                                 <a href="<?php echo $image; ?>" data-lightbox="image"><img class="image_fade" src="<?php echo $image; ?>" alt="Standard Post with Image"></a>
                             </div>
-                        <?php } ?>
+                        <?php }
+                        } ?>
                         <div class="entry-title">
                             <?php if ($value['is_news'] == 0) { ?> 
                                 <h2><a href="<?php echo base_url() . 'announcements/' . $value['slug'] ?>"><?php echo $value['title']; ?></a></h2>

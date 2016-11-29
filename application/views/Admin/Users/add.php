@@ -128,7 +128,7 @@ $seg = ($segment == 'tenant') ? 'tenants' : 'staff';
 
                                 <div class="form-group col-xs-12 user_profile_pic">
                                     <label>Profile Image:</label>                               
-                                    <input type="file" name="profile_pic" class="file-styled" onchange="readURL(this)">
+                                    <input type="file" name="profile_pic" class="file-styled" onchange="ValidateSingleInput(this);readURL(this)">
                                     <!--<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>-->                               
                                     <div class="clearfix"></div>
                                     <div class="col-lg-2"></div>
@@ -136,7 +136,7 @@ $seg = ($segment == 'tenant') ? 'tenants' : 'staff';
                                         <div id="imgpreview" style="margin-top: 10px;">
                                             <?php
                                             if (isset($user)) {
-                                                if (trim($user->profile_pic) != '')
+                                                if (trim($user->profile_pic) != '' && file_exists(base_url() . USER_PROFILE_IMAGE . '/' . $user->profile_pic))
                                                     echo "<img src='" . base_url() . USER_PROFILE_IMAGE . '/' . $user->profile_pic . "' height='73px' width='73px'>"; //                                               
                                             }
                                             ?>
@@ -176,17 +176,61 @@ $seg = ($segment == 'tenant') ? 'tenants' : 'staff';
         </div>
     </div>
 </div>
+<div id="validation_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal-400">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body panel-body validation_alert">
+                <label></label>
+            </div>
+       </div>
+    </div>
+</div>
 <script>
+ var _validFileExtensions = [".jpg", ".jpeg", ".gif", ".png"];    
+function ValidateSingleInput(oInput) {
+    if (oInput.type == "file") {
+        var sFileName = oInput.value;
+         if (sFileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+             
+            if (!blnValid) {
+                $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + _validFileExtensions.join(", "));
+                $("#validation_modal").modal();
+                oInput.value = "";
+                return false;
+            }
+        }
+    }
+    return true;
+}
     function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
-            reader.onload = function (e) {
-                var html = '<img src="' + e.target.result + '" height="73px" width="73px" alternate="Image" />';
+        if (input.files && input.files[0]) {
+            var arr = [ 'image/png', 'image/jpeg', 'image/gif' ];
+            if($.inArray( input.files[0].type , arr )!=-1){
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var html = '<img src="' + e.target.result + '" height="30px" width="30px" alternate="Image" />';
+                    $('#imgpreview').html(html);
+             };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }else{
+            if(typeof input=='string'){
+                var html = '<img src="' + input + '" height="30px" width="30px" alternate="Image" />';
                 $('#imgpreview').html(html);
-//            $('#imgpreview').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
+            }
         }
     }
 </script>

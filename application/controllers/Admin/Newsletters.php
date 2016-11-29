@@ -193,7 +193,10 @@ class Newsletters extends CI_Controller {
             foreach ($data['testing_emails'] as $key => $value) {
                 $a = $value;
             }
-            $p = explode(',', $a['email_ids']);
+            $p='';
+            if(!empty($a)){
+                $p = explode(',', $a['email_ids']);
+            }
             $data['emails'] = $p;
             $data['subscribers'] = $this->Newsletter_model->get_emails_subscribers();
 //        pr($data['subscribers'],1);
