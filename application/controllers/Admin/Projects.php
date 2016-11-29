@@ -43,15 +43,13 @@ class Projects extends CI_Controller {
         $this->form_validation->set_rules('short_desc', 'Description', 'trim|required');
 //        $this->form_validation->set_rules('logo_image', 'Logo Image', 'trim|required');
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->template->load('admin', 'Admin/Projects/add', $this->data);
-        } else {
+        if ($this->form_validation->run() == TRUE) {
             if ($_FILES['logo_image']['name'] != '') {
-                pr($_FILES);
+//                pr($_FILES);
                 $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
                 $exts = explode(".", $_FILES['logo_image']['name']);
-                $name = $exts[0] . time() . "." . $exts[1];
-                $name = "article-" . date("mdYhHis") . "." . $exts[1];
+                $name = $exts[0] . time() . "." . end($exts);
+
 
                 $config['upload_path'] = PROJECTS_IMAGES;
                 $config['allowed_types'] = implode("|", $img_array);
@@ -61,30 +59,33 @@ class Projects extends CI_Controller {
                 $this->upload->initialize($config);
                 if (!$this->upload->do_upload('logo_image')) {
                     $flag = 1;
-                    $data['profile_validation'] = $this->upload->display_errors();
+                    $this->data['profile_validation'] = $this->upload->display_errors();
+//                    pr($data,1);
                 } else {
                     $file_info = $this->upload->data();
                     $project_pic = $file_info['file_name'];
 //                    $src = './' . PROJECTS_IMAGES . '/' . $article_pic;
                 }
-            } 
+            }
+            if ($flag != 1) {
+                $data = array(
+                    'title' => $this->input->post('title'),
+                    'short_desc' => $this->input->post('short_desc'),
+                    'logo_image' => $project_pic,
+                    'is_delete' => 0,
+                    'created' => date('Y-m-d H:i:s')
+                );
 
-            $data = array(
-                'title' => $this->input->post('title'),
-                'short_desc' => $this->input->post('short_desc'),
-                'logo_image' => $project_pic,
-                'is_delete' => 0,
-                'created' => date('Y-m-d H:i:s')
-            );
-
-            if ($this->Project_model->add($data)) {
-                $this->session->set_flashdata('success_msg', 'Projects saved successfully.');
-                redirect('admin/projects');
-            } else {
-                $this->session->set_flashdata('error_msg', 'Unable to save detail.');
-                redirect('admin/projects/add');
+                if ($this->Project_model->add($data)) {
+                    $this->session->set_flashdata('success_msg', 'Projects saved successfully.');
+                    redirect('admin/projects');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Unable to save detail.');
+                    redirect('admin/projects/add');
+                }
             }
         }
+         $this->template->load('admin', 'Admin/Projects/add', $this->data);
     }
 
     public function edit($id = NULL) {
@@ -93,11 +94,10 @@ class Projects extends CI_Controller {
 
             $image = $this->User_model->getFieldById($record_id, 'logo_image', $this->table);
             $project_pic = $image->logo_image;
-//        echo 'image:'.$article_pic;
+
             $this->form_validation->set_rules('title', 'Title', 'trim|required');
             $this->form_validation->set_rules('short_desc', 'Description', 'trim|required');
 //            $this->form_validation->set_rules('logo_image', 'Logo Image', 'trim|required');
-
 
             if ($this->form_validation->run() == FALSE) {
                 $this->data['title'] = $this->data['page_header'] = 'Add Projects';
@@ -112,20 +112,19 @@ class Projects extends CI_Controller {
                     $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
                     $exts = explode(".", $_FILES['logo_image']['name']);
                     $name = $exts[0] . time() . "." . $exts[1];
-                    $name = "article-" . date("mdYhHis") . "." . $exts[1];
-                     $config['upload_path'] = PROJECTS_IMAGES;
-                $config['allowed_types'] = implode("|", $img_array);
+                    $name = "projects-" . date("mdYhHis") . "." . $exts[1];
+                    $config['upload_path'] = PROJECTS_IMAGES;
+                    $config['allowed_types'] = implode("|", $img_array);
 //                $config['max_size'] = '2048';
-                $config['file_name'] = $name;
+                    $config['file_name'] = $name;
 
                     $this->upload->initialize($config);
 
-                    if (!$this->upload->do_upload('image')) {
+                    if (!$this->upload->do_upload('logo_image')) {
                         $data['profile_validation'] = $this->upload->display_errors();
                     } else {
                         $file_info = $this->upload->data();
                         $project_pic = $file_info['file_name'];
-//                        unlink('./' . ARTICLE_IMAGE . '/' . $image->image);
                     }
                 }
 
@@ -135,10 +134,8 @@ class Projects extends CI_Controller {
                     'logo_image' => $project_pic,
                     'is_delete' => 0,
                 );
-//            pr($data, 1);
-                if ($this->Project_model->edit($data, $record_id)) {
-//               $this->Admin_model->manage_record($this->table, $data, $id);
 
+                if ($this->Project_model->edit($data, $record_id)) {
                     $this->session->set_flashdata('success_msg', 'Project updated successfully.');
                     redirect('admin/projects');
                 } else {

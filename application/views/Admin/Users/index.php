@@ -32,9 +32,9 @@
                     <div class="col-md-3" style="padding-left: 0">
                         <form method="get">
                             <div class="form-group">
-                                <label class="col-lg-2 control-label" style="padding-left: 0">Department</label>
+                                <label class="col-lg-1 control-label" style="padding-left: 0">Filter:</label>
                                 <?php $get_dept = $this->input->get('department'); ?>
-                                <div class="col-lg-10">
+                                <div class="col-lg-11">
                                     <select name="department" class="form-control select" onchange="this.form.submit()">
                                         <option <?php echo ($get_dept == 'all') ? 'selected' : ''; ?> value="all">All</option>
                                         <?php foreach ($departments as $dept) { ?>
@@ -260,7 +260,7 @@
             processing: true,
             //serverSide: true,
             language: {
-                search: '<span>Filter:</span> _INPUT_',
+                search: '<span>Search:</span> _INPUT_',
                 lengthMenu: '<span>Show:</span> _MENU_',
                 paginate: {'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;'}
             },

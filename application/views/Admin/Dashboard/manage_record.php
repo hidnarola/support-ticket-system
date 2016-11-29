@@ -30,7 +30,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Name:</label>
+                            <label class="col-sm-3 control-label">Name<font color="red">*</font></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="name" id="name" required="required">
                                 <input type="hidden" name="record_id" id="record_id">

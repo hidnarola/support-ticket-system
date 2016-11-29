@@ -30,17 +30,20 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Image:</label>
+                            <label class="col-sm-3 control-label">Image<font color="red">*</font></label>
                             <div class="col-sm-9">
+
                                 <input type="file" class="form-control" name="social_image" id="social_image" onchange="ValidateSingleInput(this);readURL(this);">
+
                                 <input type="hidden" name="record_id" id="record_id">
                                 <div id="imgpreview" style="margin-top: 10px;">
                                             
                                         </div>
                             </div>
                         </div>
+                        
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Url:</label>
+                            <label class="col-sm-3 control-label">Url<font color="red">*</font></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="url" id="url" required="required">
                             </div>

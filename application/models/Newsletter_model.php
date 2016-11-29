@@ -53,10 +53,14 @@ class Newsletter_model extends CI_Model {
             return 0;
         }
     }
+
     public function update_record_rec($table, $condition, $user_array) {
-        $query = "update " . $table . " set email_ids= Concat(email_ids , '," . $user_array . "') where " . $condition;
-//        echo $query;exit;
-//        $this->db->query($query);
+        if (!empty($user_array))
+            $query = "update " . $table . " set email_ids= Concat(email_ids , '," . $user_array . "') where " . $condition;
+        else
+            $query = "update " . $table . " set email_ids=" . $user_array . " where " . $condition;
+
+
         $result = $this->db->query($query);
         if ($result) {
             return 1;
@@ -106,6 +110,7 @@ class Newsletter_model extends CI_Model {
         $this->db->select('*');
         $this->db->where('is_delete', 0);
         $result = $this->db->get(TBL_NEWSLETTER_SUBSCRIBERS);
+//        echo $this->db->last_query();
         return $result->result_array();
     }
 

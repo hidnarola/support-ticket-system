@@ -1,7 +1,7 @@
 
 <!-- <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_select.min.js"></script> -->
 <!-- <script type="text/javascript" src="assets/admin/js/pages/form_bootstrap_select.js"></script> -->
-<script type="text/javascript" src="assets/js/jquery.validate.js"></script>
+<!--<script type="text/javascript" src="assets/js/jquery.validate.js"></script>-->
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
@@ -16,41 +16,19 @@
         </ul>
     </div>
 </div>
-<?php
-if ($this->session->flashdata('success')) {
-    ?>
-    <div class="content pt0">
-        <div class="alert alert-success">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong><?= $this->session->flashdata('success') ?></strong>
-        </div>
-    </div>
-    <?php
-    $this->session->set_flashdata('success', false);
-} else if ($this->session->flashdata('error')) {
-    ?>
-    <div class="content pt0">
-        <div class="alert alert-danger">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong><?= $this->session->flashdata('error') ?></strong>
-        </div>
-    </div>
-    <?php
-    $this->session->set_flashdata('error', false);
-} else {
-    echo validation_errors();
-}
-?>
 <div class="content">
     <div class="row">
+    <?php $this->load->view('admin/message_view'); 
+     echo validation_errors();
+    ?>
         <div class="col-md-12">
-            <form class="form-horizontal form-validate" action="" id="newsletter_info" method="POST">
+            <form class="form-horizontal form-validate-jquery" action="" id="newsletter_info" method="POST">
                 <div class="panel panel-flat">
                     <div class="panel-body">
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Newsletter title:</label>
+                            <label class="col-lg-2 control-label">Newsletter title<font color="red">*</font></label>
                             <div class="col-lg-4">
-                                <input type="text" name="title" id="title" value="<?php echo isset($newsletter_data['title']) ? $newsletter_data['title'] : set_value('title'); ?>" class="form-control">
+                                <input type="text" name="title" id="title" required="" value="<?php echo isset($newsletter_data['title']) ? $newsletter_data['title'] : set_value('title'); ?>" class="form-control">
                             </div>
                         </div>
                         <div class="text-right">

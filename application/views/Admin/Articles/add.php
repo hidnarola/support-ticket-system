@@ -47,14 +47,14 @@
                                 <div class="center-block">
 
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label">Title</label>
+                                        <label class="col-lg-2 control-label">Title<font color="red">*</font></label>
                                         <div class="col-lg-10">
                                             <input type="text" class="form-control" required="" name="title" placeholder="Enter Title" value="<?php echo (isset($article)) ? $article->title : ''; ?>">   
                                             <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label">Category</label>
+                                        <label class="col-lg-2 control-label">Category<font color="red">*</font></label>
                                         <div class="col-lg-10">
                                             <select class="select" name="category_id" required="" id="category_id">
                                                 <option selected="" value="">Select Ticket Category</option> 
@@ -126,7 +126,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label">Description</label>
+                                        <label class="col-lg-2 control-label">Description<font color="red">*</font></label>
                                         <div class="col-lg-10">
                                             <div class="panel panel-flat">
                                                 <div class="panel-heading">

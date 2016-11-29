@@ -38,9 +38,8 @@
                             <div class="panel-body">
                                 <div class="center-block" style="max-width:650px;margin: 0 auto;">
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Category</label>
+                                        <label class="col-lg-3 control-label">Category<font color="red">*</font></label>
                                         <div class="col-lg-9">
-
                                             <select class="select" name="category_id" required="" id="category_id">
                                                 <option selected="" value="">Select Category</option> 
                                                 <?php
@@ -62,7 +61,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Question</label>
+                                        <label class="col-lg-3 control-label">Question<font color="red">*</font></label>
                                         <div class="col-lg-9">
                                             <textarea rows="5" cols="5" name="question" class="form-control" required="required" placeholder="Question Here" aria-required="true" aria-invalid="true"><?php
                                                 if (isset($faq)) {
@@ -81,7 +80,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Answer</label>
+                                        <label class="col-lg-3 control-label">Answer<font color="red">*</font></label>
                                         <div class="col-lg-9">
                                             <textarea rows="10" cols="10" name="answer" class="form-control" required="required" placeholder="Answer Here" aria-required="true" aria-invalid="true"><?php
                                                 if (isset($faq)) {

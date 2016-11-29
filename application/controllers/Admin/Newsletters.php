@@ -6,6 +6,7 @@ class Newsletters extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        check_isvalidated();
         $this->load->model('Newsletter_model');
         $this->load->model('Admin_model');
     }
@@ -49,11 +50,11 @@ class Newsletters extends CI_Controller {
             if (is_numeric($newsletter_id)) {
                 $update_array = $this->input->post(null);
                 $this->Newsletter_model->update_record(TBL_NEWSLETTERS, $where, $update_array);
-                $this->session->set_flashdata('success', 'Newsletter successfully updated!');
+                $this->session->set_flashdata('success_msg', 'Newsletter successfully updated!');
             } else {
                 $insert_array = $this->input->post(null);
                 $this->Newsletter_model->insert(TBL_NEWSLETTERS, $insert_array);
-                $this->session->set_flashdata('success', 'Newsletter successfully added!');
+                $this->session->set_flashdata('success_msg', 'Newsletter successfully added!');
             }
             redirect('admin/newsletters');
         }
@@ -115,7 +116,7 @@ class Newsletters extends CI_Controller {
         }
         $where = 'id = ' . $this->db->escape($newsletter_id);
         $check_newsletter = $this->Newsletter_model->get_result(TBL_NEWSLETTERS, $where);
-        // pr($check_newsletter,1);
+//         pr($check_newsletter,1);
         if ($check_newsletter) {
             $data['heading'] = 'Newsletter settings';
 
@@ -160,46 +161,58 @@ class Newsletters extends CI_Controller {
                 }
 
                 $check_testing_emails = $this->Newsletter_model->get_result(TBL_NEWSLETTERS_TEST_EMAILS, 'newsletter_id =' . $newsletter_id);
-                $testing_emails_array = array(
-                    'email_ids' => $this->input->post('testing_emails')
+                /* To update records in  TBL_NEWSLETTERS_TEST_EMAILS for emails */
+                $data = $this->input->post('testing_emails');
+                $emailids = implode(',', $data);
+                $data_rec = array(
+                    'newsletter_id' => $newsletter_id,
+                    'email_ids' => $emailids
                 );
-
-                $arr = implode(',', $this->input->post('testing_emails'));
-                $f = $this->input->post('testing_emails');
-
-                $r = $check_testing_emails[0]['email_ids'];
-
-                $array_email = explode(',', $r);
-
-                $pp = array_diff($f, $array_email);
-                $arr11 = implode(',', $pp);
-
-
                 if ($check_testing_emails) {
                     $condition = ' newsletter_id = ' . $newsletter_id;
-                    $testing_emails_array['modified_date'] = 'NOW()';
-                    $this->Newsletter_model->update_record_rec(TBL_NEWSLETTERS_TEST_EMAILS, $condition, $arr11);
+                    $data_rec['modified_date'] = 'NOW()';
+                    $this->Newsletter_model->update_record(TBL_NEWSLETTERS_TEST_EMAILS, $condition, $data_rec);
                 } else {
-                    $testing_emails_array['newsletter_id'] = $newsletter_id;
-                    $this->Newsletter_model->insert(TBL_NEWSLETTERS_TEST_EMAILS, $testing_emails_array);
+                    $this->db->insert(TBL_NEWSLETTERS_TEST_EMAILS, $data_rec);
                 }
 
-                $this->session->set_flashdata('success', 'Newsletter settings successfully added!');
+                /* Will find diffrent email id or new email and then insert that email in  TBL_NEWSLETTER_SUBSCRIBERS table */
+                $subscribers = $this->Newsletter_model->get_emails_subscribers();
+                if ($subscribers) {
+                    $a = array();
+                    foreach ($subscribers as $key => $value) {
+                        $a[] = $value['email'];
+                    }
+                    $f = $this->input->post('testing_emails');
+                    $pp = array_diff($f, $a);
+                    $arr11 = implode(',', $pp);
+                    $arr_email = array(
+                        'email' => $arr11
+                    );
+                    $this->db->insert(TBL_NEWSLETTER_SUBSCRIBERS, $arr_email);
+                }
+
+                $this->session->set_flashdata('success_msg', 'Newsletter settings successfully added!');
                 redirect('admin/newsletters');
             }
 
             $data['testing_emails'] = $this->Newsletter_model->get_newsletter_testing_emails($newsletter_id);
-            $a = array();
-            foreach ($data['testing_emails'] as $key => $value) {
-                $a = $value;
+            if ($data['testing_emails']) {
+                $a = array();
+                foreach ($data['testing_emails'] as $key => $value) {
+                    $a = $value;
+                }
+                $p = explode(',', $a['email_ids']);
+                $data['emails'] = $p;
             }
+
             $p='';
             if(!empty($a)){
                 $p = explode(',', $a['email_ids']);
             }
             $data['emails'] = $p;
+
             $data['subscribers'] = $this->Newsletter_model->get_emails_subscribers();
-//        pr($data['subscribers'],1);
             $this->template->load('admin', 'Admin/Newsletters/manage_settings', $data);
         }
     }
@@ -211,14 +224,14 @@ class Newsletters extends CI_Controller {
         if ($check_if_exists) {
             if ($action == 'delete') {
                 $val = 1;
-                $this->session->set_flashdata('success', $type . ' successfully deleted!');
+                $this->session->set_flashdata('success_msg', $type . ' successfully deleted!');
             }
             $update_array = array(
                 'is_delete' => $val
             );
             $this->Newsletter_model->update_record($table, $where, $update_array);
         } else {
-            $this->session->set_flashdata('error', 'Invalid request. Please try again!');
+            $this->session->set_flashdata('error_msg', 'Invalid request. Please try again!');
         }
         if ($type != null)
             redirect('admin/subscribers');

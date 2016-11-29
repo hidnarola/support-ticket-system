@@ -27,7 +27,7 @@ $segment = $this->uri->segment(1);
                     <form method="get">
                         <input type="text" name="search_text" value="<?php echo ($search_text != '') ? $search_text : ''; ?>" class="form-control" placeholder="Search">
                         <div class="form-control-feedback">
-                            <i class="icon-search4 text-size-base"></i>
+                             <i class="icon-search4 text-size-base" style="margin-right: 10px;"></i>
                         </div>
                     </form>
                 </div>

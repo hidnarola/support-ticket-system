@@ -35,35 +35,15 @@
         </ul>
     </div>
 </div>
-<?php
-if ($this->session->flashdata('success')) {
-    ?>
-    <div class="content pt0">
-        <div class="alert alert-success">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong><?= $this->session->flashdata('success') ?></strong>
-        </div>
-    </div>
-    <?php
-    $this->session->set_flashdata('success', false);
-} else if ($this->session->flashdata('error')) {
-    ?>
-    <div class="content pt0">
-        <div class="alert alert-danger">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong><?= $this->session->flashdata('error') ?></strong>
-        </div>
-    </div>
-    <?php
-    $this->session->set_flashdata('error', false);
-} else {
-    echo validation_errors();
-}
-?>
+
 <div class="content">
     <div class="row">
+        <?php
+        $this->load->view('admin/message_view');
+        echo validation_errors();
+        ?>
         <div class="col-md-12">
-            <form class="form-horizontal form-validate" action="" id="newsletter_settings" method="POST">
+            <form class="form-horizontal form-validate-jquery" action="" id="newsletter_settings" method="POST">
                 <div class="panel panel-flat">
                     <div class="panel-body">
                         <?php /*
@@ -152,12 +132,12 @@ if ($this->session->flashdata('success')) {
                             </legend>
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">
-                                    Email ids:
+                                    Email ids<font color="red">*</font>
                                 </label>
-                                
+
                                 <div class="col-lg-10">
                                     <!--<input type="text" id="email_tags"  value="<?php if (isset($testing_emails[0]['email_ids'])) echo $testing_emails[0]['email_ids']; ?>" class="tags-input form-control" name="testing_emails" autocomplete="off">-->
-                                    <select multiple="true" name="testing_emails[]" id="tagSelector" class="form-control select2">
+                                    <select multiple="true" name="testing_emails[]" required="" id="tagSelector" class="form-control select2">
                                         <?php
 //                                        foreach ($subscribers as $value) {
 //                                            
@@ -169,15 +149,15 @@ if ($this->session->flashdata('success')) {
                                                 $arr[] = $value;
                                             }
                                         }
-                                         foreach ($subscribers as $key => $val) {
+                                        foreach ($subscribers as $key => $val) {
                                             $selected = '';
                                             if (isset($emails)) {
                                                 if (in_array($val['email'], $arr)) {
                                                     $selected = "selected";
                                                 }
                                             }
-                                             echo "<option value='" . $val['email'] . "' $selected>" . $val['email'] . "</option>";
-                                         }
+                                            echo "<option value='" . $val['email'] . "' $selected>" . $val['email'] . "</option>";
+                                        }
                                         ?>
                                     </select>
 
@@ -187,7 +167,7 @@ if ($this->session->flashdata('success')) {
                         <fieldset>
                             <legend class="text-semibold">
                                 <i class="icon-newspaper2 position-left"></i>
-                                CONTENT OF NEWSLETTER
+                                CONTENT OF NEWSLETTER<font color="red">*</font>
                             </legend>
 
                             <div class="content-group">
@@ -210,26 +190,10 @@ if ($this->session->flashdata('success')) {
             </form>
         </div>
     </div>
-    <?php //$this->load->view('Templates/admin_footer'); ?>
+<?php //$this->load->view('Templates/admin_footer');  ?>
 </div>
 <script type="text/javascript">
     $('.select2').select2({
-        tags: true,
-        tokenSeparators: [",", " "],
-        createTag: function (tag) {
-            return {
-                id: tag.term,
-                text: tag.term,
-                isNew: true
-            };
-        }
-    }).on("select2:select", function (e) {
-        if (e.params.data.isNew) {
-            $('#console').append('<code>New tag: {"' + e.params.data.id + '":"' + e.params.data.text + '"}</code><br>');
-            $(this).find('[value="' + e.params.data.id + '"]').replaceWith('<option selected value="' + e.params.data.id + '">' + e.params.data.text + '</option>');
-        }
-    });
-    $('.select').select2({
         tags: true,
         tokenSeparators: [",", " "],
         createTag: function (tag) {
@@ -312,5 +276,10 @@ if ($this->session->flashdata('success')) {
             $('#duration_box').show(500);
             $('#latest_box').show(500);
         }
+    });
+
+    $('document').ready(function () {
+        $("#newsletter_settings").validate({
+        });
     });
 </script>
