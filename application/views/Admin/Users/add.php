@@ -136,7 +136,8 @@ $seg = ($segment == 'tenant') ? 'tenants' : 'staff';
                                         <div id="imgpreview" style="margin-top: 10px;">
                                             <?php
                                             if (isset($user)) {
-                                                if (trim($user->profile_pic) != '' && file_exists(base_url() . USER_PROFILE_IMAGE . '/' . $user->profile_pic))
+
+                                                if (trim($user->profile_pic) != '' && file_exists(USER_PROFILE_IMAGE . '/' . $user->profile_pic))
                                                     echo "<img src='" . base_url() . USER_PROFILE_IMAGE . '/' . $user->profile_pic . "' height='73px' width='73px'>"; //                                               
                                             }
                                             ?>
@@ -221,14 +222,14 @@ function ValidateSingleInput(oInput) {
             if($.inArray( input.files[0].type , arr )!=-1){
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    var html = '<img src="' + e.target.result + '" height="30px" width="30px" alternate="Image" />';
+                    var html = '<img src="' + e.target.result + '" height="73px" width="73px" alternate="Image" />';
                     $('#imgpreview').html(html);
              };
                 reader.readAsDataURL(input.files[0]);
             }
         }else{
             if(typeof input=='string'){
-                var html = '<img src="' + input + '" height="30px" width="30px" alternate="Image" />';
+                var html = '<img src="' + input + '" height="73px" width="73px" alternate="Image" />';
                 $('#imgpreview').html(html);
             }
         }

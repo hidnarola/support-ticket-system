@@ -8,7 +8,7 @@
             ============================================= -->
             <?php
             if (isset($news)) {
-                if ($news['image'] != ''  && file_exists(base_url().NEWS_IMAGE . '/' . $news['image'])) {
+                if ($news['image'] != ''  && file_exists(NEWS_IMAGE . '/' . $news['image'])) {
                     ?>
                     <div class="entry-image bottommargin">
                         <a href="<?php echo base_url() . NEWS_IMAGE . '/' . $news['image'] ?>" data-lightbox="image"><img class="image_fade" src="<?php echo base_url() . NEWS_IMAGE . '/' . $news['image'] ?>" alt="Standard Post with Image"></a>
@@ -16,7 +16,7 @@
                     <?php
                 }
             } else if (isset($announcements)) {
-                if ($announcements['image'] != '' && file_exists(base_url().ANNOUNCEMENT_IMAGE . '/' . $announcements['image'])) {
+                if ($announcements['image'] != '' && file_exists(ANNOUNCEMENT_IMAGE . '/' . $announcements['image'])) {
                     ?>
                     <div class="entry-image bottommargin">
                         <a href="<?php echo base_url() . ANNOUNCEMENT_IMAGE . '/' . $announcements['image'] ?>" data-lightbox="image"><img class="image_fade" src="<?php echo base_url() . ANNOUNCEMENT_IMAGE . '/' . $announcements['image'] ?>" alt="Standard Post with Image"></a>

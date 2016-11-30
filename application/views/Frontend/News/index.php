@@ -22,10 +22,8 @@
                         </div>
                         <?php
                         if ($value['image'] != '') {
-                            $image = base_url(). NEWS_IMAGE . '/' . $value['image'];
-                            if ($value['is_news'] == 0) {
-                                $image = base_url().ANNOUNCEMENT_MEDIUM_IMAGE . '/' . $value['image'];
-                            }
+                            $image = NEWS_IMAGE . '/' . $value['image'];
+                            
                             if(file_exists($image)){
                             ?>
                             

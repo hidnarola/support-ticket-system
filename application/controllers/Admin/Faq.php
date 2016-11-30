@@ -41,7 +41,7 @@ class Faq extends CI_Controller {
         $config['base_url'] = base_url() . "admin/faq/index";
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 
-        $query = "select *,f.id as fid from " . $this->table . " f left join categories c on c.id= f.category_id Where f.is_delete =0";
+        $query = "select f.question,f.answer,f.category_id,f.modified,c.name, c.id ,f.id as fid from " . $this->table . " f left join categories c on c.id= f.category_id Where f.is_delete =0 and c.is_delete=0";
         $keyword = '';
         if ($this->input->get('keyword')) {
             $keyword = $this->input->get('keyword');

@@ -21,7 +21,7 @@
                         <div class="pull-right"><h6><?php echo date('F j, Y', strtotime($data['modified'])); ?></h6></div>
                             <div class="center-block" style="max-width:650px;margin: 0 auto;">
                                 <?php if($data['image'] != ''){ 
-                                    $image = NEWS_IMAGE.'/'.$data['image'];
+                                    $image = NEWS_MEDIUM_IMAGE.'/'.$data['image'];
                                     if($data['is_news'] == 0){
                                         $image = ANNOUNCEMENT_MEDIUM_IMAGE.'/'.$data['image'];
                                     }

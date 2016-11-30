@@ -39,4 +39,22 @@ class Project_model extends CI_Model {
             return 0;
         }
     }
+
+     /**
+     * 
+     * @param type $text
+     * @param type $type
+     * @return type
+     */
+    public function search_project($text) {
+        $this->db->where('is_delete', 0);
+        $this->db->group_start();
+        $this->db->like('title', $text);
+        $this->db->or_like('short_desc', $text);
+        $this->db->group_end();
+        $this->db->order_by('modified', 'desc');
+        $result = $this->db->get(TBL_PROJECTS);
+        return $result->result_array();
+
+    }
 }
