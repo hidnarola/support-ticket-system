@@ -17,7 +17,7 @@ class Projects extends CI_Controller {
 
     public function index() {
         $this->data['title'] = $this->data['page_header'] = 'Projects';
-        $this->data['icon_class'] = 'icon-calender2';
+        $this->data['icon_class'] = 'icon-design';
 
         $search_text = '';
         $this->data['search_text'] = $search_text;
@@ -37,15 +37,13 @@ class Projects extends CI_Controller {
 
         $this->data['title'] = $this->data['page_header'] = 'Add Projects';
         $this->data['page'] = 'Projects';
-        $this->data['icon_class'] = 'icon-calender2';
-
+        $this->data['icon_class'] = 'icon-design';
         $this->form_validation->set_rules('title', 'Title', 'trim|required');
         $this->form_validation->set_rules('short_desc', 'Description', 'trim|required');
 //        $this->form_validation->set_rules('logo_image', 'Logo Image', 'trim|required');
 
         if ($this->form_validation->run() == TRUE) {
             if ($_FILES['logo_image']['name'] != '') {
-//                pr($_FILES);
                 $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
                 $exts = explode(".", $_FILES['logo_image']['name']);
                 $name = $exts[0] . time() . "." . end($exts);
@@ -60,7 +58,6 @@ class Projects extends CI_Controller {
                 if (!$this->upload->do_upload('logo_image')) {
                     $flag = 1;
                     $this->data['profile_validation'] = $this->upload->display_errors();
-//                    pr($data,1);
                 } else {
                     $file_info = $this->upload->data();
                     $project_pic = $file_info['file_name'];
@@ -102,9 +99,8 @@ class Projects extends CI_Controller {
             if ($this->form_validation->run() == FALSE) {
                 $this->data['title'] = $this->data['page_header'] = 'Add Projects';
                 $this->data['page'] = 'Projects';
-                $this->data['icon_class'] = 'icon-calender2';
+                $this->data['icon_class'] = 'icon-design';
                 $this->data['data'] = $this->Project_model->get_data_by_id($record_id);
-//                pr($this->data['article']);
                 $this->template->load('admin', 'Admin/Projects/add', $this->data);
             } else {
 

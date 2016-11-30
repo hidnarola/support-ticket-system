@@ -42,12 +42,10 @@
                                 <div class="center-block">
 
                                     <div class="form-group">
-                                        <label class="display-block control-label text-semibold col-lg-2">Please select</label>
-
+                                        <label class="control-label col-lg-2">Please select<font color="red">*</font></label>
                                         <?php
                                         $news_checked = 'checked';
                                         $announcement_checked = '';
-
                                         if (isset($data)) {
                                             if ($data['is_news'] == 1) {
                                                 $news_checked = 'checked';
@@ -58,7 +56,6 @@
                                             }
                                         }
                                         ?>
-
                                         <label class="radio-inline">
                                             <input type="radio" value="1" name="is_news" class="styled" <?php echo $news_checked; ?>>
                                             News
@@ -75,7 +72,6 @@
                                         <div class="col-lg-10">
                                             <input type="text" class="form-control" required="" name="title" placeholder="Enter Title" value="<?php
                                             echo (isset($data)) ? $data['title'] : set_value('description');
-                                            ;
                                             ?>">   
                                                    <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
                                         </div>
@@ -84,9 +80,7 @@
                                         <label class="col-lg-2 control-label">Description<font color="red">*</font></label>
                                         <div class="col-lg-10">
                                             <div class="panel panel-flat">
-                                                <div class="panel-heading">
-                                                </div>
-
+                                                <div class="panel-heading"></div>
                                                 <div class="panel-body">
                                                     <div class="content-group">
                                                         <textarea name="description" required="" id="editor-full" rows="4" cols="4"><?php
@@ -111,7 +105,6 @@
                                                 <input name="userfile" type="file" class="file-styled">
                                             </div>
                                             <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
-
                                             <?php
                                             if (isset($profile_validation)) {
                                                 echo '<label id="userfile-error" class="validation-error-label" for="userfile">' . $profile_validation . '</label>';

@@ -14,31 +14,6 @@
         </ul>
     </div>
 </div>
-<?php
-if ($this->session->flashdata('success')) {
-    ?>
-    <div class="content pt0">
-        <div class="alert alert-success">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong><?= $this->session->flashdata('success') ?></strong>
-        </div>
-    </div>
-    <?php
-    $this->session->set_flashdata('success', false);
-} else if ($this->session->flashdata('error')) {
-    ?>
-    <div class="content pt0">
-        <div class="alert alert-danger">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong><?= $this->session->flashdata('error') ?></strong>
-        </div>
-    </div>
-    <?php
-    $this->session->set_flashdata('error', false);
-} else {
-    echo validation_errors();
-}
-?>
 <div class="content">
     <?php
     $this->load->view('admin/message_view');
@@ -87,11 +62,9 @@ if ($this->session->flashdata('success')) {
                     <?php $i++;
                 }
                 ?>
-
             </tbody>
         </table>
     </div>
-
 </div>
 <script>
     $(document).on('click', '.styled', function () {
@@ -131,7 +104,7 @@ if ($this->session->flashdata('success')) {
                 paginate: {'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;'}
             },
             dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
-            order: [[2, "asc"]],
+//            order: [[2, "asc"]],
         });
         $('.dataTables_length select').select2({
             minimumResultsForSearch: Infinity,

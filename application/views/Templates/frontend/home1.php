@@ -6,11 +6,10 @@
         <meta name="author" content="SemiColonWeb" />
         <title><?php echo $title; ?></title>
         <base href="<?php echo base_url(); ?>">
+
         <!-- Stylesheets
         ============================================= -->
         <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
-        <!-- Favicons -->
-        <link rel="icon" href="assets/frontend/images/favicon (1).ico" />
         <link rel="stylesheet" href="assets/frontend/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/style.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/swiper.css" type="text/css" />
@@ -28,7 +27,6 @@
         <!-- Document Title
         ============================================= -->
 
-
     </head>
 
     <body class="stretched">
@@ -39,7 +37,7 @@
 
             <!-- Header
             ============================================= -->
-            <header id="header" class="transparent-header floating-header">
+            <header id="header" class="full-header">
 
                 <div id="header-wrap">
 
@@ -54,21 +52,6 @@
                             <a href="home" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
 
-                        <?php
-                        if ($this->session->userdata('user_logged_in')) {
-//                                                echo $this->session->userdata('admin_logged_in')['fname'] . " " . $this->session->userdata('admin_logged_in')['lname'];
-                            ?>
-                            <div id="top-account" class="dropdown">
-                                <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                                    <li><a href="profile">Profile</a></li>
-                                    <li><a href="profile/changepassword">Change Password</a></li>                                    
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
-                                </ul>
-                            </div>
-                        <?php } ?>
-
                         <!-- Primary Navigation
                         ============================================= -->
                         <nav id="primary-menu">
@@ -78,54 +61,42 @@
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
                                     <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
                                     <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>">
-                                    <a href="#" class="sf-with-ul"><div>Knowledge Base</div></a>                                        <ul>
+                                        <a href="#" class="sf-with-ul"><div>Knowledge Base</div></a>                                        <ul>
                                             <li><a href="knowledgebase"><div>Articles</div></a></li>                                      
                                             <li><a href="faq"><div>FAQ'S</div></a></li>                                      
-                                            </ul>
+                                        </ul>
                                     </li>
                                     <li class="mega-menu <?php echo ($page == 'news') ? 'current' : ''; ?>"><a href="news"><div>News</div></a></li>
                                     <li class="mega-menu <?php echo ($page == 'announcements') ? 'current' : ''; ?>"><a href="announcements"><div>Announcements</div></a></li>
                                     </li>
                                 <?php } ?>
-                               <?php 
-                        $header_links = get_pages('header');
-                        
-                        if(count($header_links) > 0){
-                            ?>
-                            
-                            <?php
-                            foreach ($header_links as $key => $value) {
-                                if(isset($value['sub_menus'])){
-                                        foreach ($value['sub_menus'] as $key1 => $value1) {
-                                    ?>
-                                        <li class="mega-menu">
-                                            <a href="<?php echo site_url($value1['url']); ?>"><?php echo $value1['navigation_name']; ?></a>
-                                        </li>
                                 <?php
+                                $header_links = get_pages('header');
+                                if (count($header_links) > 0) {
+                                    foreach ($header_links as $key => $value) {
+                                        if (isset($value['sub_menus'])) {
+                                            foreach ($value['sub_menus'] as $key1 => $value1) {
+                                                ?>
+                                                <li class="mega-menu">
+                                                    <a href="<?php echo site_url($value1['url']); ?>"><?php echo $value1['navigation_name']; ?></a>
+                                                </li>
+                                                <?php
+                                            }
+                                        } else {
+                                            ?>
+                                            <li class="mega-menu">
+                                                <a href="<?php echo site_url($value['url']); ?>"><div><?php echo $value['navigation_name']; ?></div></a>
+                                            </li>
+                                            <?php
                                         }
-                                } else {
-                                    ?>
-                                        <li class="mega-menu">
-                                            <a href="<?php echo site_url($value['url']); ?>"><div><?php echo $value['navigation_name']; ?></div></a>
-                                        </li>
-                                    <?php
+                                    }
                                 }
-                            }
-                        }
-                    ?>
+                                ?>
                                 <!--<li class="mega-menu"><a href="login"><div>Gallery</div></a></li>-->
                                 <?php if ($this->session->userdata('user_logged_in') == '') { ?>
                                     <li class="mega-menu <?php echo ($page == 'login') ? 'current' : ''; ?>"><a href="login"><div>Login/Signup</div></a></li>
                                 <?php } ?>
                             </ul>
-
-                            <div id="top-search">
-                                <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-                                <form action="search.html" method="get">
-                                    <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
-                                </form>
-                            </div><!-- #top-search end -->
-
                         </nav><!-- #primary-menu end -->
 
                     </div>
@@ -133,13 +104,18 @@
                 </div>
 
             </header><!-- #header end -->
-
-            <?php echo $body; ?>
-            <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+<?php echo $body; ?>
+            
+ <!-- External JavaScripts
+        ============================================= -->
+        <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
         <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
-            <!-- Footer
-            ============================================= -->
-             <?php $this->load->view('Templates/frontend/footer'); ?>
+
+        <!-- Footer Scripts
+        ============================================= -->
+        <script type="text/javascript" src="assets/frontend/js/functions.js"></script>
+        <script type="text/javascript" src="assets/frontend/js/plugins/jquery.swiper.js"></script>
+            <?php $this->load->view('Templates/frontend/footer'); ?>
 
         </div><!-- #wrapper end -->
 
@@ -147,13 +123,15 @@
         ============================================= -->
         <div id="gotoTop" class="icon-angle-up"></div>
 
-        <!-- External JavaScripts
-        ============================================= -->
-        
-
-        <!-- Footer Scripts
-        ============================================= -->
-        <script type="text/javascript" src="assets/frontend/js/functions.js"></script>
+       <script>
+    var swiper = new Swiper('.swiper-container', {
+        paginationClickable: true,
+//        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 5000,
+        autoplayDisableOnInteraction: false
+    });
+    </script>
 
     </body>
 </html>

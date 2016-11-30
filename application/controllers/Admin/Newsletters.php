@@ -187,7 +187,8 @@ class Newsletters extends CI_Controller {
                     $pp = array_diff($f, $a);
                     $arr11 = implode(',', $pp);
                     $arr_email = array(
-                        'email' => $arr11
+                        'email' => $arr11,
+                        'created' => date('Y-m-d H:i:s'),
                     );
                     $this->db->insert(TBL_NEWSLETTER_SUBSCRIBERS, $arr_email);
                 }

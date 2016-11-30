@@ -8,6 +8,7 @@
         <base href="<?php echo base_url(); ?>">
 
         <!-- Global stylesheets -->
+        <link rel="icon" href="assets/frontend/images/favicon (1).ico" />
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -174,7 +175,7 @@
                                     </li>
 
                                     <li class="<?php echo ($page == 'social_media') ? 'active' : ''; ?>"><a href="admin/social_media"><i class="icon-facebook"></i> <span>Social Media</span></a></li>
-                                    <li class="<?php echo ($page == 'projects') ? 'active' : ''; ?>"><a href="admin/projects"><i class="icon-calendar2"></i> <span>Projects</span></a></li>
+                                    <li class="<?php echo ($page == 'projects') ? 'active' : ''; ?>"><a href="admin/projects"><i class="icon-design"></i> <span>Projects</span></a></li>
                                     <li class="<?php echo (in_array($page, $knowledgebase)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-book"></i><span>Knowledge Base</span></a>
                                         <ul>
