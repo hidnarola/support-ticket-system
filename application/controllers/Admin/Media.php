@@ -28,6 +28,8 @@ class Media extends CI_Controller {
     }
 
     public function file_upload($page){
+        $image = '';
+
         if ($_FILES['file_data']['name'] != '') {
                 $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
                 $exts = explode(".", $_FILES['file_data']['name']);
@@ -100,5 +102,13 @@ class Media extends CI_Controller {
         $this->data['images'] = $images;
 
         $this->template->load('admin', 'Admin/Media/logos', $this->data);
+    }
+
+    public function delete_logo($id){
+        $record_id = base64_decode(urldecode($id));
+        if($this->Media_model->delete_logo($record_id)){
+            $this->session->set_flashdata('success_msg', 'Deleted successfully.');
+            redirect('admin/logos');
+        }
     }
 }

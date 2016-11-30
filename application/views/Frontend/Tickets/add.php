@@ -98,7 +98,7 @@
                                         .btn-file input[type=file] {background: white;cursor: inherit;display: block;font-size: 100px;  min-height: 100%; min-width: 100%;opacity: 0;outline: medium none;position: absolute;right: 0; text-align: right;top: -16px; z-index: 99;}
                                     </style>
                                                         <div class="btn-file">
-                                                <input type="file" name="ticket_image" id="ticket_image">
+                                                <input type="file" name="ticket_image" id="ticket_image" onchange="ValidateSingleInput(this);">
                                                 <span class="custom-file-control"></span>
                                                 <button type="submit" class="button button-light nomargin" id="submit" name="save" value="save">Upload</button>
                                         <span class="help-block">Accepted formats: gif, png, jpg, Max file size 2Mb</span>
@@ -145,8 +145,48 @@
         </div>
     </div>
 </div>
-
+<div id="validation_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body validation_alert">
+                    <label></label>
+                </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
+var _validFileExtensions = [".jpg", ".jpeg", ".gif", ".png"];    
+function ValidateSingleInput(oInput) {
+   
+    if (oInput.type == "file") {
+        var sFileName = oInput.value;
+         if (sFileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+             
+            if (!blnValid) {
+               
+                $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + _validFileExtensions.join(", "));
+            
+
+                $("#validation_modal").modal();
+                oInput.value = "";
+                return false;
+            }
+        }
+    }
+    return true;
+}
     $(document).ready(function () {
         $('#datatable1').DataTable();
 

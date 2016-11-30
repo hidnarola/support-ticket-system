@@ -102,7 +102,7 @@
                                         <label class="col-lg-2 control-label">Image</label>
                                         <div class="col-lg-10">
                                             <div class="uploader">
-                                                <input name="userfile" type="file" class="file-styled">
+                                                <input name="userfile" type="file" class="file-styled" onchange="ValidateSingleInput(this);">
                                             </div>
                                             <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
                                             <?php
@@ -125,4 +125,44 @@
             </form>
         </div>
     </div>
+
+    <div id="validation_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal-400">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body panel-body validation_alert">
+                <label></label>
+            </div>
+       </div>
+    </div>
 </div>
+    <script type="text/javascript">
+        var _validFileExtensions = [".jpg", ".jpeg", ".gif", ".png"];    
+function ValidateSingleInput(oInput) {
+    if (oInput.type == "file") {
+        var sFileName = oInput.value;
+         if (sFileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+             
+            if (!blnValid) {
+                $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + _validFileExtensions.join(", "));
+                $("#validation_modal").modal();
+                oInput.value = "";
+                return false;
+            }
+        }
+    }
+    return true;
+}
+    </script>
+

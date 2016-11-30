@@ -64,11 +64,11 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label>Banner Image:</label>
-                                        <div class="uploader">
-                                            <input type="file" name="banner_image" id="banner_image" class="file-styled">
+                                        <!-- <div class="uploader"> -->
+                                            <input type="file" name="banner_image" id="banner_image" onchange="ValidateSingleInput(this);">
                                             <!-- <span class="filename" style="">No file selected</span> -->
                                             <!-- <span class="action btn bg-pink-400" style="">Choose File</span> -->
-                                        </div>
+                                        <!-- </div> -->
                                         <span class="help-block">Accepted formats: png, jpg, jpeg. Max file size 700Kb</span>
                                     </div>
                                 </div>
@@ -89,8 +89,22 @@
                 <!-- /basic layout -->
             </div>
         </div>
-    </div>  
+    </div>
+    <div id="validation_modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-teal-400">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title"></h6>
+                </div>
+                <div class="modal-body panel-body validation_alert">
+                    <label></label>
+                </div>
+           </div>
+        </div>
+    </div>
     <script type="text/javascript">
+
         $('document').ready(function () {
 //            CKEDITOR.replace('description', {
 //                height: '400px'
@@ -170,9 +184,34 @@
                 }
             });
         }
+         var _validFileExtensions = [".jpg", ".jpeg", ".gif", ".png"];    
+function ValidateSingleInput(oInput) {
+    console.log('heree');
+    if (oInput.type == "file") {
+        var sFileName = oInput.value;
+         if (sFileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+             
+            if (!blnValid) {
+                $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + _validFileExtensions.join(", "));
+                $("#validation_modal").modal();
+                oInput.value = "";
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
-        document.getElementById('banner_image').onchange = function () {
+       /* document.getElementById('banner_image').onchange = function () {
             var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
             $('.filename').html(filename);
-        };
+        };*/
     </script>

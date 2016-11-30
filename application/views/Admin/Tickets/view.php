@@ -105,10 +105,13 @@
                                             <th>Description</th>
                                             <td><?php echo $ticket->description ?></td>
                                         </tr>
-                                        <?php if($ticket->image != ''){ ?>
+                                        <?php if($ticket->image != '' && file_exists(base_url().TICKET_IMAGE . '/' . $ticket->image)){ ?>
                                         <tr>
                                             <th>Tenant Contract</th>
-                                            <td> <a class="fancybox" href="<?php echo TICKET_IMAGE . '/' . $ticket->image; ?>" data-fancybox-group="gallery"><img src="<?php echo TICKET_THUMB_IMAGE . '/' . $ticket->image; ?>" alt="" height="90px" width="90px" /></a></td>
+                                            <td> 
+                                                    <a class="fancybox" href="<?php echo TICKET_IMAGE . '/' . $ticket->image; ?>" data-fancybox-group="gallery"><img src="<?php echo TICKET_THUMB_IMAGE . '/' . $ticket->image; ?>" alt="" height="90px" width="90px" /></a>
+                                                
+                                            </td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
@@ -261,7 +264,11 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h6 class="modal-title">Tenant Details</h6>
             </div>
+
             <div class="modal-body panel-body login-form" id="password_form" >
+                <?php if($user['profile_pic'] != '' && file_exists(base_url().USER_PROFILE_IMAGE . '/' . $user['profile_pic'])){ ?>
+                <div class="text-center" style="padding: 5px;"><img class="img-circle" src="<?php echo USER_PROFILE_IMAGE . '/' . $user['profile_pic']; ?>" alt="" height="90px" width="90px" /></div>
+                <?php } ?>
                 <table class="table table-striped table-bordered newTickets ticket_details" data-alert="" data-all="189">
                     <tbody>
                         <tr>

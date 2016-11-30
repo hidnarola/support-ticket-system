@@ -206,6 +206,13 @@ class Newsletters extends CI_Controller {
                 $p = explode(',', $a['email_ids']);
                 $data['emails'] = $p;
             }
+
+            $p='';
+            if(!empty($a)){
+                $p = explode(',', $a['email_ids']);
+            }
+            $data['emails'] = $p;
+
             $data['subscribers'] = $this->Newsletter_model->get_emails_subscribers();
             $this->template->load('admin', 'Admin/Newsletters/manage_settings', $data);
         }
