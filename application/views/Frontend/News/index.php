@@ -17,7 +17,7 @@
                     ?>
                     <div class="entry clearfix">
                         <div class="entry-timeline">
-                            <?php echo date('d', strtotime($value['modified'])); ?><span><?php echo date('M', strtotime($value['modified'])); ?></span>
+                            <?php echo date('d', strtotime($value['created'])); ?><span><?php echo date('M', strtotime($value['created'])); ?></span>
                             <div class="timeline-divider"></div>
                         </div>
                         <?php
@@ -60,7 +60,9 @@
                 ?>
 
             </div><!-- #posts end -->
-            <?php if ($num_rows > 0) { ?>
+            <?php
+            
+            if ($num_rows >= 2) { ?>
                 <!-- Pagination ============================================= -->
                 <div id="load-next-posts" class="center">
                     <?php if ($value['is_news'] == 1) { ?>
@@ -162,7 +164,7 @@
             } else {
                 str += '<a href="' + url + 'news/' + item.slug +  '" class="more-link">Read More</a>';
             }
-            str += '</div>';
+            str += '</div></div>';
         });
 
         return str;
