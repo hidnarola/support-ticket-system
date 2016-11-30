@@ -447,6 +447,19 @@ class Home extends CI_Controller {
         echo json_encode($data);
         exit;
     }
+    
+    public function loadmore1() {
+        $type = $this->input->post('type');
+        $id = $this->input->post('id');
+        $num_rows = $this->News_model->num_rows($type, $id);
+        
+        $rec = $this->News_model->load_rows($type, $id);
+        $data['num_rows'] = $num_rows;
+        $data['rec'] = $rec;
+//        pr($rec);
+        echo json_encode($data);
+        exit;
+    }
 
     public function forgot_password() {
         $this->load->helper('form');

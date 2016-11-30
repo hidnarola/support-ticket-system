@@ -22,9 +22,10 @@ class Announcements extends CI_Controller {
         $data['header_title'] = 'Announcements';
         $data['news_announcements'] = $this->User_model->getlatestnews();
         $data['data'] = $this->News_model->get_news_announcements($type = 0);
+        
         $data['num_rows'] = $this->News_model->get_news_announcements_num($type = 0);
         
-//        pr($data['data'],1);
+//        pr($data['num_rows'],1);
         $this->template->load('frontend/page', 'Frontend/News/index', $data);
     }
 
