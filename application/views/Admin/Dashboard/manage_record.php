@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn bg-teal"><?php echo 'Save ' . $record_type; ?> <i class="icon-arrow-right14 position-right"></i></button>
+                            <button type="submit" class="btn bg-teal">Save <i class="icon-arrow-right14 position-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                         <thead>
                             <tr class="bg-teal">
                                 <th>#</th>
-                                <th><?php echo $record_type . ' Name'; ?></th>
+                                <th>Name</th>
                                 <th>Action</th>
 
                             </tr>

@@ -71,7 +71,10 @@
                                         <label class="col-lg-2 control-label">Title<font color="red">*</font></label>
                                         <div class="col-lg-10">
                                             <input type="text" class="form-control" required="" name="title" placeholder="Enter Title" value="<?php
-                                            echo (isset($data)) ? $data['title'] : set_value('description');
+
+                                            echo (isset($data)) ? $data['title'] : set_value('title');
+                                            
+
                                             ?>">   
                                                    <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
                                         </div>
@@ -102,7 +105,7 @@
                                         <label class="col-lg-2 control-label">Image</label>
                                         <div class="col-lg-10">
                                             <div class="uploader">
-                                                <input name="userfile" type="file" class="file-styled" onchange="ValidateSingleInput(this);">
+                                                <input name="userfile" type="file" class="file-styled" onchange="ValidateSingleInput(this);readURL(this)">
                                             </div>
                                             <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
                                             <?php
@@ -110,6 +113,17 @@
                                                 echo '<label id="userfile-error" class="validation-error-label" for="userfile">' . $profile_validation . '</label>';
                                             }
                                             ?>
+
+                                            <div id="imgpreview" style="margin-top: 10px;">
+                                                <?php
+
+                                                if (isset($data)) {
+                                                    if (trim($data['image']) != '' && file_exists(NEWS_MEDIUM_IMAGE . '/' . $data['image'])){
+                                                        echo "<img src='" . base_url() . NEWS_MEDIUM_IMAGE . '/' . $data['image'] . "' height='73px' width='73px'>"; //                                               
+                                                    }
+                                                }
+                                            ?>
+                                        </div>
                                         </div>
                                     </div>
 
@@ -164,5 +178,24 @@ function ValidateSingleInput(oInput) {
     }
     return true;
 }
+ function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var arr = [ 'image/png', 'image/jpeg', 'image/gif' ];
+            if($.inArray( input.files[0].type , arr )!=-1){
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var html = '<img src="' + e.target.result + '" height="73px" width="73px" alternate="Image" />';
+                    $('#imgpreview').html(html);
+             };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }else{
+            if(typeof input=='string'){
+                var html = '<img src="' + input + '" height="73px" width="73px" alternate="Image" />';
+                $('#imgpreview').html(html);
+            }
+        }
+    }
     </script>
 

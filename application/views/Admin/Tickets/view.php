@@ -105,7 +105,7 @@
                                             <th>Description</th>
                                             <td><?php echo $ticket->description ?></td>
                                         </tr>
-                                        <?php if($ticket->image != '' && file_exists(base_url().TICKET_IMAGE . '/' . $ticket->image)){ ?>
+                                        <?php if($ticket->image != '' && file_exists(TICKET_IMAGE . '/' . $ticket->image)){ ?>
                                         <tr>
                                             <th>Tenant Contract</th>
                                             <td> 
@@ -266,7 +266,7 @@
             </div>
 
             <div class="modal-body panel-body login-form" id="password_form" >
-                <?php if($user['profile_pic'] != '' && file_exists(base_url().USER_PROFILE_IMAGE . '/' . $user['profile_pic'])){ ?>
+                <?php if($user['profile_pic'] != '' && file_exists(USER_PROFILE_IMAGE . '/' . $user['profile_pic'])){ ?>
                 <div class="text-center" style="padding: 5px;"><img class="img-circle" src="<?php echo USER_PROFILE_IMAGE . '/' . $user['profile_pic']; ?>" alt="" height="90px" width="90px" /></div>
                 <?php } ?>
                 <table class="table table-striped table-bordered newTickets ticket_details" data-alert="" data-all="189">

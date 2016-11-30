@@ -156,9 +156,13 @@
                                                     }
                                                 }
                                                 ?>
-                                                <?php if ($seg == 'staff') { ?>
-                                                    <li><a class="assign_head" data-dept="<?php echo $record['dept_id']; ?>" data-action="<?php echo ($is_head) ? 'unassign' : 'assign'; ?>" id="assign_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-user"></i> <?php echo ($is_head) ? 'Unassign as Head Staff' : 'Assign as Head Staff'; ?></a></li>
-                                                <?php } ?>
+                                                <?php if ($seg == 'staff') { 
+                                                    if(!$is_head){
+                                                    ?>
+                                                   <!--  <li><a class="assign_head" data-dept="<?php echo $record['dept_id']; ?>" data-action="<?php echo ($is_head) ? 'unassign' : 'assign'; ?>" id="assign_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-user"></i> <?php echo ($is_head) ? 'Unassign as Head Staff' : 'Assign as Head Staff'; ?></a></li> -->
+                                                   <li><a class="assign_head" data-dept="<?php echo $record['dept_id']; ?>" data-action="assign" id="assign_<?php echo base64_encode($record['uid']); ?>" data-record="<?php echo base64_encode($record['uid']); ?>" ><i class="icon-user"></i> Assign as Head Staff</a></li>
+                                                <?php }
+                                                } ?>
                                             </ul>
                                         </li>
                                     </ul>
@@ -254,8 +258,8 @@
 <script>
     $(function () {
         $('.datatable-basic').dataTable({
-            scrollX: true,
-            scrollCollapse: true,
+            // scrollX: true,
+            //scrollCollapse: true,
             autoWidth: false,
             processing: true,
             //serverSide: true,

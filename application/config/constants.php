@@ -125,9 +125,9 @@ define('NEWS_IMAGE', 'uploads/news/original');
 define('NEWS_THUMB_IMAGE', 'uploads/news/thumb');
 define('NEWS_MEDIUM_IMAGE', 'uploads/news/medium');
 
-define('ANNOUNCEMENT_IMAGE', 'uploads/announcements/original');
-define('ANNOUNCEMENT_THUMB_IMAGE', 'uploads/announcements/thumb');
-define('ANNOUNCEMENT_MEDIUM_IMAGE', 'uploads/announcements/medium');
+define('ANNOUNCEMENT_IMAGE', 'uploads/news/original');
+define('ANNOUNCEMENT_THUMB_IMAGE', 'uploads/news/thumb');
+define('ANNOUNCEMENT_MEDIUM_IMAGE', 'uploads/news/medium');
 
 define('ARTICLE_IMAGE', 'uploads/articles');
 define('ARTICLE_THUMB_IMAGE', 'uploads/articles/thumb');

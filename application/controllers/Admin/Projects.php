@@ -24,7 +24,7 @@ class Projects extends CI_Controller {
         $get_data = $this->Project_model->get_data();
         if ($this->input->get()) {
             $search_text = $this->input->get('search_text');
-            $get_data = $this->Project_model->search_article($search_text);
+            $get_data = $this->Project_model->search_project($search_text);
         }
 
         $this->data['projects'] = $get_data;

@@ -37,7 +37,9 @@
     <div class="row">
         <div class="col-lg-12">
             <!-- Questions list -->
-            <?php foreach ($faq as $key => $value) { ?>
+            <?php 
+            //pr($faq);   
+            foreach ($faq as $key => $value) { ?>
 
                 <div class="text-size-small text-uppercase text-semibold text-muted mb-10"><?php echo $key; ?></div>
                 <?php foreach ($value as $val) { ?>
@@ -61,7 +63,7 @@
 
                                 <div class="panel-footer panel-footer-transparent">
                                     <div class="heading-elements">
-                                        <span class="text-muted heading-text">Latest update: <?php echo date('M d, Y', strtotime($val['modified'])); ?></span>
+                                        <span class="text-muted heading-text">Latest update: <?php echo date('F j, Y', strtotime($val['modified'])); ?></span>
 
                                     </div>
                                 </div>
