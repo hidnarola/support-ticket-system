@@ -1,5 +1,6 @@
 <script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/pages/components_loaders.js"></script>
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
@@ -188,7 +189,7 @@
                                     <li class="text-purple-700">
                                         <a href="<?php echo base_url() . 'admin/tickets/view/' . base64_encode($record['id']) ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Ticket' class="view"><i class="icon-eye"></i> </a>
                                     </li>
-                                    <li class="text-danger-600">
+                                   <li class="text-danger-600">
                                             <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Ticket' class="delete"><i class="icon-trash"></i></a>
                                         </li>
 <!--                                    <li class="text-grey">
@@ -484,6 +485,55 @@
                 }
             });
             event.preventDefault();
+        });
+    });
+    var jconfirm = function (message, callback) {
+        var options = {
+            message: message
+        };
+        options.buttons = {
+            cancel: {
+                label: "No",
+                className: "btn-default",
+                callback: function (result) {
+                    callback(false);
+                }
+            },
+            main: {
+                label: "Yes",
+                className: "btn-primary",
+                callback: function (result) {
+                    callback(true);
+                }
+            }
+        };
+        bootbox.dialog(options);
+    };
+    var base_url = '<?php echo base_url(); ?>admin/';
+    $(document).on('click', '.delete', function () {
+        console.log('here');
+        var id = $(this).attr('id').replace('delete_', '');
+        var url = base_url + 'tickets/delete';
+        jconfirm("Do you really want to delete this record?", function (r) {
+            if (r) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    async: false,
+                    dataType: 'JSON',
+                    data: {id: id, type: 'tickets'},
+                    success: function (data) {
+                        console.log("data", data);
+                        console.log(data.status);
+                        console.log(data.msg);
+                        console.log(data.id);
+                        if (data.status == 1) {
+                            window.location.reload();
+                        } else if (data.status == 0) {
+                        }
+                    }
+                });
+            }
         });
     });
 </script>

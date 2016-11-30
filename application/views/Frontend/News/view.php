@@ -86,7 +86,6 @@
                     ============================================= -->
                     <div id="respond" class="clearfix">
 
-                        <h3>Leave a <span>Comment</span></h3>
                         <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm1" class="button tright" id="">Inquiry About News<i class="icon-circle-arrow-right"></i></a>
                     </div><!-- #respond end -->
 

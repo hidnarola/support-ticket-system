@@ -41,9 +41,9 @@
             //pr($faq);   
             foreach ($faq as $key => $value) { ?>
 
-                <div class="text-size-small text-uppercase text-semibold text-muted mb-10"><?php echo $key; ?></div>
-                <?php foreach ($value as $val) { ?>
+                <div class="text-size-large text-uppercase text-semibold text-muted mb-10"><?php echo $key; ?></div>
                     <div class="panel-group panel-group-control panel-group-control-right">
+                <?php foreach ($value as $val) { ?>
 
                         <div class="panel panel-white">
                             <div class="panel-heading">

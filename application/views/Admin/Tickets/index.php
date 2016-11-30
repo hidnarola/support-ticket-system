@@ -1,7 +1,7 @@
 <!--<script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>-->
 <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <script type="text/javascript" src="assets/admin/js/plugins/loaders/progressbar.min.js"></script>
-<script type="text/javascript" src="assets/admin/js/pages/components_loaders.js"></script>
+
 <?php
 $segment = $this->uri->segment(1);
 ?>
