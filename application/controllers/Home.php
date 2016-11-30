@@ -21,7 +21,7 @@ class Home extends CI_Controller {
         $userid = $this->session->userdata('user_logged_in')['id'];
         $images = $this->Media_model->get_home_images();
         $logo_images = $this->Media_model->get_logo_images();
-        $data['projects'] = $this->Project_model->get_data();
+        $data['projects'] = $this->Project_model->get_data_frontend();
         $data['images'] = $images;
         $data['logo_images'] = $logo_images;
         $data['user'] = $this->User_model->getUserByID($userid);

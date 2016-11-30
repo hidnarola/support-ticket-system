@@ -66,7 +66,7 @@
 
             <div class="clear"></div><div class="line"></div>
 
-            <div id="oc-clients-full" class="owl-carousel image-carousel carousel-widget" data-margin="30" data-nav="false" data-loop="true" data-autoplay="5000" data-pagi="false" data-items-xxs="2" data-items-xs="3" data-items-sm="4" data-items-md="5" data-items-lg="6">
+            <div id="oc-clients" class="owl-carousel image-carousel carousel-widget" data-margin="30" data-nav="false" data-loop="true" data-autoplay="5000" data-pagi="false" data-items-xxs="2" data-items-xs="3" data-items-sm="4" data-items-md="5" data-items-lg="6">
                 <?php foreach ($logo_images as $img) { ?>
                     <a href="#"><img src="<?php echo HOME_MEDIUM_IMAGE.'/'.$img['logo_image']; ?>" alt="Clients"></a>
                 <?php } ?>

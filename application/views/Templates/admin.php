@@ -8,6 +8,7 @@
         <base href="<?php echo base_url(); ?>">
 
         <!-- Global stylesheets -->
+        <link rel="icon" href="assets/frontend/images/favicon (1).ico" />
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
         <link href="assets/admin/css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -156,7 +157,6 @@
                                         </ul>
                                     </li>
 
-                                    
                                     <li class="<?php echo (in_array($page, $knowledgebase)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-book"></i><span>Knowledge Base</span></a>
                                         <ul>

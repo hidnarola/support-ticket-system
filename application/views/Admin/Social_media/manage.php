@@ -211,7 +211,7 @@ function ValidateSingleInput(oInput) {
                 paginate: {'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;'}
             },
             dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
-            order: [[2, "asc"]],
+//            order: [[2, "asc"]],
         });
         $('.dataTables_length select').select2({
             minimumResultsForSearch: Infinity,

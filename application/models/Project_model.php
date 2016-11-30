@@ -40,6 +40,7 @@ class Project_model extends CI_Model {
         }
     }
 
+
      /**
      * 
      * @param type $text
@@ -53,6 +54,15 @@ class Project_model extends CI_Model {
         $this->db->or_like('short_desc', $text);
         $this->db->group_end();
         $this->db->order_by('modified', 'desc');
+        $result = $this->db->get(TBL_PROJECTS);
+        return $result->result_array();
+
+    }
+     function get_data_frontend() {
+        $this->db->where('is_delete', 0);
+        
+        $this->db->order_by('modified', 'desc');
+        $this->db->limit(9);
         $result = $this->db->get(TBL_PROJECTS);
         return $result->result_array();
 
