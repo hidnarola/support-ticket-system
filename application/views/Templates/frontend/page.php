@@ -23,7 +23,7 @@
         <link rel="stylesheet" href="assets/frontend/css/components/bs-datatable.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/responsive.css" type="text/css" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
+        
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <!--[if lt IE 9]>
                 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -119,6 +119,10 @@
                             }
                         }
                     ?>
+
+                               
+
+                                
 
                                 <!--<li class="mega-menu"><a href="login"><div>Privacy Policy</div></a></li>-->
                                 <!-- <li class="mega-menu"><a href="login"><div>Contact us</div></a></li> -->

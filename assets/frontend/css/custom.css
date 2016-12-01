@@ -528,3 +528,4 @@ btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
         margin-left: 20%;
     }
 }
+label#widget-subscribe-form-email-error{ display: none !important; }

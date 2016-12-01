@@ -69,7 +69,7 @@
                                             <!-- <span class="filename" style="">No file selected</span> -->
                                             <!-- <span class="action btn bg-pink-400" style="">Choose File</span> -->
                                         <!-- </div> -->
-                                        <span class="help-block">Accepted formats: png, jpg, jpeg. Max file size 700Kb</span>
+                                        <span class="help-block">Accepted formats: png, jpg, jpeg. Max file size 2Mb</span>
                                     </div>
                                 </div>
                             </div>
