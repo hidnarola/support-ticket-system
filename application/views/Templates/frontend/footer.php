@@ -65,29 +65,33 @@
                 </div>
 
                 <div class="col_one_third col_last">
-<?php //$this->load->view('frontend/User/rightsidebar');  ?>
+                    <?php //$this->load->view('frontend/User/rightsidebar');  ?>
                     <div class="widget clearfix">
                         <h4>Recent Posts</h4>
 
                         <div id="post-list-footer">
-<?php
-foreach ($news_announcements as $value) {
-    if ($value['image'] != '') {
-        $image = NEWS_MEDIUM_IMAGE . '/' . $value['image'];
-        if ($value['is_news'] == 0) {
-            $image = ANNOUNCEMENT_MEDIUM_IMAGE . '/' . $value['image'];
-        }
-    }
-    ?>
+                            <?php
+                            foreach ($news_announcements as $value) {
+                                if ($value['image'] != '') {
+                                    $image = NEWS_MEDIUM_IMAGE . '/' . $value['image'];
+                                    if ($value['is_news'] == 0) {
+                                        $image = ANNOUNCEMENT_MEDIUM_IMAGE . '/' . $value['image'];
+                                    }
+                                }
+                                ?>
                                 <div class="spost clearfix">
-                                <?php if ($value['image'] != '') { ?>
+                                    <?php if ($value['image'] != '') { ?>
                                         <div class="entry-image">
                                             <a class="nobg"><img src="<?php echo $image; ?>" alt=""></a>
                                         </div>
-    <?php } ?> 
+                                    <?php } ?> 
                                     <div class="entry-c">
                                         <div class="entry-title">
-                                            <h4><a href="#"></a><?php echo $value['title']; ?></h4>
+                                            <?php if ($value['is_news'] == 0) { ?> 
+                                                <h4><a href="<?php echo base_url() . 'announcements/' . $value['slug']; ?>"><?php echo $value['title']; ?></a></h4>
+                                            <?php } else { ?>
+                                                <h4><a href="<?php echo base_url() . 'news/' . $value['slug']; ?>"><?php echo $value['title']; ?></a></h4>
+                                            <?php } ?>
                                         </div>
                                         <ul class="entry-meta">
                                             <!--<li>10th July 2014</li>-->
@@ -95,15 +99,10 @@ foreach ($news_announcements as $value) {
                                         </ul>
                                     </div>
                                 </div>
-<?php } ?>
-
-
-
+                            <?php } ?>
                         </div>
                     </div>
-
                 </div>
-
             </div>
 
             <div class="col_one_third col_last">
@@ -111,8 +110,8 @@ foreach ($news_announcements as $value) {
                 <div class="widget clearfix" style="margin-bottom: -20px;">
 
                     <div class="row">
-<?php $total_counts = get_total_count();
-?>
+                        <?php $total_counts = get_total_count();
+                        ?>
                         <div class="col-md-6 bottommargin-sm">
                             <div class="counter counter-small"><span data-from="2" data-to="<?php echo $total_counts['total_tickets'] ?>" data-refresh-interval="20" data-speed="3000" data-comma="true"></span></div>
                             <h5 class="nobottommargin">Tickets</h5>
@@ -145,10 +144,10 @@ foreach ($news_announcements as $value) {
 
 
                     <div class="clearfix">
-<?php
-$social_medias = get_social_media();
+                        <?php
+                        $social_medias = get_social_media();
 // pr($social_medias);
-?>
+                        ?>
                         <?php foreach ($social_medias as $social_media) { ?>
 
                             <a href="<?php echo $social_media['url']; ?>" class="social-icon si-small si-borderless" style="margin-right: 10px;">
@@ -156,7 +155,7 @@ $social_medias = get_social_media();
                             </a>
 
 
-<?php } ?>
+                        <?php } ?>
 
                     </div>
 

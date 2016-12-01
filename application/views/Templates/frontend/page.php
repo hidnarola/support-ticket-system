@@ -120,10 +120,6 @@
                         }
                     ?>
 
-                               
-
-                                
-
                                 <!--<li class="mega-menu"><a href="login"><div>Privacy Policy</div></a></li>-->
                                 <!-- <li class="mega-menu"><a href="login"><div>Contact us</div></a></li> -->
                                 <!-- <li class="mega-menu"><a href="login"><div>Services</div></a></li> -->

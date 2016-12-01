@@ -424,6 +424,17 @@ btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
 #header, #header-wrap, #logo img {
     height: 102px;
 }
+
+.sidebar-widgets-wrap .rightsidebar {
+    padding-top: 30px !important;
+    border-top: 1px solid #EEE !important;
+    margin-left: -24px;
+}
+.sidebar-widgets-wrap .widget:first-child {
+     margin-top: 30px;
+}
+
+
 @media(max-width:1200px){
     ul.bottom-section li {
         margin: 10px 0 0px 0px;
