@@ -7,6 +7,7 @@ class Newsletters extends CI_Controller {
     public function __construct() {
         parent::__construct();
         check_isvalidated();
+        check_permissions(6);
         $this->load->model('Newsletter_model');
         $this->load->model('Admin_model');
     }

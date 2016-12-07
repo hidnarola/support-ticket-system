@@ -7,6 +7,7 @@ class Tickets extends CI_Controller {
     public function __construct() {
         parent::__construct();
         check_if_support_login();
+        check_permissions(3);
         $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->load->model('Ticket_model');
@@ -14,7 +15,9 @@ class Tickets extends CI_Controller {
     }
 
     public function index($type = NULL) {
+
         $segment = $this->uri->segment(1);
+        
         $this->data['icon_class'] = 'icon-ticket';
         $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tickets';
 
@@ -265,11 +268,12 @@ class Tickets extends CI_Controller {
                 'dept_id' => $dept_id,
                 'staff_id'=>$getDeptStaff
             );
+            // pr($update_data,1);
 //            echo $dept_id;
             $get_ticket = $this->User_model->getFieldById($record_id, 'dept_id', TBL_TICKETS);
-            if ($dept_id != $get_ticket->dept_id) {
+            /*if ($dept_id != $get_ticket->dept_id) {
                 $update_data['staff_id'] = NULL;
-            }
+            }*/
             $get_ticket_title = $this->User_model->getFieldById($record_id, 'title', TBL_TICKETS);
             $depat_name = $this->User_model->getFieldById($dept_id, 'name', TBL_DEPARTMENTS);
             $dept_name = $depat_name->name;
@@ -301,7 +305,7 @@ class Tickets extends CI_Controller {
                 $this->email->subject('Ticket Department Changed');
                 $this->email->message($message);
                 $this->email->send();
-                exit;
+                //exit;
             } elseif ($this->session->userdata('staffed_logged_in')) {
 
                 $is_head = $this->session->userdata('staffed_logged_in')['is_head'];
@@ -328,7 +332,7 @@ class Tickets extends CI_Controller {
                     $this->email->subject('Ticket Department Changed');
                     $this->email->message($message);
                     $this->email->send();
-                     exit;
+                     //exit;
                 } else {
                     $admin = $this->User_model->getAdmin();
                     $adminemail = $admin['email'];
@@ -597,7 +601,9 @@ class Tickets extends CI_Controller {
 //            pr($this->data['user'],1);
 
             $sent_from = $this->session->userdata('admin_logged_in')['id'];
+            $msg_from = 'admin';
             if ($segment == 'staff') {
+                $msg_from = 'staff';
                 $sent_from = $this->session->userdata('staffed_logged_in')['id'];
             }
             if (!empty($ticket)) {
@@ -647,6 +653,7 @@ class Tickets extends CI_Controller {
                         'sent_from' => $sent_from
                     );
                     if ($this->Ticket_model->save_ticket_conversation($msg_data)) {
+                        send_message_notification($record_id, $msg_from, $msg_data);
                         $this->session->set_flashdata('success_msg', 'Comment sent successfully.');
                     } else {
                         $this->session->set_flashdata('error_msg', 'Unable to send message.');

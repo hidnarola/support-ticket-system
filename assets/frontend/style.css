@@ -10616,7 +10616,7 @@ blockquote.pull-right {
 	transition:opacity 400ms ease
 }
 
-.owl-carousel .owl-item img { transform-style:preserve-3d }
+.owl-carousel .owl-item img { transform-style:preserve-3d; max-height: 130px; }
 
 .owl-carousel .owl-video-wrapper {
 	position:relative;

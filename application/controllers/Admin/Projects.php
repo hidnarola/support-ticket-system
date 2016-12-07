@@ -8,6 +8,7 @@ class Projects extends CI_Controller {
         parent::__construct();
         $this->data = array();
         check_isvalidated();
+        check_permissions(15);
         $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->load->model('Project_model');

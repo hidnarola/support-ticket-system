@@ -3229,6 +3229,7 @@ var SEMICOLON = SEMICOLON || {};
 		},
 
 		subscription: function(){
+
 			if( !$().validate ) {
 				console.log('subscription: Form Validate not Defined.');
 				return true;
@@ -3249,12 +3250,12 @@ var SEMICOLON = SEMICOLON || {};
 					elementResult = element.find('.widget-subscribe-form-result'),
 					elementRedirect = element.attr('data-redirect');
 
+
 				element.find('form').validate({
 					submitHandler: function(form) {
 					
 
 						elementResult.hide();
-
 						if( elementLoader == 'button' ) {
 							var defButton = $(form).find('button'),
 								defButtonText = defButton.html();
@@ -3269,7 +3270,8 @@ var SEMICOLON = SEMICOLON || {};
 							dataType: 'json',
 							resetForm: true,
 							success: function( data ) {
-								console.log('here');
+							     $(form).find("#subscribe_btn").prop('disabled', false);
+					            
 								if( elementLoader == 'button' ) {
 									defButton.html( defButtonText );
 								} else {

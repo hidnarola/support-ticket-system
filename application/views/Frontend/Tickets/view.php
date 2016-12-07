@@ -121,7 +121,7 @@
                                         <div class="media-body">
                                             <?php if ($val['sent_from'] != $val['user_id'] && $val['sent_from'] != $val['staff_id']) { ?>
                                                 <div class="media-heading">
-                                                    <a href="#" class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                    <label class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></label>
                                                     <span><strong><br><?php
                                                             if ($val['role_id'] == 1) {
                                                                 echo 'Tenant';
@@ -134,7 +134,7 @@
                                                 </div>
                                             <?php } elseif ($val['sent_from'] == $val['staff_id']) { ?>
                                                 <div class="media-heading">
-                                                    <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                    <label class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></label>
                                                     <span><strong><br><?php
                                                             if ($val['role_id'] == 1) {
                                                                 echo 'Tenant';
@@ -159,7 +159,7 @@
                                     <li class="media reversed">
                                         <div class="media-body">
                                             <div class="media-heading">
-                                                <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                <label class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></label>
                                                 <span><strong><br><?php
                                                         if ($val['role_id'] == 1) {
                                                             echo 'Tenant';

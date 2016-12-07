@@ -417,6 +417,18 @@ class User_model extends CI_Model {
 
     public function email_exists($email) {
         $this->db->where("email", $email);
+        $this->db->where("is_delete", 0);
+        $query = $this->db->get(TBL_USERS);
+        if ($query->num_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function tenant_email_exists($email) {
+        $this->db->where("email", $email);
+        $this->db->where("role_id", 1);
+        $this->db->where("is_delete", 0);
         $query = $this->db->get(TBL_USERS);
         if ($query->num_rows() > 0) {
             return true;

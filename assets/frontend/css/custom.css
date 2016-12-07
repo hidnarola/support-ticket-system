@@ -421,9 +421,6 @@ btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
 .border-primary {
     border-color: #2196f3;
 }
-#header, #header-wrap, #logo img {
-    height: 102px;
-}
 
 .sidebar-widgets-wrap .rightsidebar {
     padding-top: 30px !important;
@@ -433,6 +430,25 @@ btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
 .sidebar-widgets-wrap .widget:first-child {
      margin-top: 30px;
 }
+#header #logo img {display:block; max-width:100%; height:102px;padding:10px 0; }
+#header.sticky-header:not(.static-sticky), #header.sticky-header:not(.static-sticky) #header-wrap, #header.sticky-header:not(.static-sticky):not(.sticky-style-2):not(.sticky-style-3) #logo img{
+    height: 75px;
+}
+.feature-box .fbox-icon a, .feature-box .fbox-icon i, .feature-box .fbox-icon img{ height:70%; }
+.knowledgebase-top {display:inline-block;vertical-align:top;width:100%;padding:0; }
+.knowledgebase-top .col-md-6{padding:0; }
+#page-title .knowledgebase-top #searchform #s{margin:0; }
+.knowledgebase-top .breadcrumb {position:relative !important;width: auto !important;top: 0 !important;left: auto !important;right: 0 !important;margin: 0 !important;background-color: transparent !important;padding: 10px 00 !important;font-size: 12px;text-align: right;line-height: 20px;}
+#page-title.knowledgebase-wrapper{padding:35px 0;}
+/*.owl-carousel .owl-item img{ max-height: 130px !important; }*/
+#live-search{max-width: 450px;margin: 20px auto 0;}
+#live-search form{margin:0; }
+#live-search .form-control{height:42px;padding:10px 12px;line-height:20px; }
+#page-title h1{line-height:40px;}
+#oc-clients.owl-carousel .owl-item{height:130px;vertical-align:middle;}
+#oc-clients .owl-item a{width:100%;height:130px;display: block;text-align:center;}
+#oc-clients.owl-carousel .owl-item img{width:auto;max-width:100%;display:inline-block;vertical-align:middle;
+position:relative;top:50%;-webkit-transform:translateY(-50%);-moz-transform:translateY(-50%);transform:translateY(-50%); }
 
 
 @media(max-width:1200px){
@@ -529,3 +545,5 @@ btn-icon.btn-sm, .input-group-sm > .input-group-btn > .btn-icon {
     }
 }
 label#widget-subscribe-form-email-error{ display: none !important; }
+label.text-semibold { text-decoration: none !important;
+    color: #1ABC9C;cursor: text;}

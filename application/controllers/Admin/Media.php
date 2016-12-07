@@ -13,6 +13,7 @@ class Media extends CI_Controller {
     }
 
     public function home_slider() {
+        check_permissions(12);
         $this->data['title'] = $this->data['page_header'] = 'Home Page Slider';
         $this->data['icon_class'] = 'icon-image3';
         $images = $this->Media_model->get_home_images();
@@ -96,6 +97,7 @@ class Media extends CI_Controller {
     }
 
     public function logos() {
+        check_permissions(13);
         $this->data['title'] = $this->data['page_header'] = 'Logos';
         $this->data['icon_class'] = 'icon-image3';
         $images = $this->Media_model->get_logo_images();

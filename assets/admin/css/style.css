@@ -33,7 +33,8 @@ and open the template in the editor.
 .faq-listing{float:right;padding-right: 24px;}
 .fancybox-close:after, .fancybox-next span:after, .fancybox-prev span:after { content: none !important; }
 .home_image{ padding:10px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);}
-
+label.text-semibold { text-decoration: none !important;
+    color: #1ABC9C;cursor: text;}
 @media screen and (min-width: 320px) and (max-width:480px) {
     .news_ann{
         margin-top: 10px;

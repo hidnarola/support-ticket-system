@@ -79,6 +79,9 @@ function check_if_support_login(){
     if($ci->session->userdata('admin_logged_in') && $role!='admin'){
         $flag=1;
     }
+    /*if($ci->session->userdata('user_logged_in')){
+        $flag=1;
+    }*/
     
     if($flag==1){
         $ci->session->set_flashdata('error_msg', "You are not authorized to access this page. Please login!");
@@ -96,7 +99,7 @@ function check_isvalidated_user() {
             $redirect_to = $ci->uri->uri_string();
         }
 //        redirect('home?redirect=' . base64_encode($redirect_to));
-        redirect('home');
+        redirect('login');
     }
 }
 
@@ -212,12 +215,14 @@ function init_pagination() {
     $CI = & get_instance();
     $settings = $CI->session->userdata('settings');
     $per_page = "";
-    foreach ($settings as $row) {
-        if (trim($row->key) == 'records-per-page') {
-            $per_page = $row->value;
-            break;
+    if(!empty($settings)){
+        foreach ($settings as $row) {
+            if (trim($row->key) == 'records-per-page') {
+                $per_page = $row->value;
+                break;
+            }
         }
-    }
+}
     $segment = $CI->uri->segment(4);
     $config['per_page'] = $per_page;
     $config['uri_segment'] = 4;
@@ -260,6 +265,7 @@ function init_pagination_tenant() {
     $config = array();
     $CI = & get_instance();
     $settings = $CI->session->userdata('settings');
+
     $per_page = "";
     foreach ($settings as $row) {
         if (trim($row->key) == 'records-per-page') {
@@ -267,6 +273,8 @@ function init_pagination_tenant() {
             break;
         }
     }
+
+
     $segment = $CI->uri->segment(3);
     $config['per_page'] = $per_page;
     $config['uri_segment'] = 3;
@@ -486,3 +494,82 @@ function get_page($id){
     }
     return $name;
 }
+
+
+function send_message_notification($id, $sent_from=null, $ticket_array=null){
+    $CI = & get_instance();
+    $CI->load->model('Admin_model');
+    $result = $CI->Admin_model->get_detail_for_message_notification($id);
+    $admin = $CI->Admin_model->get_admin();
+    $sent_to_array = array(
+        'admin'=>array(
+            'email'=>$admin['email'],
+            'name'=>$admin['fname'].' '.$admin['lname']
+            ),
+        'staff'=>array(
+            'email'=>$result['staff_email'],
+            'name'=>$result['sfname'].' '.$result['slname']
+            ),
+        'head_staff'=>array(
+            'email'=>$result['head_staff_email'],
+            'name'=>$result['hfname'].' '.$result['hlname']
+            ),
+        'tenant'=>array(
+            'email'=>$result['tenant_email'],
+            'name'=>$result['tfname'].' '.$result['tlname']
+            )
+        );
+    foreach ($sent_to_array as $key => $value) {
+        if($key != $sent_from){
+
+            $message = "Hello,<br/><br/><div>New Message from ".$sent_from .", <strong>" . $sent_to_array[$sent_from]['name'] . "</strong> on "
+                    . "<strong>" . $result['series_no']
+                    . " - " . $result['title']
+                    . " </strong><br/><br/><strong>Message : </strong> " . $ticket_array['message']
+                    . "</div><br/>Thanks";
+
+            
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body = $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+
+            $configs = mail_config();
+            $CI->load->library('email', $configs);
+            $CI->email->initialize($configs);
+            $CI->email->from('demo.narolainfotech@gmail.com', 'Support-Ticket-System');
+
+            $CI->email->to($value['email']);
+            $CI->email->subject('New Message for Ticket');
+            $CI->email->message($mail_body);
+            $CI->email->send();
+            $CI->email->print_debugger();
+            
+
+        }
+    }
+}
+
+    function get_permissions(){
+        $ci = &get_instance();
+        if($ci->session->userdata('admin_logged_in')['subadmin_id']){
+            $permissions = $ci->Subadmin_Model->get_subadmin_modules($ci->session->userdata('subadmin_id'));
+            if($permissions['module_ids']!=''){
+                $ci->session->set_userdata('module_ids', $permissions['module_ids']);
+            }
+        }
+    }
+
+    function check_permissions($module){
+        $ci = &get_instance();
+        if($ci->session->userdata('admin_logged_in')['subadmin_id']){
+            $module_id = $ci->session->userdata('module_ids');
+            $modules = explode(",", $module_id);
+            if(!in_array($module, $modules)){
+                redirect('admin/access_denied');
+            }
+        }
+    }
+   
+

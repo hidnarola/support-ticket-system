@@ -13,6 +13,7 @@
         <link rel="icon" href="assets/frontend/images/favicon (1).ico" />
         <link rel="stylesheet" href="assets/frontend/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/style.css" type="text/css" />
+        <link rel="stylesheet" href="assets/frontend/css/custom.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/swiper.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/dark.css" type="text/css" />
         <link rel="stylesheet" href="assets/frontend/css/font-icons.css" type="text/css" />
@@ -62,7 +63,8 @@
                                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user"></i><i class="icon-angle-down"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                                     <li><a href="profile">Profile</a></li>
-                                    <li><a href="profile/changepassword">Change Password</a></li>                                    
+                                    <li><a href="profile/changepassword">Change Password</a></li>  
+                                    <li><a href="tickets">Tickets</a></li>                                  
                                     <li role="separator" class="divider"></li>
                                     <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
                                 </ul>
@@ -76,16 +78,27 @@
                             <ul>
                                 <li class="<?php echo ($page == 'home') ? 'current' : ''; ?>"><a href="home"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
-                                    <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
+                                    
                                     <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>">
                                     <a href="#" class="sf-with-ul"><div>Knowledge Base</div></a>                                        <ul>
                                             <li><a href="knowledgebase"><div>Articles</div></a></li>                                      
                                             <li><a href="faq"><div>FAQ'S</div></a></li>                                      
                                             </ul>
                                     </li>
-                                    <li class="mega-menu <?php echo ($page == 'news') ? 'current' : ''; ?>"><a href="news"><div>News</div></a></li>
-                                    <li class="mega-menu <?php echo ($page == 'announcements') ? 'current' : ''; ?>"><a href="announcements"><div>Announcements</div></a></li>
+
+                                        <li class="<?php echo ($page == 'news' || $page == 'announcements')  ? 'current' : ''; ?>">
+                                    <a href="#" class="sf-with-ul"><div>Media</div></a>                                        <ul>
+                                            <li><a href="news"><div>News</div></a></li>                                      
+                                            <li><a href="announcements"><div>Announcements</div></a></li>                                      
+                                            </ul>
                                     </li>
+
+
+
+
+                                    
+                                    
+                                    
                                 <?php } ?>
                                <?php 
                         $header_links = get_pages('header');
@@ -120,7 +133,7 @@
                             </ul>
 
                             <div id="top-search">
-                                <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+                                <!-- <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a> -->
                                 <form action="search.html" method="get">
                                     <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
                                 </form>

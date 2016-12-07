@@ -7,6 +7,7 @@ class Pages extends CI_Controller {
     public function __construct() {
         parent::__construct();
         check_isvalidated();
+        check_permissions(4);
         $this->load->model('Admin_model');
         $this->load->model('Pages_model');
         $this->load->model('User_model');

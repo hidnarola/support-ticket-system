@@ -7,6 +7,7 @@ class Faq extends CI_Controller {
     public function __construct() {
         parent::__construct();
         check_isvalidated();
+        check_permissions(7);
         $this->load->model('Admin_model');
         $this->table = TBL_FAQ;
         $this->perpageSuffix = "";

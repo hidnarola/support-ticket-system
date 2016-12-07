@@ -39,7 +39,7 @@
                         <li><a href="#"><i class="icon-user"></i> admin</a></li>
 <!--                        <li><i class="icon-folder-open"></i> <a href="#">General</a>, <a href="#">Media</a></li>
                         <li><a href="#"><i class="icon-comments"></i> 43 Comments</a></li>-->
-                        <li><a href="#"><i class="icon-camera-retro"></i></a></li>
+                        <!-- <li><a href="#"><i class="icon-camera-retro"></i></a></li> -->
                     </ul><!-- .entry-meta end -->
 
                     <!-- Entry Content

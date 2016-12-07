@@ -262,4 +262,27 @@ class Admin_model extends CI_Model {
         return $result->result_array();
     }
 
+    public function get_detail_for_message_notification($id){
+
+        $this->db->select('tickets.*, head_staff.user_id as head_staff, tenant.email as tenant_email, staff.email as staff_email,head_staff_user.email as head_staff_email, head_staff_user.fname as hfname, head_staff_user.lname as hlname, tenant.fname as tfname,tenant.lname as tlname,staff.fname as sfname,staff.lname as slname,');
+        $this->db->where('tickets.id', $id);
+        $this->db->where('head_staff.is_head', 1);
+        
+        $this->db->from(TBL_TICKETS);
+        $this->db->join(TBL_STAFF . ' head_staff', 'head_staff.dept_id = tickets.dept_id', 'left');
+        $this->db->join(TBL_USERS . ' head_staff_user', 'head_staff_user.id = head_staff.user_id', 'left');
+        $this->db->join(TBL_USERS . ' tenant', 'tenant.id = tickets.user_id', 'left');
+        $this->db->join(TBL_USERS . ' staff', 'staff.id = tickets.staff_id', 'left');
+
+        $query = $this->db->get();
+
+        return $query->row_array();
+    }
+
+    public function get_admin(){
+        $this->db->where('role_id', 3);
+        $records = $this->db->get(TBL_USERS);
+        return $records->row_array();
+    }
+
 }

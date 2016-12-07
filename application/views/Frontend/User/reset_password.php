@@ -24,7 +24,7 @@
         ?>
         <?php
         $key = '';
-        $action = base_url() . "home/reset_password";
+        $action = base_url() . "reset_password";
 
         if (isset($_GET['key'])) {
             $key = rawurlencode($_GET['key']);
@@ -35,7 +35,7 @@
 //            $key = urldecode($raw);
         }
         if ($key != '') {
-            $action = base_url() . "home/reset_password?key=" . $key.'&token='.$token;
+            $action = base_url() . "reset_password?key=" . $key.'&token='.$token;
         }
         ?>
         <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
@@ -57,7 +57,7 @@
                     <div class="col_full nobottommargin">
                         <button class="button button-3d button-black nomargin" type="submit" id="reset-form-submit" name="reset-form-submit" value="login">Save password</button>
 
-                    <a href="<?php echo base_url(); ?>home/forgot_password" class="mlm pull-right">Back to Forgot Password</a>
+                    <a href="<?php echo base_url(); ?>forgot_password" class="mlm pull-right">Back to Forgot Password</a>
                     </div>
                 </form>
             </div>
@@ -77,4 +77,5 @@
             $(this).remove();
         });
     }, 6000);
+    
 </script>

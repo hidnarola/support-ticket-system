@@ -8,6 +8,7 @@ class Social_media extends CI_Controller {
         parent::__construct();
         $this->data = array();
         check_isvalidated();
+        check_permissions(14);
         $this->popular_limit = 5;
         $this->type_table = array(
             'social_media' => 'social_media',

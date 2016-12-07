@@ -51,6 +51,13 @@
         if ($this->session->userdata('admin_logged_in')['profile_pic'] == '') {
             $image = "assets/admin/images/placeholder.jpg";
         }
+
+        $permissions = array();
+
+        if($this->session->userdata('module_ids')){
+            $permissions = explode(',', $this->session->userdata('module_ids'));
+        }
+       
         ?>
         <!-- Main navbar -->
         <div class="navbar navbar-inverse">
@@ -140,14 +147,32 @@
 
                                     <!-- Main -->
                                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
-
-
                                     <li class="<?php echo ($page == '') ? 'active' : ''; ?>"><a href="admin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                                    
+                                    <?php if(empty($permissions)){ ?>
+                            
+                                    <li class="<?php echo ($page == 'sub_admin') ? 'active' : ''; ?>"><a href="admin/sub_admin"><i class="icon-user-tie"></i> <span>Sub Admins</span></a></li> 
+                                    <?php } ?>
+
+                                    <?php if(in_array('1', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'tenants') ? 'active' : ''; ?>"><a href="admin/tenants"><i class="icon-users"></i> <span>Tenants</span></a></li>
+                                    <?php } ?>
+
+                                    <?php if(in_array('2', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'staff') ? 'active' : ''; ?>"><a href="admin/staff"><i class="icon-people"></i> <span>Staff</span></a></li>
+
+<?php } ?>
+<?php if(in_array('3', $permissions) || empty($permissions)){ ?>
+
                                     <li class="<?php echo ($page == 'tickets') ? 'active' : ''; ?>"><a href="admin/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
+                                    <?php } ?>
+                                    <?php if(in_array('4', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'pages') ? 'active' : ''; ?>"><a href="admin/pages"><i class="icon-magazine"></i> <span>Manage Pages</span></a></li>
+                                    <?php } ?>
+                                    <?php if(in_array('5', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'header_footer_control') ? 'active' : ''; ?>"><a href="admin/header_footer_control"><i class="icon-cogs"></i> <span>Header/Footer Settings</span></a></li>
+                                    <?php } ?>
+                                    <?php if(in_array('6', $permissions) || empty($permissions)){ ?>
                                      <li class="<?php echo (in_array($page, $newsletters)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-book"></i><span>Manage Newsletters</span></a>
                                         <ul>
@@ -156,7 +181,8 @@
 
                                         </ul>
                                     </li>
-
+                                    <?php } ?>
+                                    <?php if(in_array('7', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo (in_array($page, $knowledgebase)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-book"></i><span>Knowledge Base</span></a>
                                         <ul>
@@ -165,6 +191,8 @@
 
                                         </ul>
                                     </li>
+                                    <?php } ?>
+                                    <?php if(in_array('8', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo (in_array($current_page, $settings)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-gear"></i><span>Settings</span></a>
                                         <ul>
@@ -175,8 +203,14 @@
                                             <li class="<?php echo ($current_page == 'company') ? 'active' : ''; ?>"><a href="admin/manage/company"><i class="icon-office"></i> <span>Company Details</span></a></li>
                                         </ul>
                                     </li>
+                                    <?php } ?>
+                                    <?php if(in_array('9', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><a href="admin/manage/categories"><i class="icon-grid2"></i> <span>Categories</span></a></li>
+                                    <?php } ?>
+                                    <?php if(in_array('10', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($current_page == 'departments') ? 'active' : ''; ?>"><a href="admin/manage/departments"><i class="icon-collaboration"></i> <span>Departments</span></a></li>
+                                    <?php } ?>
+                                    <?php if(in_array('11', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php
                                             if ($page == 'news_announcements') {
                                                 echo 'active';
@@ -188,14 +222,21 @@
                                         ?>">
                                         <a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a>
                                     </li>
-                                    
-                                   
+                                    <?php } ?>
+                                   <?php if(in_array('12', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'home_slider') ? 'active' : ''; ?>"><a href="admin/home_slider"><i class="icon-images3"></i> <span>Home Page Slider</span></a>
                                     </li>
+                                    <?php } ?>
+                                    <?php if(in_array('13', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'logos') ? 'active' : ''; ?>"><a href="admin/logos"><i class="icon-images2"></i> <span>Logos</span></a>
                                     </li>
+                                    <?php } ?>
+                                    <?php if(in_array('14', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'social_media') ? 'active' : ''; ?>"><a href="admin/social_media"><i class="icon-facebook"></i> <span>Social Media</span></a></li>
+                                    <?php } ?>
+                                    <?php if(in_array('15', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'projects') ? 'active' : ''; ?>"><a href="admin/projects"><i class="icon-calendar2"></i> <span>Projects</span></a></li>
+                                    <?php } ?>
 
 
                                     <!-- /page kits -->

@@ -8,6 +8,7 @@ class News extends CI_Controller {
         parent::__construct();
         $this->data = array();
         check_isvalidated();
+        check_permissions(11);
         $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->load->model('News_model');

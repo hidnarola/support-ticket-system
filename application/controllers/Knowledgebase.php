@@ -13,13 +13,16 @@ class Knowledgebase extends CI_Controller {
         $this->load->helper('text');
     }
 
-    public function index() {
+    public function index($cat=null) {
         $userid = $this->session->userdata('user_logged_in')['id'];
         $data['user'] = $this->User_model->getUserByID($userid);
         $data['news_announcements'] = $this->User_model->getlatestnews();
         $data['title'] = 'Knowledge Base | Support-Ticket-System';
         $data['header_title'] = 'Knowledge Base';
-        $data['data'] = $this->Article_model->get_articles();
+        if($cat != null){
+            $cat = ucwords(str_replace("-", " ", $cat));
+        }
+        $data['data'] = $this->Article_model->get_articles($cat);
 //        pr($data['data'],1);
         $this->template->load('frontend/page', 'Frontend/Knowledgebase/index', $data);
     }

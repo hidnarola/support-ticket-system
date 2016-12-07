@@ -87,6 +87,17 @@ if ($this->uri->segment(1) == 'support') {
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     redirect('admin');
+                } elseif($result['role_id'] == 4 && $user_title == 'Support'){
+                    $result['subadmin_id'] = $result['id']; 
+                    $userdata = $this->session->set_userdata('admin_logged_in', $result);
+                    $settings = $this->User_model->viewAll('settings', "");
+                    $this->session->set_userdata('settings', $settings);
+                    $this->load->model('Subadmin_Model');
+                    $permissions = $this->Subadmin_Model->get_subadmin_modules($result['id']);
+                    if($permissions['module_ids']!=''){
+                        $this->session->set_userdata('module_ids', $permissions['module_ids']);
+                    }
+                    redirect('admin');
                 } else {
                     $flag = 1;
                 }
@@ -221,6 +232,7 @@ if ($this->uri->segment(1) == 'support') {
         
         if ($this->uri->segment(1) == 'admin') {
             $this->session->unset_userdata('admin_logged_in');
+            $this->session->unset_userdata('module_ids');
             redirect('support/login');
         } else if ($this->uri->segment(1) == 'staff') {
             $this->session->unset_userdata('staffed_logged_in');
@@ -232,6 +244,7 @@ if ($this->uri->segment(1) == 'support') {
     }
 
     public function page_not_found() {
+        $data['title'] = 'Page Not Found';
         $data['view'] = 'admin/404_notfound';
         $this->load->view('admin/error/404_notfound', $data);
     }

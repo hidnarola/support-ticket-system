@@ -72,7 +72,7 @@ if ($this->input->get('filter'))
 
                                     <div class="col-md-2 col-sm-2 col-xs-12">
                                         <div class="ticket-img">
-                                        <?php if($record['image']!=''){ ?>
+                                        <?php if($record['image']!='' && file_exists(TICKET_IMAGE . '/' . $record['image'])){ ?>
                                             <a class="fancybox" href="<?php echo TICKET_IMAGE.'/'.$record['image'] ?>" data-fancybox-group="gallery"><img src="<?php echo TICKET_MEDIUM_IMAGE.'/'.$record['image']; ?>" alt="" /></a>
                                             
                                         <?php }else{ ?>

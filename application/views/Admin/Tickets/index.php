@@ -26,7 +26,7 @@ $segment = $this->uri->segment(1);
         <div class="panel-heading tic-listing">
             <!--        <h5 class="panel-title">Tickets List</h5>-->
             <p class="text-right" style="padding:5px; color: red;">*Highlighted rows represents unread tickets</p>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <?php $current = $this->uri->segment(4); ?>
                 <!-- <label class="control-label">Filter by Status</label> -->
                 <select class="select filter" onchange="load_news(this.value);">
@@ -36,7 +36,7 @@ $segment = $this->uri->segment(1);
                     <?php } ?>
                 </select>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9"> 
                 <div class="pull-right">
                     <a onclick="window.location = 'admin/tickets/add'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Ticket</a>
                 </div>

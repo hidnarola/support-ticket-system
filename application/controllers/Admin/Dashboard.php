@@ -35,8 +35,9 @@ class Dashboard extends CI_Controller {
 
         $clients_array = array_column($clients_this_month, 'clients');
         $tickets_array = array_column($tickets_this_month, 'tickets');
-        $this->data['total_clients'] = array_sum($clients_array);
-        $this->data['total_tickets'] = array_sum($tickets_array);
+        $this->data['total_clients_this_month'] = array_sum($clients_array);
+        $this->data['total_tickets_this_month'] = array_sum($tickets_array);
+        
 
         foreach ($clients_this_month as $client) {
             $clients_arr[$client['day']-1] = (int)$client['clients'];
@@ -367,5 +368,11 @@ class Dashboard extends CI_Controller {
                 exit;
             }
         }
+    }
+
+    public function access_denied(){
+        $data['title'] = 'Access Denied';
+        $data['view'] = 'admin/access_denied';
+        $this->load->view('admin/error/access_denied', $data);
     }
 }

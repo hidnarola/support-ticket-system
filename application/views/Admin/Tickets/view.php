@@ -167,7 +167,7 @@
 
                                             <div class="media-body">
                                                 <div class="media-heading">
-                                                    <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                    <label class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></label>
                                                     <span><strong><br><?php
                                                             if ($val['role_id'] == 1) {
                                                                 echo 'Tenant';
@@ -177,12 +177,13 @@
                                                                 echo 'Admin';
                                                             }
                                                             ?></strong></span>
-                                                    <span class="media-annotation pull-right"> 
-                                                        <?php echo $date = date('g:i a', strtotime($val['created_date'])); ?>
-                                                    </span>
+                                                            </div>
+                                                            <div class="media-content"><?php echo $val['message']; ?></div>
+                                                <span class="media-annotation display-block mt-10"><?php echo $date = date('g:i a', strtotime($val['created_date'])); ?></span>
+                                                    
                                                 </div>
-                                                <?php echo $val['message']; ?>
-                                            </div>
+                                                
+                                            
                                         </li>
                                     <?php } else {
                                         ?>
@@ -190,7 +191,7 @@
                                         <li class="media reversed">
                                             <div class="media-body">
                                                 <div class="media-heading">
-                                                      <a class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></a>
+                                                      <label class="text-semibold"><?php echo $val['fname'] . ' ' . $val['lname']; ?></label>
                                                     <span><strong><br><?php
                                                             if ($val['role_id'] == 1) {
                                                                 echo 'Tenant';

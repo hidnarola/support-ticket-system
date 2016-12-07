@@ -105,14 +105,14 @@
                 <div class="row text-center">
                     <div class="col-md-6">
                         <div class="content-group">
-                            <h5 class="text-semibold no-margin"><i class="icon-ticket position-left text-danger"></i> <?php echo $total_tickets; ?></h5>
+                            <h5 class="text-semibold no-margin"><i class="icon-ticket position-left text-danger"></i> <?php echo $total_tickets_this_month; ?></h5>
                             <span class="text-muted text-size-small">Total Tickets this month</span>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="content-group">
-                            <h5 class="text-semibold no-margin"><i class="icon-users position-left text-primary"></i> <?php echo $total_clients; ?></h5>
+                            <h5 class="text-semibold no-margin"><i class="icon-users position-left text-primary"></i> <?php echo $total_clients_this_month; ?></h5>
                             <span class="text-muted text-size-small">Total Clients this month</span>
                         </div>
                     </div>
@@ -121,7 +121,13 @@
         </div>
     </div>
     
+<?php 
+    $permissions = array();
 
+        if($this->session->userdata('module_ids')){
+            $permissions = explode(',', $this->session->userdata('module_ids'));
+        }
+if(in_array('3', $permissions) || empty($permissions)){ ?>
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h6 class="panel-title">Latest Tickets</h6>
@@ -221,6 +227,8 @@
         </div>
         </div>
         </div>
+
+        <?php } ?>
     <!-- /main charts -->
 </div>
 
@@ -480,7 +488,7 @@
                     $('#status_val').val('');
                     $('#priority_val').val('');
                     $('.loader').hide();
-                    window.location.reload();
+                   window.location.reload();
                 } else {
                 }
             });

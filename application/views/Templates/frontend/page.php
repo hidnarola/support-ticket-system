@@ -25,6 +25,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
         <!--[if lt IE 9]>
                 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <![endif]-->
@@ -64,7 +65,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                                     <li><a href="profile">Profile</a></li>
                                     <li><a href="profile/changepassword">Change Password</a></li>
-                                    <!--<li><a href="#">Settings</a></li>-->
+                                    <li><a href="tickets">Tickets</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
                                 </ul>
@@ -75,6 +76,7 @@
                         <?php
                         $page = $this->uri->segment(1);
                         $sec_segment = $this->uri->segment(2);
+                        $th_segment = $this->uri->segment(3);
 
                         $user = $this->User_model->getUserByID($this->session->userdata('user_logged_in')['id']);
                         ?>
@@ -82,16 +84,20 @@
                             <ul>
                                 <li class="<?php echo ($page == 'home') ? 'current' : ''; ?>"><a href="home"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
-                                    <li class="mega-menu <?php echo ($page == 'tickets') ? 'current' : ''; ?>"><a href="tickets"><div>Tickets</div></a></li>
+                                   
                                     <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="#" class="sf-with-ul"><div>Knowledge Base</div></a>
                                         <ul>
                                             <li><a href="knowledgebase"><div>Articles</div></a></li>                                      
                                             <li><a href="faq"><div>FAQ'S</div></a></li>                                      
                                             </ul>
                                     </li>
-                                    <li class="mega-menu <?php echo ($page == 'news') ? 'current' : ''; ?>"><a href="news"><div>News</div></a></li>
-                                    <li class="mega-menu <?php echo ($page == 'announcements') ? 'current' : ''; ?>"><a href="announcements"><div>Announcements</div></a></li>
+                                     <li class="<?php echo ($page == 'news' || $page == 'announcements')  ? 'current' : ''; ?>">
+                                    <a href="#" class="sf-with-ul"><div>Media</div></a>                                        <ul>
+                                            <li><a href="news"><div>News</div></a></li>                                      
+                                            <li><a href="announcements"><div>Announcements</div></a></li>                                      
+                                            </ul>
                                     </li>
+                                    
                                 <?php } ?>
 <?php 
                         $header_links = get_pages('header');
@@ -145,57 +151,75 @@
 
             <!-- Page Title
             ============================================= -->
-            <section id="page-title">
-
+            <section id="page-title" class="knowledgebase-wrapper">
                 <div class="container clearfix">
-                    <h1><?php echo $header_title; ?></h1>
+                    
+                    <div class="knowledgebase-top">
+                        <div class="col-md-6">
+                        <h1><?php echo $header_title; ?></h1>
+                        
+                        </div>
+                        <div class="col-md-6">
+                        <ol class="breadcrumb">
+                            <li><a href="home">Home</a></li>
+                            <?php
+                            if ($page != '' && $sec_segment == '') {
+                                if ($page == 'knowledgebase') {
+                                    ?>
+                                    <li class="active"><?php echo 'Knowledge Base'; ?></li>
+                                <?php } else { ?>
+
+                                    <li class="active"><?php echo ucwords(str_replace("-", " ", $page)); ?></li>
+                                    <?php
+                                }
+                            } else if ($page != '' && $sec_segment != '') {
+                                ?>
+                                <li><a href="<?php echo $page; ?>"><?php echo $page; ?></a></li>
+                            <?php } ?>
+                            <?php if ($sec_segment != '') {
+                                $class="active";
+                                if($th_segment != '' && $sec_segment!='view'){
+                                    $class="";
+                                }
+                             ?>
+                                <li class="<?php echo $class; ?>">
+                                <?php if($th_segment != '' && $sec_segment!='view'){ ?>
+                                   <a href="<?php echo $page.'/'.$sec_segment; ?>">
+                                <?php } ?>
+                                <?php echo ucwords(str_replace("-", " ", $sec_segment));  ?>
+                                    <?php if($th_segment != '' && $sec_segment!='view'){ ?> </a> <?php } ?>
+                                </li>
+                            <?php } ?>
+                            <?php if ($th_segment != '' && $sec_segment!='view') { ?>
+                                <li class="active"><?php echo ucwords(str_replace("-", " ", $th_segment));  ?></li>
+                            <?php } ?>
+                        </ol>
+                        </div>
+                    </div>    
+                </div>
+            </section><!-- #page-title end -->
+
+            <!-- Content
+            ============================================= -->
+            <section id="content">
+                <div class="container">
                     <?php if ($page == 'knowledgebase') { ?>
                         <div id="live-search">
                             <form role="search" method="post" id="searchform" class="clearfix" action="knowledgebase" autocomplete="off"> 
-                                <input type="text" onfocus="if (this.value == 'Search the knowledge base...') {
+                                <input class="form-control" type="text" onfocus="if (this.value == 'Search the knowledge base...') {
                                             this.value = '';
                                         }" onblur="if (this.value == '') {
                                                     this.value = 'Search the knowledge base...';
                                                 }" value="Search the knowledge base..." name="s" id="s" autocomplete="off">
                             </form>
                         </div>
-                        <style>
-                            #page-title {padding: 35px 0;}
-                        </style>
                     <?php }
                     ?>
-                    <ol class="breadcrumb">
-                        <li><a href="home">Home</a></li>
-                        <?php
-                        if ($page != '' && $sec_segment == '') {
-                            if ($page == 'knowledgebase') {
-                                ?>
-                                <li class="active"><?php echo 'Knowledge Base'; ?></li>
-                            <?php } else { ?>
-
-                                <li class="active"><?php echo ucwords(str_replace("-", " ", $page)); ?></li>
-                                <?php
-                            }
-                        } else if ($page != '' && $sec_segment != '') {
-                            ?>
-                            <li><a href="<?php echo $page; ?>"><?php echo $page; ?></a></li>
-                        <?php } ?>
-                        <?php if ($sec_segment != '') { ?>
-                            <li class="active"><?php echo ucwords(str_replace("-", " ", $sec_segment));  ?></li>
-                        <?php } ?>
-                    </ol>
                 </div>
-
-            </section><!-- #page-title end -->
-
-            <!-- Content
-            ============================================= -->
-            <section id="content">
-
+    
                 <?php echo $body; ?>
 
             </section><!-- #content end -->
-        <script type="text/javascript" src="assets/frontend/js/jquery.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
              <?php $this->load->view('Templates/frontend/footer'); ?>
         <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
@@ -230,9 +254,10 @@
             data: {id: id},
             success: function (data) {
                 if (data != '') {
+                    console.log(data);
                     console.log(data.data.slug);
                     var url = window.location.href;
-                    url= url+'/'+data.data.slug;
+                    url= url + '/' +data.data.category +'/'+data.data.slug;
                     window.location.href = url;
                 }
             }

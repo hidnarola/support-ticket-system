@@ -193,10 +193,11 @@ class Tickets extends CI_Controller {
     public function view($id) {
         $data['news_announcements'] = $this->User_model->getlatestnews();
         $flag = 1;
-        if ($id != '') {
+        if ($id != '' && $id!='home') {
             $segment = $this->uri->segment(1);
             $record_id = base64_decode($id);
             $data['ticket'] = $this->Ticket_model->get_ticket($record_id);
+
             $data['user'] = $this->User_model->getUserById($data['ticket']->user_id);
             $data['news_announcements'] = $this->User_model->getlatestnews();
             $userid = $this->session->userdata('user_logged_in')['id'];
@@ -214,6 +215,7 @@ class Tickets extends CI_Controller {
                         'sent_from' => $userid
                     );
                     if ($this->Ticket_model->save_ticket_conversation($msg_data)) {
+                        send_message_notification($record_id, 'tenant', $msg_data);
                         $this->session->set_flashdata('success_msg', 'Comment sent successfully.');
                     } else {
                         $this->session->set_flashdata('error_msg', 'Unable to send message.');

@@ -24,15 +24,13 @@
             <div class="col_one_third widget_links topmargin nobottommargin">
                 <ul>
                     <li><a href="home">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="faq">FAQs</a></li>
+                    <li><a href="about-us">About</a></li>
                 </ul>
             </div>
             <div class="col_one_third widget_links topmargin nobottommargin">
                 <ul>
-                    <li><a href="#">Communities</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="faq">FAQs</a></li>
+                    <li><a href="contact-us">Contact</a></li>
                 </ul>
             </div>          
         </div>

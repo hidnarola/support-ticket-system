@@ -86,7 +86,7 @@ class Ticket_model extends CI_Model {
         $this->db->join(TBL_TICKETS . ' tickets', 'tickets.id = ticket_conversation.ticket_id', 'left');
         $this->db->join(TBL_USERS . ' user', 'user.id = ticket_conversation.sent_from', 'left');
         $this->db->where('tickets.id', $id);
-        $this->db->order_by("ticket_conversation.created", "asc");
+        $this->db->order_by("ticket_conversation.created", "desc");
         $q = $this->db->get();
         $originalArray = $q->result_array();
         $new_arr=array();

@@ -12,7 +12,7 @@
 
                     <div class="widget clearfix">
 
-                        <img src="assets/frontend/images/MS-Logo-(1).png" alt="" class="footer-logo">
+                        <!-- <img src="assets/frontend/images/MS-Logo-(1).png" alt="" class="footer-logo"> -->
                         <?php
                         $company_details = company_details();
                         $keys = array_column($company_details, 'key');
@@ -21,7 +21,7 @@
                         $company = $combined;
                         ?>
                         <p><?php echo $company['company_name']; ?></p>
-                        <p><?php echo $company['company_description']; ?></p>
+                        <p><?php echo html_excerpt($company['company_description'], 100); ?><a href="about-us">Read More</a></p>
 
                         <div style="background: url('assets/frontend/images/world-map.png') no-repeat center center; background-size: 100%;">
                             <address>
@@ -67,7 +67,7 @@
                 <div class="col_one_third col_last">
                     <?php //$this->load->view('frontend/User/rightsidebar');  ?>
                     <div class="widget clearfix">
-                        <h4>Recent Posts</h4>
+                        <h4>Recent News</h4>
 
                         <div id="post-list-footer">
                             <?php
@@ -114,7 +114,7 @@
                         ?>
                         <div class="col-md-6 bottommargin-sm">
                             <div class="counter counter-small"><span data-from="2" data-to="<?php echo $total_counts['total_tickets'] ?>" data-refresh-interval="20" data-speed="3000" data-comma="true"></span></div>
-                            <h5 class="nobottommargin">Tickets</h5>
+                            <h5 class="nobottommargin">Now serving Tickets</h5>
                         </div>
 
                         <div class="col-md-6 bottommargin-sm">
@@ -127,14 +127,14 @@
                 </div>
 
                 <div class="widget subscribe-widget clearfix" >
-                    <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
+                    <h5><strong>Subscribe</strong> to Our Newsletter:</h5>
                     <div class="widget-subscribe-form-result"></div>
                     <form id="widget-subscribe-form" action="home/subscribe" role="form" method="post" class="nobottommargin">
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-email2"></i></span>
                             <input type="email" id="widget-subscribe-form-email" name="email" class="form-control required email" placeholder="Enter your Email">
                             <span class="input-group-btn">
-                                <button class="btn btn-success" type="submit">Subscribe</button>
+                                <button class="btn btn-success" id="subscribe_btn" type="submit">Subscribe</button>
                             </span>
                         </div>
                     </form>
@@ -234,8 +234,23 @@
 </footer><!-- #footer end -->
 <script>
     $(function () {
-        $('a[href="#"]').click(function (event) {
+        $('a[href="#"]').on( "click", function (event) {
             event.preventDefault();
+        });
+        
+        $( "#forgot-form" ).submit(function() {
+         $("#forgot-form-submit").click(function(){
+             $(this).prop('disabled', true);
+        });
+        });
+        $( "#widget-subscribe-form" ).submit(function() {
+                        // $(this).prop('disabled', false);
+            $("#subscribe_btn").click(function(){
+                $( "#widget-subscribe-form" ).submit();
+                if($("#widget-subscribe-form-email").val()!=''){
+                         $(this).prop('disabled', true);
+                }
+            });
         });
     });
 </script>

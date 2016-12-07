@@ -105,11 +105,17 @@ class Article_model extends CI_Model {
      * @author : Reema  (Rep)
      * @return type
      */
-    public function get_articles() {
+    public function get_articles($cat=null) {
         $this->db->select('*');
+        $this->db->where(TBL_ARTICLES.'.is_delete', 0);
+        $this->db->where('c.is_delete', 0);
+        if($cat!=null){
+            $this->db->like('c.name', $cat);
+        }
         $this->db->from(TBL_ARTICLES);
         $this->db->join(TBL_CATEGORIES . ' c', 'c.id = articles.category_id', 'left');
-        $this->db->order_by("articles.created", "desc");
+        // $this->db->order_by("articles.created", "desc");
+        $this->db->order_by("c.name", "asc");
         $q = $this->db->get();
         $originalArray = $q->result_array();
         $new_arr = array();
@@ -189,5 +195,16 @@ class Article_model extends CI_Model {
         }
         return $new_arr;
     }
+
+    public function get_category($id){
+        $this->db->select('name');
+        $this->db->where('is_delete', 0);
+        $this->db->where('id', $id);
+        $result = $this->db->get(TBL_CATEGORIES);
+        $category = $result->row_array();
+        return str_replace(" ", "-", strtolower($category['name']));
+    }
+
+
 
 }

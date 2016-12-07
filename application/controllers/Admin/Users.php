@@ -17,10 +17,12 @@ class Users extends CI_Controller {
     public function index() {
         $segment = $this->uri->segment(2);
         if ($segment == 'tenants') {
+            check_permissions(1);
             $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Tenants';
             $this->data['icon_class'] = 'icon-users';
             $this->data['users'] = $this->User_model->get_users_records($this->table, 1);
         } else {
+            check_permissions(2);
             $this->data['departments'] = $this->Admin_model->get_records(TBL_DEPARTMENTS);
             $this->data['icon_class'] = 'icon-people';
             $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = 'Staffs';
@@ -132,9 +134,9 @@ class Users extends CI_Controller {
                 $lastUserId1 = base64_encode($lastUserId);
                 $unique_code = md5($useremail);
                 if ($role_id == 1) {
-                    $url = base_url() . '/home/verifytanant?key=' . $unique_code . '&u=' . $lastUserId1;
+                    $url = base_url() . 'home/verifytanant?key=' . $unique_code . '&u=' . $lastUserId1;
                 } else {
-                    $url = base_url() . '/home/verifyStaff?key=' . $unique_code . '&u=' . $lastUserId1;
+                    $url = base_url() . 'home/verifyStaff?key=' . $unique_code . '&u=' . $lastUserId1;
                 }
 
 

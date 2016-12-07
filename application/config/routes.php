@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 $route['default_controller'] = 'Home';
 $route['404_override'] = 'login/page_not_found';
+$route['admin/access_denied'] = 'admin/dashboard/access_denied';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['admin/logout'] = "login/logout";
@@ -80,6 +81,9 @@ $route['admin/newsletters/add'] = 'admin/newsletters/edit';
 $route['admin/newsletters/delete/(:any)'] = 'admin/newsletters/action/delete/$1';
 $route['admin/subscribers/delete/(:any)'] = 'admin/newsletters/action/delete/$1/subscriber';
 
+$route['admin/sub_admin/add'] = 'admin/sub_admin/manage';
+$route['admin/sub_admin/edit/(:any)'] = 'admin/sub_admin/manage/$1';
+
 $route['staff'] = "staff/dashboard";
 $route['staff/logout'] = "login/logout";
 $route['staff/profile'] = "staff/dashboard/profile";
@@ -93,9 +97,11 @@ $route['login'] = "login";
 $route['profile'] = "profile";
 $route['home'] = "home";
 $route['forgot_password'] = "home/forgot_password";
+$route['reset_password'] = "home/reset_password";
 
 $route['tickets'] = "tickets";
-$route['knowledgebase/(:any)'] = "knowledgebase/view/$1";
+$route['knowledgebase/(:any)'] = "knowledgebase/index/$1";
+$route['knowledgebase/(:any)/(:any)'] = "knowledgebase/view/$2";
 $route['news/(:any)'] = "news/view/$1";
 $route['announcements/(:any)'] = "announcements/view/$1";
 $route['knowledgebase/add_comments'] = "knowledgebase/add_comments";

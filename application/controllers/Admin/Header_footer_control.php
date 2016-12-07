@@ -6,6 +6,7 @@ class Header_footer_control extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        check_permissions(5);
         $this->load->model('Admin_model');
         $this->load->model('Pages_model');
     }

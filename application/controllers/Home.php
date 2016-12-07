@@ -76,7 +76,7 @@ class Home extends CI_Controller {
                         $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
                         redirect('support/login');
                     } elseif ($user_array['is_verified'] == 1 && $user_array['status'] == 0 && $user_array['password'] != '') {
-                        $this->session->set_flashdata('error_msg', 'This tenant is already verified.');
+                        $this->session->set_flashdata('error_msg', 'This staff is already verified.');
                         redirect('support/login');
                     } else {
                         $email = $this->User_model->get_email_by_id($user);
@@ -356,7 +356,8 @@ class Home extends CI_Controller {
                 $data['response'] = 'true'; //Set response
                 $data['message'] = array(); //Create array
                 foreach ($query as $row) {
-                    $data['message'][] = array('value' => $row['title'], 'id' => $row['id']);
+                    $cat_name = str_replace(" ","-",strtolower($row['cat_name']));
+                    $data['message'][] = array('value' => $row['title'], 'id' => $row['id'], 'cat_name'=>$cat_name);
                 }
                 echo json_encode($data);
                 exit;
@@ -367,6 +368,7 @@ class Home extends CI_Controller {
     public function getArticle() {
         $id = $this->input->post('id');
         $data['data'] = $this->Article_model->get_data_by_id($id);
+        $data['data']['category'] = $this->Article_model->get_category($data['data']['category_id']);
         echo json_encode($data);
         exit;
     }
@@ -472,7 +474,7 @@ class Home extends CI_Controller {
             $this->template->load('frontend/page', 'Frontend/User/forgot_password', $data);
         } else {
             $email = $this->input->post('email');
-            if ($this->User_model->email_exists($email) == true) {
+            if ($this->User_model->tenant_email_exists($email) == true) {
                 $user = $this->User_model->get_User_by_email($email);
                 $user_name = $user->fname . ' ' . $user->lname;
                 $pass = $user->password;
@@ -482,7 +484,7 @@ class Home extends CI_Controller {
 
                 $token = $this->generate_token();
 
-                $url = base_url(). '/home/reset_password?key=' . urlencode($unique_code).'&token='.$token;
+                $url = base_url(). 'reset_password?key=' . urlencode($unique_code).'&token='.$token;
                 $message = 'Hello ' . $user_name . ',<br/><br/> Please follow this link to reset your password<br/>
                     <a href="' . $url . '">' . $url . '</a>
                 <br/><br/>Thank You.';
@@ -511,7 +513,7 @@ class Home extends CI_Controller {
             } else {
                 $this->session->set_flashdata('error_msg', 'This email is not in use.. Please enter valid email.');
             }
-            redirect('home/forgot_password');
+            redirect('forgot_password');
         }
     }
 
@@ -534,7 +536,7 @@ class Home extends CI_Controller {
                         // Check to see if link has expired
                         if (($test_time > $delta && $is_reset_on==1) || $get_token != $token || $is_reset_on==0) {
                             $this->session->set_flashdata('error_msg', "Reset Link has expired.");
-                            redirect('home/forgot_password');
+                            redirect('forgot_password');
                         }
                     }
                 }
@@ -568,14 +570,14 @@ class Home extends CI_Controller {
                         // Check to see if link has expired
                         if (($test_time > $delta && $is_reset_on==1) || $get_token != $token || $is_reset_on==0) {
                             $this->session->set_flashdata('error_msg', "Reset Link has expired.");
-                            redirect('home/forgot_password');
+                            redirect('forgot_password');
                         }
 
                         $pass = $this->input->post('password');
                         $confirm_pass = $this->input->post('confirm_password');
                         if ($pass != $confirm_pass) {
                             $this->session->set_flashdata('error_msg', 'Password Mismatch.');
-                            redirect('home/reset_password?key=' . $key.'&token='.$token);
+                            redirect('reset_password?key=' . $key.'&token='.$token);
                         } else {
                             $encrypted_pass = $this->encrypt->encode($pass);
                             if ($this->User_model->reset_password($encrypted_pass, $email)) {
@@ -589,20 +591,20 @@ class Home extends CI_Controller {
                                 redirect('login');
                             } else {
                                 $this->session->set_flashdata('error_msg', 'Unable to Reset Password.');
-                                redirect('home/reset_password?key=' . $key.'&token='.$token);
+                                redirect('reset_password?key=' . $key.'&token='.$token);
                             }
                         }
                     } else {
                         $this->session->set_flashdata('error_msg', 'Something went wrong. Please try again.');
-                        redirect('home/forgot_password');
+                        redirect('forgot_password');
                     }
                 } else {
                     $this->session->set_flashdata('error_msg', 'Something went wrong. Please try again.');
-                    redirect('home/forgot_password');
+                    redirect('forgot_password');
                 }
             } else {
                 $this->session->set_flashdata('error_msg', 'Please provide the email to proceed with Reset password.');
-                redirect('home/forgot_password');
+                redirect('forgot_password');
             }
         }
     }
@@ -660,6 +662,66 @@ class Home extends CI_Controller {
            // return json_encode($data);
             // $this->session->set_flashdata('success_msg', 'Subscribed Successfully.');
             // redirect('home');
+        }
+    }
+
+
+    public function verify() {
+        $key = $this->input->get('key');
+        $u = $this->input->get('u');
+        $user = (int) base64_decode(urldecode($u));
+
+        $en = base64_encode($user);
+
+        if ($u == $en) {
+            $email = $this->User_model->get_email_by_id($user);
+            if ($email) {
+                $compare_key = $this->User_model->get_activation_key($email);
+                $user_array = $this->User_model->getUserByIdEmail($user, $email);
+                $is_key_used = $this->User_model->is_key_used($key);
+                if ($key == $compare_key && $user_array) {
+                    if ($is_key_used == 'used' && $user_array['status'] == 1) {
+//                echo $is_key_used;exit;
+                        $this->session->set_flashdata('error_msg', 'This email is already verified.');
+                        redirect('support/login');
+                    } elseif ($user_array['is_verified'] == 1 && $user_array['status'] == 0 && $user_array['password'] != '') {
+                        $this->session->set_flashdata('error_msg', 'This email is already verified.');
+                        redirect('support/login');
+                    } else {
+                        $email = $this->User_model->get_email_by_id($user);
+                        $compare_key = $this->User_model->get_activation_key($email);
+                        if ($key == $compare_key) {
+                            if ($user_array['is_verified'] == 1 && $user_array['password'] == '') {
+                                $this->User_model->make_active($email);
+                                $this->data['email'] = $email;
+//                        $this->data['title'] = 'Password Setup | Support-Ticket-System';
+//                        $this->data['header_title'] = 'Password Setup';
+                                $this->session->set_flashdata('success_msg', 'Your Email Id is verified. Please set your password!');
+                                $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
+                            } else {
+                                $this->User_model->make_active($email);
+                                $this->data['email'] = $email;
+//                        $this->data['title'] = 'Password Setup | Support-Ticket-System';
+//                        $this->data['header_title'] = 'Password Setup';
+                                $this->session->set_flashdata('success_msg', 'Your Email Id is verified. Please set your password!');
+                                $this->template->load('admin_login', 'Admin/Users/password_recovery_staff', $this->data);
+                            }
+                        } else {
+                            $this->session->set_flashdata('error_msg', 'There is no such record found!');
+                            redirect('support/login');
+                        }
+                    }
+                } else {
+                    $this->session->set_flashdata('error_msg', 'There is no such record found!');
+                    redirect('support/login');
+                }
+            } else {
+                $this->session->set_flashdata('error_msg', 'There is no such record found!');
+                redirect('support/login');
+            }
+        } else {
+            $this->session->set_flashdata('error_msg', 'There is no such record found!');
+            redirect('support/login');
         }
     }
 }
