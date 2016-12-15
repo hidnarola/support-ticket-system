@@ -307,4 +307,14 @@ class Admin_model extends CI_Model {
         }
     }
 
+    public function get_conversation($id){
+        $this->db->select('t.*, u.fname, u.lname, u.profile_pic');
+        $this->db->where('t.ticket_id', $id);
+        $this->db->from(TBL_TICKET_CONVERSATION.' t');
+        $this->db->join(TBL_USERS . ' u', 'u.id = t.sent_from', 'left');
+        $result = $this->db->get();
+        return $result->row_array();
+    }
+
+
 }

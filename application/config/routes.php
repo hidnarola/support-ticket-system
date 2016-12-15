@@ -61,7 +61,7 @@ $route['support/login'] = "Login";
 $route['admin'] = "Admin/Dashboard";
 $route['admin/tickets'] = "Admin/Tickets";
 $route['admin/tickets/add'] = "Admin/Tickets/add";
-$route['admin/tickets/edit/(:any)'] = "Admin/Tickets/add/$1";
+$route['admin/tickets/edit/(:any)'] = "Admin/Tickets/edit/$1";
 $route['admin/tickets/view/(:any)'] = 'Admin/Tickets/view/$1';
 $route['admin/profile'] = "Admin/Dashboard/profile";
 $route['admin/manage/roles'] = "Admin/Dashboard/manage/roles";
@@ -126,7 +126,7 @@ $route['staff/logout'] = "Login/logout";
 $route['staff/profile'] = "Staff/Dashboard/profile";
 $route['staff/tickets/view/(:any)'] = 'Admin/Tickets/view/$1';
 $route['staff/tickets/add'] = 'Admin/Tickets/add';
-$route['staff/tickets/edit/(:any)'] = 'Admin/Tickets/add/$1';
+$route['staff/tickets/edit/(:any)'] = 'Admin/Tickets/edit/$1';
 $route['staff/tickets'] = "Staff/Tickets/staff_index";
 $route['staff/tickets/reply/(:any)'] = "Admin/Tickets/reply/$1";
 

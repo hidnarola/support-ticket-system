@@ -507,8 +507,9 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
     $CI = & get_instance();
     $CI->load->model('Admin_model');
     $result = $CI->Admin_model->get_detail_for_message_notification($id);
-
+    $sent_to_array = array();
     $admin = $CI->Admin_model->get_admin();
+
     $sent_to_array = array(
         'admin'=>array(
             'email'=>$admin['email'],
@@ -529,14 +530,15 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
         );
     foreach ($sent_to_array as $key => $value) {
         if($key != $sent_from){
-
-            $message = "Hello,<br/><br/><div>New Message from ".$sent_from .", <strong>" . $sent_to_array[$sent_from]['name'] . "</strong> on "
-                    . "<strong>" . $result['series_no']
-                    . " - " . $result['title']
-                    . " </strong><br/><br/><strong>Message : </strong> " . $ticket_array['message']
-                    . "</div><br/>Thanks";
-
+            $email_template = get_template_details(11);
+            $name = $sent_to_array[$sent_from]['name'];
+            $series_no = $result['series_no'];
+            $title = $result['title'];
+            $ticket_message = $ticket_array['message']; 
+            $message = $email_template['email_description'];
             
+            eval("\$message = \"$message\";");
+
             $mail_body = "<html>\n";
             $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
             $mail_body = $message;
@@ -546,10 +548,10 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
             $configs = mail_config();
             $CI->load->library('email', $configs);
             $CI->email->initialize($configs);
-            $CI->email->from('demo.narolainfotech@gmail.com', 'Support-Ticket-System');
+            $CI->email->from($email_template['sender_email'], $email_template['sender_name']);
 
             $CI->email->to($value['email']);
-            $CI->email->subject('New Message for Ticket');
+            $CI->email->subject($email_template['email_subject']);
             $CI->email->message($mail_body);
             $CI->email->send();
 
@@ -561,17 +563,25 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
         if($sent_from!='tenant'){
             $CI->load->library('push_notification');
             $messageText = $ticket_array['message'];
-            $pushData = array(
-                "notification_type" => "data",
-                "body" => $messageText,
-                "sent_from"=>$sent_from,
-                "sender_name"=>$sent_to_array[$sent_from]['name'],
-                "ticket_no"=>$result['series_no'],
-                "ticket_title"=>$result['title']
-            );
-            //$pushData = array("notification_type" => "data", "body" => $messageText);
-             $response = $CI->push_notification->sendPushToAndroid($result['device_token'], $pushData, TRUE);
-             // pr($response,1);
+            $ticket_conversation = $CI->Admin_model->get_conversation($id);
+            
+
+        $pushData = array('displaymessagedata' =>array(
+            "ticketconversationId"=> $ticket_conversation['id'],
+              "message"=> $ticket_conversation['id'],
+              "ticketId"=> $id,
+              "sent_from"=> $ticket_conversation['sent_from'],
+              "status"=> 0,
+              "created_date"=> $ticket_conversation['created'],
+              "fname"=> $ticket_conversation['fname'],
+              "lname"=> $ticket_conversation['lname'],
+              "userImages"=> "http://clientapp.narola.online/HD/support-ticket-system/uploads/user_profile_image/original/3fafd0788a797b280357ab083afa0886.png"
+            ));
+
+             // $response = $CI->push_notification->sendPushToAndroid($result['device_token'], $pushData, TRUE);
+             // $response = $CI->push_notification->sendPushiOS(array('deviceToken' => $result['device_token'], 'pushMessage' => $pushData),array());
+     
+            
             //$response = $this->push_notification->sendPushToAndroid('erGo3QGLoAs:APA91bFNFlqnV7Qu6N7LCVoLpdLwIV5uD2VggiUEmYH-C_r6Ifs-ObAUJXX0rQIapcvdqpzS2aOzkw8J3ToUjezoJ3eqQ2s3xLBArnL_zbF-DnbW6zNzuZ43um5fPRdBAsDeb_77qTlK', $pushData, TRUE);
 
         }
@@ -603,8 +613,8 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
         $ci = &get_instance();
         $ci->load->model('Email_templates_model');
         $template = $ci->Email_templates_model->get_template($id);
-        $desc = str_replace("{","'.",$template['email_description']);
-        $email_desc = str_replace("}",".'",$desc);
+        $desc = str_replace("{","",addslashes($template['email_description']));
+        $email_desc = str_replace("}","",$desc);
         $template['email_description'] = $email_desc;
         return $template;
     }

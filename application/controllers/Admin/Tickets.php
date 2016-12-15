@@ -133,7 +133,7 @@ class Tickets extends CI_Controller {
 //            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
 
             $message = $email_template['email_description'];
-
+            eval("\$message = \"$message\";");
             $mail_body = "<html>\n";
             $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
             $mail_body = $message;
@@ -290,7 +290,7 @@ class Tickets extends CI_Controller {
                 
                 $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
                 $message =$email_template['email_description'];
-  
+                eval("\$message = \"$message\";");
                 $mail_body = "<html>\n";
                 $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                 $mail_body .= $message;
@@ -312,7 +312,7 @@ class Tickets extends CI_Controller {
                     //--- set email template
                     $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
                     $message = $email_template['email_description'];
-                    
+                    eval("\$message = \"$message\";");
                     $mail_body = "<html>\n";
                     $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                     $mail_body .= $message;
@@ -355,6 +355,7 @@ class Tickets extends CI_Controller {
 //                        echo $this->email->print_debugger();
                         }
                         $message = $email_template['email_description'];
+                        eval("\$message = \"$message\";");
                         $mail_body = "<html>\n";
                         $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                         $mail_body .= $message;
@@ -374,9 +375,9 @@ class Tickets extends CI_Controller {
              $this->email->from($email_template['sender_email'], $email_template['sender_name']);
             $ticket_title = $get_ticket->title;
             $this->email->to($getStaffEmail);
-            $link = base_url() . "staff/tickets/view/" . urldecode($id)
+            $link = base_url() . "staff/tickets/view/" . urldecode($id);
             $message = $email_template['email_description'];
-
+            eval("\$message = \"$message\";");
             $mail_body = "<html>\n";
             $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
             $mail_body .= $message;
@@ -401,7 +402,7 @@ class Tickets extends CI_Controller {
             $get_staff = $this->User_model->getFieldById($staff_id, 'email, fname, lname', TBL_USERS);
             $get_ticket = $this->User_model->getFieldById($record_id, 'title', TBL_TICKETS);
             $email = $get_staff->email;
-            $email_template = get_template_details(4);
+            $email_template = get_template_details(9);
             $configs = mail_config();
             $this->load->library('email', $configs);
             $this->email->initialize($configs);
@@ -412,7 +413,7 @@ class Tickets extends CI_Controller {
             $ticket_title = $get_ticket->title;
             $name = $get_staff->fname . ' ' . $get_staff->lname;
             $msg = $email_template['email_description'];
-
+            eval("\$msg = \"$msg\";");
             $this->email->subject($email_template['email_subject']);
             $this->email->message($msg);
             $this->email->send();
@@ -429,6 +430,7 @@ class Tickets extends CI_Controller {
                 $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket->title . "</b></a>";
                 $name = $get_staff->fname . " " . $get_staff->lname;
                 $message = $email_template['email_description'];
+                eval("\$message = \"$message\";");
                 $mail_body = "<html>\n";
                 $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                 $mail_body .= $message;
@@ -450,6 +452,7 @@ class Tickets extends CI_Controller {
                     $this->email->to($getStaffEmail);
                     $link = "<a href='" . base_url() . "admin/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
                     $message = $email_template['email_description'];
+                    eval("\$message = \"$message\";");
                     $mail_body = "<html>\n";
                     $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                     $mail_body .= $message;
@@ -492,6 +495,7 @@ class Tickets extends CI_Controller {
 //                        echo $this->email->print_debugger();
                         }
                         $message = $email_template['email_description'];
+                        eval("\$message = \"$message\";");
                         $mail_body = "<html>\n";
                         $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                         $mail_body .= $message;
@@ -544,7 +548,7 @@ class Tickets extends CI_Controller {
             $link = base_url() . "tickets/view/" . urldecode($id) . "'><b>" . $ticket_title;
             $name = $get_staff->fname . " " . $get_staff->lname;
             $tenant_msg = $email_template['email_description'];
-
+            eval("\$tenant_msg = \"$tenant_msg\";");
             $mail_body1 = "<html>\n";
             $mail_body1 .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
             $mail_body1 .= $tenant_msg;
@@ -654,7 +658,7 @@ class Tickets extends CI_Controller {
         }
         if ($flag == 0) {
             $data['view'] = 'admin/404_notfound';
-            $this->load->view('admin/error/404_notfound', $data);
+            $this->load->view('Admin/error/404_notfound', $data);
         }
     }
 
@@ -705,7 +709,7 @@ class Tickets extends CI_Controller {
         }
         if ($flag == 0) {
             $data['view'] = 'admin/404_notfound';
-            $this->load->view('admin/error/404_notfound', $data);
+            $this->load->view('Admin/error/404_notfound', $data);
         }
     }
 

@@ -71,32 +71,29 @@ class Tickets extends CI_Controller {
             $get_ticket_title = $this->User_model->getFieldById($record_id, 'title', TBL_TICKETS);
             $depat_name = $this->User_model->getFieldById($dept_id, 'name', TBL_DEPARTMENTS);
             $dept_name = $depat_name->name;
-       
+            $ticket_title = $get_ticket_title->title;
+            $email_template = get_template_details(3);
              $configs = mail_config();
                 $this->load->library('email', $configs);
                 $this->email->initialize($configs);
             if ($this->session->userdata('admin_logged_in')) {
-
                 $get_ticket_detail = $this->User_model->getFieldById($record_id, 'dept_id', TBL_TICKETS);
                 $getDeptStaff = $this->Ticket_model->getDeptStaff($get_ticket_detail->dept_id);
                 $getStaffEmail = $this->Ticket_model->getStaffEmail($getDeptStaff);
               
-                $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+                $this->email->from($email_template['sender_email'], $email_template['sender_name']);
                 $this->email->to($getStaffEmail);
                 //--- set email template
-                $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket_title->title . "</b></a>";
-                $message = "Hello,<br/><br/><div>The ticket's department has been changed for this ticket<strong>" . $get_ticket_title->title . "</strong><br>Department is changed to : " . $dept_name
-                        . "<br>Ticket URL is: " . $link
-                        . "</div><br/>Thank you"
-                        . "<p>Support Ticket</p>";
-  
+                $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
+                $message = $email_template['email_description'];
+                eval("\$message = \"$message\";");
                 $mail_body = "<html>\n";
                 $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                 $mail_body .= $message;
                 $mail_body .= "</body>\n";
                 $mail_body .= "</html>\n";
 
-                $this->email->subject('Ticket Department Changed');
+                $this->email->subject($email_template['email_subject']);
                 $this->email->message($message);
                 $this->email->send();
                 exit;
@@ -107,23 +104,19 @@ class Tickets extends CI_Controller {
                     
                     $admin = $this->User_model->getAdmin();
                     $getadminEmail = $admin['email'];
-                    $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+                    $this->email->from($email_template['sender_email'], $email_template['sender_name']);
                     $this->email->to($getadminEmail);
                     //--- set email template
                     $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket_title->title . "</b></a>";
-                    $message = "Hello,<br/><br/><div>The ticket's department has been changed for this ticket<strong>" . $get_ticket_title->title . "</strong>"
-                            . "<br>Department is changed to : " . $dept_name
-                            . "<br>Ticket URL is: " . $link
-                            . "</div><br/>Thank you"
-                            . "<p>Support Ticket</p>";
-                    
+                    $message = $email_template['email_description'];
+                    eval("\$message = \"$message\";");
                     $mail_body = "<html>\n";
                     $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                     $mail_body .= $message;
                     $mail_body .= "</body>\n";
                     $mail_body .= "</html>\n";
 
-                    $this->email->subject('Ticket Department Changed');
+                    $this->email->subject($email_template['email_subject']);
                     $this->email->message($message);
                     $this->email->send();
                      exit;
@@ -150,7 +143,7 @@ class Tickets extends CI_Controller {
 
 //            $this->email->to($getStaffEmail);
                     foreach ($getStaffEmail1 as $key => $value) {
-                        $this->email->from($get_email, 'Support-Ticket-System');
+                        $this->email->from($email_template['sender_email'], $email_template['sender_name']);
                         $this->email->to($value['email']);
                         if ($value['role_id'] == 3) {
                             $link = "<a href='" . base_url() . "admin/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket_title->title . "</b></a>";
@@ -158,42 +151,37 @@ class Tickets extends CI_Controller {
                             $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket_title->title . "</b></a>";
 //                        echo $this->email->print_debugger();
                         }
-                        $message = "Hello,<br/><br/><div>The ticket's department has been changed for this ticket<strong>" . $get_ticket_title->title . "</strong>"
-                                . "<br>Department is changed to : " . $dept_name
-                                . "<br>Ticket URL is: " . $link
-                                . "</div><br/>Thank you"
-                                . "<p>Support Ticket</p>";
+                        $message = $email_template['email_description'];
+                        eval("\$message = \"$message\";");
                         $mail_body = "<html>\n";
                         $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                         $mail_body .= $message;
                         $mail_body .= "</body>\n";
                         $mail_body .= "</html>\n";
 
-                        $this->email->subject('Ticket Department Changed');
+                        $this->email->subject($email_template['email_subject']);
                         $this->email->message($mail_body);
                         $this->email->send();
                     }
                 }
             }
             $get_ticket = $this->User_model->getFieldById($record_id, 'title', TBL_TICKETS);
+            $ticket_title = $get_ticket->title;
             //--- send message to the head staff  
             $get_email_admin = $this->User_model->getValueByField('value', 'email-notification', 'key', TBL_SETTINGS);
             $get_email = $get_email_admin->value;
             $this->email->from($get_email, 'Support-Ticket-System');
-
+            $link =  base_url() . "staff/tickets/view/" . urldecode($id);
             $this->email->to($getStaffEmail);
-            $message = "Hello,<br/><br/><div>The department has been changed for the <strong>" . $get_ticket->title . "</strong>"
-                    . "<br>Ticket URL is: <a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket->title . "</b></a>"
-                    . "</div><br/>Thank you"
-                    . "<p>Support Ticket</p>";
-
+            $message = email_template['email_description'];
+            eval("\$message = \"$message\";");
             $mail_body = "<html>\n";
             $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
             $mail_body .= $message;
             $mail_body .= "</body>\n";
             $mail_body .= "</html>\n";
 
-            $this->email->subject('Ticket Department Changed');
+            $this->email->subject($email_template['email_subject']);
             $this->email->message($mail_body);
             $this->email->send();
         } else if ($type == 'status_id') {
@@ -210,66 +198,65 @@ class Tickets extends CI_Controller {
             );
             $get_staff = $this->User_model->getFieldById($staff_id, 'email, fname, lname', TBL_USERS);
             $get_ticket = $this->User_model->getFieldById($record_id, 'title', TBL_TICKETS);
+            $ticket_title = $get_ticket->title;
             $email = $get_staff->email;
             $configs = mail_config();
             $this->load->library('email', $configs);
             $this->email->initialize($configs);
-            $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+            $email_template = get_template_details(9);
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
             $this->email->to($email);
             //--- set email template
-
-            $msg = 'Hello ' . $get_staff->fname . ' ' . $get_staff->lname;
-            $msg .= '<p>You have been assigned a Ticket - <a href="' . base_url() . 'staff/tickets/view/' . urldecode($id) . '"><b>' . $get_ticket->title . '</b></a></p>';
-            $msg .= '<p>Thank you</p>';
-            $msg .= '<p>Support Ticket</p>';
-
-            $this->email->subject('New Ticket Assigned');
+            $name = $get_staff->fname . ' ' . $get_staff->lname;
+            $ticket_title = $get_ticket->title;
+            $link = base_url() . 'staff/tickets/view/' . urldecode($id);
+            $msg = $email_template['email_description'];
+            eval("\$msg = \"$msg\";");
+            $this->email->subject($email_template['email_subject']);
             $this->email->message($msg);
             $this->email->send();
 
             if ($this->session->userdata('admin_logged_in')) {
+                $email_template = get_template_details(5);
                 $get_ticket_detail = $this->User_model->getFieldById($record_id, 'dept_id', TBL_TICKETS);
                 $getDeptStaff = $this->Ticket_model->getDeptStaff($get_ticket_detail->dept_id);
                 $getStaffEmail = $this->Ticket_model->getStaffEmail($getDeptStaff);
                 $get_email_admin = $this->User_model->getValueByField('value', 'email-notification', 'key', TBL_SETTINGS);
                 $get_email = $get_email_admin->value;
-                $this->email->from($get_email, 'Support-Ticket-System');
+                $this->email->from($email_template['sender_email'], $email_template['sender_name']);
                 $this->email->to($getStaffEmail);
-                $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket->title . "</b></a>";
-                $message = "Hello,<br/><br/><div>The ticket has been assigned to the <strong>" . $get_staff->fname . " " . $get_staff->lname . "</strong>"
-                        . "<br>Ticket URL is: " . $link
-                        . "</div><br/>Thank you"
-                        . "<p>Support Ticket</p>";
+                $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
+                $message = $email_template['email_description'];
+                eval("\$message = \"$message\";");
                 $mail_body = "<html>\n";
                 $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                 $mail_body .= $message;
                 $mail_body .= "</body>\n";
                 $mail_body .= "</html>\n";
 
-                $this->email->subject('New Ticket Assigned');
+                $this->email->subject($email_template['email_subject']);
                 $this->email->message($mail_body);
                 $this->email->send();
             } elseif ($this->session->userdata('staffed_logged_in')) {
                 $is_head = $this->session->userdata('staffed_logged_in')['is_head'];
                 if ($is_head == 1) {
+                    $email_template = get_template_details(4);
                     $admin = $this->User_model->getAdmin();
                     $getStaffEmail = $admin['email'];
                     $get_email_admin = $this->User_model->getValueByField('value', 'email-notification', 'key', TBL_SETTINGS);
                     $get_email = $get_email_admin->value;
-                    $this->email->from($get_email, 'Support-Ticket-System');
+                   $this->email->from($email_template['sender_email'], $email_template['sender_name']);
                     $this->email->to($getStaffEmail);
-                    $link = "<a href='" . base_url() . "admin/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket->title . "</b></a>";
-                    $message = "Hello,<br/><br/><div>The ticket has been assigned to the <strong>" . $get_staff->fname . " " . $get_staff->lname . "</strong>"
-                            . "<br>Ticket URL is: " . $link
-                            . "</div><br/>Thank you"
-                            . "<p>Support Ticket</p>";
+                    $link = "<a href='" . base_url() . "admin/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
+                    $message = $email_template['email_description'];
+                    eval("\$message = \"$message\";");
                     $mail_body = "<html>\n";
                     $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                     $mail_body .= $message;
                     $mail_body .= "</body>\n";
                     $mail_body .= "</html>\n";
 
-                    $this->email->subject('New Ticket Assigned');
+                    $this->email->subject($email_template['email_subject']);
                     $this->email->message($mail_body);
                     $this->email->send();
                 } else {
@@ -279,7 +266,7 @@ class Tickets extends CI_Controller {
                     $getDeptStaff = $this->Ticket_model->getDeptStaff($get_ticket_detail->dept_id);
                     $staffhead_email = $this->Ticket_model->getStaffEmail($getDeptStaff);
                     $getStaffEmail = array($adminemail, $staffhead_email);
-
+                    $email_template = get_template_details(4);
                     $getStaffEmail1 = array(
                         array(
                             'role_id' => 3,
@@ -295,7 +282,7 @@ class Tickets extends CI_Controller {
 
 //            $this->email->to($getStaffEmail);
                     foreach ($getStaffEmail1 as $key => $value) {
-                        $this->email->from($get_email, 'Support-Ticket-System');
+                        $this->email->from($email_template['sender_email'], $email_template['sender_name']);
                         $this->email->to($value['email']);
                         if ($value['role_id'] == 3) {
                             $link = "<a href='" . base_url() . "admin/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket->title . "</b></a>";
@@ -303,17 +290,16 @@ class Tickets extends CI_Controller {
                             $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $get_ticket->title . "</b></a>";
 //                        echo $this->email->print_debugger();
                         }
-                        $message = "Hello,<br/><br/><div>The ticket has been assigned to the <strong>" . $get_staff->fname . " " . $get_staff->lname . "</strong>"
-                                . "<br>Ticket URL is: " . $link
-                                . "</div><br/>Thank you"
-                                . "<p>Support Ticket</p>";
+                        $name = $get_staff->fname . " " . $get_staff->lname;
+                        $message = $email_template['email_description'];
+                        eval("\$message = \"$message\";");
                         $mail_body = "<html>\n";
                         $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
                         $mail_body .= $message;
                         $mail_body .= "</body>\n";
                         $mail_body .= "</html>\n";
 
-                        $this->email->subject('New Ticket Assigned');
+                        $this->email->subject($email_template['email_subject']);
                         $this->email->message($mail_body);
                         $this->email->send();
                     }
@@ -352,20 +338,18 @@ class Tickets extends CI_Controller {
             $get_ticket_detail1 = $this->User_model->getFieldById($record_id, 'user_id', TBL_TICKETS);
             $user = $this->User_model->getFieldById($get_ticket_detail1->user_id, 'email', TBL_USERS);
             $tenantemail = $user->email;
-            $this->email->from($get_email, 'Support-Ticket-System');
+            $email_template = get_template_details(10);
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
             $this->email->to($tenantemail);
-            $tenant_msg = "Hello,<br/><br/><div>The ticket has been assigned to the <strong>" . $get_staff->fname . " " . $get_staff->lname . "</strong>"
-                    . "<br>Ticket URL is: <a href='" . base_url() . "tickets/view/" . urldecode($id) . "'><b>" . $get_ticket->title . "</b></a>"
-                    . "</div><br/>Thank you"
-                    . "<p>Support Ticket</p>";
-
+            $tenant_msg = $email_template['email_description'];
+            eval("\$tenant_msg = \"$tenant_msg\";");
             $mail_body1 = "<html>\n";
             $mail_body1 .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
             $mail_body1 .= $tenant_msg;
             $mail_body1 .= "</body>\n";
             $mail_body1 .= "</html>\n";
 
-            $this->email->subject('New Ticket Assigned');
+            $this->email->subject($email_template['email_subject']);
             $this->email->message($mail_body1);
             $this->email->send();
         }

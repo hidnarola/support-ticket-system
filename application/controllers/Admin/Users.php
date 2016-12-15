@@ -141,7 +141,7 @@ class Users extends CI_Controller {
                 }
                 
                 $message = $email_template['email_description'];
-
+                eval("\$message = \"$message\";");
                 //--- set email template
                 $data_array = array(
                     'firstname' => $this->input->post('fname'),

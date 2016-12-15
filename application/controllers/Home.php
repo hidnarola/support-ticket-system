@@ -378,14 +378,14 @@ class Home extends CI_Controller {
         $subject = $this->input->get_post('subject');
         $comment = $this->input->get_post('comment');
         $link = $this->input->post('link');
-        $type = $this->input->post('type');
+        $type_id = $this->input->post('type');
         $article_id = $this->input->post('article_id');
-        if ($type == 0) {
-            $type_id = 'article';
-        } else if ($type == 1) {
-            $type_id = 'news';
+        if ($type_id == 0) {
+            $type = 'article';
+        } else if ($type_id == 1) {
+            $type = 'news';
         } else {
-            $type_id = 'announcement';
+            $type = 'announcement';
         }
 
         $userid = $this->session->userdata('user_logged_in')['id'];
@@ -395,7 +395,7 @@ class Home extends CI_Controller {
         $data_rec = array(
             'user_id' => $this->session->userdata('user_logged_in')['id'],
             'article_id' => $article_id,
-            'type' => $type,
+            'type' => $type_id,
             'subject' => $subject,
             'comment' => $comment,
             'created' => date('Y-m-d H:i:s')
@@ -405,30 +405,28 @@ class Home extends CI_Controller {
 
         if ($this->Admin_model->manage_record(TBL_ARTICLE_COMMENTS, $data_rec)) {
             /* To send mail to the admin */
+            $admin = $this->Admin_model->get_admin();
+            $email_template = get_template_details(6);
             $configs = mail_config();
             $this->load->library('email', $configs);
             $this->email->initialize($configs);
-            $this->email->from($useremail);
-            $this->email->to('rep@narola.email');
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+            $this->email->to($admin['email']);
 
 //--- set email template
             $firstname = $this->session->userdata('user_logged_in')['fname'];
             $lastname = $this->session->userdata('user_logged_in')['lname'];
 //            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
-
-            $message = "Hello Admin,<br/><br/><div>There is an inquiry for the " . $type_id . " from <strong>" . $firstname . " " . $lastname . "</strong>"
-                    . "<br/>Link Inquiry : <a href = " . $link . ">" . $link . "</a>"
-                    . "<br/>Subject : " . $subject
-                    . "<br/>Comment : " . $comment
-                    . "</div><br/>Thanks, <br/>" . $firstname . " " . $lastname;
-
+            $name = $firstname . " " . $lastname;
+            $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
             $mail_body = "<html>\n";
             $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
             $mail_body = $message;
             $mail_body .= "</body>\n";
             $mail_body .= "</html>\n";
 
-            $this->email->subject('Inquiry for ' . $type_id . ' in the dev.supportticket.com');
+            $this->email->subject($email_template['email_subject']);
             $this->email->message($mail_body);
             $this->email->send();
             $this->email->print_debugger();
@@ -483,19 +481,19 @@ class Home extends CI_Controller {
                 $unique_code = $this->encrypt->encode($email);
 
                 $token = $this->generate_token();
-
+                $email_template = get_template_details(7);
                 $url = base_url(). 'reset_password?key=' . urlencode($unique_code).'&token='.$token;
-                $message = 'Hello ' . $user_name . ',<br/><br/> Please follow this link to reset your password<br/>
-                    <a href="' . $url . '">' . $url . '</a>
-                <br/><br/>Thank You.';
+
+                $message = $email_template['email_description'];
+                eval("\$message = \"$message\";");
 //       
 //                $this->load->library('email', $configs);
                 $configs = mail_config();
                 $this->load->library('email', $configs);
                 $this->email->initialize($configs);
-                $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+                $this->email->from($email_template['sender_email'], $email_template['sender_name']);
                 $this->email->to($email);
-                $this->email->subject('Reset Password');
+                $this->email->subject($email_template['email_subject']);
                 $this->email->message($message);
                 $e = $this->email->send();
                 if ($e) {
@@ -631,12 +629,9 @@ class Home extends CI_Controller {
         $company = $combined;
 
         if($this->Newsletter_model->insert(TBL_NEWSLETTER_SUBSCRIBERS,$array)){
-            $message = "Hello,<br/><br/><div>Thank you for Subscribing."
-                    
-                    . "</div><br/>";
-                    $message .=$company['company_name'].'<br/>';
-                    $message .=$company['company_contact_no'].'<br/>';
-
+            $email_template = get_template_details(8);
+            $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
             $mail_body = "<html>\n";
             $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
             $mail_body = $message;
@@ -646,9 +641,9 @@ class Home extends CI_Controller {
             $configs = mail_config();
             $this->load->library('email', $configs);
             $this->email->initialize($configs);
-            $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
             $this->email->to($email);
-            $this->email->subject('Newsletter Subscription');
+            $this->email->subject($email_template['email_subject']);
             $this->email->message($mail_body);
             if($this->email->send()){
                 $data = array('status'=>'subscribed');

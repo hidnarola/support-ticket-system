@@ -205,6 +205,7 @@ if ($this->uri->segment(1) == 'support') {
             $url = base_url() . '/home/tenantverify?key=' . $unique_code . '&u=' . $lastUserId1;
 
             $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
             $data_array = array(
                 'firstname' => $this->input->post('fname'),
                 'lastname' => $this->input->post('lname'),
