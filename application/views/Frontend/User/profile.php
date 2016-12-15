@@ -1,6 +1,9 @@
+<link rel="stylesheet" href="assets/frontend/css/datepicker.css" type="text/css" />
+<link rel="stylesheet" href="assets/frontend/css/components/daterangepicker.css" type="text/css" />
+<script type="text/javascript" src="assets/frontend/js/components/moment.js"></script>
+<script type="text/javascript" src="assets/frontend/js/datepicker.js"></script>
+<script type="text/javascript" src="assets/frontend/js/components/daterangepicker.js"></script>
 <script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
-<!--<section id="content">-->
-
 <div class="content-wrap">
     <div class="container clearfix">
         <div class="row clearfix">
@@ -153,7 +156,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="btn-file">
-                                                <input type="file" name="profile_pic" id="profile_pic" onchange="ValidateSingleInput(this);readURL(this);">
+                                                <input type="file" name="profile_pic" id="profile_pic" onchange="ValidateSingleInput(this); readURL(this);">
                                                 <span class="custom-file-control"></span>
                                                 <button type="submit" class="button button-light nomargin" id="submit" name="save" value="save">Upload</button>
                                             </div>
@@ -184,54 +187,69 @@
 
                                 </div>
                                 <div class="col_full">
-                                    <div class="col-md-5" style="margin-top: 5px;">
-                                <?php if($user['contract'] != ''){ ?>
+                                    <label>Contact Details:</label>
                                     <div class="row">
-                                        <a class="button button-light nomargin" href="<?php echo USER_CONTRACT.'/'.$user['contract']; ?>" target="_blank">View Contract</a>
-                                    </div>
-                                    <?php 
-                                        if(!empty($previous_contracts)){ ?>
-                                        <div style="margin-top: 5px;" class="row">
-                                            <a class="button button-light nomargin" href="#" data-toggle="modal" data-target="#contract_modal">View Previous Contracts</a>
-                                        </div>
-                                        <div id="contract_modal" class="modal fade">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header bg-teal-400">
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h6 class="modal-title">Previously Added Contracts</h6>
-                                                    </div>
-                                                    <div class="modal-body text-center">
-                                                    <?php foreach ($previous_contracts as $contract) { ?>
-                                                    <div class="row" style="margin-top: 5px;">
-                                                        <a class="button button-light nomargin" target="_blank" href="<?php echo USER_CONTRACT.'/'.$contract['contract']; ?>"><?php echo $contract['contract']; ?></a>
-                                                        </div>
-                                                    <?php } ?>
-                                                    </div>
+                                        <div class="col-md-5" style="margin-top: 5px;">
+                                            <?php if ($user['contract'] != '') { ?>
+                                                <div class="row">
+                                                    <a class="button button-light nomargin" href="<?php echo USER_CONTRACT . '/' . $user['contract']; ?>" target="_blank">View Contract</a>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <?php }
-                                    
-                                    ?>
-    
-                                    <?php }else{ ?>
-                                        <label>Contract:</label>
-                                    <?php } ?>
-                                    <!--<input name="profile_pic" id="profile_pic" type="file" accept="image/*" class="file-loading" data-allowed-file-extensions='[]'>-->
+                                                <?php if (!empty($previous_contracts)) { ?>
+                                                    <div style="margin-top: 5px;" class="row">
+                                                        <a class="button button-light nomargin" href="#" data-toggle="modal" data-target="#contract_modal">View Previous Contracts</a>
+                                                    </div>
+                                                    <div id="contract_modal" class="modal fade">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header bg-teal-400">
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h6 class="modal-title">Previously Added Contracts</h6>
+                                                                </div>
+                                                                <div class="modal-body text-center">
+                                                                    <?php foreach ($previous_contracts as $contract) { ?>
+                                                                        <div class="row" style="margin-top: 5px;">
+                                                                            <a class="button button-light nomargin" target="_blank" href="<?php echo USER_CONTRACT . '/' . $contract['contract']; ?>"><?php echo $contract['contract']; ?></a>
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php }
+                                                ?>
 
-                                    <style>.btn-file {cursor: pointer;margin-top: 5px;overflow: hidden;position: relative; text-transform: uppercase;}
-                                        .btn-file input[type=file] {background: white;cursor: inherit;display: block;font-size: 100px;  min-height: 100%; min-width: 100%;opacity: 0;outline: medium none;position: absolute;right: 0; text-align: right;top: -16px; z-index: 99;}
-                                    </style></div>
-                                    <!--<input type="file" id="profile_pic" name="profile_pic" class="form-control" onchange="readURL(this)">-->
+                                            <?php } else { ?>
+                                                <label>Contract:</label>
+                                            <?php } ?>
+<!--<input name="profile_pic" id="profile_pic" type="file" accept="image/*" class="file-loading" data-allowed-file-extensions='[]'>-->
+
+                                            <style>.btn-file {cursor: pointer;margin-top: 5px;overflow: hidden;position: relative; text-transform: uppercase;}
+                                                .btn-file input[type=file] {background: white;cursor: inherit;display: block;font-size: 100px;  min-height: 100%; min-width: 100%;opacity: 0;outline: medium none;position: absolute;right: 0; text-align: right;top: -16px; z-index: 99;}
+                                            </style></div>
+                                            <!--<input type="file" id="profile_pic" name="profile_pic" class="form-control" onchange="readURL(this)">-->
                                         <div class="col-md-7">
                                             <div class="btn-file">
-                                                <input type="file" name="contract" id="contract" onchange="ValidateSingleInput(this,2)">
+                                                <input type="file" name="contract" id="contract" onchange="ValidateSingleInput(this, 2)">
                                                 <span class="custom-file-control"></span>
-                                                <button type="submit" class="button button-light nomargin" id="submit" name="save" value="save">Upload<?php echo ($user['contract'] != '') ? ' New' : ''; ?></button>
-                                        <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
+                                                <button type="submit" class="button button-light nomargin" id="submit" name="save" value="save">Upload<?php echo ($user['contract'] != '') ? ' New' : ''; ?>Contract</button>
+                                                <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
                                             </div>
                                         </div>
+                                    </div>
+
+                                </div>
+                                <div class="col_full">
+                                    <label for="">Validity Date Range for Contract</label>
+<!--                                    <div class="input-daterange input-group">
+                                        <input type="text" value="" name="start_date" id="start_date" class="sm-form-control tleft" placeholder="MM/DD/YYYY">
+                                        <span class="input-group-addon">to</span>
+                                        <input type="text" value="" name="end_date" id="end_date" class="sm-form-control tleft" placeholder="MM/DD/YYYY">
+                                    </div>-->
+  <input type="text" name="daterange" class="sm-form-control daterange1" value="" />
+                                    <div class="error_message" style="display: none;"> Please enter the start date and end date of the contract!
+                                        <!--<label id="daterange-error" class="error" for="daterange"></label>-->
+                                    </div>
+                                    <!--<label id="daterange-error" style="display: none !important;" class="error" for="daterange">Please enter the start date and end date of the contract!</label>-->
 
                                 </div>
 
@@ -261,67 +279,100 @@
                 <h6 class="modal-title"></h6>
             </div>
             <div class="modal-body validation_alert">
-                    <label></label>
-                </div>
+                <label></label>
+            </div>
         </div>
     </div>
 </div>
-<!--</section>-->
-<script>
-var _validFileExtensions = [".jpg", ".jpeg", ".gif", ".png"];    
-var _validFileExtensionsContract = [".jpg", ".jpeg", ".gif", ".png", ".pdf"];    
-function ValidateSingleInput(oInput,type=1) {
-   var exts = '';
-    if(type==1){
-        exts = _validFileExtensions;
-    }else{
-        exts = _validFileExtensionsContract;
+<style>
+    .error_message{color: #e42c3e;
+                   font-weight: 400;}
+</style>
+<script type="text/javascript">
+            $("form").submit(function(event) {
+//    alert("Handler for .submit() called.");
+    var image = $('#contract').val();
+            if (image != '') {
+    var start_date = $('.daterange1').val();
+            var end_date = $('#end_date').val();
+            if (start_date == '') {
+    $('.error_message').show();
+            return false;
+    } else {
+    $('.error_message').hide();
+            $('#daterange-error').hide();
+            return true;
     }
-    if (oInput.type == "file") {
-        var sFileName = oInput.value;
-         if (sFileName.length > 0) {
+    }
+    event.preventDefault();
+    });
+            var dateToday = new Date();
+//        $('.input-daterange').datepicker({
+//            autoclose: true,
+//            minDate: dateToday,
+//             startDate: dateToday
+//        });
+            $(".daterange1").daterangepicker({
+    "buttonClasses": "button button-rounded button-mini nomargin",
+            "applyClass": "button-color",
+            "cancelClass": "button-light",
+           
+    });
+            var _validFileExtensions = [".jpg", ".jpeg", ".gif", ".png"];
+            var _validFileExtensionsContract = [".jpg", ".jpeg", ".gif", ".png", ".pdf"];
+            function ValidateSingleInput(oInput, type = 1) {
+            var exts = '';
+                    if (type == 1){
+            exts = _validFileExtensions;
+            } else{
+            exts = _validFileExtensionsContract;
+            }
+            if (oInput.type == "file") {
+            var sFileName = oInput.value;
+                    if (sFileName.length > 0) {
             var blnValid = false;
-            for (var j = 0; j < exts.length; j++) {
+                    for (var j = 0; j < exts.length; j++) {
 
-                var sCurExtension = exts[j];
-                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+            var sCurExtension = exts[j];
+                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
 
-                    blnValid = true;
+            blnValid = true;
                     break;
-                }
             }
-             
-            if (!blnValid) {
-               
-                $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + exts.join(", "));
-            
-                $("#validation_modal").modal();
-                oInput.value = "";
-                return false;
             }
-        }
-    }
-    return true;
-}
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
+            if (!blnValid) {
+
+            $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + exts.join(", "));
+                    $("#validation_modal").modal();
+                    oInput.value = "";
+                    return false;
+            }
+            }
+
+
+
+            }
+            return true;
+            }
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
             reader.onload = function (e) {
-                var html = '';
-                html += '<div class="file-preview-thumbnails"><div class="file-preview-frame"  data-fileindex="0">';
-                html += '<img src="' + e.target.result + '" style="height: 160px; width: auto;" alternate="Image" />';
-                html += '</div></div>';
-                $('#imgpreview').html(html);
-                //            $('#imgpreview').attr('src', e.target.result);
+            var html = '';
+                    html += '<div class="file-preview-thumbnails"><div class="file-preview-frame"  data-fileindex="0">';
+                    html += '<img src="' + e.target.result + '" style="height: 160px; width: auto;" alternate="Image" />';
+                    html += '</div></div>';
+                    $('#imgpreview').html(html);
+                    //            $('#imgpreview').attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
-        }
+    }
     }
     $("#profile-form").validate();
-    window.setTimeout(function () {
-        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
             $(this).remove();
-        });
-    }, 7000);
+            });
+            }, 7000);
 </script>

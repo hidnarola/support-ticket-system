@@ -374,7 +374,7 @@ class Tickets extends CI_Controller {
              $this->email->from($email_template['sender_email'], $email_template['sender_name']);
             $ticket_title = $get_ticket->title;
             $this->email->to($getStaffEmail);
-            $link = base_url() . "staff/tickets/view/" . urldecode($id)
+            $link = base_url() . "staff/tickets/view/" . urldecode($id);
             $message = $email_template['email_description'];
 
             $mail_body = "<html>\n";

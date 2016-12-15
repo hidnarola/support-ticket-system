@@ -8,7 +8,7 @@ class Articles extends CI_Controller {
         parent::__construct();
         $this->data = array();
         check_isvalidated();
-        check_permissions(7)
+        check_permissions(7);
         $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->load->model('Article_model');

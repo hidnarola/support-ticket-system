@@ -257,6 +257,9 @@
                                     <li class="<?php echo ($page == 'projects') ? 'active' : ''; ?>"><a href="admin/projects"><i class="icon-calendar2"></i> <span>Projects</span></a></li>
                                     <?php } ?>
 
+                                    <?php if(in_array('17', $permissions) || empty($permissions)){ ?>
+                                    <li class="<?php echo ($page == 'beacons') ? 'active' : ''; ?>"><a href="admin/beacons"><i class="icon-station"></i> <span>Beacons</span></a></li>
+                                    <?php } ?>
 
                                     <!-- /page kits -->
 

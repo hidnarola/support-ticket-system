@@ -1,8 +1,14 @@
-<link rel="stylesheet" href="assets/frontend/css/components/daterangepicker.css" type="text/css" />
 <script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
 <!-- <script type="text/javascript" src="assets/frontend/js/plugins.js"></script> -->
+
+<!--<link rel="stylesheet" href="assets/frontend/css/components/daterangepicker.css" type="text/css" />
 <script type="text/javascript" src="assets/frontend/js/components/moment.js"></script>
 <script type="text/javascript" src="assets/admin/js/plugins/pickers/datepicker.js"></script>
+<script type="text/javascript" src="assets/frontend/js/components/daterangepicker.js"></script>-->
+<link rel="stylesheet" href="assets/frontend/css/datepicker.css" type="text/css" />
+<link rel="stylesheet" href="assets/frontend/css/components/daterangepicker.css" type="text/css" />
+<script type="text/javascript" src="assets/frontend/js/components/moment.js"></script>
+<script type="text/javascript" src="assets/frontend/js/datepicker.js"></script>
 <script type="text/javascript" src="assets/frontend/js/components/daterangepicker.js"></script>
 <?php $segment = $this->uri->segment(2); ?>
 <div class="content-wrap">
@@ -67,10 +73,11 @@
 
                     <div class="col_full">
                         <label for="register-form-email">Email Address:</label>
-                        <?php 
+                        <?php
                         $error = '';
-                        if(form_error('email')!='' ) 
-                            $error = 'error'; ?>
+                        if (form_error('email') != '')
+                            $error = 'error';
+                        ?>
                         <input type="text" id="email" name="email"  data-rule-email="true" value="<?php echo set_value('email'); ?>" required="required" class="form-control required <?php echo $error ?>" />
                         <?php echo '<label id="email-error" class="validation-error-label" for="email">' . form_error('email') . '</label>'; ?>
                     </div>                   
@@ -100,16 +107,21 @@
                         <label for="register-form-phone">Contract:</label>
                         <input type="file" id="contract" name="contract" onchange="ValidateSingleInput(this)" value="<?php echo set_value('contract'); ?>" class="form-control" />
                         <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
-                        <?php // echo '<label id="contract-error" class="validation-error-label" for="contract">' . form_error('contract') . '</label>'; ?>
+                        <?php // echo '<label id="contract-error" class="validation-error-label" for="contract">' . form_error('contract') . '</label>';  ?>
                     </div>
                     <div class="col_full">
                         <label for="">Validity Date Range for Contract</label>
-                        <div class="input-daterange input-group">
-                            <input type="text" value="" name="start_date" class="sm-form-control tleft" placeholder="MM/DD/YYYY">
-                            <span class="input-group-addon">to</span>
-                            <input type="text" value="" name="end_date" class="sm-form-control tleft" placeholder="MM/DD/YYYY">
+                        <!--                        <div class="input-daterange input-group">
+                                                    <input type="text" value="" name="start_date" id="start_date" class="sm-form-control tleft" placeholder="MM/DD/YYYY">
+                                                    <span class="input-group-addon">to</span>
+                                                    <input type="text" value="" name="end_date" id="end_date" class="sm-form-control tleft" placeholder="MM/DD/YYYY">
+                                                </div>-->
+                        <input type="text" name="daterange" class="sm-form-control daterange1" value="" />
+                        <div class="error_message" style="display: none;"> Please enter the start date and end date of the contract!
+
                         </div>
                     </div>
+                    <br>
                     <div class="col_full nobottommargin">
                         <button type="submit" class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" value="register">Register Now</button>
                     </div>
@@ -126,53 +138,66 @@
                 <h6 class="modal-title"></h6>
             </div>
             <div class="modal-body validation_alert">
-                    <label></label>
-                </div>
+                <label></label>
+            </div>
         </div>
     </div>
 </div>
+<style>
+    .error_message{color: #e42c3e;
+                   font-weight: 400;}
+</style>
 <script type="text/javascript">
-var _validFileExtensionsContract = [".jpg", ".jpeg", ".gif", ".png", ".pdf"];    
-function ValidateSingleInput(oInput) {
-   
-    if (oInput.type == "file") {
-        var sFileName = oInput.value;
-         if (sFileName.length > 0) {
-            var blnValid = false;
-            for (var j = 0; j < _validFileExtensionsContract.length; j++) {
-                var sCurExtension = _validFileExtensionsContract[j];
-                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-                    blnValid = true;
-                    break;
+    var _validFileExtensionsContract = [".jpg", ".jpeg", ".gif", ".png", ".pdf"];
+    function ValidateSingleInput(oInput) {
+
+        if (oInput.type == "file") {
+            var sFileName = oInput.value;
+            if (sFileName.length > 0) {
+                var blnValid = false;
+                for (var j = 0; j < _validFileExtensionsContract.length; j++) {
+                    var sCurExtension = _validFileExtensionsContract[j];
+                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                        blnValid = true;
+                        break;
+                    }
+                }
+
+                if (!blnValid) {
+
+                    $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + _validFileExtensionsContract.join(", "));
+
+
+                    $("#validation_modal").modal();
+                    oInput.value = "";
+                    return false;
                 }
             }
-             
-            if (!blnValid) {
-               
-                $(".validation_alert label").text("Sorry, invalid file, allowed extensions are: " + _validFileExtensionsContract.join(", "));
-            
-
-                $("#validation_modal").modal();
-                oInput.value = "";
-                return false;
-            }
         }
+        return true;
     }
-    return true;
-}
     $(function () {
         console.log('herer');
-          $('.input-daterange').datepicker({
-                autoclose: true
-            });
-      
+        var dateToday = new Date();
+//        $('.input-daterange').datepicker({
+//            autoclose: true,
+//            minDate: dateToday,
+//             startDate: dateToday
+//        });
+
+        $(".daterange1").daterangepicker({
+            "buttonClasses": "button button-rounded button-mini nomargin",
+            "applyClass": "button-color",
+            "cancelClass": "button-light"
+        });
+
 
         var segment = "<?php echo $segment; ?>";
-        if(segment=='signup'){
-           setTimeout(function(){
-            $(document).find(".acctitle_register.acctitle").click();
-           }, 300);
-           
+        if (segment == 'signup') {
+            setTimeout(function () {
+                $(document).find(".acctitle_register.acctitle").click();
+            }, 300);
+
         }
     });
 
@@ -200,5 +225,21 @@ function ValidateSingleInput(oInput) {
                 equalTo: "Password does not match with confirm password field",
             },
         },
+    });
+    $("#register-form").submit(function (event) {
+        var image = $('#contract').val();
+        if (image != '') {
+            var start_date = $('.daterange1').val();
+            var end_date = $('#end_date').val();
+            if (start_date == '') {
+                $('.error_message').show();
+                return false;
+            } else {
+                $('.error_message').hide();
+                $('#daterange-error').hide();
+                return true;
+            }
+        }
+        event.preventDefault();
     });
 </script>
