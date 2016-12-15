@@ -28,7 +28,7 @@ class Profile extends CI_Controller {
             $update_data['email'] = trim($this->input->post('email'));
             $update_data['contactno'] = trim($this->input->post('contactno'));
             $update_data['address'] = trim($this->input->post('address'));
-
+//            $start_date = $end_date = '';
             $this->User_model->edit($update_data, TBL_USERS, 'id', $userid);
 
             //--- upload profile picture
@@ -78,40 +78,53 @@ class Profile extends CI_Controller {
                 }
             }
             if ($_FILES['contract']['name'] != '') {
-                $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG', 'pdf', 'PDF');
-                $exts = explode(".", $_FILES['contract']['name']);
-                $name = $exts[0] . time() . "." . $exts[1];
-                $name = "contract-" . date("mdYhHis") . "." . $exts[1];
+               
+                    $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG', 'pdf', 'PDF');
+                    $exts = explode(".", $_FILES['contract']['name']);
+                    $name = $exts[0] . time() . "." . $exts[1];
+                    $name = "contract-" . date("mdYhHis") . "." . $exts[1];
 
-                $config['upload_path'] = USER_CONTRACT;
-                $config['allowed_types'] = implode("|", $type_array);
-                $config['max_size'] = '2048';
-                $config['file_name'] = $name;
+                    $config['upload_path'] = USER_CONTRACT;
+                    $config['allowed_types'] = implode("|", $type_array);
+                    $config['max_size'] = '2048';
+                    $config['file_name'] = $name;
 
-                $this->upload->initialize($config);
+                    $this->upload->initialize($config);
 
-                if (!$this->upload->do_upload('contract')) {
-                    $flag = 1;
-                    $data['contract_validation'] = $this->upload->display_errors();
-                } else {
-                    $file_info = $this->upload->data();
-                    $contract = $file_info['file_name'];
+                    if (!$this->upload->do_upload('contract')) {
+                        $flag = 1;
+                        $data['contract_validation'] = $this->upload->display_errors();
+                    } else {
+                        $file_info = $this->upload->data();
+                        $contract = $file_info['file_name'];
 
-                    $src = './' . USER_CONTRACT . '/' . $contract;
-                }
-            $update_contract = array('contract' => $contract);
-                if($this->User_model->edit($update_contract, TBL_USERS, 'id', $userid)){
-                    $contract_array = array(
-                        'contract'=>$contract,
-                        'user_id'=> $userid,
-                        'current'=>1
-                    );
+                        $src = './' . USER_CONTRACT . '/' . $contract;
+                    }
+                    if ($this->input->post('start_date')) {
+                        $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
+                    } else {
+                        $start_date = NULL;
+                    }
 
-                    $this->User_model->update_contracts($userid);
-                    $this->User_model->insert_contract($contract_array);
+                    if ($this->input->post('end_date')) {
+                        $end_date = date('Y-m-d', strtotime($this->input->post('end_date')));
+                    } else {
+                        $end_date = NULL;
+                    }
+                    $update_contract = array('contract' => $contract);
+                    if ($this->User_model->edit($update_contract, TBL_USERS, 'id', $userid)) {
+                        $contract_array = array(
+                            'contract' => $contract,
+                            'user_id' => $userid,
+                            'current' => 1,
+                            'start_date' => $start_date,
+                            'end_date' => $end_date,
+                        );
+
+                        $this->User_model->update_contracts($userid);
+                        $this->User_model->insert_contract($contract_array);
                     
                 }
-
             }
             $this->session->set_flashdata('success_msg', 'Your profile is updated successfully!');
             redirect('profile');
@@ -123,7 +136,7 @@ class Profile extends CI_Controller {
         $data['user'] = $this->User_model->getUserByID($userid);
         $data['news_announcements'] = $this->User_model->getlatestnews();
         $data['title'] = 'Profile | Support-Ticket-System';
-         $data['header_title'] = 'Change Password';
+        $data['header_title'] = 'Change Password';
         $this->template->load('frontend/page', 'Frontend/User/change_password', $data);
         if ($this->input->post('save')) {
             $old_password = $this->input->post('old_password');

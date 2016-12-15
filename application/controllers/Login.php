@@ -12,21 +12,18 @@ class Login extends CI_Controller {
     }
 
     public function index() {
-        
-//        if($_POST)
-//            p($_POST);
-           $data['news_announcements'] = $this->User_model->getlatestnews();
-if ($this->uri->segment(1) == 'support') {
-    if($this->session->userdata('staffed_logged_in')){
-         redirect('staff');
-    }else if($this->session->userdata('admin_logged_in')){
-        
-        redirect('admin');
-    }
-}else if($this->session->userdata('user_logged_in')){
-    redirect('home');
-    
-    }
+
+        $data['news_announcements'] = $this->User_model->getlatestnews();
+        if ($this->uri->segment(1) == 'support') {
+            if ($this->session->userdata('staffed_logged_in')) {
+                redirect('staff');
+            } else if ($this->session->userdata('admin_logged_in')) {
+
+                redirect('admin');
+            }
+        } else if ($this->session->userdata('user_logged_in')) {
+            redirect('home');
+        }
         $user_title = 'Tenant';
         if ($this->uri->segment(1) == 'support') {
             $user_title = 'Support';
@@ -71,12 +68,12 @@ if ($this->uri->segment(1) == 'support') {
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title == 'Support') {
                     // Give error msg for user is not approved by admin
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title == 'Support') {
-                    
+
                     $head_staff = $this->User_model->check_head_staff($result['id']);
                     $result['is_head'] = $head_staff['is_head'];
                     $result['dept_id'] = $head_staff['dept_id'];
-                    $dept_name =(array) $this->User_model->getFieldById($head_staff['dept_id'], 'name', TBL_DEPARTMENTS);
-                    
+                    $dept_name = (array) $this->User_model->getFieldById($head_staff['dept_id'], 'name', TBL_DEPARTMENTS);
+
                     $result['dept_name'] = $dept_name['name'];
 
                     $userdata = $this->session->set_userdata('staffed_logged_in', $result);
@@ -88,14 +85,14 @@ if ($this->uri->segment(1) == 'support') {
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     redirect('admin');
-                } elseif($result['role_id'] == 4 && $user_title == 'Support'){
-                    $result['subadmin_id'] = $result['id']; 
+                } elseif ($result['role_id'] == 4 && $user_title == 'Support') {
+                    $result['subadmin_id'] = $result['id'];
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     $this->load->model('Subadmin_Model');
                     $permissions = $this->Subadmin_Model->get_subadmin_modules($result['id']);
-                    if($permissions['module_ids']!=''){
+                    if ($permissions['module_ids'] != '') {
                         $this->session->set_userdata('module_ids', $permissions['module_ids']);
                     }
                     redirect('admin');
@@ -157,8 +154,15 @@ if ($this->uri->segment(1) == 'support') {
 
                     $src = './' . USER_CONTRACT . '/' . $contract;
                 }
-                $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
-                $end_date = date('Y-m-d', strtotime($this->input->post('end_date')));
+                
+                $daterange = $this->input->post('daterange'); 
+                $dates = explode('-', $daterange); 
+                $start_date = date('Y-m-d', strtotime($dates[0])); 
+                $end_date = date('Y-m-d', strtotime($dates[1]));
+
+                
+//                $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
+//                $end_date = date('Y-m-d', strtotime($this->input->post('end_date')));
             } else {
                 $contract = '';
             }
@@ -179,18 +183,18 @@ if ($this->uri->segment(1) == 'support') {
                 'created' => date('Y-m-d H:i:s'),
                 'contract' => $contract
             );
-            $username = $this->input->post('fname').' '. $this->input->post('lname');
-          
+            $username = $this->input->post('fname') . ' ' . $this->input->post('lname');
+
             $this->Admin_model->manage_record($this->table, $data);
             $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
-            if($contract != ''){
+            if ($contract != '') {
                 $contract_array = array(
-                        'contract'=>$contract,
-                        'user_id'=> $lastUserId,
-                        'current'=>1,
-                        'start_date'=>$start_date,
-                        'end_date'=>$end_date,
-                    );
+                    'contract' => $contract,
+                    'user_id' => $lastUserId,
+                    'current' => 1,
+                    'start_date' => $start_date,
+                    'end_date' => $end_date,
+                );
                 $this->User_model->insert_contract($contract_array);
             }
             /* To send mail to the user */
@@ -233,7 +237,7 @@ if ($this->uri->segment(1) == 'support') {
     }
 
     public function logout() {
-        
+
         if ($this->uri->segment(1) == 'admin') {
             $this->session->unset_userdata('admin_logged_in');
             $this->session->unset_userdata('module_ids');
