@@ -148,14 +148,21 @@ function medium_image_user($src, $dest) {
  * @author : Reema  (Rep)
  */
 function mail_config() {
+    $CI = & get_instance();
+    $CI->load->model('Admin_model');
+    $smtp_details = $CI->Admin_model->get_smtp_details();
+    $keys = array_column($smtp_details, 'key');
+    $values = array_column($smtp_details, 'value');
+    $smtp_settings = array_combine($keys, $values);
+ 
     $configs = array(
         'protocol' => 'smtp',
-        'smtp_host' => 'ssl://smtp.gmail.com',
-        'smtp_port' => 465,
+        'smtp_host' => $smtp_settings['smtp_host'],
+        'smtp_port' => $smtp_settings['smtp_port'],
 //        'smtp_user' => 'demo.narola@gmail.com',
 //        'smtp_pass' => 'Ke6g7sE70Orq3Rqaqa',
-        'smtp_user' => 'demo.narolainfotech@gmail.com',
-        'smtp_pass' => 'Narola102',
+        'smtp_user' => $smtp_settings['smtp_email'],
+        'smtp_pass' => $smtp_settings['smtp_password'],
         'transport' => 'Smtp',
         'charset' => 'utf-8',
         'newline' => "\r\n",
@@ -500,6 +507,7 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
     $CI = & get_instance();
     $CI->load->model('Admin_model');
     $result = $CI->Admin_model->get_detail_for_message_notification($id);
+
     $admin = $CI->Admin_model->get_admin();
     $sent_to_array = array(
         'admin'=>array(
@@ -516,7 +524,7 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
             ),
         'tenant'=>array(
             'email'=>$result['tenant_email'],
-            'name'=>$result['tfname'].' '.$result['tlname']
+            'name'=>$result['tfname'].' '.$result['tlname'],
             )
         );
     foreach ($sent_to_array as $key => $value) {
@@ -544,8 +552,27 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
             $CI->email->subject('New Message for Ticket');
             $CI->email->message($mail_body);
             $CI->email->send();
-            $CI->email->print_debugger();
+
             
+            // $CI->email->print_debugger();
+            
+
+        }
+        if($sent_from!='tenant'){
+            $CI->load->library('push_notification');
+            $messageText = $ticket_array['message'];
+            $pushData = array(
+                "notification_type" => "data",
+                "body" => $messageText,
+                "sent_from"=>$sent_from,
+                "sender_name"=>$sent_to_array[$sent_from]['name'],
+                "ticket_no"=>$result['series_no'],
+                "ticket_title"=>$result['title']
+            );
+            //$pushData = array("notification_type" => "data", "body" => $messageText);
+             $response = $CI->push_notification->sendPushToAndroid($result['device_token'], $pushData, TRUE);
+             // pr($response,1);
+            //$response = $this->push_notification->sendPushToAndroid('erGo3QGLoAs:APA91bFNFlqnV7Qu6N7LCVoLpdLwIV5uD2VggiUEmYH-C_r6Ifs-ObAUJXX0rQIapcvdqpzS2aOzkw8J3ToUjezoJ3eqQ2s3xLBArnL_zbF-DnbW6zNzuZ43um5fPRdBAsDeb_77qTlK', $pushData, TRUE);
 
         }
     }
@@ -553,7 +580,7 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
 
     function get_permissions(){
         $ci = &get_instance();
-        if($ci->session->userdata('admin_logged_in')['subadmin_id']){
+        if(isset($ci->session->userdata('admin_logged_in')['subadmin_id'])){
             $permissions = $ci->Subadmin_Model->get_subadmin_modules($ci->session->userdata('subadmin_id'));
             if($permissions['module_ids']!=''){
                 $ci->session->set_userdata('module_ids', $permissions['module_ids']);
@@ -563,13 +590,23 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
 
     function check_permissions($module){
         $ci = &get_instance();
-        if($ci->session->userdata('admin_logged_in')['subadmin_id']){
+        if(isset($ci->session->userdata('admin_logged_in')['subadmin_id'])){
             $module_id = $ci->session->userdata('module_ids');
             $modules = explode(",", $module_id);
             if(!in_array($module, $modules)){
                 redirect('admin/access_denied');
             }
         }
+    }
+
+    function get_template_details($id){
+        $ci = &get_instance();
+        $ci->load->model('Email_templates_model');
+        $template = $ci->Email_templates_model->get_template($id);
+        $desc = str_replace("{","'.",$template['email_description']);
+        $email_desc = str_replace("}",".'",$desc);
+        $template['email_description'] = $email_desc;
+        return $template;
     }
    
 

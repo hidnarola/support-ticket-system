@@ -93,6 +93,7 @@ class News extends CI_Controller {
                     'created' => date('Y-m-d H:i:s')
                 );
                 if ($this->News_model->add($data)) {
+                    
                     $this->session->set_flashdata('success_msg', 'Detail saved successfully.');
                     redirect('admin/news');
                 } else {

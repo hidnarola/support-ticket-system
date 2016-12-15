@@ -99,7 +99,7 @@
 
 
                                         <div class="text-size-mini text-muted">
-                                            <i class="iicon-collaboration text-size-small"></i>
+                                            <i class="icon-collaboration text-size-small"></i>
                                             <?php  echo ($this->session->userdata('staffed_logged_in')['is_head']) ? "Head Staff" : 'Staff Member'; ?>,
                                             <?php echo $this->session->userdata('staffed_logged_in')['dept_name']; ?>
                                         </div>

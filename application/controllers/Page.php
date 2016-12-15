@@ -21,7 +21,7 @@ class Page extends CI_Controller    {
           $data['news_announcements'] = $this->User_model->getlatestnews();
           $data['user'] = $this->User_model->getUserByID($userid);
             
-        	$this->template->load('frontend/page', 'Frontend/page/index', $data);
+        	$this->template->load('frontend/page', 'Frontend/Page/index', $data);
        	} else {
        		show_404();
        	}

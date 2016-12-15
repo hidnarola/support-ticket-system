@@ -59,7 +59,7 @@ class Newsletters extends CI_Controller {
             }
             redirect('admin/newsletters');
         }
-        $this->template->load('admin', 'admin/newsletters/manage', $data);
+        $this->template->load('admin', 'admin/Newsletters/manage', $data);
     }
 
     public function subscribers() {

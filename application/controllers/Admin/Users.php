@@ -125,10 +125,11 @@ class Users extends CI_Controller {
                 }
 
                 /* To send mail to the user */
+                $email_template = get_template_details(1);
                 $configs = mail_config();
                 $this->load->library('email', $configs);
                 $this->email->initialize($configs);
-                $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+                $this->email->from($email_template['sender_email'], $email_template['sender_name']);
                 $this->email->to($useremail);
 
                 $lastUserId1 = base64_encode($lastUserId);
@@ -138,12 +139,8 @@ class Users extends CI_Controller {
                 } else {
                     $url = base_url() . 'home/verifyStaff?key=' . $unique_code . '&u=' . $lastUserId1;
                 }
-
-
-
-                $message = 'Welcome, ' . $username . '! Thank you for registering with  Manazel Specialists, inc. We look forward to working with you. <br/><br/>
-                        Please confirm your email and registration by clicking on the link below. <br/>
-                        <a href=' . $url . '>' . $url . '</a>';
+                
+                $message = $email_template['email_description'];
 
                 //--- set email template
                 $data_array = array(
@@ -153,7 +150,7 @@ class Users extends CI_Controller {
                     'url' => $url
                 );
                 $msg = $this->load->view('admin/emails/send_mail_new', $data_array, TRUE);
-                $this->email->subject('Your account is registred for dev.supportticket.com');
+                $this->email->subject($email_template['email_subject']);
                 $this->email->message($msg);
                 $this->email->send();
                 // $this->email->print_debugger();

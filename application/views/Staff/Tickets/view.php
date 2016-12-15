@@ -181,6 +181,8 @@
                                                                     echo 'staff';
                                                                 } elseif ($val['role_id'] == 3) {
                                                                     echo 'Admin';
+                                                                }elseif ($val['role_id'] == 4) {
+                                                                    echo 'Sub Admin';
                                                                 }
                                                                 ?></strong></span>
                                                     </div>
@@ -203,6 +205,8 @@
                                                                 echo 'staff';
                                                             } elseif ($val['role_id'] == 3) {
                                                                 echo 'Admin';
+                                                            }elseif ($val['role_id'] == 4) {
+                                                                echo 'Sub Admin';
                                                             }
                                                             ?></strong></span>
                                                 </div>

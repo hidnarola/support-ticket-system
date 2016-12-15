@@ -1,4 +1,9 @@
+<link rel="stylesheet" href="assets/frontend/css/components/daterangepicker.css" type="text/css" />
 <script type="text/javascript" src="assets/frontend/js/plugins/jquery.validation.js"></script>
+<!-- <script type="text/javascript" src="assets/frontend/js/plugins.js"></script> -->
+<script type="text/javascript" src="assets/frontend/js/components/moment.js"></script>
+<script type="text/javascript" src="assets/admin/js/plugins/pickers/datepicker.js"></script>
+<script type="text/javascript" src="assets/frontend/js/components/daterangepicker.js"></script>
 <?php $segment = $this->uri->segment(2); ?>
 <div class="content-wrap">
 
@@ -97,7 +102,14 @@
                         <span class="help-block">Accepted formats: gif, png, jpg, pdf. Max file size 2Mb</span>
                         <?php // echo '<label id="contract-error" class="validation-error-label" for="contract">' . form_error('contract') . '</label>'; ?>
                     </div>
-
+                    <div class="col_full">
+                        <label for="">Validity Date Range for Contract</label>
+                        <div class="input-daterange input-group">
+                            <input type="text" value="" name="start_date" class="sm-form-control tleft" placeholder="MM/DD/YYYY">
+                            <span class="input-group-addon">to</span>
+                            <input type="text" value="" name="end_date" class="sm-form-control tleft" placeholder="MM/DD/YYYY">
+                        </div>
+                    </div>
                     <div class="col_full nobottommargin">
                         <button type="submit" class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" value="register">Register Now</button>
                     </div>
@@ -149,6 +161,12 @@ function ValidateSingleInput(oInput) {
     return true;
 }
     $(function () {
+        console.log('herer');
+          $('.input-daterange').datepicker({
+                autoclose: true
+            });
+      
+
         var segment = "<?php echo $segment; ?>";
         if(segment=='signup'){
            setTimeout(function(){

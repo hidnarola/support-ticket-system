@@ -35,6 +35,7 @@ and open the template in the editor.
 .home_image{ padding:10px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);}
 label.text-semibold { text-decoration: none !important;
     color: #1ABC9C;cursor: text;}
+.template_div {border-bottom: #e8e8e8 1px solid; padding: 15px;}
 @media screen and (min-width: 320px) and (max-width:480px) {
     .news_ann{
         margin-top: 10px;

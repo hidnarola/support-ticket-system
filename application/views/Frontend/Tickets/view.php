@@ -129,6 +129,8 @@
                                                                 echo 'staff';
                                                             } elseif ($val['role_id'] == 3) {
                                                                 echo 'Admin';
+                                                            }elseif ($val['role_id'] == 4) {
+                                                                echo 'Sub Admin';
                                                             }
                                                             ?></strong></span>
                                                 </div>
@@ -142,6 +144,8 @@
                                                                 echo 'staff';
                                                             } elseif ($val['role_id'] == 3) {
                                                                 echo 'Admin';
+                                                            }elseif ($val['role_id'] == 4) {
+                                                                echo 'Sub Admin';
                                                             }
                                                             ?></strong></span>
                                                 </div>   
@@ -225,7 +229,7 @@
 
             <div class="line visible-xs-block"></div>
 
-            <?php $this->load->view('frontend/User/rightsidebar'); ?>
+            <?php $this->load->view('Frontend/User/rightsidebar'); ?>
         </div>
     </div>
 </div>

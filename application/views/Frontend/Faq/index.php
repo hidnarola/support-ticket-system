@@ -29,7 +29,7 @@
             </div>
         </div><!-- .postcontent end -->
 
-        <?php $this->load->view('frontend/rightsidebar'); ?>
+        <?php $this->load->view('Frontend/rightsidebar'); ?>
     </div>
 </div>
 <script type="text/javascript">

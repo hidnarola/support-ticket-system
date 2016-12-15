@@ -37,7 +37,7 @@
         <!-- Document Wrapper
         ============================================= -->
         <div id="wrapper" class="clearfix">
-
+    <?php //pr($this->session->userdata('user_logged_in')); ?>
             <!-- Header
             ============================================= -->
             <header id="header" class="full-header">
@@ -61,7 +61,10 @@
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                                 <li><a href="profile">Profile</a></li>
                                 <li><a href="profile/changepassword">Change Password</a></li>
+                                <?php if($this->session->userdata('user_logged_in')['status']==1){ ?>
                                 <li><a href="tickets">Tickets</a></li>
+                                <?php } ?>
+
                                 <li role="separator" class="divider"></li>
                                 <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
                             </ul>

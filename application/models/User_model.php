@@ -468,5 +468,26 @@ class User_model extends CI_Model {
    public function insert_contract($contract_array){
         $this->db->insert(TBL_TENANT_CONTRACTS, $contract_array);
    }
+
+   public function get_expired_contract_tenants(){
+        $this->db->select('u.id, u.fname, u.lname');
+        $this->db->where('u.is_delete', 0);
+        $this->db->where('u.status', 1);
+        $this->db->where('u.role_id', 1);
+        $this->db->where('tc.current', 1);
+        $this->db->where('tc.end_date >', date('Y-m-d'));
+        $this->db->from(TBL_USERS.' u');
+        $this->db->join(TBL_TENANT_CONTRACTS . ' tc', 'tc.user_id = u.id', 'left');
+        $query = $this->db->get();
+        return $query->result_array();
+   }
+
+   public function suspend_account($id){
+        $data = array(
+            'status'=>0
+            );
+        $this->db->where('id', $id);
+        $this->db->update('TBL_USERS', $data);
+   }
    
 }

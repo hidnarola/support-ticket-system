@@ -264,7 +264,7 @@ class Admin_model extends CI_Model {
 
     public function get_detail_for_message_notification($id){
 
-        $this->db->select('tickets.*, head_staff.user_id as head_staff, tenant.email as tenant_email, staff.email as staff_email,head_staff_user.email as head_staff_email, head_staff_user.fname as hfname, head_staff_user.lname as hlname, tenant.fname as tfname,tenant.lname as tlname,staff.fname as sfname,staff.lname as slname,');
+        $this->db->select('tickets.*, head_staff.user_id as head_staff, tenant.email as tenant_email, staff.email as staff_email,head_staff_user.email as head_staff_email, head_staff_user.fname as hfname, head_staff_user.lname as hlname, tenant.fname as tfname,tenant.lname as tlname, tenant.device_token,staff.fname as sfname,staff.lname as slname,');
         $this->db->where('tickets.id', $id);
         $this->db->where('head_staff.is_head', 1);
         
@@ -283,6 +283,28 @@ class Admin_model extends CI_Model {
         $this->db->where('role_id', 3);
         $records = $this->db->get(TBL_USERS);
         return $records->row_array();
+    }
+
+    public function get_smtp_details(){
+        $this->db->from(TBL_SETTINGS);
+        $this->db->like('key', 'smtp');
+        return $this->db->get()->result_array();
+    }
+
+    public function save_smtp_details($smtp_data) {
+        $data = array();
+        foreach ($smtp_data as $key => $value) {
+            $arr = array(
+                'key' => $key,
+                'value' => $value
+            );
+            $data[] = $arr;
+        }
+        if ($this->db->update_batch(TBL_SETTINGS, $data, 'key')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

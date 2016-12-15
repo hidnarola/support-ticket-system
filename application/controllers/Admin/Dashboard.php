@@ -20,9 +20,13 @@ class Dashboard extends CI_Controller {
         $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->data['icon_class'] = 'icon-user-plus';
+        $this->load->library('push_notification');
     }
 
     public function index($type=NULL) {
+
+        // $response = $this->push_notification->sendPushiOS(array('deviceToken' => $image['device_id'], 'pushMessage' => $messageText),array());
+       
         $maxDays=date('t');
         $clients_arr = $tickets_arr = array();
         for ($i=0; $i <= $maxDays; $i++) { 
@@ -374,5 +378,27 @@ class Dashboard extends CI_Controller {
         $data['title'] = 'Access Denied';
         $data['view'] = 'admin/access_denied';
         $this->load->view('admin/error/access_denied', $data);
+    }
+
+    public function smtp_settings(){
+        $this->data['title'] = $this->data['page_header'] = 'SMTP Settings';
+        $this->data['icon_class'] = 'icon-envelope2';
+        
+        $smtp_details = $this->Admin_model->get_smtp_details();
+        // pr($smtp_details,1);
+        $keys = array_column($smtp_details, 'key');
+        $values = array_column($smtp_details, 'value');
+        $combined = array_combine($keys, $values);
+        $this->data['smtp_settings'] = $combined;
+        $this->template->load('admin', 'Admin/Dashboard/smtp_settings', $this->data);
+        if($this->input->post()){
+            $smtp_data = $this->input->post();
+            if($this->Admin_model->save_smtp_details($smtp_data)){
+                $this->session->set_flashdata('success_msg', 'Successfully Updated SMTP Details');
+            }else{
+                $this->session->set_flashdata('error_msg', 'Unable to update SMTP Details.');
+            }
+            redirect('admin/manage/smtp_settings');
+        }
     }
 }

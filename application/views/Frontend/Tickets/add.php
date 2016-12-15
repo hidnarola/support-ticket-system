@@ -140,7 +140,7 @@
 
             <div class="line visible-xs-block"></div>
 
-            <?php $this->load->view('frontend/User/rightsidebar'); ?>
+            <?php $this->load->view('Frontend/User/rightsidebar'); ?>
 
         </div>
     </div>

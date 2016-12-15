@@ -71,8 +71,6 @@ class Sub_admin extends CI_Controller {
                 $unique_code = md5($email);
                 $url = base_url() . 'home/verify?key=' . $unique_code . '&u=' . $lastUserId1;
                 
-
-
                 //--- set email template
                 $data_array = array(
                     'firstname' => $this->input->post('fname'),

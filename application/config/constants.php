@@ -112,6 +112,7 @@ define('TBL_NEWSLETTERS_TEST_EMAILS','newsletters_test_emails');
 define('TBL_TENANT_CONTRACTS','tenant_contracts');
 define('TBL_SUBADMIN_MODULES','subadmin_modules');
 define('TBL_MODULES','modules');
+define('TBL_EMAIL_TEMPLATES','email_templates');
 
 
 
@@ -153,3 +154,8 @@ define('PAGE_THUMB_IMAGE', 'uploads/pages/thumb');
 define('PAGE_MEDIUM_IMAGE', 'uploads/pages/medium');
 
 define('SOCIAL_IMAGE', 'uploads/social_media');
+
+define("FIREBASE_API_KEY", "AAAARwszyOU:APA91bHAPbdDqYKx9thiT8Bya4MglDcqMKiPVWm-kyRhaQIPjQWbEwsHKs3t434jJvTzDP2b6vclzw4X0i_E3KBv1ScGikxL5mTzm25gjAFK9dQsX2LuHwRPoDWpG89ztQOyqbGM51oAe2BgDvme6z0N9--Lbvaiuw");
+define("FIREBASE_FCM_URL", "https://fcm.googleapis.com/fcm/send");
+define("SUCCESS", "success");
+define("FAILED", "failed");

@@ -50,6 +50,6 @@
 		        }
 		    }
 		     
-		    $this->ci->load->view('templates/'.$tpl_view, $data);
+		    $this->ci->load->view('Templates/'.$tpl_view, $data);
 }
     }

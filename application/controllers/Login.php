@@ -12,6 +12,7 @@ class Login extends CI_Controller {
     }
 
     public function index() {
+        
 //        if($_POST)
 //            p($_POST);
            $data['news_announcements'] = $this->User_model->getlatestnews();
@@ -133,7 +134,7 @@ if ($this->uri->segment(1) == 'support') {
             $data['user'] = $this->User_model->getUserByID($userid);
             $this->template->load('frontend/page', 'Frontend/login_register', $data);
         } else {
-
+            $start_date = $end_date = '';
             if ($_FILES['contract']['name'] != '') {
                 $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG', 'pdf', 'PDF');
                 $exts = explode(".", $_FILES['contract']['name']);
@@ -156,6 +157,8 @@ if ($this->uri->segment(1) == 'support') {
 
                     $src = './' . USER_CONTRACT . '/' . $contract;
                 }
+                $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
+                $end_date = date('Y-m-d', strtotime($this->input->post('end_date')));
             } else {
                 $contract = '';
             }
@@ -184,24 +187,24 @@ if ($this->uri->segment(1) == 'support') {
                 $contract_array = array(
                         'contract'=>$contract,
                         'user_id'=> $lastUserId,
-                        'current'=>1
+                        'current'=>1,
+                        'start_date'=>$start_date,
+                        'end_date'=>$end_date,
                     );
                 $this->User_model->insert_contract($contract_array);
             }
             /* To send mail to the user */
+            $email_template = get_template_details(1);
             $configs = mail_config();
             $this->load->library('email', $configs);
             $this->email->initialize($configs);
-            $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
             $this->email->to($useremail);
             $lastUserId1 = base64_encode($lastUserId);
             $unique_code = md5($useremail);
             $url = base_url() . '/home/tenantverify?key=' . $unique_code . '&u=' . $lastUserId1;
-            $message = 'Welcome, ' . $username . '! Thank you for registering with  Manazel Specialists, inc. We look forward to working with you. <br/><br/>
-                        Please confirm your email address and registration by clicking on the link below. <br/>
-                        <a href=' . $url . '>' . $url . '</a>';
 
-            //--- set email template
+            $message = $email_template['email_description'];
             $data_array = array(
                 'firstname' => $this->input->post('fname'),
                 'lastname' => $this->input->post('lname'),
@@ -209,7 +212,7 @@ if ($this->uri->segment(1) == 'support') {
                 'url' => $url
             );
             $msg = $this->load->view('admin/emails/send_mail_new', $data_array, TRUE);
-            $this->email->subject('Your account is registred for dev.supportticket.com');
+            $this->email->subject($email_template['email_subject']);
             $this->email->message($msg);
             $this->email->send();
             // $this->email->print_debugger();

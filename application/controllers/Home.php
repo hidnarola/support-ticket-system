@@ -724,4 +724,11 @@ class Home extends CI_Controller {
             redirect('support/login');
         }
     }
+
+    public function check_contract_validity(){
+        $expired_contract_tenants = $this->User_model->get_expired_contract_tenants();
+        foreach ($expired_contract_tenants as $tenant) {
+            $this->User_model->suspend_account($tenant['id']);
+        }
+    }
 }

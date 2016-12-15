@@ -83,13 +83,13 @@
                     <li class="dropdown dropdown-user">
                         <a class="dropdown-toggle" data-toggle="dropdown">
 
-                            <img src="<?php echo $image; ?>" alt="">
+                            <img class="img-circle img-sm" src="<?php echo $image; ?>" alt="">
                             <span><?php
                                 if ($this->session->userdata('admin_logged_in')) {
-                                    echo $this->session->userdata('admin_logged_in')['fname'];
+                                    echo $this->session->userdata('admin_logged_in')['fname'].'!';
                                 }
 //                                        pr($this->session->userdata('admin_logged_in'),1);
-                                ?> !</span>
+                                ?> </span>
                             <i class="caret"></i>
                         </a>
 
@@ -122,10 +122,16 @@
                                     <div class="media-body">
                                         <span class="media-heading text-semibold"><?php
                                             if ($this->session->userdata('admin_logged_in')) {
-                                                echo $this->session->userdata('admin_logged_in')['fname'] . " " . $this->session->userdata('admin_logged_in')['lname'];
+                                                echo $this->session->userdata('admin_logged_in')['fname'] . " " . $this->session->userdata('admin_logged_in')['lname'].'!';
                                             }
 //                                        pr($this->session->userdata('admin_logged_in'),1);
-                                            ?> !</span>
+                                            ?> </span>
+
+                                            <div class="text-size-mini text-muted">
+                                            <i class="icon-user-tie text-size-small"></i>
+                                            <?php  echo (isset($this->session->userdata('admin_logged_in')['subadmin_id'])) ? "Sub Admin" : 'Admin'; ?>
+                                            
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -136,8 +142,9 @@
                         <?php
                         $current_page = $this->uri->segment(3);
                         $page = $this->uri->segment(2);
-                        $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types');
+                        $settings = array('roles', 'ticket_priorities', 'ticket_statuses', 'ticket_types', 'smtp_settings');
                         $knowledgebase = array('faq', 'articles');
+                        $email_templates = array('email_templates', 'add');
                         $newsletters = array('newsletters', 'subscribers');
                         ?>
                         <!-- Main navigation -->
@@ -161,8 +168,8 @@
                                     <?php if(in_array('2', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'staff') ? 'active' : ''; ?>"><a href="admin/staff"><i class="icon-people"></i> <span>Staff</span></a></li>
 
-<?php } ?>
-<?php if(in_array('3', $permissions) || empty($permissions)){ ?>
+                                    <?php } ?>
+                                    <?php if(in_array('3', $permissions) || empty($permissions)){ ?>
 
                                     <li class="<?php echo ($page == 'tickets') ? 'active' : ''; ?>"><a href="admin/tickets"><i class="icon-ticket"></i> <span>Tickets</span></a></li>
                                     <?php } ?>
@@ -197,6 +204,7 @@
                                         <a href="#"><i class="icon-gear"></i><span>Settings</span></a>
                                         <ul>
                                             <!-- <li class="<?php //echo ($current_page == 'roles') ? 'active' : '';    ?>"><a href="admin/manage/roles"><i class="icon-vcard"></i> <span>Roles</span></a></li> -->
+                                            <li class="<?php echo ($current_page == 'smtp_settings') ? 'active' : '';    ?>"><a href="admin/manage/smtp_settings"><i class="icon-envelop2"></i> <span>SMTP Settings</span></a></li>
                                             <li class="<?php echo ($current_page == 'ticket_priorities') ? 'active' : ''; ?>"><a href="admin/manage/ticket_priorities"><i class="icon-list-numbered"></i> <span>Ticket Priorities</span></a></li>
                                             <li class="<?php echo ($current_page == 'ticket_statuses') ? 'active' : ''; ?>"><a href="admin/manage/ticket_statuses"><i class="icon-stats-bars2"></i> <span>Ticket Statuses</span></a></li>
                                             <li class="<?php echo ($current_page == 'ticket_types') ? 'active' : ''; ?>"><a href="admin/manage/ticket_types"><i class="icon-grid-alt"></i> <span>Ticket Types</span></a></li>
@@ -223,10 +231,21 @@
                                         <a href="admin/news_announcements"><i class="icon-newspaper"></i> <span>News and Announcements</span></a>
                                     </li>
                                     <?php } ?>
+                                    <?php if(in_array('16', $permissions) || empty($permissions)){ ?>
+                                    <li class="<?php echo (in_array($page, $email_templates)) ? 'active' : ''; ?>">
+                                        <a href="#"><i class="icon-book"></i><span>Manage Email Templates</span></a>
+                                        <ul>
+                                            <li class="<?php echo ($page == 'email_templates') ? 'active' : ''; ?>"><a href="admin/email_templates"><i class="icon-question3"></i> <span>Email Templates List</span></a></li>
+                                            <li class="<?php echo ($current_page == 'add' && $page == 'email_templates') ? 'active' : ''; ?>"><a href="admin/email_templates/add"><i class="icon-magazine"></i> <span>Add New Template</span></a></li>
+
+                                        </ul>
+                                    </li>
+                                    <?php } ?>
+
                                    <?php if(in_array('12', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'home_slider') ? 'active' : ''; ?>"><a href="admin/home_slider"><i class="icon-images3"></i> <span>Home Page Slider</span></a>
                                     </li>
-                                    <?php } ?>
+                                    <?php } ?> 
                                     <?php if(in_array('13', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'logos') ? 'active' : ''; ?>"><a href="admin/logos"><i class="icon-images2"></i> <span>Logos</span></a>
                                     </li>

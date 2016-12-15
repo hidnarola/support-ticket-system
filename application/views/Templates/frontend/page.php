@@ -65,7 +65,9 @@
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                                     <li><a href="profile">Profile</a></li>
                                     <li><a href="profile/changepassword">Change Password</a></li>
-                                    <li><a href="tickets">Tickets</a></li>
+                                    <?php if($this->session->userdata('user_logged_in')['status']==1){ ?>
+                                <li><a href="tickets">Tickets</a></li>
+                                <?php } ?>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="login/logout">Logout <i class="icon-signout"></i></a></li>
                                 </ul>
@@ -220,7 +222,9 @@
                 <?php echo $body; ?>
 
             </section><!-- #content end -->
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+            <?php if($this->uri->segment(1)!='login'){ ?>
+                <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+                <?php } ?>
              <?php $this->load->view('Templates/frontend/footer'); ?>
         <script type="text/javascript" src="assets/frontend/js/plugins.js"></script>
         <script type="text/javascript" src="assets/frontend/js/components/bs-datatable.js"></script>

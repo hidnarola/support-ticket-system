@@ -13,4 +13,4 @@ $page_sec = $this->uri->segment(2);
         <a href="login/logout" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
     </div>
 </div>
-<?php $this->load->view('frontend/rightsidebar'); ?>
+<?php $this->load->view('Frontend/rightsidebar'); ?>
