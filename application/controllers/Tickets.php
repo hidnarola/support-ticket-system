@@ -181,7 +181,33 @@ class Tickets extends CI_Controller {
             $this->email->subject($email_template['email_subject']);
             $this->email->message($mail_body);
             $this->email->send();
-            $this->email->print_debugger();
+            $subadmins = send_mails_to_subadmin('1');
+             if(!empty($subadmins)){
+                foreach ($subadmins as $subadmin) {
+                    $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+
+                    $this->email->to($subadmin['email']);
+
+
+                    //--- set email template
+                    $firstname = $this->session->userdata('user_logged_in')['fname'];
+                    $lastname = $this->session->userdata('user_logged_in')['lname'];
+                    $name = $firstname.' '.$lastname;
+        //            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
+
+                    $message = $email_template['email_description'];
+                    eval("\$message = \"$message\";");
+                    $mail_body = "<html>\n";
+                    $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                    $mail_body = $message;
+                    $mail_body .= "</body>\n";
+                    $mail_body .= "</html>\n";
+
+                    $this->email->subject($email_template['email_subject']);
+                    $this->email->message($mail_body);
+                    $this->email->send();
+                }
+            }
 
 
             redirect('tickets');

@@ -14,7 +14,7 @@
 
 <div class="content">
 
-    <?php $this->load->view('admin/message_view'); ?>
+    <?php $this->load->view('Admin/message_view'); ?>
     <div class="panel panel-flat">
         <div class="panel-heading"></div>     
         <div class="panel-body">

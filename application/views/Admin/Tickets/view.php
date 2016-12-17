@@ -36,7 +36,7 @@
 </div>
 
 <div class="content">
-    <?php $this->load->view('admin/message_view'); ?>
+    <?php $this->load->view('Admin/message_view'); ?>
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
 

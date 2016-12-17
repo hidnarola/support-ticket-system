@@ -110,7 +110,7 @@ class Tickets extends CI_Controller {
             );
             $upadte = $this->Admin_model->manage_record($this->table, $ticArray, $lastTicketId);
 
-            
+            $tenant_user = $this->User_model->getUserById($this->input->post('user_id'));
 //            echo $getDeptStaff;
             $getStaffEmail = $this->Ticket_model->getStaffEmail($getDeptStaff);
 //            echo $getStaffEmail;exit;
@@ -128,9 +128,10 @@ class Tickets extends CI_Controller {
 
 
             //--- set email template
-            $firstname = $this->session->userdata('user_logged_in')['fname'];
-            $lastname = $this->session->userdata('user_logged_in')['lname'];
-//            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
+            $firstname = $tenant_user['fname'];
+            $lastname = $tenant_user['lname'];
+            $name = $firstname.' '.$lastname;
+//            $msg = $this->load->view('Admin/emails/send_mail', $data_array, TRUE);
 
             $message = $email_template['email_description'];
             eval("\$message = \"$message\";");
@@ -143,7 +144,35 @@ class Tickets extends CI_Controller {
             $this->email->subject($email_template['email_subject']);
             $this->email->message($mail_body);
             $this->email->send();
-            $this->email->print_debugger();
+            
+            $subadmins = send_mails_to_subadmin('1');
+             if(!empty($subadmins)){
+                foreach ($subadmins as $subadmin) {
+                    $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+
+                    $this->email->to($subadmin['email']);
+
+
+                    //--- set email template
+                    $firstname = $tenant_user['fname'];
+                    $lastname = $tenant_user['lname'];
+                    $name = $firstname.' '.$lastname;
+        //            $msg = $this->load->view('Admin/emails/send_mail', $data_array, TRUE);
+
+                    $message = $email_template['email_description'];
+                    eval("\$message = \"$message\";");
+                    $mail_body = "<html>\n";
+                    $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                    $mail_body = $message;
+                    $mail_body .= "</body>\n";
+                    $mail_body .= "</html>\n";
+
+                    $this->email->subject($email_template['email_subject']);
+                    $this->email->message($mail_body);
+                    $this->email->send();
+                }
+            }
+
             redirect('admin/tickets');
         }
     }
@@ -276,7 +305,7 @@ class Tickets extends CI_Controller {
             $dept_name = $depat_name->name;
                 $ticket_title = $get_ticket_title->title;
                 $email_template = get_template_details(3);
-       
+                
              $configs = mail_config();
                 $this->load->library('email', $configs);
                 $this->email->initialize($configs);
@@ -300,6 +329,7 @@ class Tickets extends CI_Controller {
                 $this->email->subject($email_template['email_subject']);
                 $this->email->message($message);
                 $this->email->send();
+
                 //exit;
             } elseif ($this->session->userdata('staffed_logged_in')) {
                
@@ -387,6 +417,29 @@ class Tickets extends CI_Controller {
             $this->email->subject($email_template['email_subject']);
             $this->email->message($mail_body);
             $this->email->send();
+
+            $subadmins = send_mails_to_subadmin('5');
+             if(!empty($subadmins)){
+                foreach ($subadmins as $subadmin) {
+                    $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+
+                    $this->email->to($subadmin['email']);
+
+                    $message = $email_template['email_description'];
+                    eval("\$message = \"$message\";");
+                    $mail_body = "<html>\n";
+                    $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                    $mail_body = $message;
+                    $mail_body .= "</body>\n";
+                    $mail_body .= "</html>\n";
+
+                    $this->email->subject($email_template['email_subject']);
+                    $this->email->message($mail_body);
+                    $this->email->send();
+                }
+            }
+
+
         } else if ($type == 'status_id') {
             $update_data = array(
                 'status_id' => $status_id
@@ -440,6 +493,34 @@ class Tickets extends CI_Controller {
                 $this->email->subject($email_template['email_subject']);
                 $this->email->message($mail_body);
                 $this->email->send();
+
+                $subadmins = send_mails_to_subadmin('2');
+
+             if(!empty($subadmins)){
+                foreach ($subadmins as $subadmin) {
+                    $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+
+                    $this->email->to($subadmin['email']);
+
+
+                    //--- set email template
+                    $name = $get_staff->fname . " " . $get_staff->lname;
+        //            $msg = $this->load->view('Admin/emails/send_mail', $data_array, TRUE);
+
+                    $message = $email_template['email_description'];
+                    eval("\$message = \"$message\";");
+                    $mail_body = "<html>\n";
+                    $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                    $mail_body = $message;
+                    $mail_body .= "</body>\n";
+                    $mail_body .= "</html>\n";
+
+                    $this->email->subject($email_template['email_subject']);
+                    $this->email->message($mail_body);
+                    $this->email->send();
+                }
+            }
+
             } elseif ($this->session->userdata('staffed_logged_in')) {
                 $is_head = $this->session->userdata('staffed_logged_in')['is_head'];
                 $email_template = get_template_details(5);
@@ -586,6 +667,10 @@ class Tickets extends CI_Controller {
 
             $sent_from = $this->session->userdata('admin_logged_in')['id'];
             $msg_from = 'admin';
+            if(isset($this->session->userdata('admin_logged_in')['subadmin_id'])){
+                $sent_from = $this->session->userdata('admin_logged_in')['subadmin_id'];
+                $msg_from = 'subadmin';
+            }
             if ($segment == 'staff') {
                 $msg_from = 'staff';
                 $sent_from = $this->session->userdata('staffed_logged_in')['id'];
@@ -758,7 +843,7 @@ class Tickets extends CI_Controller {
       $this->template->load('staff', 'Staff/Tickets/reply', $this->data);
       } else {
       $data['view'] = 'admin/404_notfound';
-      $this->load->view('admin/error/404_notfound', $data);
+      $this->load->view('Admin/error/404_notfound', $data);
       }
       }
 

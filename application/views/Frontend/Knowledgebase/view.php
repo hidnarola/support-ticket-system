@@ -125,7 +125,7 @@
 
             <!-- Sidebar
             ============================================= -->
-            <?php $this->load->view('frontend/rightsidebar'); ?>
+            <?php $this->load->view('Frontend/rightsidebar'); ?>
             <!-- .sidebar end -->
 
         </div>

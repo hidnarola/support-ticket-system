@@ -528,6 +528,14 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
             'name'=>$result['tfname'].' '.$result['tlname'],
             )
         );
+    if($sent_from == 'subadmin'){
+        $CI->load->model('Subadmin_Model');
+        $subadmin = $CI->Subadmin_Model->get_subadmin_detail($ticket_array['sent_from']);
+        $sent_to_array['subadmin'] = array(
+            'email'=>$subadmin['email'],
+            'name'=>$subadmin['fname'].' '.$subadmin['lname'],
+            );
+    }
     foreach ($sent_to_array as $key => $value) {
         if($key != $sent_from){
             $email_template = get_template_details(11);
@@ -558,17 +566,52 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
             
             // $CI->email->print_debugger();
             
-
         }
+
+    }
+
+    $subadmins = send_mails_to_subadmin('3');
+    if(!empty($subadmins)){
+        foreach ($subadmins as $subadmin) {
+            if($subadmin['user_id'] != $ticket_array['sent_from']){
+                $email_template = get_template_details(11);
+                $name = $subadmin['fname'].' '.$subadmin['lname'];
+                $series_no = $result['series_no'];
+                $title = $result['title'];
+                $ticket_message = $ticket_array['message']; 
+                $message = $email_template['email_description'];
+                
+                eval("\$message = \"$message\";");
+
+                $mail_body = "<html>\n";
+                $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                $mail_body = $message;
+                $mail_body .= "</body>\n";
+                $mail_body .= "</html>\n";
+
+                $configs = mail_config();
+                $CI->load->library('email', $configs);
+                $CI->email->initialize($configs);
+                $CI->email->from($email_template['sender_email'], $email_template['sender_name']);
+
+                $CI->email->to($subadmin['email']);
+                $CI->email->subject($email_template['email_subject']);
+                $CI->email->message($mail_body);
+                $CI->email->send();
+            }
+        }
+    }
         if($sent_from!='tenant'){
             $CI->load->library('push_notification');
             $messageText = $ticket_array['message'];
             $ticket_conversation = $CI->Admin_model->get_conversation($id);
             
 
-        $pushData = array('displaymessagedata' =>array(
+        $pushData = array("notification_type" => "data",
+            'displaymessagedata' =>array(
+
             "ticketconversationId"=> $ticket_conversation['id'],
-              "message"=> $ticket_conversation['id'],
+              "message"=> $ticket_conversation['message'],
               "ticketId"=> $id,
               "sent_from"=> $ticket_conversation['sent_from'],
               "status"=> 0,
@@ -579,13 +622,14 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
             ));
 
              // $response = $CI->push_notification->sendPushToAndroid($result['device_token'], $pushData, TRUE);
-             // $response = $CI->push_notification->sendPushiOS(array('deviceToken' => $result['device_token'], 'pushMessage' => $pushData),array());
+            $response = $CI->push_notification->sendPushiOS(array('deviceToken' => $result['device_token'], 'pushMessage' => $ticket_conversation['message']),$pushData);
      
             
-            //$response = $this->push_notification->sendPushToAndroid('erGo3QGLoAs:APA91bFNFlqnV7Qu6N7LCVoLpdLwIV5uD2VggiUEmYH-C_r6Ifs-ObAUJXX0rQIapcvdqpzS2aOzkw8J3ToUjezoJ3eqQ2s3xLBArnL_zbF-DnbW6zNzuZ43um5fPRdBAsDeb_77qTlK', $pushData, TRUE);
+            
+            pr($response,1);
+            // $response = $CI->push_notification->sendPushToAndroid($result['device_token'], $pushData, TRUE);
 
         }
-    }
 }
 
     function get_permissions(){
@@ -619,4 +663,10 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
         return $template;
     }
    
+    function send_mails_to_subadmin($email_notification){
+        $ci = &get_instance();
+        $ci->load->model('Subadmin_Model');
+        $subadmins = $ci->Subadmin_Model->get_subadmins_notification_id($email_notification);
+        return subadmins;
+    }
 

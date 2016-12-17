@@ -416,7 +416,7 @@ class Home extends CI_Controller {
 //--- set email template
             $firstname = $this->session->userdata('user_logged_in')['fname'];
             $lastname = $this->session->userdata('user_logged_in')['lname'];
-//            $msg = $this->load->view('admin/emails/send_mail', $data_array, TRUE);
+//            $msg = $this->load->view('Admin/emails/send_mail', $data_array, TRUE);
             $name = $firstname . " " . $lastname;
             $message = $email_template['email_description'];
             eval("\$message = \"$message\";");
@@ -429,8 +429,33 @@ class Home extends CI_Controller {
             $this->email->subject($email_template['email_subject']);
             $this->email->message($mail_body);
             $this->email->send();
-            $this->email->print_debugger();
-        }
+
+            $subadmins = send_mails_to_subadmin('4');
+            if(!empty($subadmins)){
+                foreach ($subadmins as $subadmin) {
+                    $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+                    $this->email->to($subadmin['email']);
+
+        //--- set email template
+                    $firstname = $this->session->userdata('user_logged_in')['fname'];
+                    $lastname = $this->session->userdata('user_logged_in')['lname'];
+
+                    $name = $firstname . " " . $lastname;
+                    $message = $email_template['email_description'];
+
+                    eval("\$message = \"$message\";");
+
+                    $mail_body = "<html>\n";
+                    $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                    $mail_body = $message;
+                    $mail_body .= "</body>\n";
+                    $mail_body .= "</html>\n";
+
+                    $this->email->subject($email_template['email_subject']);
+                    $this->email->message($mail_body);
+                    $this->email->send();
+                }
+            }
 
         echo json_encode($data);
         exit;
@@ -647,6 +672,46 @@ class Home extends CI_Controller {
             $this->email->message($mail_body);
             if($this->email->send()){
                 $data = array('status'=>'subscribed');
+            }
+
+            $email_template = get_template_details(12);
+            $admin = $this->Admin_model->get_admin();
+            $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body = $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+            
+            $configs = mail_config();
+            $this->load->library('email', $configs);
+            $this->email->initialize($configs);
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+            $this->email->to($admin['email']);
+            $this->email->subject($email_template['email_subject']);
+            $this->email->message($mail_body);
+            $this->email->send();
+
+            $subadmins = send_mails_to_subadmin('6');
+             if(!empty($subadmins)){
+                foreach ($subadmins as $subadmin) {
+                    $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+
+                    $this->email->to($subadmin['email']);
+
+                    $message = $email_template['email_description'];
+                    eval("\$message = \"$message\";");
+                    $mail_body = "<html>\n";
+                    $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                    $mail_body = $message;
+                    $mail_body .= "</body>\n";
+                    $mail_body .= "</html>\n";
+
+                    $this->email->subject($email_template['email_subject']);
+                    $this->email->message($mail_body);
+                    $this->email->send();
+                }
             }
 
             if ( isset( $data['status'] ) AND $data['status'] == 'subscribed' ){

@@ -17,8 +17,12 @@ class Sub_admin extends CI_Controller {
     public function index() {
         $this->data['title'] = 'Sub Admins';
         $subadmins = $this->Subadmin_model->get_subadmins();
-        // pr($subadmins,1);
+        $email_notifications = $this->Subadmin_model->get_all_email_notifications();
+        // $subadmin_email_notifications = $this->Subadmin_model->get_subadmin_email_notifications();
+        //pr($email_notifications,1);
         $this->data['subadmins'] = $subadmins;
+        $this->data['email_notifications'] = $email_notifications;
+        // $this->data['subadmin_email_notifications'] = $subadmin_email_notifications;
         $this->template->load('admin', 'Admin/Sub_admin/index', $this->data);
     }
 
@@ -78,7 +82,7 @@ class Sub_admin extends CI_Controller {
                     'email' => $email,
                     'url' => $url
                 );
-                $msg = $this->load->view('admin/emails/send_mail_new', $data_array, TRUE);
+                $msg = $this->load->view('Admin/emails/send_mail_new', $data_array, TRUE);
                 $this->email->subject('Your account is registred for dev.supportticket.com');
                 $this->email->message($msg);
                 $this->email->send();
@@ -101,5 +105,26 @@ class Sub_admin extends CI_Controller {
                 $this->session->set_flashdata('error_msg', 'Unable to delete the record.');
             }
             redirect('admin/sub_admin');
+    }
+
+    public function get_subadmin_email_notifications(){
+        $id = $this->input->post('subadmin_id');
+        $result = $this->Subadmin_model->get_subadmin_email_notifications($id);
+        $notifications = explode(',', $result['email_notifications']);
+        echo json_encode($notifications);
+        exit;
+    }
+
+    public function set_notifications(){
+        $subadmin_id = $this->input->post('subadmin_id');
+        $notifications = $this->input->post('email_notifications');
+        $email_notifications = implode(',', $notifications);
+        
+        if($this->Subadmin_model->set_notifications($subadmin_id, $email_notifications)){
+            $this->session->set_flashdata('msg', 'Saved successfully.');
+        }else{
+            $this->session->set_flashdata('msg', 'Something went wrong.');
+        }
+        redirect('admin/sub_admin');
     }
 }

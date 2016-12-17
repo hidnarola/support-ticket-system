@@ -39,7 +39,7 @@
 <div class="content">
     <div class="row">
         <?php
-        $this->load->view('admin/message_view');
+        $this->load->view('Admin/message_view');
         echo validation_errors();
         ?>
         <div class="col-md-12">

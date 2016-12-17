@@ -15,7 +15,7 @@
 
 <div class="content">
     <div class="row">
-         <?php $this->load->view('admin/message_view'); ?>
+         <?php $this->load->view('Admin/message_view'); ?>
         <div class="col-md-12">
             <?php
             $segment = $this->uri->segment(4);

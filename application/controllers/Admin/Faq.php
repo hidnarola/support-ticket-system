@@ -117,7 +117,7 @@ class Faq extends CI_Controller {
             }
         } else {
             $data['view'] = 'admin/404_notfound';
-            $this->load->view('admin/error/404_notfound', $data);
+            $this->load->view('Admin/error/404_notfound', $data);
         }
     }
 

@@ -13,7 +13,7 @@
 </div>
 
 <div class="content">
-    <?php $this->load->view('admin/message_view'); ?>
+    <?php $this->load->view('Admin/message_view'); ?>
     <div class="form-group">
         <label class="col-lg-2 control-label text-semibold">Upload:</label>
         <div class="col-lg-10">

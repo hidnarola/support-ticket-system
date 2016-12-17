@@ -45,7 +45,7 @@
 
                         <div class="form-group">
                             <label>SMTP Password:</label>
-                            <input type="text" name="smtp_password" class="form-control" placeholder="Enter SMTP Password" value="<?php echo $smtp_settings['smtp_password']; ?>">
+                            <input type="password" name="smtp_password" class="form-control" placeholder="Enter SMTP Password" value="<?php echo $smtp_settings['smtp_password']; ?>">
                         </div>
 
 

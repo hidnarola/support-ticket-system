@@ -18,7 +18,7 @@ $segment = $this->uri->segment(1);
 </div>
 
 <div class="content">
-    <?php $this->load->view('admin/message_view'); ?>
+    <?php $this->load->view('Admin/message_view'); ?>
     <!-- Table header styling -->
     <div class="panel panel-flat">
         <div class="panel-heading">

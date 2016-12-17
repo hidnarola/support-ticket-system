@@ -106,7 +106,7 @@ class Beacons extends CI_Controller {
         }
         if ($flag == 0) {
             $data['view'] = 'admin/404_notfound';
-            $this->load->view('admin/error/404_notfound', $data);
+            $this->load->view('Admin/error/404_notfound', $data);
         }
     }
     public function delete() {

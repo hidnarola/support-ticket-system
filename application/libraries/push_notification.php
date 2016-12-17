@@ -37,10 +37,10 @@ class push_notification {
 
         if (ENVIRONMENT == "production") {
             $apns_url = 'gateway.push.apple.com';
-            $apns_cert = 'prod.pem';
+            $apns_cert = 'ck.pem';
         } else {
             $apns_url = 'gateway.sandbox.push.apple.com';
-            $apns_cert = 'dev.pem';
+            $apns_cert = 'ck.pem';
         }
 
         $stream_context = stream_context_create();
@@ -68,7 +68,9 @@ class push_notification {
             //print("\nAPN: Opening connection to: {ssl://" . $apns_url . ":" . $apns_port . "}");
 
             if (!empty($tokens)) {
+                
                 foreach ($tokens as $device_token) {
+                    
                     //$apns_message = chr(0) . chr(0) . chr(32) . pack('H*', str_replace(' ', '', $device_token)) . chr(0) . chr(strlen($payload)) . $payload;
                     $apns_message = chr(1)           // command
                             . pack("N", time())       // identifier

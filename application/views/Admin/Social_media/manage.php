@@ -15,7 +15,7 @@
 </div>
 <div class="content">
     <div class="row">
-        <?php $this->load->view('admin/message_view'); ?>
+        <?php $this->load->view('Admin/message_view'); ?>
 
         <div class="col-md-6">
             <form method="POST" action="admin/social_media" class="form-horizontal  form-validate-jquery manage_record" enctype="multipart/form-data"  id="manage_record" name="manage_record">

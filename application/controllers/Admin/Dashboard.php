@@ -376,7 +376,7 @@ class Dashboard extends CI_Controller {
     public function access_denied() {
         $data['title'] = 'Access Denied';
         $data['view'] = 'admin/access_denied';
-        $this->load->view('admin/error/access_denied', $data);
+        $this->load->view('Admin/error/access_denied', $data);
     }
 
     public function smtp_settings() {

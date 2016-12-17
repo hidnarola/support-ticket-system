@@ -15,7 +15,7 @@
 </div>
 <div class="content">
     <div class="row">
-        <?php $this->load->view('admin/message_view'); ?>
+        <?php $this->load->view('Admin/message_view'); ?>
 
         <div class="col-md-6">
             <form method="POST" class="form-horizontal form-validate-jquery manage_record" id="manage_record" name="manage_record">

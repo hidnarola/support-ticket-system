@@ -216,7 +216,7 @@ class Login extends CI_Controller {
                 'email' => $useremail,
                 'url' => $url
             );
-            $msg = $this->load->view('admin/emails/send_mail_new', $data_array, TRUE);
+            $msg = $this->load->view('Admin/emails/send_mail_new', $data_array, TRUE);
             $this->email->subject($email_template['email_subject']);
             $this->email->message($msg);
             $this->email->send();
@@ -254,7 +254,7 @@ class Login extends CI_Controller {
     public function page_not_found() {
         $data['title'] = 'Page Not Found';
         $data['view'] = 'admin/404_notfound';
-        $this->load->view('admin/error/404_notfound', $data);
+        $this->load->view('Admin/error/404_notfound', $data);
     }
 
 }

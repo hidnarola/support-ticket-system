@@ -113,6 +113,7 @@ define('TBL_TENANT_CONTRACTS','tenant_contracts');
 define('TBL_SUBADMIN_MODULES','subadmin_modules');
 define('TBL_MODULES','modules');
 define('TBL_EMAIL_TEMPLATES','email_templates');
+define('TBL_EMAIL_NOTIFICATIONS','email_notifications');
 define('TBL_BEACONS','beacons');
 
 
