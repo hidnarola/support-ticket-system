@@ -75,9 +75,15 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.1.201',
-	'username' => 'support_ticket',
-	'password' => '0g672I8AuKV332e',
+	// 'hostname' => '192.168.1.201',
+	// 'username' => 'support_ticket',
+	// 'password' => '0g672I8AuKV332e',
+
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '234xdf67ghjjl90k',
+
+
 	'database' => 'support_ticket',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
