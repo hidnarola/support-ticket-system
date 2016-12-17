@@ -98,6 +98,10 @@ $route['admin/users/getPassword'] = 'Admin/Users/getPassword';
 $route['admin/users/changePasswordAdmin'] = 'Admin/Users/changePasswordAdmin';
 
 $route['admin/pages'] = 'Admin/Pages';
+$route['admin/sub_admin/get_subadmin_email_notifications'] = 'Admin/Sub_admin/get_subadmin_email_notifications';
+$route['admin/email_templates'] = 'Admin/Email_templates';
+$route['admin/email_templates/add'] = 'Admin/Email_templates/add';
+$route['admin/email_templates/edit/(:any)'] = 'Admin/Email_templates/edit/$1';
 $route['admin/projects'] = 'Admin/Projects';
 $route['admin/projects/add'] = 'Admin/Projects/add';
 $route['admin/projects/edit/(:any)'] = 'Admin/Projects/edit/$1';
