@@ -456,10 +456,11 @@ class Home extends CI_Controller {
                     $this->email->send();
                 }
             }
-
+        }
         echo json_encode($data);
         exit;
     }
+
 
     public function loadmore() {
         $type = $this->input->post('type');
