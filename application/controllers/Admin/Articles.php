@@ -14,6 +14,7 @@ class Articles extends CI_Controller {
         $this->load->model('Article_model');
         $this->load->helper('text');
         $this->table = TBL_ARTICLES;
+        $this->load->library('push_notification');
     }
 
     public function index() {
@@ -103,6 +104,45 @@ class Articles extends CI_Controller {
                 'created' => date('Y-m-d H:i:s')
             );
             if ($this->Article_model->add($data)) {
+                $id = $this->db->insert_id();
+                $article_data = (array) $this->Article_model->viewArticle($id, TBL_ARTICLES);
+               
+                $pushData = array("notification_type" => "data",
+                        "Articledata"=> array(
+                                "category_id"=> $article_data['category_id'],
+                              "categoryName"=> $article_data['cat_name'],
+                              "articlesarr"=>array(
+                                       "articleImages"=> $article_data['image'] ,
+                                      "articleId"=> $article_data['id'],
+                                      "title"=> $article_data['title'],
+                                      "slug"=> $article_data['slug'],
+                                      "descriptions"=> $article_data['description'],
+                                      "userId"=> $article_data['user_id'],
+                                      "is_visible"=> $article_data['is_visible'],
+                                      "expiry_date"=> $article_data['expiry_date'],
+                                      "is_delete"=> $article_data['is_delete'],
+                                      "created_date"=> $article_data['created'],
+                                      "modified_date"=> $article_data['modified']
+                                    )
+                            )
+                        );
+              
+
+                    $tenants = $this->Admin_model->get_tenants();
+                    
+                    foreach ($tenants as $tenant) {
+                        
+                        if(!is_null($tenant['device_token'])){
+                        if($tenant['device_make']==0){
+                            $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'articles notification'),$pushData);
+                        }else{
+                            $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
+                        }
+                          
+                        }
+                    }
+
+               
                 $this->session->set_flashdata('success_msg', 'Article saved successfully.');
                 redirect('admin/articles');
             } else {

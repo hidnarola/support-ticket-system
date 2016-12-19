@@ -24,7 +24,7 @@ class Dashboard extends CI_Controller {
     }
 
     public function index($type = NULL) {
-
+       
         // $response = $this->push_notification->sendPushiOS(array('deviceToken' => $image['device_id'], 'pushMessage' => $messageText),array());
 
         $maxDays = date('t');

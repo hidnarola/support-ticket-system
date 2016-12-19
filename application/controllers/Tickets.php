@@ -13,6 +13,7 @@ class Tickets extends CI_Controller {
         $this->table = TBL_TICKETS;
         $this->perpageSuffix = "";
         $this->filterSuffix = "";
+        $this->load->library('push_notification');
 
         if ($this->input->get('perpage'))
             $this->perpageSuffix = "?perpage=" . $this->input->get('perpage');
@@ -147,7 +148,45 @@ class Tickets extends CI_Controller {
 
             $upadte =  $this->Admin_model->manage_record($this->table, $ticArray,$lastTicketId);
             
+            $ticket_data = (array) $this->Ticket_model->get_ticket($lastTicketId);
+               
+                $pushData = array("notification_type" => "data",
+                        "data"=> array(
+                                "ticketId"=> $ticket_data['id'],
+                                  "title"=> $ticket_data['title'],
+                                  "deptId"=> $ticket_data['dept_id'],
+                                  "departmentName"=> $ticket_data['dept_name'],
+                                  "tickettypeId"=> $ticket_data['ticket_type_id'],
+                                  "tickettypeName"=> $ticket_data['type_name'],
+                                  "priorityId"=> $ticket_data['priority_id'],
+                                  "ticketPriority"=> $ticket_data['priority_name'],
+                                  "statusId"=> $ticket_data['status_id'],
+                                  "ticketStatus"=> $ticket_data['status_name'],
+                                  "userId"=> $ticket_data['user_id'],
+                                  "is_read"=> $ticket_data['is_read'],
+                                  "descriptions"=> $ticket_data['description'],
+                                  "is_delete"=> $ticket_data['is_delete'],
+                                  "seriesNo"=> $ticket_data['series_no'],
+                                  "ticketImages"=> $ticket_data['image']
+                            )
+                        );
+              
 
+                   
+
+
+                    $tenant = $this->User_model->getUserById($ticket_data['user_id']);
+                    
+                    
+                        
+                        if(!is_null($tenant['device_token'])){
+                        if($tenant['device_make']==0){
+                            $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'New Ticket'),$pushData);
+                        }else{
+                            $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
+                        }
+                          
+                        }
 //            echo $getDeptStaff;
             $getStaffEmail = $this->Ticket_model->getStaffEmail($getDeptStaff);
             /* To send mail to the user */

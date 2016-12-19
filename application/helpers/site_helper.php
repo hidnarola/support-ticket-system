@@ -621,12 +621,19 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
               "userImages"=> "http://clientapp.narola.online/HD/support-ticket-system/uploads/user_profile_image/original/3fafd0788a797b280357ab083afa0886.png"
             ));
 
-             // $response = $CI->push_notification->sendPushToAndroid($result['device_token'], $pushData, TRUE);
-            $response = $CI->push_notification->sendPushiOS(array('deviceToken' => $result['device_token'], 'pushMessage' => $ticket_conversation['message']),$pushData);
-     
+            
+        
+                        
+            if(!is_null($result['device_token'])){
+                if($result['device_make']==0){
+                    $response = $CI->push_notification->sendPushiOS(array('deviceToken' => trim($result['device_token']), 'pushMessage' => $ticket_conversation['message']),$pushData);
+                }else{
+                    $response = $CI->push_notification->sendPushToAndroid(trim($result['device_token']), $pushData, TRUE);
+                }
+            }
             
             
-            pr($response,1);
+            // pr($response,1);
             // $response = $CI->push_notification->sendPushToAndroid($result['device_token'], $pushData, TRUE);
 
         }

@@ -14,9 +14,11 @@ class News extends CI_Controller {
         $this->load->model('News_model');
         $this->load->helper('text');
         $this->table = TBL_NEWS_ANNOUNCEMENTS;
+        $this->load->library('push_notification');
     }
 
     public function index($type = null) {
+        
         $this->data['title'] = $this->data['page_header'] = 'News And Announcements';
         $this->data['icon_class'] = 'icon-newspaper';
         $search_text = '';
@@ -38,7 +40,7 @@ class News extends CI_Controller {
         $this->data['title'] = $this->data['page_header'] = 'Add News/Announcement';
         $this->data['page'] = 'News/Announcement';
         $this->data['icon_class'] = 'icon-newspaper';
-
+        $flag = 0;
         $this->form_validation->set_rules('title', 'Title', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         if ($this->form_validation->run() == TRUE) {
@@ -93,7 +95,40 @@ class News extends CI_Controller {
                     'created' => date('Y-m-d H:i:s')
                 );
                 if ($this->News_model->add($data)) {
+                    $id = $this->db->insert_id();
+                    $news_data = $this->News_model->get_data_by_id($id);
+                   
+                    $pushData = array("notification_type" => "data",
+                        "Newsdata"=> array(
+                        "newsannouncementsImages"=> $news_data['image'],
+                          "newsannouncementsId"=> $news_data['id'],
+                          "title"=> $news_data['title'],
+                          "slug"=> $news_data['slug'],
+                          "descriptions"=> $news_data['description'],
+                          "userId"=> $news_data['user_id'],
+                          "is_news"=> $news_data['is_news'],
+                          "is_delete"=> 0,
+                          "created_date"=> $news_data['created'],
+                          "modified_date"=> $news_data['modified']
+                        
+                    ));
+
+                    $tenants = $this->Admin_model->get_tenants();
                     
+                    foreach ($tenants as $tenant) {
+                        
+                        if(!is_null($tenant['device_token'])){
+                        if($tenant['device_make']==0){
+                            $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'news notification'),$pushData);
+                            
+                        }else{
+                            $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
+                        }
+                          
+                        }
+                    }
+                    
+                   
                     $this->session->set_flashdata('success_msg', 'Detail saved successfully.');
                     redirect('admin/news');
                 } else {
