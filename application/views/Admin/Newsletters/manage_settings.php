@@ -46,6 +46,19 @@
             <form class="form-horizontal form-validate-jquery" action="" id="newsletter_settings" method="POST">
                 <div class="panel panel-flat">
                     <div class="panel-body">
+                     <div class="form-group template_div">
+                            <label class="col-md-3">Email Subject<font color="red">*</font>:</label>
+                            <div class="col-md-6">
+                              <input type="text" name="subject" required="" class="form-control" placeholder="Enter Email Subject" value="<?php echo (isset($newsletter_settings) && $newsletter_settings['subject']!='') ? $newsletter_settings['subject'] : 'Manazel-Newsletter'; ?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group template_div">
+                            <label class="col-md-3">Sender Name<font color="red">*</font>:</label>
+                            <div class="col-md-6">
+                              <input type="text" name="sender_name" required="" class="form-control" placeholder="Enter Sender Name" value="<?php echo (isset($newsletter_settings) && $newsletter_settings['sender_name']!='') ? $newsletter_settings['sender_name'] : 'Manazel Specialists'; ?>">
+                            </div>
+                        </div>
                         <?php /*
                           <fieldset>
                           <legend class="text-semibold">

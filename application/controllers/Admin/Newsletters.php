@@ -152,6 +152,8 @@ class Newsletters extends CI_Controller {
                 } else {
                     $array['is_auto'] = 0;
                 }
+                $array['subject'] = $this->input->post('subject');
+                $array['sender_name'] = $this->input->post('sender_name');
 
                 if ($check_newsletter_setting) {
                     $condition = ' newsletter_id = ' . $newsletter_id;
@@ -278,11 +280,15 @@ class Newsletters extends CI_Controller {
         $this->load->library('email', $configs);
         $this->email->initialize($configs);
         $body = $newsletter_data[0]['content'];
-        // pr($users,1);
+        $smtp_details = $this->Admin_model->get_smtp_details();
+        // pr($smtp_details,1);
+        $keys = array_column($smtp_details, 'key');
+        $values = array_column($smtp_details, 'value');
+        $smtp = array_combine($keys, $values);
         foreach ($users as $user) {
-            $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
+            $this->email->from($smtp['smtp_email'], $newsletter_data[0]['sender_name']);
             $this->email->to($user);
-            $this->email->subject('Manazel - Newsletter');
+            $this->email->subject($newsletter_data[0]['subject']);
             $this->email->message($body);
             $this->email->send();
         }
