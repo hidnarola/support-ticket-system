@@ -112,6 +112,8 @@ $route['admin/header_footer_control'] = 'Admin/Header_footer_control';
 $route['admin/newsletters'] = 'Admin/Newsletters';
 $route['admin/newsletters/edit/(:num)'] = 'Admin/Newsletters/edit/$1';
 $route['admin/newsletters/settings/(:num)'] = 'Admin/Newsletters/settings/$1';
+$route['admin/newsletters/send/(:any)/(:any)'] = 'Admin/Newsletters/send/$1/$2';
+$route['admin/newsletters/send_newsletter'] = 'Admin/Newsletters/send_newsletter';
 
 $route['admin/faq'] = 'Admin/Faq';
 $route['admin/faq/add'] = 'Admin/Faq/add';

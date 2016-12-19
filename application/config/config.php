@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$base_url = 'http://35.154.4.76/';
 
+if ($_SERVER['HTTP_HOST'] == 'dev.supportticket.com') {
+   $base_url = 'http://dev.supportticket.com/';
+}
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -24,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://dev.supportticket.com/';
-$config['base_url'] = 'http://35.154.4.76/';
+$config['base_url'] = $base_url;
 
 /*
 |--------------------------------------------------------------------------

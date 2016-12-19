@@ -1,6 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$host = 'localhost';
+$username = 'root';
+$password = '234xdf67ghjjl90k';
 
+
+if ($_SERVER['HTTP_HOST'] == 'dev.supportticket.com') {
+    $host = '192.168.1.201';
+    $username = 'support_ticket';
+    $password = '0g672I8AuKV332e';
+}
 /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
@@ -79,9 +88,9 @@ $db['default'] = array(
 	// 'username' => 'support_ticket',
 	// 'password' => '0g672I8AuKV332e',
 
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '234xdf67ghjjl90k',
+	'hostname' => $host,
+	'username' => $username,
+	'password' => $password,
 
 
 	'database' => 'support_ticket',

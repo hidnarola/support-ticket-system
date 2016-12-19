@@ -255,7 +255,6 @@ class Newsletters extends CI_Controller {
         $newsletter_id = $this->input->post('newsletter_id');
         $type = $this->input->post('type');
         $newsletter_data = $this->Newsletter_model->get_result(TBL_NEWSLETTER_SETTINGS, 'newsletter_id =' . $newsletter_id);
-
         $users = array();
         if ($type == 'testing') {
             $testing_emails = $this->Newsletter_model->get_result(TBL_NEWSLETTERS_TEST_EMAILS, 'newsletter_id =' . $newsletter_id);
@@ -281,7 +280,6 @@ class Newsletters extends CI_Controller {
         $body = $newsletter_data[0]['content'];
         // pr($users,1);
         foreach ($users as $user) {
-
             $this->email->from('demo.narola@gmail.com', 'dev.supportticket.com');
             $this->email->to($user);
             $this->email->subject('Manazel - Newsletter');
