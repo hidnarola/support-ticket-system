@@ -121,9 +121,11 @@
                         }
                     }
                     $('#posts').append(str);
-                }
-            });
-        });
+                    
+                  
+                        }
+                    });
+                });
     });
 
     function get_result(data) {
@@ -166,5 +168,6 @@
         });
 
         return str;
+
     }
 </script>

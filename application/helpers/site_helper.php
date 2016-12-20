@@ -618,7 +618,7 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
               "created_date"=> $ticket_conversation['created'],
               "fname"=> $ticket_conversation['fname'],
               "lname"=> $ticket_conversation['lname'],
-              "userImages"=> "http://clientapp.narola.online/HD/support-ticket-system/uploads/user_profile_image/original/3fafd0788a797b280357ab083afa0886.png"
+              "userImages"=> $result['profile_pic']
             ));
 
             
@@ -626,7 +626,7 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
                         
             if(!is_null($result['device_token'])){
                 if($result['device_make']==0){
-                    $response = $CI->push_notification->sendPushiOS(array('deviceToken' => trim($result['device_token']), 'pushMessage' => $ticket_conversation['message']),$pushData);
+                    $response = $CI->push_notification->sendPushiOS(array('deviceToken' => trim($result['device_token']), 'pushMessage' => 'Ticket New Message'),$pushData);
                 }else{
                     $response = $CI->push_notification->sendPushToAndroid(trim($result['device_token']), $pushData, TRUE);
                 }
