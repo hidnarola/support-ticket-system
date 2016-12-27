@@ -39,6 +39,7 @@ class Tickets extends CI_Controller {
         $form = $this->input->get_post('form');
         $form = explode('&', $form);
 
+//        pr($form);exit;
         $form['select_type'] = explode('=', $form[1]);
         $type = $form['select_type'][1];
 
@@ -188,10 +189,144 @@ class Tickets extends CI_Controller {
             $update_data = array(
                 'status_id' => $status_id
             );
+
+            $email_template = get_template_details(17);
+
+            $configs = mail_config();
+            $this->load->library('email', $configs);
+            $this->email->initialize($configs);
+
+            $get_ticket_title = $this->User_model->getFieldById($record_id, 'title', TBL_TICKETS);
+            $ticket_title = $get_ticket_title->title;
+            $get_ticket_detail1 = $this->User_model->getFieldById($record_id, 'user_id', TBL_TICKETS);
+            $user = $this->User_model->getFieldById($get_ticket_detail1->user_id, 'email', TBL_USERS);
+            $tenantemail = $user->email;
+
+            $status = $this->User_model->getFieldById($status_id, 'name', TBL_TICKET_STATUSES);
+            $status_name = $status->name;
+            $admin = $this->User_model->getAdmin();
+            $getadminEmail = $admin['email'];
+
+//            $toemail = array($getadminEmail, $tenantemail);
+//            pr($toemail);
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+            $this->email->to($getadminEmail);
+
+            $link = "<a href='" . base_url() . "admin/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
+            $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body .= $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+            $this->email->subject($email_template['email_subject']);
+            $this->email->message($message);
+            $this->email->send();
+
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+            $this->email->to($tenantemail);
+            $link = "<a href='" . base_url() . "tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
+            $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body .= $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+            $this->email->subject($email_template['email_subject']);
+            $this->email->message($message);
+            $this->email->send();
+            
+            /* Send email to head department */
+            $get_ticket_detail = $this->User_model->getFieldById($record_id, 'dept_id', TBL_TICKETS);
+            $getDeptStaff = $this->Ticket_model->getDeptStaff($get_ticket_detail->dept_id);
+            $staffhead_email = $this->Ticket_model->getStaffEmail($getDeptStaff);
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+            $this->email->to($staffhead_email);
+            $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
+            $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body .= $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+            $this->email->subject($email_template['email_subject']);
+            $this->email->message($message);
+            $this->email->send();
+            
         } else if ($type == 'priority_id') {
             $update_data = array(
                 'priority_id' => $priority_id
             );
+
+            $email_template = get_template_details(18);
+
+            $configs = mail_config();
+            $this->load->library('email', $configs);
+            $this->email->initialize($configs);
+
+            $get_ticket_title = $this->User_model->getFieldById($record_id, 'title', TBL_TICKETS);
+            $ticket_title = $get_ticket_title->title;
+            $get_ticket_detail1 = $this->User_model->getFieldById($record_id, 'user_id', TBL_TICKETS);
+            $user = $this->User_model->getFieldById($get_ticket_detail1->user_id, 'email', TBL_USERS);
+            $tenantemail = $user->email;
+
+            $priority = $this->User_model->getFieldById($priority_id, 'name', TBL_TICKET_PRIORITIES);
+            $priority_name = $priority->name;
+            $admin = $this->User_model->getAdmin();
+            $getadminEmail = $admin['email'];
+
+//            $toemail = array($getadminEmail, $tenantemail);
+//            pr($toemail);
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+            $this->email->to($getadminEmail);
+
+            $link = "<a href='" . base_url() . "admin/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
+            $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body .= $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+            $this->email->subject($email_template['email_subject']);
+            $this->email->message($message);
+            $this->email->send();
+
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+            $this->email->to($tenantemail);
+            $link = "<a href='" . base_url() . "tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
+            $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body .= $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+            $this->email->subject($email_template['email_subject']);
+            $this->email->message($message);
+            $this->email->send();
+
+            /* Send email to head department */
+            $get_ticket_detail = $this->User_model->getFieldById($record_id, 'dept_id', TBL_TICKETS);
+            $getDeptStaff = $this->Ticket_model->getDeptStaff($get_ticket_detail->dept_id);
+            $staffhead_email = $this->Ticket_model->getStaffEmail($getDeptStaff);
+            $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+            $this->email->to($staffhead_email);
+            $link = "<a href='" . base_url() . "staff/tickets/view/" . urldecode($id) . "'><b>" . $ticket_title . "</b></a>";
+            $message = $email_template['email_description'];
+            eval("\$message = \"$message\";");
+            $mail_body = "<html>\n";
+            $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+            $mail_body .= $message;
+            $mail_body .= "</body>\n";
+            $mail_body .= "</html>\n";
+            $this->email->subject($email_template['email_subject']);
+            $this->email->message($message);
+            $this->email->send();
+            
         } else if ($type == 'staff_id') {
             $update_data = array(
                 'staff_id' => $staff_id

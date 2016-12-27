@@ -108,7 +108,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h6 class="modal-title"></h6>
             </div>
-            <form id="change_action" class="form-validate" novalidate method="post" action="admin/tickets/changeAction">
+            <form id="change_action" class="form-validate" novalidate method="post" action="staff/tickets/changeAction">
                 <input type="hidden" id="hidden_value" name="hidden_value" value=""/>
                 <input type="hidden" id="select_type" name="select_type" value=""/>
                 <input type="hidden" id="hidden_id" name="hidden_id" value=""/>
@@ -296,7 +296,7 @@
                     $('#status_val').val('');
                     $('#priority_val').val('');
                     $('.loader').hide();
-                    window.location.reload();
+//                    window.location.reload();
                 } else {
                 }
             });

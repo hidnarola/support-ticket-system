@@ -201,6 +201,7 @@ $segment = $this->uri->segment(1);
                     </div>
                     <div class="form-group" id="staff_id" style="display:none">
                         <select class="select" id="staff_val" name="staff_id" required="">
+                              <option value="">Select Staff</option>
                         </select>
                     </div>
                 </div>
@@ -331,6 +332,7 @@ $segment = $this->uri->segment(1);
     $(function () {
         $("#change_action").submit(function (event) {
             var url = $(this).attr('action');
+             $("#staff_val").select2();
              $('.loader').show();
             $.ajax({
                 url: url,

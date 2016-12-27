@@ -488,7 +488,7 @@ if(in_array('3', $permissions) || empty($permissions)){ ?>
                     $('#status_val').val('');
                     $('#priority_val').val('');
                     $('.loader').hide();
-                   window.location.reload();
+//                   window.location.reload();
                 } else {
                 }
             });
