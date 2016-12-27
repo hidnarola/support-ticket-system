@@ -99,6 +99,7 @@ class News extends CI_Controller {
                     $news_data = $this->News_model->get_data_by_id($id);
                    
                     $pushData = array("notification_type" => "data",
+                        'notification_for'=>'news_announcement',
                         "Newsdata"=> array(
                         "newsannouncementsImages"=> $news_data['image'],
                           "newsannouncementsId"=> $news_data['id'],

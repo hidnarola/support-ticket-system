@@ -608,6 +608,7 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
             
 
         $pushData = array("notification_type" => "data",
+            'notification_for'=>'new message',
             'displaymessagedata' =>array(
 
             "ticketconversationId"=> $ticket_conversation['id'],

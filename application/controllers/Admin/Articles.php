@@ -108,6 +108,7 @@ class Articles extends CI_Controller {
                 $article_data = (array) $this->Article_model->viewArticle($id, TBL_ARTICLES);
                
                 $pushData = array("notification_type" => "data",
+                    'notification_for'=>'article',
                         "Articledata"=> array(
                                 "category_id"=> $article_data['category_id'],
                               "categoryName"=> $article_data['cat_name'],

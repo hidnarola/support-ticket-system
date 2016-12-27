@@ -114,6 +114,7 @@ class Tickets extends CI_Controller {
             $ticket_data = (array) $this->Ticket_model->get_ticket($lastTicketId);
                
                 $pushData = array("notification_type" => "data",
+                    'notification_for'=>'new ticket',
                         "data"=> array(
                                 "ticketId"=> $ticket_data['id'],
                                   "title"=> $ticket_data['title'],
