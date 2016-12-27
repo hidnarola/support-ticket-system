@@ -529,8 +529,8 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
             )
         );
     if($sent_from == 'subadmin'){
-        $CI->load->model('Subadmin_Model');
-        $subadmin = $CI->Subadmin_Model->get_subadmin_detail($ticket_array['sent_from']);
+        $CI->load->model('Subadmin_model');
+        $subadmin = $CI->Subadmin_model->get_subadmin_detail($ticket_array['sent_from']);
         $sent_to_array['subadmin'] = array(
             'email'=>$subadmin['email'],
             'name'=>$subadmin['fname'].' '.$subadmin['lname'],
@@ -642,7 +642,8 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
     function get_permissions(){
         $ci = &get_instance();
         if(isset($ci->session->userdata('admin_logged_in')['subadmin_id'])){
-            $permissions = $ci->Subadmin_Model->get_subadmin_modules($ci->session->userdata('subadmin_id'));
+            $ci->load->model('Subadmin_model');
+            $permissions = $ci->Subadmin_model->get_subadmin_modules($ci->session->userdata('subadmin_id'));
             if($permissions['module_ids']!=''){
                 $ci->session->set_userdata('module_ids', $permissions['module_ids']);
             }
@@ -672,8 +673,8 @@ function send_message_notification($id, $sent_from=null, $ticket_array=null){
    
     function send_mails_to_subadmin($email_notification){
         $ci = &get_instance();
-        $ci->load->model('Subadmin_Model');
-        $subadmins = $ci->Subadmin_Model->get_subadmins_notification_id($email_notification);
+        $ci->load->model('Subadmin_model');
+        $subadmins = $ci->Subadmin_model->get_subadmins_notification_id($email_notification);
         return subadmins;
     }
 
