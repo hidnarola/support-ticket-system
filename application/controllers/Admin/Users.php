@@ -108,18 +108,18 @@ class Users extends CI_Controller {
                 $this->Admin_model->manage_record($this->table, $data);
                 $lastUserId = $this->Admin_model->getLastInsertId(TBL_USERS);
                 if ($role_id == 2) {
-                    $conditions = array('is_head'=>1,
-                        'dept_id'=>$this->input->post('dept_id'),
-                        'is_delete'=>0
-                        );
+                    $conditions = array('is_head' => 1,
+                        'dept_id' => $this->input->post('dept_id'),
+                        'is_delete' => 0
+                    );
                     $if_first = $this->Admin_model->record_exist(TBL_STAFF, $conditions);
 
                     $staff_array = array(
                         'user_id' => $lastUserId,
                         'dept_id' => $this->input->post('dept_id')
                     );
-                    if($if_first==0){
-                        $staff_array['is_head'] =1;
+                    if ($if_first == 0) {
+                        $staff_array['is_head'] = 1;
                     }
                     $this->Admin_model->manage_record(TBL_STAFF, $staff_array);
                 }
@@ -139,7 +139,7 @@ class Users extends CI_Controller {
                 } else {
                     $url = base_url() . 'home/verifyStaff?key=' . $unique_code . '&u=' . $lastUserId1;
                 }
-                
+
                 $message = $email_template['email_description'];
                 eval("\$message = \"$message\";");
                 //--- set email template
@@ -154,7 +154,6 @@ class Users extends CI_Controller {
                 $this->email->message($msg);
                 $this->email->send();
                 // $this->email->print_debugger();
-
                 // $this->email->print_debugger();
 // pr($data, 1);
                 if ($user_type == 'tenant') {
@@ -257,7 +256,7 @@ class Users extends CI_Controller {
                         $exts = explode(".", $_FILES['profile_pic']['name']);
 //                        $name = $exts[0] . time() . "." . $exts[1];
 //                        $name = "profile-" . date("mdYhHis") . "." . $exts[1];
-                         $name = $exts[0] . time() . "." . end($exts);
+                        $name = $exts[0] . time() . "." . end($exts);
 
                         $config['upload_path'] = USER_PROFILE_IMAGE;
                         $config['allowed_types'] = implode("|", $img_array);
@@ -400,13 +399,163 @@ class Users extends CI_Controller {
             $record_id = base64_decode($id);
             $status = $this->User_model->getFieldById($record_id, 'status', $this->table);
             $this->User_model->updateField('id', $record_id, 'status', ($status->status == 0) ? 1 : 0, $this->table);
+
+            /* get user by Id */
+            $tenant_user = $this->User_model->getUserById($record_id);
             if ($status->status == 0) {
-                $this->session->set_flashdata('success_msg', 'User has been approved!');
+                /* To send mail to the user and admin */
+                $email_template = get_template_details(13);
+                $configs = mail_config();
+                $this->load->library('email', $configs);
+                $this->email->initialize($configs);
+                $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+
+                $this->email->to($tenant_user['email']);
+                //--- set email template
+                $firstname = $tenant_user['fname'];
+                $lastname = $tenant_user['lname'];
+                $username = $firstname . ' ' . $lastname;
+                $message = $email_template['email_description'];
+                eval("\$message = \"$message\";");
+                $mail_body = "<html>\n";
+                $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                $mail_body = $message;
+                $mail_body .= "</body>\n";
+                $mail_body .= "</html>\n";
+
+                $this->email->subject($email_template['email_subject']);
+                $this->email->message($mail_body);
+                $this->email->send();
+
+                /* Send email to admin also */
+
+                $admin = $this->User_model->getAdmin();
+                $getadminEmail = $admin['email'];
+                $email_template_admin = get_template_details(15);
+                $this->email->from($email_template_admin['sender_email'], $email_template_admin['sender_name']);
+
+                $this->email->to($getadminEmail);
+                //--- set email template
+
+                $message_admin = $email_template_admin['email_description'];
+                eval("\$message_admin = \"$message_admin\";");
+                $mail_body_admin = "<html>\n";
+                $mail_body_admin .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                $mail_body_admin = $message_admin;
+                $mail_body_admin .= "</body>\n";
+                $mail_body_admin .= "</html>\n";
+
+                $this->email->subject($email_template_admin['email_subject']);
+                $this->email->message($mail_body_admin);
+                $this->email->send();
+
+                /* Send email to subadmin  */
+                $subadmins = send_mails_to_subadmin('7');
+                if (!empty($subadmins)) {
+                    foreach ($subadmins as $subadmin) {
+                        $this->email->from($email_template_admin['sender_email'], $email_template_admin['sender_name']);
+
+                        $this->email->to($subadmin['email']);
+
+                        //--- set email template
+                        $firstname = $tenant_user['fname'];
+                        $lastname = $tenant_user['lname'];
+                        $username = $firstname . ' ' . $lastname;
+
+                        $message_admin = $email_template_admin['email_description'];
+                        eval("\$message_admin = \"$message_admin\";");
+                        $mail_body_admin = "<html>\n";
+                        $mail_body_admin .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                        $mail_body_admin = $message_admin;
+                        $mail_body_admin .= "</body>\n";
+                        $mail_body_admin .= "</html>\n";
+
+                        $this->email->subject($email_template_admin['email_subject']);
+                        $this->email->message($mail_body_admin);
+                        $this->email->send();
+                    }
+                }
+
+                $this->session->set_flashdata('success_msg', 'Tenant has been approved!');
                 $data['status'] = 1;
             } else {
-                $this->session->set_flashdata('success_msg', 'User has been Unapproved!');
+                /* To send mail to the user and admin */
+                $email_template = get_template_details(14);
+                $configs = mail_config();
+                $this->load->library('email', $configs);
+                $this->email->initialize($configs);
+                $this->email->from($email_template['sender_email'], $email_template['sender_name']);
+
+                $this->email->to($tenant_user['email']);
+                //--- set email template
+                $firstname = $tenant_user['fname'];
+                $lastname = $tenant_user['lname'];
+                $username = $firstname . ' ' . $lastname;
+                $message = $email_template['email_description'];
+                eval("\$message = \"$message\";");
+                $mail_body = "<html>\n";
+                $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                $mail_body = $message;
+                $mail_body .= "</body>\n";
+                $mail_body .= "</html>\n";
+
+                $this->email->subject($email_template['email_subject']);
+                $this->email->message($mail_body);
+                $this->email->send();
+
+                /* Send email to admin also */
+
+                $admin = $this->User_model->getAdmin();
+                $getadminEmail = $admin['email'];
+                $email_template_admin = get_template_details(16);
+                $this->email->from($email_template_admin['sender_email'], $email_template_admin['sender_name']);
+
+                $this->email->to($getadminEmail);
+                //--- set email template
+
+                $message_admin = $email_template_admin['email_description'];
+                eval("\$message_admin = \"$message_admin\";");
+                $mail_body_admin = "<html>\n";
+                $mail_body_admin .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                $mail_body_admin = $message_admin;
+                $mail_body_admin .= "</body>\n";
+                $mail_body_admin .= "</html>\n";
+
+                $this->email->subject($email_template_admin['email_subject']);
+                $this->email->message($mail_body_admin);
+                $this->email->send();
+
+                /* Send email to subadmin  */
+                $subadmins = send_mails_to_subadmin('7');
+                if (!empty($subadmins)) {
+                    foreach ($subadmins as $subadmin) {
+                        $this->email->from($email_template_admin['sender_email'], $email_template_admin['sender_name']);
+
+                        $this->email->to($subadmin['email']);
+
+                        //--- set email template
+                        $firstname = $tenant_user['fname'];
+                        $lastname = $tenant_user['lname'];
+                        $username = $firstname . ' ' . $lastname;
+
+                        $message_admin = $email_template_admin['email_description'];
+                        eval("\$message_admin = \"$message_admin\";");
+                        $mail_body_admin = "<html>\n";
+                        $mail_body_admin .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
+                        $mail_body_admin = $message_admin;
+                        $mail_body_admin .= "</body>\n";
+                        $mail_body_admin .= "</html>\n";
+
+                        $this->email->subject($email_template_admin['email_subject']);
+                        $this->email->message($mail_body_admin);
+                        $this->email->send();
+                    }
+                }
+                $this->session->set_flashdata('success_msg', 'Tenant has been Unapproved!');
                 $data['status'] = 0;
             }
+
+
             echo json_encode($data);
             exit;
         }
@@ -431,12 +580,12 @@ class Users extends CI_Controller {
             exit;
         }
     }
-    
+
     public function view_previous_contract() {
         $id = $this->input->post('id');
         if ($id != null) {
             $record_id = base64_decode($id);
-             $data = $this->User_model->get_contracts($record_id);
+            $data = $this->User_model->get_contracts($record_id);
 //             pr($data,1);
             echo json_encode($data);
             exit;

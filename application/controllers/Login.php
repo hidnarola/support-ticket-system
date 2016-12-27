@@ -65,8 +65,6 @@ class Login extends CI_Controller {
                     $userdata = $this->session->set_userdata('user_logged_in', $result);
                     $this->session->set_flashdata('error_msg', 'Your account approval is in progress.');
                     redirect('profile');
-                } elseif ($result['role_id'] == 2 && $result['is_verified'] == 0 && $result['status'] == 0 && $user_title == 'Support') {
-                    // Give error msg for user is not approved by admin
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title == 'Support') {
 
                     $head_staff = $this->User_model->check_head_staff($result['id']);
@@ -75,18 +73,26 @@ class Login extends CI_Controller {
                     $dept_name = (array) $this->User_model->getFieldById($head_staff['dept_id'], 'name', TBL_DEPARTMENTS);
 
                     $result['dept_name'] = $dept_name['name'];
-
+                    $this->session->set_userdata('logged_in', true);
                     $userdata = $this->session->set_userdata('staffed_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     redirect('staff');
                 } elseif ($result['role_id'] == 3 && $user_title == 'Support') {
+                    $this->session->set_userdata('logged_in', true);
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
+
+//                    $seg = $this->uri->segment(1);
+//                    echo $seg;exit;
+//                    if ($seg == 'admin')
+//                        redirect('admin/tickets');
+//                    else
                     redirect('admin');
                 } elseif ($result['role_id'] == 4 && $user_title == 'Support') {
                     $result['subadmin_id'] = $result['id'];
+                    $this->session->set_userdata('logged_in', true);
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
@@ -154,13 +160,13 @@ class Login extends CI_Controller {
 
                     $src = './' . USER_CONTRACT . '/' . $contract;
                 }
-                
-                $daterange = $this->input->post('daterange'); 
-                $dates = explode('-', $daterange); 
-                $start_date = date('Y-m-d', strtotime($dates[0])); 
+
+                $daterange = $this->input->post('daterange');
+                $dates = explode('-', $daterange);
+                $start_date = date('Y-m-d', strtotime($dates[0]));
                 $end_date = date('Y-m-d', strtotime($dates[1]));
 
-                
+
 //                $start_date = date('Y-m-d', strtotime($this->input->post('start_date')));
 //                $end_date = date('Y-m-d', strtotime($this->input->post('end_date')));
             } else {
@@ -237,7 +243,7 @@ class Login extends CI_Controller {
     }
 
     public function logout() {
-
+        $this->session->unset_userdata('logged_in');
         if ($this->uri->segment(1) == 'admin') {
             $this->session->unset_userdata('admin_logged_in');
             $this->session->unset_userdata('module_ids');

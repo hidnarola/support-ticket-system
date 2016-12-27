@@ -343,13 +343,14 @@ $segment = $this->uri->segment(1);
                     $('.loader').hide();
 
 
-                    window.location.reload();
+//                    window.location.reload();
                 } else {
                 }
             });
             event.preventDefault();
         });
-    });</script>
+    });
+</script>
 <script type="text/javascript">
     var jconfirm = function (message, callback) {
         var options = {

@@ -127,7 +127,7 @@ class Ticket_model extends CI_Model {
         $this->db->where('dept_id', $dept_id);
         $this->db->where('is_head', 1);
         $q = $this->db->get();
-//        echo $this->db->last_query();
+        echo $this->db->last_query();
          $data = $q->row();
         return $data->user_id;
     }
@@ -142,7 +142,7 @@ class Ticket_model extends CI_Model {
         $this->db->from(TBL_USERS);
         $this->db->where('id', $id);
         $q = $this->db->get();
-//        echo $this->db->last_query();
+        echo $this->db->last_query();
          $data = $q->row();
         return $data->email;
     }

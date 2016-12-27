@@ -247,6 +247,18 @@
         </div>
     </div>
 </div>
+<!-- /success modal -->
+<style>
+    .loading-image {background: #fff none repeat scroll 0 0;border-radius: 5px;left: 50%;padding: 10px;position: absolute;top: 50%;z-index: 10;}
+    .loader{display: none;background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;bottom: 0;left:0;overflow: auto;position: fixed;right: 0;text-align: center;top: 0;z-index: 9999;}
+    .table > tbody > tr > td {padding: 12px 18px;}
+    .dataTables_wrapper {margin-top: 20px;}
+</style>
+<div class="loader">
+    <center>
+        <img class="loading-image" src="assets/frontend/images/preloader@2x.gif" alt="loading..">
+    </center>
+</div>
 
 <style>
     .user_verified{display: none;font-size: 18px;margin-left: 16px;margin-top: 10px;}
@@ -414,6 +426,7 @@
         var url = base_url + 'users/changeUserStatus';
         jconfirm(jconmessage, function (r) {
             if (r) {
+                $('.loader').show();
                 $.ajax({
                     type: 'POST',
                     url: url,
@@ -422,6 +435,7 @@
                     data: {id: id, status: status},
                     success: function (data) {
                         window.location.reload();
+                          $('.loader').hide();
                     }
                 });
             }
