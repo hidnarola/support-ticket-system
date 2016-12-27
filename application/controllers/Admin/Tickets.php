@@ -152,13 +152,6 @@ class Tickets extends CI_Controller {
                 }
             }
 
-
-
-
-
-
-
-
             $tenant_user = $this->User_model->getUserById($this->input->post('user_id'));
 //            echo $getDeptStaff;
             $getStaffEmail = $this->Ticket_model->getStaffEmail($getDeptStaff);

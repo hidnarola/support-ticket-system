@@ -173,7 +173,7 @@ class Tickets extends CI_Controller {
             $this->email->from($get_email, 'Support-Ticket-System');
             $link =  base_url() . "staff/tickets/view/" . urldecode($id);
             $this->email->to($getStaffEmail);
-            $message = email_template['email_description'];
+            $message = $email_template['email_description'];
             eval("\$message = \"$message\";");
             $mail_body = "<html>\n";
             $mail_body .= "<body style=\"font-family:Verdana, Verdana, Geneva, sans-serif; font-size:12px; color:#666666;\">\n";
