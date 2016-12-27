@@ -96,6 +96,7 @@ $route['admin/subscribers/delete/(:any)'] = 'Admin/Newsletters/action/delete/$1/
 $route['admin/users/assign_head'] = 'Admin/Users/assign_head';
 $route['admin/users/getPassword'] = 'Admin/Users/getPassword';
 $route['admin/users/changePasswordAdmin'] = 'Admin/Users/changePasswordAdmin';
+$route['admin/users/changeUserStatus'] = 'Admin/Users/changeUserStatus';
 
 $route['admin/pages'] = 'Admin/Pages';
 $route['admin/sub_admin/get_subadmin_email_notifications'] = 'Admin/Sub_admin/get_subadmin_email_notifications';
