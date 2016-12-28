@@ -119,9 +119,10 @@ class News extends CI_Controller {
                     foreach ($tenants as $tenant) {
                         
                         if(!is_null($tenant['device_token']) && $tenant['device_token'] != 'Device token not available'){
+                                        echo trim($tenant['device_token']);
+                                        echo '<br/>';
                                 if($tenant['device_make']==0){
                                     try {
-
                                             $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'news notification'),$pushData);
                                             pr($response);
                                     }catch(Exception $e){}
