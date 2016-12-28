@@ -620,14 +620,15 @@ function send_message_notification($id, $sent_from = null, $ticket_array = null)
 
 
 
-
-        if (!is_null($result['device_token'])) {
-            if ($result['device_make'] == 0) {
-                $response = $CI->push_notification->sendPushiOS(array('deviceToken' => trim($result['device_token']), 'pushMessage' => 'Ticket New Message'), $pushData);
-            } else {
-                $response = $CI->push_notification->sendPushToAndroid(trim($result['device_token']), $pushData, TRUE);
+        try {
+            if(!is_null($result['device_token']) && $result['device_token'] != 'Device token not available'){
+                if ($result['device_make'] == 0) {
+                    $response = $CI->push_notification->sendPushiOS(array('deviceToken' => trim($result['device_token']), 'pushMessage' => 'Ticket New Message'), $pushData);
+                } else {
+                    $response = $CI->push_notification->sendPushToAndroid(trim($result['device_token']), $pushData, TRUE);
+                }
             }
-        }
+        }catch(Exception $e){}
 
 
         // pr($response,1);

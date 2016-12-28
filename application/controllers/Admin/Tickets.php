@@ -143,14 +143,15 @@ class Tickets extends CI_Controller {
             $tenant = $this->User_model->getUserById($ticket_data['user_id']);
 
 
-
-            if (!is_null($tenant['device_token'])) {
-                if ($tenant['device_make'] == 0) {
-                    $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'New Ticket'), $pushData);
-                } else {
-                    $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
+            try {
+                if(!is_null($tenant['device_token']) && $tenant['device_token'] != 'Device token not available'){
+                    if ($tenant['device_make'] == 0) {
+                        $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'New Ticket'), $pushData);
+                    } else {
+                        $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
+                    }
                 }
-            }
+            }catch(Exception $e){}
 
             $tenant_user = $this->User_model->getUserById($this->input->post('user_id'));
 //            echo $getDeptStaff;
