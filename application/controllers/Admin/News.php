@@ -98,9 +98,25 @@ class News extends CI_Controller {
                     $id = $this->db->insert_id();
                     $news_data = $this->News_model->get_data_by_id($id);
                    
-                    $pushData = array("notification_type" => "data",
+                    $pushDataIos = array("notification_type" => "data",
                         'notification_for'=>'news_announcement',
                         "Newsdata"=> array(
+                        "newsannouncementsImages"=> $news_data['image'],
+                          "newsannouncementsId"=> $news_data['id'],
+                          "title"=> $news_data['title'],
+                          "slug"=> $news_data['slug'],
+                          "descriptions"=> $news_data['description'],
+                          "userId"=> $news_data['user_id'],
+                          "is_news"=> $news_data['is_news'],
+                          "is_delete"=> 0,
+                          "created_date"=> $news_data['created'],
+                          "modified_date"=> $news_data['modified']
+                        
+                    ));
+
+                    $pushDataAndroid = array("notification_type" => "data",
+                        'notification_for'=>'news_announcement',
+                        "data"=> array(
                         "newsannouncementsImages"=> $news_data['image'],
                           "newsannouncementsId"=> $news_data['id'],
                           "title"=> $news_data['title'],
@@ -120,9 +136,9 @@ class News extends CI_Controller {
                         try {
                             if(!is_null($tenant['device_token']) && $tenant['device_token'] != 'Device token not available'){
                                 if($tenant['device_make']==0){
-                                    $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'news notification'),$pushData);
+                                    $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'news notification'),$pushDataIos);
                                 }else{
-                                    $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
+                                    $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushDataAndroid, TRUE);
                                 }
                             }
                         }catch(Exception $e){}
