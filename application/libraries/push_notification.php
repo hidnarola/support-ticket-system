@@ -80,7 +80,13 @@ class push_notification {
                             // . strtr(rtrim(base64_encode(pack('H*', sprintf('%u', CRC32($device_token))))
                             . pack('n', strlen($payload))  // payload length
                             . $payload;
-                    $result = fwrite($apns, $apns_message, strlen($apns_message));
+                            try {
+                                $result = fwrite($apns, $apns_message, strlen($apns_message));
+                            } catch (Exception $ex) {
+                                sleep(1); //sleep for 5 seconds
+                                $result = fwrite($apns, $apns_message, strlen($apns_message));
+                            }
+                    // $result = fwrite($apns, $apns_message, strlen($apns_message));
 
                     if ($result) {
                         $status = 1;
