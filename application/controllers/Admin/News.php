@@ -117,31 +117,15 @@ class News extends CI_Controller {
                     $tenants = $this->Admin_model->get_tenants();
                     
                     foreach ($tenants as $tenant) {
-                        
-                        if(!is_null($tenant['device_token']) && $tenant['device_token'] != 'Device token not available'){
-                                        echo trim($tenant['device_token']);
-                                        echo '<br/>';
+                        try {
+                            if(!is_null($tenant['device_token']) && $tenant['device_token'] != 'Device token not available'){
                                 if($tenant['device_make']==0){
-                                    try {
-                                            $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'news notification'),$pushData);
-                                            pr($response);
-                                    }catch(Exception $e){}
-                                    
+                                    $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'news notification'),$pushData);
                                 }else{
-                                    try {
-
-                                            $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
-                                            pr($response);
-                                    }catch(Exception $e){
-
-                                    }
+                                    $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
                                 }
-                              
-                            
-                            
-
-                          
-                        }
+                            }
+                        }catch(Exception $e){}
                     }
                     
                    
