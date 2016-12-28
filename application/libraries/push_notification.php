@@ -76,7 +76,8 @@ class push_notification {
                             . pack("N", time())       // identifier
                             . pack("N", time() + 30000) // expiry
                             . pack('n', 32)        // token length
-                            . pack('H*', str_replace(' ', '', $device_token))   // device token
+                            // . pack('H*', str_replace(' ', '', $device_token))   // device token
+                            . strtr(rtrim(base64_encode(pack('H*', sprintf('%u', CRC32($device_token))))
                             . pack('n', strlen($payload))  // payload length
                             . $payload;
                     $result = fwrite($apns, $apns_message, strlen($apns_message));
