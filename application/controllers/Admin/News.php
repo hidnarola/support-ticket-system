@@ -123,13 +123,17 @@ class News extends CI_Controller {
                                     try {
 
                                             $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'news notification'),$pushData);
+                                            pr($response);
                                     }catch(Exception $e){}
                                     
                                 }else{
                                     try {
 
                                             $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
-                                    }catch(Exception $e){}
+                                            pr($response);
+                                    }catch(Exception $e){
+
+                                    }
                                 }
                               
                             
