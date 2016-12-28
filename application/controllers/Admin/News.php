@@ -119,12 +119,19 @@ class News extends CI_Controller {
                     foreach ($tenants as $tenant) {
                         
                         if(!is_null($tenant['device_token'])){
-                        if($tenant['device_make']==0){
-                            $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'news notification'),$pushData);
-                            
-                        }else{
-                            $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
-                        }
+                            try {
+                                if($tenant['device_make']==0){
+                                    $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'news notification'),$pushData);
+                                    
+                                }else{
+                                    $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
+                                }
+                              
+                            }
+                            catch(Exception $e) {
+                              
+                            }
+
                           
                         }
                     }
