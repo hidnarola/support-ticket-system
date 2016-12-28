@@ -130,7 +130,7 @@ class News extends CI_Controller {
                     
                    
                     $this->session->set_flashdata('success_msg', 'Detail saved successfully.');
-                    redirect('admin/news');
+                    redirect('admin/news_announcements');
                 } else {
                     $this->session->set_flashdata('error_msg', 'Unable to save detail.');
                     redirect('admin/news/add');
