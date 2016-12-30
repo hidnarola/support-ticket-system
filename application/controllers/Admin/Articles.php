@@ -107,9 +107,30 @@ class Articles extends CI_Controller {
                 $id = $this->db->insert_id();
                 $article_data = (array) $this->Article_model->viewArticle($id, TBL_ARTICLES);
                
-                $pushData = array("notification_type" => "data",
+                $pushDataIos = array("notification_type" => "data",
                     'notification_for'=>'article',
                         "Articledata"=> array(
+                                "category_id"=> $article_data['category_id'],
+                              "categoryName"=> $article_data['cat_name'],
+                              "articlesarr"=>array(
+                                       "articleImages"=> $article_data['image'] ,
+                                      "articleId"=> $article_data['id'],
+                                      "title"=> $article_data['title'],
+                                      "slug"=> $article_data['slug'],
+                                      "descriptions"=> $article_data['description'],
+                                      "userId"=> $article_data['user_id'],
+                                      "is_visible"=> $article_data['is_visible'],
+                                      "expiry_date"=> $article_data['expiry_date'],
+                                      "is_delete"=> $article_data['is_delete'],
+                                      "created_date"=> $article_data['created'],
+                                      "modified_date"=> $article_data['modified']
+                                    )
+                            )
+                        );
+
+                $pushDataAndroid = array("notification_type" => "data",
+                    'notification_for'=>'article',
+                        "data"=> array(
                                 "category_id"=> $article_data['category_id'],
                               "categoryName"=> $article_data['cat_name'],
                               "articlesarr"=>array(
@@ -135,9 +156,9 @@ class Articles extends CI_Controller {
                         try {
                             if(!is_null($tenant['device_token']) && $tenant['device_token'] != 'Device token not available'){
                             if($tenant['device_make']==0){
-                                $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'articles notification'),$pushData);
+                                $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'articles notification'),$pushDataIos);
                             }else{
-                                $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
+                                $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushDataAndroid, TRUE);
                             }
                               
                             }
