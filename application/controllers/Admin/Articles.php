@@ -158,7 +158,7 @@ class Articles extends CI_Controller {
                             if($tenant['device_make']==0){
                                 $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'articles notification'),$pushDataIos);
                             }else{
-                                $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushDataAndroid, TRUE);
+                                $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushDataAndroid, FALSE);
                             }
                               
                             }
