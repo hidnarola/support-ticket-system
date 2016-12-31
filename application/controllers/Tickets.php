@@ -183,7 +183,7 @@ class Tickets extends CI_Controller {
                         if($tenant['device_make']==0){
                             $response = $this->push_notification->sendPushiOS(array('deviceToken' => trim($tenant['device_token']), 'pushMessage' => 'New Ticket'),$pushData);
                         }else{
-                            $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, TRUE);
+                            $response = $this->push_notification->sendPushToAndroid(trim($tenant['device_token']), $pushData, FALSE);
                         }
                           
                         }

@@ -604,9 +604,23 @@ function send_message_notification($id, $sent_from = null, $ticket_array = null)
         $ticket_conversation = $CI->Admin_model->get_conversation($id);
 
 
-        $pushData = array("notification_type" => "data",
+        $pushDataIos = array("notification_type" => "data",
             'notification_for' => 'new message',
             'displaymessagedata' => array(
+                "ticketconversationId" => $ticket_conversation['id'],
+                "message" => $ticket_conversation['message'],
+                "ticketId" => $id,
+                "sent_from" => $ticket_conversation['sent_from'],
+                "status" => 0,
+                "created_date" => $ticket_conversation['created'],
+                "fname" => $ticket_conversation['fname'],
+                "lname" => $ticket_conversation['lname'],
+                "userImages" => $result['profile_pic']
+        ));
+
+$pushDataAndroid = array("notification_type" => "data",
+            'notification_for' => 'new message',
+            'data' => array(
                 "ticketconversationId" => $ticket_conversation['id'],
                 "message" => $ticket_conversation['message'],
                 "ticketId" => $id,
@@ -623,9 +637,9 @@ function send_message_notification($id, $sent_from = null, $ticket_array = null)
         try {
             if(!is_null($result['device_token']) && $result['device_token'] != 'Device token not available'){
                 if ($result['device_make'] == 0) {
-                    $response = $CI->push_notification->sendPushiOS(array('deviceToken' => trim($result['device_token']), 'pushMessage' => 'Ticket New Message'), $pushData);
+                    $response = $CI->push_notification->sendPushiOS(array('deviceToken' => trim($result['device_token']), 'pushMessage' => 'Ticket New Message'), $pushDataIos);
                 } else {
-                    $response = $CI->push_notification->sendPushToAndroid(trim($result['device_token']), $pushData, TRUE);
+                    $response = $CI->push_notification->sendPushToAndroid(trim($result['device_token']), $pushDataAndroid, FALSE);
                 }
             }
         }catch(Exception $e){}
