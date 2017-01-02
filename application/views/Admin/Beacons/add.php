@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group col-xs-12">
                                     <label>Text</label>                               
-                                    <textarea rows="5" cols="5" name="text" class="form-control" placeholder="Address" aria-required="true" aria-invalid="true"><?php
+                                    <textarea rows="5" cols="5" name="text" class="form-control" placeholder="Text" aria-required="true" aria-invalid="true"><?php
                                         if (isset($beacon)) {
                                             echo trim($beacon->text);
                                         } else {
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="form-group col-xs-12">
                                     <label>Push Notification<font color="red">*</font></label>                               
-                                    <textarea rows="5" cols="5" name="push_notification_text" class="form-control" placeholder="Address" aria-required="true" aria-invalid="true"><?php
+                                    <textarea rows="5" cols="5" name="push_notification_text" class="form-control" placeholder="Text" aria-required="true" aria-invalid="true"><?php
                                         if (isset($beacon)) {
                                             echo trim($beacon->push_notification_text);
                                         } else {
