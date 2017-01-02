@@ -59,6 +59,7 @@ $route['admin/logout'] = "Login/logout";
 $route['logout'] = "Login/logout";
 $route['support/login'] = "Login";
 $route['admin'] = "Admin/Dashboard";
+$route['admin/beacons'] = "Admin/Beacons";
 $route['admin/tickets'] = "Admin/Tickets";
 $route['admin/tickets/add'] = "Admin/Tickets/add";
 $route['admin/tickets/edit/(:any)'] = "Admin/Tickets/edit/$1";
