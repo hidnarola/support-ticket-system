@@ -33,7 +33,7 @@
                 <thead>
                     <tr class="bg-teal">
                         <th>#</th>
-                        <th>Beacon Name</th>
+                        <th>Beacon Title</th>
                         <th>UUID</th>
                         <th>Major</th>
                         <th>Minor</th>

@@ -1,3 +1,5 @@
+<script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="assets/admin/js/pages/editor_ckeditor.js"></script>
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
@@ -32,8 +34,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group col-xs-12">
-                                    <label>Beacon Name<font color="red">*</font></label>
-                                    <input type="text" name="beacon_name" class="form-control" placeholder="Beacon Name" required="required" value="<?php
+                                    <label>Beacon Title<font color="red">*</font></label>
+                                    <input type="text" name="beacon_name" class="form-control" placeholder="Beacon Title" required="required" value="<?php
                                     if (isset($beacon)) {
                                         echo trim($beacon->beacon_name);
                                     } else {
@@ -103,15 +105,26 @@
                                 </div>
 
                                 <div class="form-group col-xs-12">
-                                    <label>Details</label>                               
-                                    <textarea rows="5" cols="5" name="details" class="form-control" required="required" placeholder="Details" aria-required="true" aria-invalid="true"><?php
-                                        if (isset($beacon)) {
-                                            echo trim($beacon->details);
-                                        } else {
-                                            echo set_value('details');
-                                        }
-                                        ?>
-                                    </textarea>
+                                    <label>Description</label>                               
+<!--                                    <textarea rows="5" cols="5" name="details" class="form-control" required="required" placeholder="Details" aria-required="true" aria-invalid="true"><?php
+                                    if (isset($beacon)) {
+                                        echo trim($beacon->details);
+                                    } else {
+                                        echo set_value('details');
+                                    }
+                                    ?>
+                                    </textarea>-->
+<!--                                    <div class="content-group">-->
+                                        <textarea name="details" required="" id="editor-full" rows="4" cols="4"><?php
+                                             if (isset($beacon)) {
+                                        echo trim($beacon->details);
+                                    } else {
+                                        echo set_value('details');
+                                    }
+                                            ?>  
+                                        </textarea>
+                                        <?php echo '<label id="details-error" class="validation-error-label" for="details">' . form_error('details') . '</label>'; ?>
+                                    <!--</div>-->
                                 </div>
                             </div>
                             <div class="col-md-12">

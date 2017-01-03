@@ -175,6 +175,12 @@ $(function() {
             },
             contactno: {
                 digits: true
+            },
+            major: {
+                digits: true
+            },
+            minor: {
+                digits: true
             }
         },
         messages: {
