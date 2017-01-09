@@ -38,6 +38,7 @@ class Beacons extends CI_Controller {
         } else {
             $range = 1;
         }
+        
         $this->data['title'] = $this->data['page_header'] = 'Add Beacons';
 
         if ($this->form_validation->run() == FALSE) {

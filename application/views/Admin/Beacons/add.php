@@ -128,19 +128,31 @@
                                         ?></textarea>
                                     <?php echo '<label id="entry_text-error" class="validation-error-label" for="entry_text">' . form_error('entry_text') . '</label>'; ?>
                                 </div>
-
-                                <div class="form-group col-xs-12 exit_text">
-                                    <label>Exit Text<font color="red">*</font></label>                               
-                                    <textarea rows="5" cols="5" name="exit_text" required="" id="exit_text" class="form-control" placeholder="Text" aria-required="true" aria-invalid="true"><?php
-                                        if (isset($beacon)) {
-                                            echo trim($beacon->exit_text);
-                                        } else {
-                                            echo set_value('exit_text');
-                                        }
-                                        ?></textarea>
-                                    <?php echo '<label id="exit_text-error" class="validation-error-label" for="exit_text">' . form_error('exit_text') . '</label>'; ?>
-                                </div>
-
+                                <?php if (isset($beacon) && $beacon->exit_text == 1) { ?>
+                                    <div class="form-group col-xs-12 exit_text">
+                                        <label>Exit Text<font color="red">*</font></label>                               
+                                        <textarea rows="5" cols="5" name="exit_text" required="" id="exit_text" class="form-control" placeholder="Text" aria-required="true" aria-invalid="true"><?php
+                                            if (isset($beacon)) {
+                                                echo trim($beacon->exit_text);
+                                            } else {
+                                                echo set_value('exit_text');
+                                            }
+                                            ?></textarea>
+                                        <?php echo '<label id="exit_text-error" class="validation-error-label" for="exit_text">' . form_error('exit_text') . '</label>'; ?>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="form-group col-xs-12 exit_text" style="display: none;">
+                                        <label>Exit Text<font color="red">*</font></label>                               
+                                        <textarea rows="5" cols="5" name="exit_text" required="" id="exit_text" class="form-control" placeholder="Text" aria-required="true" aria-invalid="true"><?php
+                                            if (isset($beacon)) {
+                                                echo trim($beacon->exit_text);
+                                            } else {
+                                                echo set_value('exit_text');
+                                            }
+                                            ?></textarea>
+                                        <?php echo '<label id="exit_text-error" class="validation-error-label" for="exit_text">' . form_error('exit_text') . '</label>'; ?>
+                                    </div>
+                                <?php } ?>
 
                                 <div class="form-group col-xs-12">
                                     <label>Entry Content<font color="red">*</font></label> 
@@ -194,18 +206,33 @@
                                     <?php echo '<label id="details-error" class="validation-error-label" for="details">' . form_error('details') . '</label>'; ?>
                                     <!--</div>-->
                                 </div>
-                                <div class="form-group col-xs-12 exit_content">
-                                    <label>Exit Content<font color="red">*</font></label> 
-                                    <textarea name="exit_content" required="" id="editor-full2" rows="4" cols="4"><?php
-                                        if (isset($beacon)) {
-                                            echo trim($beacon->exit_content);
-                                        } else {
-                                            echo set_value('exit_content');
-                                        }
-                                        ?>  
-                                    </textarea>
-                                    <?php echo '<label id="exit_content-error" class="validation-error-label" for="exit_content">' . form_error('exit_content') . '</label>'; ?>
-                                </div>
+                                <?php if (isset($beacon) && $beacon->is_close_approach == 1) { ?>
+                                    <div class="form-group col-xs-12 exit_content">
+                                        <label>Exit Content<font color="red">*</font></label> 
+                                        <textarea name="exit_content" required="" id="editor-full2" rows="4" cols="4"><?php
+                                            if (isset($beacon)) {
+                                                echo trim($beacon->exit_content);
+                                            } else {
+                                                echo set_value('exit_content');
+                                            }
+                                            ?>  
+                                        </textarea>
+                                        <?php echo '<label id="exit_content-error" class="validation-error-label" for="exit_content">' . form_error('exit_content') . '</label>'; ?>
+                                    </div>
+                                <?php } else { ?> 
+                                    <div class="form-group col-xs-12 exit_content" style="display: none;">
+                                        <label>Exit Content<font color="red">*</font></label> 
+                                        <textarea name="exit_content" required="" id="editor-full2" rows="4" cols="4"><?php
+                                            if (isset($beacon)) {
+                                                echo trim($beacon->exit_content);
+                                            } else {
+                                                echo set_value('exit_content');
+                                            }
+                                            ?>  
+                                        </textarea>
+                                        <?php echo '<label id="exit_content-error" class="validation-error-label" for="exit_content">' . form_error('exit_content') . '</label>'; ?>
+                                    </div>
+                                <?php } ?>
                             </div>
                             <div class="col-md-12">
                                 <div class="text-center">                                
@@ -237,19 +264,19 @@
 <script type="text/javascript">
 
 //    $(document).ready(function () {
-       $('input[name="is_close_approach"]').on('click', function() {
-            var is_close_approach = $(this).val();
-            alert(is_close_approach);
-            if (is_close_approach == 0) {
-                $(".exit_text").hide();
-                $(".exit_content").hide();
-                $('#exit_text').removeAttr('required')
-                $('#editor-full2').removeAttr('required')
-            } else {
-                $(".exit_text").show();
-                $(".exit_content").show();
-            }
-        });
+    $('input[name="is_close_approach"]').on('click', function () {
+        var is_close_approach = $(this).val();
+//            alert(is_close_approach);
+        if (is_close_approach == 0) {
+            $(".exit_text").hide();
+            $(".exit_content").hide();
+            $('#exit_text').removeAttr('required')
+            $('#editor-full2').removeAttr('required')
+        } else {
+            $(".exit_text").show();
+            $(".exit_content").show();
+        }
+    });
 //    });
 
     var _validFileExtensions = [".jpg", ".jpeg", ".gif", ".png"];
