@@ -25,6 +25,12 @@ class Beacons extends CI_Controller {
         $this->form_validation->set_rules('beacon_name', 'Beacon Name', 'trim|required');
         $this->form_validation->set_rules('major', 'Major', 'trim|required');
         $this->form_validation->set_rules('minor', 'Minor', 'trim|required');
+        $this->form_validation->set_rules('push_notification_text', 'Push Notification', 'trim|required');
+        $this->form_validation->set_rules('entry_text', 'Entry Text', 'trim|required');
+        $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
+        $this->form_validation->set_rules('is_close_approach', 'Is close approach', 'trim|required');
+        $this->form_validation->set_rules('entry_content', 'Entry Content', 'trim|required');
+        $this->form_validation->set_rules('exit_content', 'Exit Content', 'trim|required');
         $this->data['title'] = $this->data['page_header'] = 'Add Beacons';
         if ($this->form_validation->run() == FALSE) {
 
@@ -44,6 +50,11 @@ class Beacons extends CI_Controller {
                     'text' => $this->input->post('text'),
                     'details' => $this->input->post('details'),
                     'push_notification_text' => $this->input->post('push_notification_text'),
+                    'entry_text' => $this->input->post('entry_text'),
+                    'exit_text' => $this->input->post('exit_text'),
+                    'is_close_approach' => $this->input->post('is_close_approach'),
+                    'entry_content' => $this->input->post('entry_content'),
+                    'exit_content' => $this->input->post('exit_content'),
                     'is_delete' => 0,
                     'created' => date('Y-m-d H:i:s')
                 );
@@ -68,6 +79,12 @@ class Beacons extends CI_Controller {
                 $this->form_validation->set_rules('beacon_name', 'Beacon Name', 'trim|required');
                 $this->form_validation->set_rules('major', 'Major', 'trim|required');
                 $this->form_validation->set_rules('minor', 'Minor', 'trim|required');
+                $this->form_validation->set_rules('push_notification_text', 'Push Notification', 'trim|required');
+                $this->form_validation->set_rules('entry_text', 'Entry Text', 'trim|required');
+                $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
+                $this->form_validation->set_rules('is_close_approach', 'Is close approach', 'trim|required');
+                $this->form_validation->set_rules('entry_content', 'Entry Content', 'trim|required');
+                $this->form_validation->set_rules('exit_content', 'Exit Content', 'trim|required');
                 $this->data['title'] = $this->data['page_header'] = 'Beacons';
                 if ($this->form_validation->run() == FALSE) {
                     $this->data['title'] = $this->data['page_header'] = 'Edit Beacon';
@@ -76,8 +93,8 @@ class Beacons extends CI_Controller {
                     $uuid = $this->input->post('uuid');
                     $major = $this->input->post('major');
                     $minor = $this->input->post('minor');
-                    $checkExists = $this->Beacon_model->checkExistsEdit($uuid, $major, $minor,$record_id);
-                    if($checkExists) {
+                    $checkExists = $this->Beacon_model->checkExistsEdit($uuid, $major, $minor, $record_id);
+                    if ($checkExists) {
                         $data = array(
                             'beacon_name' => $this->input->post('beacon_name'),
                             'uuid' => $uuid,
@@ -86,16 +103,21 @@ class Beacons extends CI_Controller {
                             'text' => $this->input->post('text'),
                             'details' => $this->input->post('details'),
                             'push_notification_text' => $this->input->post('push_notification_text'),
+                            'entry_text' => $this->input->post('entry_text'),
+                            'exit_text' => $this->input->post('exit_text'),
+                            'is_close_approach' => $this->input->post('is_close_approach'),
+                            'entry_content' => $this->input->post('entry_content'),
+                            'exit_content' => $this->input->post('exit_content'),
                             'is_delete' => 0,
                             'created' => date('Y-m-d H:i:s')
                         );
-                        $this->Admin_model->manage_record($this->table, $data,$record_id);
+                        $this->Admin_model->manage_record($this->table, $data, $record_id);
                         $this->session->set_flashdata('success_msg', 'Beacon updated succesfully.');
                         redirect('admin/beacons');
                     } else {
                         $this->session->set_flashdata('error_msg', 'Oops!, UUID, Major and Miror is alredy Exist. Please try something else!');
 //                        redirect('admin/beacons/add');
-                   $this->template->load('admin', 'Admin/Beacons/add', $this->data);
+                        $this->template->load('admin', 'Admin/Beacons/add', $this->data);
                     }
                 }
             } else {
@@ -109,6 +131,7 @@ class Beacons extends CI_Controller {
             $this->load->view('Admin/error/404_notfound', $data);
         }
     }
+
     public function delete() {
         $id = $this->input->post('id');
         $table_name = $this->input->post('type');

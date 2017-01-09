@@ -34,7 +34,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group col-xs-12">
-                                    <label>Beacon Title<font color="red">*</font></label>
+                                    <label class="semi-transparent">Beacon Title<font color="red">*</font></label>
                                     <input type="text" name="beacon_name" class="form-control" placeholder="Beacon Title" required="required" value="<?php
                                     if (isset($beacon)) {
                                         echo trim($beacon->beacon_name);
@@ -69,13 +69,88 @@
                                 </div>
                                 <div class="form-group col-xs-12">
                                     <label>Push Notification<font color="red">*</font></label>                               
-                                    <textarea rows="5" cols="5" name="push_notification_text" class="form-control" placeholder="Text" aria-required="true" aria-invalid="true"><?php
+                                    <textarea rows="5" cols="5" name="push_notification_text"  required="" class="form-control" placeholder="Text" aria-required="true" aria-invalid="true"><?php
                                         if (isset($beacon)) {
                                             echo trim($beacon->push_notification_text);
                                         } else {
                                             echo set_value('push_notification_text');
                                         }
                                         ?></textarea>
+                                    <?php echo '<label id="push_notification_text-error" class="validation-error-label" for="push_notification_text">' . form_error('push_notification_text') . '</label>'; ?>
+                                </div>
+                                <div class="form-group col-xs-12">
+                                    <label>Entry Text<font color="red">*</font></label>                               
+                                    <textarea rows="5" cols="5" name="entry_text" required="" class="form-control" placeholder="Text" aria-required="true" aria-invalid="true"><?php
+                                        if (isset($beacon)) {
+                                            echo trim($beacon->entry_text);
+                                        } else {
+                                            echo set_value('entry_text');
+                                        }
+                                        ?></textarea>
+                                    <?php echo '<label id="entry_text-error" class="validation-error-label" for="entry_text">' . form_error('entry_text') . '</label>'; ?>
+                                </div>
+
+                                <div class="form-group col-xs-12">
+                                    <label>Exit Text<font color="red">*</font></label>                               
+                                    <textarea rows="5" cols="5" name="exit_text" required="" class="form-control" placeholder="Text" aria-required="true" aria-invalid="true"><?php
+                                        if (isset($beacon)) {
+                                            echo trim($beacon->exit_text);
+                                        } else {
+                                            echo set_value('exit_text');
+                                        }
+                                        ?>
+                                    </textarea>
+                                    <?php echo '<label id="exit_text-error" class="validation-error-label" for="exit_text">' . form_error('exit_text') . '</label>'; ?>
+                                </div>
+                                <div class="form-group col-xs-12">
+                                    <label class="control-label">Is Close Approach: <font color="red">*</font></label> &nbsp;&nbsp;                                    
+                                    <?php
+                                    $entry_checked = '';
+                                    $closedapproach_checked = '';
+                                    if (isset($beacon)) {
+                                        if ($beacon->is_close_approach == 1) {
+                                            $entry_checked = 'checked';
+                                            $closedapproach_checked = '';
+                                        } else {
+                                            $entry_checked = '';
+                                            $closedapproach_checked = 'checked';
+                                        }
+                                    } else {
+                                        if ($this->input->post('is_close_approach')) {
+                                            if ($this->input->post('is_close_approach') == 1) {
+                                                $entry_checked = 'checked';
+                                                $closedapproach_checked = '';
+                                            } else {
+                                                $entry_checked = '';
+                                                $closedapproach_checked = 'checked';
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="1" required="" name="is_close_approach" class="styled" <?php echo $entry_checked; ?>>
+                                        Entry Text
+                                    </label>
+
+                                    <label class="radio-inline">
+                                        <input type="radio" value="0" required="" name="is_close_approach" class="styled" <?php echo $closedapproach_checked; ?>>
+                                        Close Approach
+                                    </label>
+                                    <?php echo '<label id="is_close_approach-error" class="validation-error-label" for="is_close_approach">' . form_error('is_close_approach') . '</label>'; ?>
+
+                                </div>
+
+                                <div class="form-group col-xs-12">
+                                    <label>Entry Content<font color="red">*</font></label> 
+                                    <textarea name="entry_content" required="" id="editor-full" rows="4" cols="4"><?php
+                                        if (isset($beacon)) {
+                                            echo trim($beacon->entry_content);
+                                        } else {
+                                            echo set_value('entry_content');
+                                        }
+                                        ?>  
+                                    </textarea>
+                                    <?php echo '<label id="entry_content-error" class="validation-error-label" for="entry_content">' . form_error('entry_content') . '</label>'; ?>
                                 </div>
 
                             </div>
@@ -114,17 +189,29 @@
                                     }
                                     ?>
                                     </textarea>-->
-<!--                                    <div class="content-group">-->
-                                        <textarea name="details" required="" id="editor-full" rows="4" cols="4"><?php
-                                             if (isset($beacon)) {
-                                        echo trim($beacon->details);
-                                    } else {
-                                        echo set_value('details');
-                                    }
-                                            ?>  
-                                        </textarea>
-                                        <?php echo '<label id="details-error" class="validation-error-label" for="details">' . form_error('details') . '</label>'; ?>
+                                    <!--                                    <div class="content-group">-->
+                                    <textarea name="details" required="" id="editor-full1" rows="4" cols="4"><?php
+                                        if (isset($beacon)) {
+                                            echo trim($beacon->details);
+                                        } else {
+                                            echo set_value('details');
+                                        }
+                                        ?>  
+                                    </textarea>
+                                    <?php echo '<label id="details-error" class="validation-error-label" for="details">' . form_error('details') . '</label>'; ?>
                                     <!--</div>-->
+                                </div>
+                                <div class="form-group col-xs-12">
+                                    <label>Exit Content<font color="red">*</font></label> 
+                                    <textarea name="exit_content" required="" id="editor-full2" rows="4" cols="4"><?php
+                                        if (isset($beacon)) {
+                                            echo trim($beacon->exit_content);
+                                        } else {
+                                            echo set_value('exit_content');
+                                        }
+                                        ?>  
+                                    </textarea>
+                                    <?php echo '<label id="exit_content-error" class="validation-error-label" for="exit_content">' . form_error('exit_content') . '</label>'; ?>
                                 </div>
                             </div>
                             <div class="col-md-12">
