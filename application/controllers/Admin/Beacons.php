@@ -27,11 +27,19 @@ class Beacons extends CI_Controller {
         $this->form_validation->set_rules('minor', 'Minor', 'trim|required');
         $this->form_validation->set_rules('push_notification_text', 'Push Notification', 'trim|required');
         $this->form_validation->set_rules('entry_text', 'Entry Text', 'trim|required');
-        $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
+
         $this->form_validation->set_rules('is_close_approach', 'Is close approach', 'trim|required');
         $this->form_validation->set_rules('entry_content', 'Entry Content', 'trim|required');
-        $this->form_validation->set_rules('exit_content', 'Exit Content', 'trim|required');
+        $is_close_approach = $this->input->post('is_close_approach');
+        if ($is_close_approach == 1) {
+            $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
+            $this->form_validation->set_rules('exit_content', 'Exit Content', 'trim|required');
+            $range = NULL;
+        } else {
+            $range = 1;
+        }
         $this->data['title'] = $this->data['page_header'] = 'Add Beacons';
+
         if ($this->form_validation->run() == FALSE) {
 
             $this->template->load('admin', 'Admin/Beacons/add', $this->data);
@@ -53,6 +61,7 @@ class Beacons extends CI_Controller {
                     'entry_text' => $this->input->post('entry_text'),
                     'exit_text' => $this->input->post('exit_text'),
                     'is_close_approach' => $this->input->post('is_close_approach'),
+                    'range' => $range,
                     'entry_content' => $this->input->post('entry_content'),
                     'exit_content' => $this->input->post('exit_content'),
                     'is_delete' => 0,
@@ -81,10 +90,18 @@ class Beacons extends CI_Controller {
                 $this->form_validation->set_rules('minor', 'Minor', 'trim|required');
                 $this->form_validation->set_rules('push_notification_text', 'Push Notification', 'trim|required');
                 $this->form_validation->set_rules('entry_text', 'Entry Text', 'trim|required');
-                $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
+//                $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
                 $this->form_validation->set_rules('is_close_approach', 'Is close approach', 'trim|required');
                 $this->form_validation->set_rules('entry_content', 'Entry Content', 'trim|required');
-                $this->form_validation->set_rules('exit_content', 'Exit Content', 'trim|required');
+//                $this->form_validation->set_rules('exit_content', 'Exit Content', 'trim|required');
+                $is_close_approach = $this->input->post('is_close_approach');
+                if ($is_close_approach == 1) {
+                    $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
+                    $this->form_validation->set_rules('exit_content', 'Exit Content', 'trim|required');
+                    $range = NULL;
+                } else {
+                    $range = 1;
+                }
                 $this->data['title'] = $this->data['page_header'] = 'Beacons';
                 if ($this->form_validation->run() == FALSE) {
                     $this->data['title'] = $this->data['page_header'] = 'Edit Beacon';
@@ -106,6 +123,7 @@ class Beacons extends CI_Controller {
                             'entry_text' => $this->input->post('entry_text'),
                             'exit_text' => $this->input->post('exit_text'),
                             'is_close_approach' => $this->input->post('is_close_approach'),
+                            'range' => $range,
                             'entry_content' => $this->input->post('entry_content'),
                             'exit_content' => $this->input->post('exit_content'),
                             'is_delete' => 0,
