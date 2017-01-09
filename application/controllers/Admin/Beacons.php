@@ -25,20 +25,23 @@ class Beacons extends CI_Controller {
         $this->form_validation->set_rules('beacon_name', 'Beacon Name', 'trim|required');
         $this->form_validation->set_rules('major', 'Major', 'trim|required');
         $this->form_validation->set_rules('minor', 'Minor', 'trim|required');
-        $this->form_validation->set_rules('push_notification_text', 'Push Notification', 'trim|required');
         $this->form_validation->set_rules('entry_text', 'Entry Text', 'trim|required');
 
         $this->form_validation->set_rules('is_close_approach', 'Is close approach', 'trim|required');
         $this->form_validation->set_rules('entry_content', 'Entry Content', 'trim|required');
+        $this->form_validation->set_rules('range', 'Range', 'trim|required');
         $is_close_approach = $this->input->post('is_close_approach');
         if ($is_close_approach == 1) {
             $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
             $this->form_validation->set_rules('exit_content', 'Exit Content', 'trim|required');
-            $range = NULL;
+            $exit_text = $this->input->post('exit_text');
+             $exit_content = $this->input->post('exit_content');
+//                    $range = NULL;
         } else {
-            $range = 1;
+            $exit_text = NULL;
+//                    $range = 1;
         }
-        
+
         $this->data['title'] = $this->data['page_header'] = 'Add Beacons';
 
         if ($this->form_validation->run() == FALSE) {
@@ -56,15 +59,12 @@ class Beacons extends CI_Controller {
                     'uuid' => $uuid,
                     'major' => $major,
                     'minor' => $minor,
-                    'text' => $this->input->post('text'),
-                    'details' => $this->input->post('details'),
-                    'push_notification_text' => $this->input->post('push_notification_text'),
                     'entry_text' => $this->input->post('entry_text'),
-                    'exit_text' => $this->input->post('exit_text'),
+                    'exit_text' => $exit_text,
                     'is_close_approach' => $this->input->post('is_close_approach'),
-                    'range' => $range,
+                    'range' => $this->input->post('range'),
                     'entry_content' => $this->input->post('entry_content'),
-                    'exit_content' => $this->input->post('exit_content'),
+                    'exit_content' => $exit_content,
                     'is_delete' => 0,
                     'created' => date('Y-m-d H:i:s')
                 );
@@ -89,8 +89,8 @@ class Beacons extends CI_Controller {
                 $this->form_validation->set_rules('beacon_name', 'Beacon Name', 'trim|required');
                 $this->form_validation->set_rules('major', 'Major', 'trim|required');
                 $this->form_validation->set_rules('minor', 'Minor', 'trim|required');
-                $this->form_validation->set_rules('push_notification_text', 'Push Notification', 'trim|required');
                 $this->form_validation->set_rules('entry_text', 'Entry Text', 'trim|required');
+                $this->form_validation->set_rules('range', 'Range', 'trim|required');
 //                $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
                 $this->form_validation->set_rules('is_close_approach', 'Is close approach', 'trim|required');
                 $this->form_validation->set_rules('entry_content', 'Entry Content', 'trim|required');
@@ -99,9 +99,12 @@ class Beacons extends CI_Controller {
                 if ($is_close_approach == 1) {
                     $this->form_validation->set_rules('exit_text', 'Exit Text', 'trim|required');
                     $this->form_validation->set_rules('exit_content', 'Exit Content', 'trim|required');
-                    $range = NULL;
+                    $exit_text = $this->input->post('exit_text');
+                    $exit_content = $this->input->post('exit_content');
+//                    $range = NULL;
                 } else {
-                    $range = 1;
+                    $exit_text = NULL;
+//                    $range = 1;
                 }
                 $this->data['title'] = $this->data['page_header'] = 'Beacons';
                 if ($this->form_validation->run() == FALSE) {
@@ -118,15 +121,12 @@ class Beacons extends CI_Controller {
                             'uuid' => $uuid,
                             'major' => $major,
                             'minor' => $minor,
-                            'text' => $this->input->post('text'),
-                            'details' => $this->input->post('details'),
-                            'push_notification_text' => $this->input->post('push_notification_text'),
                             'entry_text' => $this->input->post('entry_text'),
-                            'exit_text' => $this->input->post('exit_text'),
+                            'exit_text' => $exit_text,
                             'is_close_approach' => $this->input->post('is_close_approach'),
-                            'range' => $range,
+                            'range' => $this->input->post('range'),
                             'entry_content' => $this->input->post('entry_content'),
-                            'exit_content' => $this->input->post('exit_content'),
+                            'exit_content' => $exit_content,
                             'is_delete' => 0,
                             'created' => date('Y-m-d H:i:s')
                         );
