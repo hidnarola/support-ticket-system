@@ -16,6 +16,14 @@ $(function() {
         height: '400px',
         extraPlugins: 'forms'
     });
+    CKEDITOR.replace( 'editor-full1', {
+        height: '400px',
+        extraPlugins: 'forms'
+    });
+    CKEDITOR.replace( 'editor-full2', {
+        height: '400px',
+        extraPlugins: 'forms'
+    });
 
 
 
