@@ -37,6 +37,7 @@ class Beacon_model extends CI_Model {
         $this->db->where('uuid', $uuid);
         $this->db->where('major', $major);
         $this->db->where('minor', $minor);
+        $this->db->where('is_delete', 0);
         $query = $this->db->get(TBL_BEACONS);
         $result = $query->result_array();
         if ($query->num_rows() > 0) {
