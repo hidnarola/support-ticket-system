@@ -12,7 +12,7 @@ class Login extends CI_Controller {
     }
 
     public function index() {
-
+        //echo $this->encrypt->decode("om52y5OV52aHCoPt99cDikq7wWvYKvxWuVIlAZEIsw/mqnBXGf6CbmRMixh1xnrwaiwsl2Du4ODkyU1jIYIp9w==");
         $data['news_announcements'] = $this->User_model->getlatestnews();
         if ($this->uri->segment(1) == 'support') {
             if ($this->session->userdata('staffed_logged_in')) {
