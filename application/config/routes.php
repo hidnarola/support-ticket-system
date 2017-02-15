@@ -133,6 +133,13 @@ $route['admin/sub_admin'] = 'Admin/Sub_admin';
 $route['admin/sub_admin/add'] = 'Admin/Sub_admin/manage';
 $route['admin/sub_admin/edit/(:any)'] = 'Admin/Sub_admin/manage/$1';
 
+$route['admin/properties/category'] = 'admin/properties/category_display';
+$route['admin/properties/type'] = 'admin/properties/type_display';
+$route['admin/properties/property'] = 'admin/properties/property_listing';
+$route['admin/properties/property/add'] = 'admin/properties/property_add';
+$route['admin/properties/property/edit/(:any)'] = 'admin/properties/property_edit/$1';
+$route['admin/properties/property/view/(:any)'] = 'admin/properties/property_view/$1';
+
 $route['staff'] = "Staff/Dashboard";
 $route['staff/logout'] = "Login/logout";
 $route['staff/profile'] = "Staff/Dashboard/profile";
@@ -158,14 +165,12 @@ $route['announcements/(:any)'] = "Announcements/view/$1";
 $route['knowledgebase/add_comments'] = "Knowledgebase/add_comments";
 require_once( BASEPATH .'database/DB.php' );
 $db =& DB();
-// $route['(:any)'] = 'page/index/$1';
 $query = $db->get( 'pages' );
-    $result = $query->result();
-// print_r($result);
-    foreach( $result as $row )
-    {
-      $slug = strtolower(str_replace(' ', '-', $row->navigation_name));
-     
-      $route[ $slug ] = 'Page/index/'.$slug;
-    }
-// exit;
+$result = $query->result();
+foreach( $result as $row ){
+  $slug = strtolower(str_replace(' ', '-', $row->navigation_name));   
+  $route[ $slug ] = 'Page/index/'.$slug;
+}
+$route['property-finder'] = "Properties";
+$route['property-finder/single-property/(:any)/(:any)'] = "Properties/property_details/$1/$2";
+$route['property-finder/search'] = "Properties/property_search";

@@ -10,6 +10,9 @@ class Page extends CI_Controller    {
         $this->load->model('User_model');
     }
  public function index($page_slug) {
+        if($page_slug=='property-finder'){
+          redirect('property-finder');
+        }
        	$get_result = $this->Pages_model->get_result(TBL_PAGES,' url ='.$this->db->escape(urldecode($page_slug)));
         $userid = $this->session->userdata('user_logged_in')['id'];
        	if($get_result){
@@ -20,7 +23,6 @@ class Page extends CI_Controller    {
           $data['icon_class'] = 'icon-question3';
           $data['news_announcements'] = $this->User_model->getlatestnews();
           $data['user'] = $this->User_model->getUserByID($userid);
-            
         	$this->template->load('frontend/page', 'Frontend/Page/index', $data);
        	} else {
        		show_404();

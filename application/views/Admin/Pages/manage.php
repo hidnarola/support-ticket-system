@@ -45,8 +45,8 @@
                                 <?php echo '<label id="title-error" class="validation-error-label" for="title">' . form_error('title') . '</label>'; ?>
                             </div>
                             <div class="form-group">
-                                <label>Description<font color="red">*</font></label>
-                                <textarea name="description" id="editor-full" required="required" rows="4" cols="4">
+                                <label>Description</label>
+                                <textarea name="description" id="editor-full" rows="4" cols="4">
                                     <?php echo isset($page_data['description']) ? $page_data['description'] : set_value('description'); ?>
                                 </textarea>
                                 <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
@@ -117,9 +117,9 @@
                     title: {
                         required: true,
                     },
-                    description: {
-                        required: true,
-                    },
+                    // description: {
+                    //     required: true,
+                    // },
                     banner_image: {
                         // required: true,
                         extension: "jpg|png|jpeg",

@@ -1,0 +1,69 @@
+#exTab1 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+#exTab2 h3 {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+/* remove border radius for the tab */
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+.sc_property.sc_property_style_property-1 .sc_property_info .sc_property_title .sc_property_title_address_1, .content > .sc_property_item .sc_property_info .sc_property_title .sc_property_title_address_1{font-size: 1.514em;margin-bottom: 5px;}
+.sc_property.sc_property_style_property-1 .sc_property_info .sc_property_icon, .content > .sc_property_item .sc_property_info .sc_property_icon{margin-top:-5px;}
+.sc_property.sc_property_style_property-1 .sc_property_info .sc_property_description, .content > .sc_property_item .sc_property_info .sc_property_description{margin-bottom: 10px;}
+.sc_property.sc_property_style_property-1 .sc_property_info .sc_property_title{ min-height: 63px; }
+.carousel { width: 100%; }
+/* Indicators list style */
+.article-slide .carousel-indicators {
+    bottom: 0;
+    left: 0;
+    margin-left: 5px;
+    width: 100%;
+}
+/* Indicators list style */
+.article-slide .carousel-indicators li {
+    border: medium none;
+    border-radius: 0;
+    float: left;
+    height: 40px;
+    margin-bottom: 5px;
+    margin-left: 0;
+    margin-right: 5px !important;
+    margin-top: 0;
+    width: 50px;
+}
+/* Indicators images style */
+.article-slide .carousel-indicators img {
+    border: 2px solid #FFFFFF;
+    float: left;
+    height: 40px;
+    left: 0;
+    width: 50px;
+}
+/* Indicators active image style */
+.article-slide .carousel-indicators .active img { border: 2px solid #428BCA; opacity: 0.7; }
+.single_property_slider{max-height:420px;}
+.social_media_icon{ height:30px; } 
+.map_container{width:100%;padding-left:0px;padding-right:0px;border: 1px solid #ccc;}
+.map_container ul{border-bottom: 1px solid #ddd;}
+.map_container ul li{border-right: 1px solid #ccc;}
+.map_container ul li.active{border-bottom: 4px solid #ff3355;}
+.map_container ul li a{border:0px solid !important;border-radius: 0px;}

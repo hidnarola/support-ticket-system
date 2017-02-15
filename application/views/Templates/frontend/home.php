@@ -104,6 +104,7 @@
                                 <?php } ?>
                                <?php 
                         $header_links = get_pages('header');
+                        $header_array = array('property-finder');
                         
                         if(count($header_links) > 0){
                             ?>
@@ -121,7 +122,10 @@
                                 } else {
                                     ?>
                                         <li class="mega-menu">
-                                            <a href="<?php echo site_url($value['url']); ?>"><div><?php echo $value['navigation_name']; ?></div></a>
+                                            <a href="<?php echo site_url($value['url']); ?>" 
+                                               target="<?php if(in_array($value['url'],$header_array)){ echo '_blank'; } ?>">
+                                               <div><?php echo $value['navigation_name']; ?></div>
+                                            </a>
                                         </li>
                                     <?php
                                 }
