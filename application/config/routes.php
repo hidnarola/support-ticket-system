@@ -133,12 +133,12 @@ $route['admin/sub_admin'] = 'Admin/Sub_admin';
 $route['admin/sub_admin/add'] = 'Admin/Sub_admin/manage';
 $route['admin/sub_admin/edit/(:any)'] = 'Admin/Sub_admin/manage/$1';
 
-$route['admin/properties/category'] = 'admin/properties/category_display';
-$route['admin/properties/type'] = 'admin/properties/type_display';
-$route['admin/properties/property'] = 'admin/properties/property_listing';
-$route['admin/properties/property/add'] = 'admin/properties/property_add';
-$route['admin/properties/property/edit/(:any)'] = 'admin/properties/property_edit/$1';
-$route['admin/properties/property/view/(:any)'] = 'admin/properties/property_view/$1';
+$route['admin/properties/category'] = 'Admin/properties/category_display';
+$route['admin/properties/type'] = 'Admin/properties/type_display';
+$route['admin/properties/property'] = 'Admin/properties/property_listing';
+$route['admin/properties/property/add'] = 'Admin/properties/property_add';
+$route['admin/properties/property/edit/(:any)'] = 'Admin/properties/property_edit/$1';
+$route['admin/properties/property/view/(:any)'] = 'Admin/properties/property_view/$1';
 
 $route['staff'] = "Staff/Dashboard";
 $route['staff/logout'] = "Login/logout";
