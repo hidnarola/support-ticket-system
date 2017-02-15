@@ -2,10 +2,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript" src="assets/propertyfinder/images/slider/jquery.panorama_viewer.js"></script>
 <link href='assets/propertyfinder/images/slider/panorama_viewer.css' rel='stylesheet' type='text/css'>
-<?php 
-   $temp = "1212121 <br> 121212121";
-   echo strip_tags($temp,"<br>");
-?>
 <!-- <script>
    jQuery(document).ready(function($){
       $(".panorama").panorama_viewer({
