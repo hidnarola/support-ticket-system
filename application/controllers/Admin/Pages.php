@@ -101,6 +101,6 @@ class Pages extends CI_Controller {
                 redirect(site_url('admin/pages'));
             }
         }
-        $this->template->load('admin','admin/Pages/manage', $data);
+        $this->template->load('admin','Admin/Pages/manage', $data);
     }
 }
