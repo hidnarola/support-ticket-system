@@ -22,10 +22,14 @@ jQuery(document).ready(function($){
           $('#div_rent_slot').css('display','inline-block');
           $('#div_bathrooms').addClass('sc_ps_bathrooms');
           $('#div_bathrooms').removeClass('sc_ps_bedrooms');
+          $('#div_kw').addClass('sc_ps_bedrooms');
+          $('#div_kw').removeClass('sc_ps_bathrooms');
        }else{
           $('#div_rent_slot').css('display','none');
           $('#div_bathrooms').addClass('sc_ps_bedrooms');
           $('#div_bathrooms').removeClass('sc_ps_bathrooms');
+          $('#div_kw').removeClass('sc_ps_bedrooms');
+          $('#div_kw').addClass('sc_ps_bathrooms');
        }
     });
 
@@ -35,6 +39,7 @@ jQuery(document).ready(function($){
           return $('#popover-content').html();
        }
     });
+    
     $('.carousel').carousel({
       interval: false,
       controls: true
@@ -49,3 +54,18 @@ jQuery(document).ready(function($){
    //   });
    // }
 });
+function add_to_wishlist(id){
+    $.ajax({
+      url: "property-finder/saved-property",
+      type: "POST",
+      data: {id: id},
+      success: function (response) {
+        response = JSON.parse(response);
+        if(response.flag==0){
+          window.location.href = 'login';
+        }else if(response.flag==1){
+          $('#btn_save').html('<span class="icon-check" style="color:green"></span><font style="margin-left:10px;font-weight:bold">Saved</font>');
+        }
+      }
+    });
+ }

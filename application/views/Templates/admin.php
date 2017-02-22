@@ -34,6 +34,11 @@
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/ui/moment/moment.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/pickers/daterangepicker.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/pickers/anytime.min.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/pickers/pickadate/picker.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/pickers/pickadate/picker.date.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/pickers/pickadate/picker.time.js"></script>
+        <script type="text/javascript" src="assets/admin/js/plugins/pickers/pickadate/legacy.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/validation/validate.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/uploaders/fileinput.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/tags/tagsinput.min.js"></script>
@@ -41,6 +46,7 @@
         <script type="text/javascript" src="assets/admin/js/plugins/ui/prism.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/core/app.js"></script>
+        
         <!--<script type="text/javascript" src="assets/admin/js/pages/dashboard.js"></script>-->
         <script type="text/javascript" src="assets/admin/js/plugins/notifications/bootbox.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/selects/select2.min.js"></script>
@@ -48,6 +54,7 @@
         <script type="text/javascript" src="assets/admin/js/pages/form_validation.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/form_inputs.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/uploader_bootstrap.js"></script>
+        <script type="text/javascript" src="assets/admin/js/pages/picker_date.js"></script>   
 
         <!-- /theme JS files -->
 
@@ -276,9 +283,9 @@
                                             <li class="<?php echo ($current_page == 'category') ? 'active' : ''; ?>"><a href="admin/properties/category"><i class="icon-list"></i> <span>Contract</span></a></li>
                                             <li class="<?php echo ($current_page == 'type') ? 'active' : ''; ?>"><a href="admin/properties/type"><i class="icon-grid2"></i> <span>Catgeory</span></a></li>
                                             <li class="<?php echo ($current_page == 'property') ? 'active' : ''; ?>"><a href="admin/properties/property"><i class="icon-office"></i> <span>Manage Property</span></a></li>
+                                            <li class="<?php echo ($current_page == 'landing_banner') ? 'active' : ''; ?>"><a href="admin/properties/landing_banner"><i class="icon-image3"></i> <span>Landing Banner</span></a></li>
                                         </ul>
                                     </li>
-
                                     <!-- /page kits -->
 
                                 </ul>

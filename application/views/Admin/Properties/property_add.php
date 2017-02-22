@@ -1,5 +1,6 @@
 <script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="assets/admin/js/pages/form_tags_input.js"></script>        
+<script type="text/javascript" src="assets/admin/js/pages/form_tags_input.js"></script>     
+
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
@@ -35,6 +36,7 @@
                         <div class="panel panel-flat">
                             <div class="panel-heading"></div>
                             <div class="panel-body">
+                                <legend class="text-bold">Basic Details</legend>
                                 <div class="row">
                                     <div class="col-md-6">
 
@@ -152,6 +154,22 @@
                                                         }
                                                     }else{
                                                         echo 'checked';
+                                                    }
+                                                    ?>>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Availability -->
+                                        <div class="form-group col-xs-12 col-md-4">
+                                            <label>Availability </label>
+                                            <div class="checkbox checkbox-switch">
+                                                <label>
+                                                    <input type="checkbox" name="availability" id="availability" data-off-color="danger" data-on-color="success" data-on-text="Yes" data-off-text="No" class="switch" <?php
+                                                    if (isset($property)) {
+                                                        if ($property->availability == '1') {
+                                                            echo 'checked';
+                                                        }
                                                     }
                                                     ?>>
                                                 </label>
@@ -279,6 +297,65 @@
                                         </div>
                                     </div>
                                 </div>
+                                <legend class="text-bold">Offer Section</legend>
+                                <div class="row">
+                                    <div class="form-group col-md-2">
+                                        <label>Offer </label>
+                                        <div class="checkbox checkbox-switch" style="margin-top:2px !important">
+                                            <label>
+                                                <input type="checkbox" name="is_offer" id="is_offer" data-off-color="danger" data-on-color="success" data-on-text="Yes" data-off-text="No" class="switch"
+                                                <?php
+                                                    if (isset($property)) {
+                                                        if ($property->is_offer == '1') {
+                                                            echo 'checked';
+                                                        }
+                                                    }
+                                                ?>>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="div_offer <?php if(isset($property)){ if($property->is_offer == '0'){ echo 'hide'; }}else{ echo 'hide'; } ?>" >
+                                        <div class="form-group col-md-4">
+                                            <label>Offer Date</label>
+
+                                            <div class="input-group">
+                                                <input type="text" class="form-control daterange-increments" 
+                                                value="
+                                                <?php 
+                                                    if(isset($property)){ 
+                                                        if($property->deal_date_from!='' && $property->deal_date_to!=''){ 
+                                                            echo date('m/d/Y g:i A',strtotime($property->deal_date_from)).' - '.date('m/d/Y g:i A',strtotime($property->deal_date_to)); 
+                                                        }
+                                                    }else{ 
+                                                        echo date('m/d/Y g:i A').' - '.date('m/d/Y g:i A'); 
+                                                    } 
+                                                ?>" name="offer_date">
+                                                <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Discount Type </label>
+                                            <div class="checkbox checkbox-switch" style="margin-top:2px !important">
+                                                <label>
+                                                    <input type="checkbox" name="discount_type" id="discount_type" data-off-color="default" data-on-color="primary" data-on-text="Flat" data-off-text="Percentage" class="switch"
+                                                    <?php
+                                                        if (isset($property)) {
+                                                            if ($property->discount_type == 'Flat') {
+                                                                echo 'checked';
+                                                            }
+                                                        }
+                                                    ?>>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Display Value</label>                                  
+                                            <input type="number" name="discount_value" class="form-control" placeholder="Discount value" min="0" value="<?php if(isset($property)){ echo $property->discount_value; }else{ echo '0'; } ?>">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <legend class="text-bold">Description Section</legend>
                                 <div class="row">
                                     <!-- Description -->
                                     <div class="form-group col-xs-12">
@@ -305,7 +382,9 @@
                                         <?php echo '<label id="description-error" class="validation-error-label" for="description">' . form_error('description') . '</label>'; ?>
                                     </div>
                                 </div>
+                                
                                 <div class="col-md-12">
+                                    <legend class="text-bold">Image Section</legend>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">Main Image <span class="text-danger">*</span></label>
                                         <div class="col-lg-10">
@@ -381,6 +460,7 @@
                                         </div>
                                     </div>
 
+                                    <legend class="text-bold">Map Section</legend>
                                     <div class="form-group">
                                         <input id="searchInput" name="address" required="required" class="controls" type="text" placeholder="Enter a location">
                                         <div id="map"></div>
@@ -390,6 +470,12 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <input type="text" name="lng" id="lng" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="hidden" name="locality" id="locality" class="form-control" value="<?php if(isset($property)){ echo $property->locality; }?>">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="hidden" name="country" id="country" class="form-control" value="<?php if(isset($property)){ echo $property->country; }?>">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -404,6 +490,15 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body" style="padding:5px !important;padding-bottom:5px !important">
+                <iframe width="100%" height="500px" src="<?php echo str_replace("watch?v=", "v/", " https://www.youtube.com/watch?v=Ll9l0xKkfgc") ?>" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 </div>
@@ -432,18 +527,223 @@
         var prop_lat = '<?php if(isset($property)){ echo $property->latitude; } ?>';
         var prop_lng = '<?php if(isset($property)){ echo $property->longitude; } ?>';
         var prop_address = '<?php if(isset($property)){ echo $property->address; } ?>';
+        var stylez = [
+          {
+              "featureType": "all",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "saturation": 36 },
+                  { "color": "#333333"},
+                  { "lightness": 40 }
+              ]
+          },
+          {
+              "featureType": "all",
+              "elementType": "labels.text.stroke",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#ffffff" },
+                  { "lightness": 16 }
+              ]
+          },
+          {
+              "featureType": "all",
+              "elementType": "labels.icon",
+              "stylers": [
+                  { "visibility": "on" }
+              ]
+          },
+          {
+              "featureType": "administrative",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "color": "#fefefe" },
+                  { "lightness": 20 }
+              ]
+          },
+          {
+              "featureType": "administrative",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  { "color": "#fefefe" },
+                  { "lightness": 17 },
+                  { "weight": 1.2 }
+              ]
+          },
+          {
+              "featureType": "administrative.country",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#ff0000" }
+              ]
+          },
+          {
+              "featureType": "administrative.country",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#5c5656" }
+              ]
+          },
+          {
+              "featureType": "administrative.country",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "color": "#cc0505" },
+                  { "visibility": "on" }
+              ]
+          },
+          {
+              "featureType": "administrative.country",
+              "elementType": "labels.text.stroke",
+              "stylers": [
+                  { "visibility": "simplified" },
+                  { "color": "#ff0505" }
+              ]
+          },
+          {
+              "featureType": "administrative.province",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#ad2121" }
+              ]
+          },
+          {
+              "featureType": "administrative.province",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#000110" }
+              ]
+          },
+          {
+              "featureType": "administrative.locality",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "color": "#ff0000" },
+                  { "visibility": "on" }
+              ]
+          },
+          {
+              "featureType": "administrative.locality",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#790b0b" }
+              ]
+          },
+          {
+              "featureType": "administrative.locality",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "color": "#590000" },
+                  { "visibility": "on" }
+              ]
+          },
+          {
+              "featureType": "administrative.neighborhood",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#000aff" }
+              ]
+          },
+          {
+              "featureType": "landscape",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#f5f5f5" },
+                  { "lightness": 20 }
+              ]
+          },
+          {
+              "featureType": "poi",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#f5f5f5" },
+                  { "lightness": 21 }
+              ]
+          },
+          {
+              "featureType": "poi.park",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#dedede" },
+                  { "lightness": 21 }
+              ]
+          },
+          {
+              "featureType": "road.highway",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "color": "#cccccc" },
+                  { "lightness": 17 }
+              ]
+          },
+          {
+              "featureType": "road.highway",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  { "color": "#cccccc" },
+                  { "lightness": 29 },
+                  { "weight": 0.2 }
+              ]
+          },
+          {
+              "featureType": "road.arterial",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#cccccc" },
+                  { "lightness": 18 }
+              ]
+          },
+          {
+              "featureType": "road.local",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#cccccc" },
+                  { "lightness": 16 }
+              ]
+          },
+          {
+              "featureType": "transit",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#f2f2f2" },
+                  { "lightness": 19 }
+              ]
+          },
+          {
+              "featureType": "water",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#5bc0ee" },
+                  { "lightness": 17 }
+              ]
+          }
+      ];
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 23.4241, lng: 53.8478},
-          zoom: 5
+            center: {lat: 23.4241, lng: 53.8478},
+            zoom: 5,
+            mapTypeControlOptions: {
+                mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'tehgrayz']
+            }
         });
         
         if(prop_lat!='' && prop_lng!=''){
             var map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: parseFloat(prop_lat), lng: parseFloat(prop_lng)},
-              zoom: 13
+                center: {lat: parseFloat(prop_lat), lng: parseFloat(prop_lng)},
+                zoom: 13,
+                mapTypeControlOptions: {
+                    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'tehgrayz']
+                 }
             });
         }
-
+        var mapType = new google.maps.StyledMapType(stylez, { name:"Grayscale" });    
+        map.mapTypes.set('tehgrayz', mapType);
+        map.setMapTypeId('tehgrayz');
         var input = document.getElementById('searchInput');
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -513,12 +813,15 @@
           
             //Location details
             for (var i = 0; i < place.address_components.length; i++) {
+                if(place.address_components[i].types[0] == 'locality'){
+                    $('#locality').val(place.address_components[i].long_name);
+                }
                 // if(place.address_components[i].types[0] == 'postal_code'){
                 //     document.getElementById('postal_code').innerHTML = place.address_components[i].long_name;
                 // }
-                // if(place.address_components[i].types[0] == 'country'){
-                //     document.getElementById('country').innerHTML = place.address_components[i].long_name;
-                // }
+                if(place.address_components[i].types[0] == 'country'){
+                    $('#country').val(place.address_components[i].long_name);
+                }
             }
             //document.getElementById('location').innerHTML = place.formatted_address;
             $('#lat').val(place.geometry.location.lat());
@@ -533,9 +836,9 @@
 </script>
 <script type="text/javascript">
     
-        CKEDITOR.replace('description', {
-            height: '250px'
-        });
+    CKEDITOR.replace('description', {
+        height: '250px'
+    });
     $('document').ready(function () {
         $("#property_add").validate({
             rules: {
@@ -544,6 +847,15 @@
                 }
             }
         });
+    });
+    
+    $('#is_offer').on('switchChange.bootstrapSwitch', function (event, state) {
+        if($("#is_offer").is(':checked')) {
+            //$('#myModal').modal('show');
+            $('.div_offer').removeClass('hide');
+        } else {
+            $('.div_offer').addClass('hide');
+        }
     });
 </script>
 <style>

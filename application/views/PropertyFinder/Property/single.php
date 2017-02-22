@@ -1,7 +1,30 @@
+<link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
+<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
+<style> .fancy-title.title-dotted-border {
+        background: url(assets/frontend/images/icons/dotted.png) repeat-x center;
+    }
+    .title-center {
+        text-align: center;
+    }
+    .fancy-title {
+        position: relative;
+        margin-bottom: 30px;
+    }
+    .fancy-title h3 {
+        position: relative;
+        display: inline-block;
+        background-color: #FFF;
+        padding-right: 15px;
+        margin-bottom: 20px;
+    }
+    .title-center h3 {
+        padding: 0 15px;
+    }
+</style>
 <div class="page_content_wrap">
    <div class="content_wrap">
       <div class="content">
-         <section class="post_featured">
+         <section class="post_featured" style="box-shadow: 0px 2px 10px 0px rgb(130, 132, 135)">
             <div class="post_thumb">
                <div class="carousel slide article-slide" id="article-photo-carousel">
                  <!-- Wrapper for slides -->
@@ -11,7 +34,9 @@
                         for($i=0;$i<count($img_arr);$i++){
                         ?>
                            <div class="item <?php if($i==0){ echo 'active'; } ?>">
-                              <img alt="" src="<?php echo site_url(PROPERTY_IMAGE.'/'.$img_arr[$i]); ?>" class="single_property_slider">
+                              <a class="fancybox" href="<?php echo PROPERTY_IMAGE . '/' . $img_arr[$i]; ?>" data-fancybox-group="gallery">
+                                 <img alt="" src="<?php echo site_url(PROPERTY_IMAGE.'/'.$img_arr[$i]); ?>" class="single_property_slider">
+                              </a>
                            </div>      
                         <?php
                         }
@@ -42,8 +67,8 @@
          <section class="post_content">
             <div class="post_info">
                <span class="post_info_item">in <a class="property_group_link" href="#">For <?php echo $property_data->category_name ?></a>, 
-               <a class="property_group_link" href="#">Lux Property</a></span>
-               <span class="post_info_item">Started <a href="single-post.html" class="post_info_date date updated"><?php echo date('F d, Y',strtotime($property_data->created)) ?></a></span>
+               <!-- <a class="property_group_link" href="#">Lux Property</a></span> -->
+               <span class="post_info_item">Started <a href="javscript:void(0)" class="post_info_date date updated"><?php echo date('F d, Y',strtotime($property_data->created)) ?></a></span>
                <span class="post_info_item post_info_counters">
                <a class="post_counters_item" href="#"><span>0</span> Comments</a>
                </span>
@@ -55,7 +80,17 @@
                </div>
                <div class="row">
                   <div class="col-md-12">
-                     <button class="btn btn-default" style="border-radius:2px"><span class="icon-heart" style="color:red"></span><font style="margin-left:10px;font-weight:bold">Save</font></button>
+                     <button class="btn btn-default" style="border-radius:2px" type="button" id="btn_save" onclick="add_to_wishlist('<?php echo base64_encode($property_data->id); ?>')">
+                        <?php if(isset($is_in_wishlist)){ 
+                                 if($is_in_wishlist==0){ ?>
+                                    <span class="icon-heart" style="color:red"></span><font style="margin-left:10px;font-weight:bold">Save</font>
+                                 <?php }else{ ?>
+                                    <span class="icon-check" style="color:green"></span><font style="margin-left:10px;font-weight:bold">Saved</font>
+                                 <?php } ?>
+                        <?php }else{ ?>
+                           <span class="icon-heart" style="color:red"></span><font style="margin-left:10px;font-weight:bold">Save</font>
+                        <?php } ?>
+                     </button>
                      <button class="btn btn-default" style="border-radius:2px" data-toggle="popover" data-container="body" data-placement="bottom" type="button" data-html="true" href="#" id="share"><span class="icon-share" style="color:red"></span><font style="margin-left:10px;font-weight:bold">Share</font></button>
                      <?php
                            $uri = $_SERVER['REQUEST_URI'];
@@ -77,15 +112,38 @@
                <div class="property_price_box">
                   <span class="property_price_box_sign">AED </span>
                   <span class="property_price_box_price">
-                     <?php echo number_format($property_data->price) ?>
+                     <?php 
+                        if($property_data->is_offer==1 && (strtotime(date('Y-m-d h:i:s'))>=strtotime($property_data->deal_date_from) && strtotime(date('Y-m-d h:i:s'))<=strtotime($property_data->deal_date_to)) ){
+                           if($property_data->discount_type=='Percentage'){
+                              $price = ceil($property_data->price - (($property_data->price*$property_data->discount_value)/100));
+                           }else{
+                              $price = ceil($property_data->price - $property_data->discount_value);
+                           }
+                           echo '<strike style="font-size:13px">'.number_format($property_data->price).'</strike>'.' '.number_format($price);
+                        }else{
+                           $price = ceil($property_data->price);
+                           echo number_format($price);
+                        }
+                     ?>
                      <?php
                         if($property_data->category_name=='Rent'){
                            echo ' / '.$property_data->rent_type;
                         }
                      ?>
                   </span>
+
                </div>
                <div class="sc_property_info_list">
+                  <?php
+                     if($property_data->is_offer==1 && (strtotime(date('Y-m-d h:i:s'))>=strtotime($property_data->deal_date_from) && strtotime(date('Y-m-d h:i:s'))<=strtotime($property_data->deal_date_to)) ){
+                        if($property_data->discount_type=='Percentage'){
+                           $percentage_value = number_format($property_data->discount_value).'% OFF';
+                        }else{
+                           $percentage_value = number_format(ceil(($property_data->discount_value*100)/$property_data->price)).'% OFF';
+                        }
+                        echo '<span class="discount_label"> - '.$percentage_value.'</span>';
+                     }
+                  ?>
                   <span class="icon-area_2"><?php echo number_format($property_data->area).' sqft' ?></span>
                   <span class="icon-bed"><?php echo $property_data->bedroom_no ?></span>
                   <span class="icon-bath"><?php echo $property_data->bathroom_no ?></span>
@@ -122,7 +180,7 @@
                         <div class="column-1_2 column_padding_bottom">
                            <div  class="sc_team_item columns_wrap">
                               <div class="sc_team_item_avatar">
-                                 <img alt="" src="assets/propertyfinder/images/370x370.jpg"> 
+                                 <img alt="" src="assets/images/no_photo2.png"> 
                               </div>
                               <div class="sc_team_item_info">
                                  <div class="sc_team_item_title"><a href="single-team.html"><?php echo $property_data->contact_name ?></a></div>
@@ -175,16 +233,9 @@
                   </select>
                   <select name="loc">
                      <option value="">Property Location</option>
-                     <option value="Upper East Side">Upper East Side</option>
-                     <option value="Upper West Side">Upper West Side</option>
-                     <option value="Midtown East">Midtown East</option>
-                     <option value="Midtown West">Midtown West</option>
-                     <option value="Downtown">Downtown</option>
-                     <option value="Upper Manhattan">Upper Manhattan</option>
-                     <option value="Brooklyn">Brooklyn</option>
-                     <option value="Queens">Queens</option>
-                     <option value="Bronx">Bronx</option>
-                     <option value="Staten Island">Staten Island</option>
+                     <?php foreach($cities_data as $k => $v){ ?>
+                        <option value="<?php echo $v->cities; ?>"><?php echo $v->cities.' ('.$v->tot_cities.')'; ?></option>
+                     <?php } ?>
                   </select>
                   <select name="pt">
                      <option value="">Property Type</option>
@@ -343,10 +394,214 @@
    var panorama;
    var bounceTimer;
    function initMap() {
+      var stylez = [
+          {
+              "featureType": "all",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "saturation": 36 },
+                  { "color": "#333333"},
+                  { "lightness": 40 }
+              ]
+          },
+          {
+              "featureType": "all",
+              "elementType": "labels.text.stroke",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#ffffff" },
+                  { "lightness": 16 }
+              ]
+          },
+          {
+              "featureType": "all",
+              "elementType": "labels.icon",
+              "stylers": [
+                  { "visibility": "on" }
+              ]
+          },
+          {
+              "featureType": "administrative",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "color": "#fefefe" },
+                  { "lightness": 20 }
+              ]
+          },
+          {
+              "featureType": "administrative",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  { "color": "#fefefe" },
+                  { "lightness": 17 },
+                  { "weight": 1.2 }
+              ]
+          },
+          {
+              "featureType": "administrative.country",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#ff0000" }
+              ]
+          },
+          {
+              "featureType": "administrative.country",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#5c5656" }
+              ]
+          },
+          {
+              "featureType": "administrative.country",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "color": "#cc0505" },
+                  { "visibility": "on" }
+              ]
+          },
+          {
+              "featureType": "administrative.country",
+              "elementType": "labels.text.stroke",
+              "stylers": [
+                  { "visibility": "simplified" },
+                  { "color": "#ff0505" }
+              ]
+          },
+          {
+              "featureType": "administrative.province",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#ad2121" }
+              ]
+          },
+          {
+              "featureType": "administrative.province",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#000110" }
+              ]
+          },
+          {
+              "featureType": "administrative.locality",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "color": "#ff0000" },
+                  { "visibility": "on" }
+              ]
+          },
+          {
+              "featureType": "administrative.locality",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#790b0b" }
+              ]
+          },
+          {
+              "featureType": "administrative.locality",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "color": "#590000" },
+                  { "visibility": "on" }
+              ]
+          },
+          {
+              "featureType": "administrative.neighborhood",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  { "visibility": "on" },
+                  { "color": "#000aff" }
+              ]
+          },
+          {
+              "featureType": "landscape",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#f5f5f5" },
+                  { "lightness": 20 }
+              ]
+          },
+          {
+              "featureType": "poi",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#f5f5f5" },
+                  { "lightness": 21 }
+              ]
+          },
+          {
+              "featureType": "poi.park",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#dedede" },
+                  { "lightness": 21 }
+              ]
+          },
+          {
+              "featureType": "road.highway",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  { "color": "#cccccc" },
+                  { "lightness": 17 }
+              ]
+          },
+          {
+              "featureType": "road.highway",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  { "color": "#cccccc" },
+                  { "lightness": 29 },
+                  { "weight": 0.2 }
+              ]
+          },
+          {
+              "featureType": "road.arterial",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#cccccc" },
+                  { "lightness": 18 }
+              ]
+          },
+          {
+              "featureType": "road.local",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#cccccc" },
+                  { "lightness": 16 }
+              ]
+          },
+          {
+              "featureType": "transit",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#f2f2f2" },
+                  { "lightness": 19 }
+              ]
+          },
+          {
+              "featureType": "water",
+              "elementType": "geometry",
+              "stylers": [
+                  { "color": "#5bc0ee" },
+                  { "lightness": 17 }
+              ]
+          }
+      ];
       map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: parseFloat(prop_lat), lng: parseFloat(prop_lng)},
-        zoom: 13
+         center: {lat: parseFloat(prop_lat), lng: parseFloat(prop_lng)},
+         zoom: 13,
+         mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'tehgrayz']
+         }
       });
+      var mapType = new google.maps.StyledMapType(stylez, { name:"Grayscale" });    
+      map.mapTypes.set('tehgrayz', mapType);
+      map.setMapTypeId('tehgrayz');
+           
       var contentString = 'Hello';
 
       var infowindow = new google.maps.InfoWindow({
@@ -375,16 +630,6 @@
                500);
            }
       });
-      // google.maps.event.addListener(marker, 'mouseout', function() {
-      //    if (this.getAnimation() != null) {
-      //       this.setAnimation(null);
-      //    }
-      //    clearTimeout(bounceTimer);
-      // });
-      // marker.addListener('click', function() {
-      //    infowindow.open(map, marker);
-      // });
-
       panorama = new google.maps.StreetViewPanorama(
          document.getElementById('street_view'), {
             position: {lat: parseFloat(prop_lat), lng: parseFloat(prop_lng)},
@@ -413,4 +658,9 @@
       window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
       return true;
    }
+</script>
+<script>
+    $(function () {
+        $('.fancybox').fancybox();
+    });
 </script>

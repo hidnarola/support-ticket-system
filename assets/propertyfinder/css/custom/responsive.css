@@ -1225,6 +1225,8 @@ Samsung Galaxy
 	.yreg_estate_profiler {
 		display:none;
 	}
+	.discount_tag{width: 80px !important;}
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, textarea, button, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, address, section, video, audio{ font-size:98%; }
 }
 
 
@@ -1832,6 +1834,8 @@ Very common low res
 	.yreg_estate_profiler {
 		display:none;
 	}
+	.sold-text { top:6px !important; }
+	.discount_tag { top:15px !important; width:58px !important; }
 }
 
 
@@ -1983,12 +1987,15 @@ Very common low res
 	.sidebar {width: 100%;float: none;margin-top: 6em;}
 	
 	.page_content_wrap {}
+	.property_wishlist_page{ padding-top:25.000em !important; }
+
 	.post_content.isotope_item_content .post_info:first-of-type + p {display: block;}
 	
 	.sidebar_inner.widget_area_inner aside {
 		padding-left: 30px;
 		padding-right: 30px;
-		width: 37%;
+		/*width: 37%;*/
+		width:100%;
 	}
 	
 	/* Content */

@@ -12,7 +12,6 @@ class Login extends CI_Controller {
     }
 
     public function index() {
-        //echo $this->encrypt->decode("om52y5OV52aHCoPt99cDikq7wWvYKvxWuVIlAZEIsw/mqnBXGf6CbmRMixh1xnrwaiwsl2Du4ODkyU1jIYIp9w==");
         $data['news_announcements'] = $this->User_model->getlatestnews();
         if ($this->uri->segment(1) == 'support') {
             if ($this->session->userdata('staffed_logged_in')) {
@@ -51,6 +50,11 @@ class Login extends CI_Controller {
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     $userdata = $this->session->set_userdata('user_logged_in', $result);
+                    $force_redirect = $this->session->userdata('force_redirect');
+                    if(!empty($force_redirect)){
+                        $this->session->unset_userdata('force_redirect');
+                        redirect($force_redirect);
+                    }
                     redirect('home');
                 } elseif ($result['role_id'] == 1 && $result['is_verified'] == 0 && $user_title == 'Tenant') {
                     // Give error mesg for verify link
@@ -253,6 +257,11 @@ class Login extends CI_Controller {
             redirect('support/login');
         } else {
             $this->session->unset_userdata('user_logged_in');
+            $force_redirect = $this->session->userdata('force_redirect');
+            if(!empty($force_redirect)){
+                $this->session->unset_userdata('force_redirect');
+                redirect($force_redirect);
+            }
             redirect('home');
         }
     }

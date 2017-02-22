@@ -9,6 +9,7 @@
    if($this->input->get('pr_f')!=''){ $pr_f_parameter = '&pr_f='.$this->input->get('pr_f'); }else{ $pr_f_parameter=''; }
    if($this->input->get('at')!=''){ $at_parameter = '&at='.$this->input->get('at'); }else{ $at_parameter=''; }
    if($this->input->get('af')!=''){ $af_parameter = '&af='.$this->input->get('af'); }else{ $af_parameter=''; }
+   if($this->input->get('loc')!=''){ $loc_parameter = '&loc='.$this->input->get('loc'); }else{ $loc_parameter=''; }
    if($this->input->get('order')!=''){ $order_parameter = '&order='.$this->input->get('order'); }else{ $order_parameter=''; }
    $c_pg = 1;
    if ($this->input->get('pg') != '')
@@ -16,364 +17,132 @@
 ?>
 <div class="page_content_wrap">
    <div class="content_wrap">
-      <div class="row">
-      <div class="col-md-2">
-         <div class="form-group scheme_dark">
-            <label for="sel1" style="color:#000">Sort By : </label>
-            <select class="form-control" id="sort_by" name="sort_by" onchange="sortingproduct(this.value)">
-               <option value='price_asc' <?php if($order=='price_asc'){ echo 'selected'; } ?>>Lowest Price</option>
-               <option value='price_desc' <?php if($order=='price_desc'){ echo 'selected'; } ?>>Highest Price</option>
-               <option value='latest' <?php if($order=='latest'){ echo 'selected'; } ?>>Newest</option>
-               <option value='bed_asc' <?php if($order=='bed_asc'){ echo 'selected'; } ?>>Lowest Beds</option>
-               <option value='bed_desc' <?php if($order=='bed_desc'){ echo 'selected'; } ?>>Highest Beds</option>
-            </select>
-         </div>
-      </div>
-   </div>
-      <div class="content">
-         <div class="sc_property sc_property_style_property-1">
-            <div class="columns_wrap">
-               <?php foreach($properties_data as $k => $v){ ?>
-                  <div class="column-1_2 column_padding_bottom">
-                     <div class="sc_property_item">
-                        <div class="sc_property_image">
-                           <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
-                              <div class="property_price_box">
-                                 <span class="property_price_box_sign">AED </span>
-                                 <span class="property_price_box_price">
-                                    <?php echo number_format($v->price) ?>
-                                    <?php
-                                       if($v->category_name=='Rent'){
-                                          echo ' / '.$v->rent_type;
-                                       }
-                                    ?>
-                                 </span>
-                              </div>
-                              <img alt="" src="<?php echo 'assets/timthumb.php?src='.PROPERTY_IMAGE.'/'.explode(',',$v->images)[0].'&h=460&w=770&q=100' ?>">
-                           </a>
-                        </div>
-                        <div class="sc_property_info">
-                           <div class="sc_property_description"><?php echo $v->type_name.' for '.$v->category_name ?></div>
-                           <div>
-                              <div class="sc_property_icon">
-                                 <span class="icon-location"></span>
-                              </div>
-                              <div class="sc_property_title">
-                                 <div class="sc_property_title_address_1">
-                                    <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
-                                 </div>
-                                 <div class="sc_property_title_address_2"><?php echo $v->address; ?></div>
-                              </div>
-                              <div class="cL"></div>
-                           </div>
-                        </div>
-                        <div class="sc_property_info_list">
-                           <span class="icon-building113"><?php echo number_format($v->area).' sqft' ?></span>
-                           <span class="icon-bed"><?php echo $v->bedroom_no ?></span>
-                           <span class="icon-bath"><?php echo $v->bathroom_no ?></span>
-                           <!-- <span class="icon-warehouse">2</span> -->
-                        </div>
-                     </div>
-                  </div>
-               <?php } ?>
-               <!-- <div class="column-1_2 column_padding_bottom">
-                  <div class="sc_property_item">
-                     <div class="sc_property_image">
-                        <a href="single-post.html">
-                           <div class="property_price_box">
-                              <span class="property_price_box_sign">$</span><span class="property_price_box_price">1,249,000</span>
-                           </div>
-                           <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                        </a>
-                     </div>
-                     <div class="sc_property_info">
-                        <div class="sc_property_description">House for sale</div>
-                        <div>
-                           <div class="sc_property_icon">
-                              <span class="icon-location"></span>
-                           </div>
-                           <div class="sc_property_title">
-                              <div class="sc_property_title_address_1">
-                                 <a href="single-post.html">87 Mishaum Point Rd</a> 
-                              </div>
-                              <div class="sc_property_title_address_2">Dartmouth, MA 02748</div>
-                           </div>
-                           <div class="cL"></div>
-                        </div>
-                     </div>
-                     <div class="sc_property_info_list">
-                        <span class="icon-building113">1,286 sqft</span>
-                        <span class="icon-bed">2</span>
-                        <span class="icon-bath">3</span>
-                        <span class="icon-warehouse">2</span>
-                     </div>
-                  </div>
+      <?php if($property_count>0){ ?>
+         <div class="row">
+            <div class="col-md-2">
+               <div class="form-group scheme_dark">
+                  <label for="sel1" style="color:#000">Sort By : </label>
+                  <select class="form-control" id="sort_by" name="sort_by" onchange="sortingproduct(this.value)">
+                     <option value='price_asc' <?php if($order=='price_asc'){ echo 'selected'; } ?>>Lowest Price</option>
+                     <option value='price_desc' <?php if($order=='price_desc'){ echo 'selected'; } ?>>Highest Price</option>
+                     <option value='latest' <?php if($order=='latest'){ echo 'selected'; } ?>>Newest</option>
+                     <option value='bed_asc' <?php if($order=='bed_asc'){ echo 'selected'; } ?>>Lowest Beds</option>
+                     <option value='bed_desc' <?php if($order=='bed_desc'){ echo 'selected'; } ?>>Highest Beds</option>
+                  </select>
                </div>
-               <div class="column-1_2 column_padding_bottom">
-                  <div class="sc_property_item">
-                     <div class="sc_property_image">
-                        <a href="single-post.html">
-                           <div class="property_price_box">
-                              <span class="property_price_box_sign">$</span><span class="property_price_box_price">2,189,000</span>
-                           </div>
-                           <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                        </a>
-                     </div>
-                     <div class="sc_property_info">
-                        <div class="sc_property_description">Townhouse for sale</div>
-                        <div>
-                           <div class="sc_property_icon">
-                              <span class="icon-location"></span>
-                           </div>
-                           <div class="sc_property_title">
-                              <div class="sc_property_title_address_1">
-                                 <a href="single-post.html">9615 Shore Rd APT BA</a> 
-                              </div>
-                              <div class="sc_property_title_address_2">Brooklyn, NY 11209</div>
-                           </div>
-                           <div class="cL"></div>
-                        </div>
-                     </div>
-                     <div class="sc_property_info_list">
-                        <span class="icon-building113">1,286 sqft</span>
-                        <span class="icon-bed">2</span>
-                        <span class="icon-bath">3</span>
-                        <span class="icon-warehouse">3</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="column-1_2 column_padding_bottom">
-                  <div class="sc_property_item">
-                     <div class="sc_property_image">
-                        <a href="single-post.html">
-                           <div class="property_price_box">
-                              <span class="property_price_box_sign">$</span><span class="property_price_box_price">3,449</span><span class="property_price_box_per">/year</span>
-                           </div>
-                           <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                        </a>
-                     </div>
-                     <div class="sc_property_info">
-                        <div class="sc_property_description">House for rent</div>
-                        <div>
-                           <div class="sc_property_icon">
-                              <span class="icon-location"></span>
-                           </div>
-                           <div class="sc_property_title">
-                              <div class="sc_property_title_address_1">
-                                 <a href="single-post.html">80646 Via Pessaro</a> 
-                              </div>
-                              <div class="sc_property_title_address_2">La Quinta, CA 32453</div>
-                           </div>
-                           <div class="cL"></div>
-                        </div>
-                     </div>
-                     <div class="sc_property_info_list">
-                        <span class="icon-building113">886 sqft</span>
-                        <span class="icon-bed">2</span>
-                        <span class="icon-bath">3</span>
-                        <span class="icon-warehouse">2</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="column-1_2 column_padding_bottom">
-                  <div class="sc_property_item">
-                     <div class="sc_property_image">
-                        <a href="single-property.html">
-                           <div class="property_price_box">
-                              <span class="property_price_box_sign">$</span><span class="property_price_box_price">1,249,000</span>
-                           </div>
-                           <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                        </a>
-                     </div>
-                     <div class="sc_property_info">
-                        <div class="sc_property_description">House for sale</div>
-                        <div>
-                           <div class="sc_property_icon">
-                              <span class="icon-location"></span>
-                           </div>
-                           <div class="sc_property_title">
-                              <div class="sc_property_title_address_1">
-                                 <a href="single-property.html">134 Mirror Lake Dr</a> 
-                              </div>
-                              <div class="sc_property_title_address_2">Lake Placid,NY 12946</div>
-                           </div>
-                           <div class="cL"></div>
-                        </div>
-                     </div>
-                     <div class="sc_property_info_list">
-                        <span class="icon-building113">1,286 sqft</span>
-                        <span class="icon-bed">2</span>
-                        <span class="icon-bath">3</span>
-                        <span class="icon-warehouse">2</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="column-1_2 column_padding_bottom">
-                  <div class="sc_property_item">
-                     <div class="sc_property_image">
-                        <a href="single-post.html">
-                           <div class="property_price_box">
-                              <span class="property_price_box_sign">$</span><span class="property_price_box_price">1,000</span><span class="property_price_box_per">/year</span>
-                           </div>
-                           <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                        </a>
-                     </div>
-                     <div class="sc_property_info">
-                        <div class="sc_property_description">Commercial for rent</div>
-                        <div>
-                           <div class="sc_property_icon">
-                              <span class="icon-location"></span>
-                           </div>
-                           <div class="sc_property_title">
-                              <div class="sc_property_title_address_1">
-                                 <a href="single-post.html">9403 Whitman Ave</a> 
-                              </div>
-                              <div class="sc_property_title_address_2">Bakersfield, CA 325</div>
-                           </div>
-                           <div class="cL"></div>
-                        </div>
-                     </div>
-                     <div class="sc_property_info_list">
-                        <span class="icon-building113">6,970 sqft</span>
-                        <span class="icon-bed">2</span>
-                        <span class="icon-bath">2</span>
-                        <span class="icon-warehouse">1</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="column-1_2 column_padding_bottom">
-                  <div class="sc_property_item">
-                     <div class="sc_property_image">
-                        <a href="single-property.html">
-                           <div class="property_price_box">
-                              <span class="property_price_box_sign">$</span><span class="property_price_box_price">249,900</span>
-                           </div>
-                           <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                        </a>
-                     </div>
-                     <div class="sc_property_info">
-                        <div class="sc_property_description">Cond-op for sale</div>
-                        <div>
-                           <div class="sc_property_icon">
-                              <span class="icon-location"></span>
-                           </div>
-                           <div class="sc_property_title">
-                              <div class="sc_property_title_address_1">
-                                 <a href="single-property.html">6099 S 4390 W</a> 
-                              </div>
-                              <div class="sc_property_title_address_2">Salt Lake City, UT 84118</div>
-                           </div>
-                           <div class="cL"></div>
-                        </div>
-                     </div>
-                     <div class="sc_property_info_list">
-                        <span class="icon-building113">2,372 sqft</span>
-                        <span class="icon-bed">3</span>
-                        <span class="icon-bath">2</span>
-                        <span class="icon-warehouse">3</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="column-1_2 column_padding_bottom">
-                  <div class="sc_property_item">
-                     <div class="sc_property_image">
-                        <a href="single-property.html">
-                           <div class="property_price_box">
-                              <span class="property_price_box_sign">$</span><span class="property_price_box_price">1,500</span><span class="property_price_box_per">/year</span>
-                           </div>
-                           <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                        </a>
-                     </div>
-                     <div class="sc_property_info">
-                        <div class="sc_property_description">Commercial for rent</div>
-                        <div>
-                           <div class="sc_property_icon">
-                              <span class="icon-location"></span>
-                           </div>
-                           <div class="sc_property_title">
-                              <div class="sc_property_title_address_1">
-                                 <a href="single-property.html">495 Kenview Ave</a> 
-                              </div>
-                              <div class="sc_property_title_address_2">Detroit, MI 50010</div>
-                           </div>
-                           <div class="cL"></div>
-                        </div>
-                     </div>
-                     <div class="sc_property_info_list">
-                        <span class="icon-building113">1,013 sqft</span>
-                        <span class="icon-bed">2</span>
-                        <span class="icon-bath">2</span>
-                        <span class="icon-warehouse">1</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="column-1_2 column_padding_bottom">
-                  <div class="sc_property_item">
-                     <div class="sc_property_image">
-                        <a href="single-property.html">
-                           <div class="property_price_box">
-                              <span class="property_price_box_sign">$</span><span class="property_price_box_price">150,000</span>
-                           </div>
-                           <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                        </a>
-                     </div>
-                     <div class="sc_property_info">
-                        <div class="sc_property_description">Investment for sale</div>
-                        <div>
-                           <div class="sc_property_icon">
-                              <span class="icon-location"></span>
-                           </div>
-                           <div class="sc_property_title">
-                              <div class="sc_property_title_address_1">
-                                 <a href="single-property.html">8 Simons Sq.</a> 
-                              </div>
-                              <div class="sc_property_title_address_2">Hamden, CT 75260</div>
-                           </div>
-                           <div class="cL"></div>
-                        </div>
-                     </div>
-                     <div class="sc_property_info_list">
-                        <span class="icon-building113">1,052 sqft</span>
-                        <span class="icon-bed">1</span>
-                        <span class="icon-bath">1</span>
-                        <span class="icon-warehouse">2</span>
-                     </div>
-                  </div>
-               </div> -->
             </div>
          </div>
-         <?php if($property_count>20){ ?>
-         <nav id="pagination" class="pagination_wrap pagination_pages">
-            <?php if ($c_pg != 1) { ?>
-               <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=1' ?>" class="pager_first"></a>
-            <?php } ?>
-            <?php if ($c_pg > 3) { ?>
-               <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=' . ($c_pg - 1) ?>" class="pager_prev"></a>
-            <?php } ?>
-            <?php
-               $display_num = $total_page = ceil($property_count / $_per_page_property);
-               if ($display_num > 7) { $display_num = 7; }
-               $startPage = $c_pg - 3;
-               if ($startPage <= 0) $startPage = 1;
-               for ($i = 1; $i <= $display_num; $i++) {
-                  if ($startPage > $total_page) { break; }
-                  if ($startPage == $c_pg){
-                  ?>
-                     <span class="pager_current active"><?= $startPage ?></span>
-                  <?php } else { ?>
-                     <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=' . $startPage ?>" class=""><?= $startPage ?></a>
+      <?php } ?>
+      <div class="content">
+         <?php if($property_count==0){ ?>
+            <!-- <div class="text-center content-group error-title-div">
+               <h1 class="error-title">No Data Found...</h1>
+            </div> -->
+         <?php } else { ?>
+            <div class="sc_property sc_property_style_property-1">
+               <div class="columns_wrap">
+                  <?php foreach($properties_data as $k => $v){ ?>
+                     <div class="column-1_2 column_padding_bottom">
+                        <?php if($v->availability==0) { ?>
+                           <div class="sold-text"></div>
+                        <?php } ?>
+                        <?php
+                           if($v->is_offer==1 && (strtotime(date('Y-m-d h:i:s'))>=strtotime($v->deal_date_from) && strtotime(date('Y-m-d h:i:s'))<=strtotime($v->deal_date_to)) ){
+                              if($v->discount_type=='Percentage'){
+                                 $percentage_value = number_format($v->discount_value).'%';
+                              }else{
+                                 $percentage_value = number_format(ceil(($v->discount_value*100)/$v->price)).'%';
+                              }
+                              echo '<span class="discount_tag" style="z-index:1">'. $percentage_value .' <br> OFF</span>';
+                           }
+                        ?>
+                        <div class="sc_property_item">
+                           <div class="sc_property_image">
+                              <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
+                                 <div class="property_price_box">
+                                    <span class="property_price_box_sign">AED </span>
+                                    <span class="property_price_box_price">
+                                       <?php 
+                                          if($v->is_offer==1 && (strtotime(date('Y-m-d h:i:s'))>=strtotime($v->deal_date_from) && strtotime(date('Y-m-d h:i:s'))<=strtotime($v->deal_date_to)) ){
+                                             if($v->discount_type=='Percentage'){
+                                                $price = ceil($v->price - (($v->price*$v->discount_value)/100));
+                                             }else{
+                                                $price = ceil($v->price - $v->discount_value);
+                                             }
+                                          }else{
+                                             $price = ceil($v->price);
+                                          }
+                                          echo number_format($price) ;
+                                       ?>
+                                       <?php
+                                          if($v->category_name=='Rent'){
+                                             echo ' / '.$v->rent_type;
+                                          }
+                                       ?>
+                                    </span>
+                                 </div>
+                                 <img alt="" src="<?php echo 'assets/timthumb.php?src='.PROPERTY_IMAGE.'/'.explode(',',$v->images)[0].'&h=460&w=770&q=100' ?>">
+                              </a>
+                           </div>
+                           <div class="sc_property_info">
+                              <div class="sc_property_description"><?php echo $v->type_name.' for '.$v->category_name ?></div>
+                              <div>
+                                 <div class="sc_property_icon">
+                                    <span class="icon-location"></span>
+                                 </div>
+                                 <div class="sc_property_title">
+                                    <div class="sc_property_title_address_1">
+                                       <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
+                                    </div>
+                                    <div class="sc_property_title_address_2"><?php echo $v->address; ?></div>
+                                 </div>
+                                 <div class="cL"></div>
+                              </div>
+                           </div>
+                           <div class="sc_property_info_list">
+                              <span class="icon-building113"><?php echo number_format($v->area).' sqft' ?></span>
+                              <span class="icon-bed"><?php echo $v->bedroom_no ?></span>
+                              <span class="icon-bath"><?php echo $v->bathroom_no ?></span>
+                              <!-- <span class="icon-warehouse">2</span> -->
+                           </div>
+                        </div>
+                     </div>
+                  <?php } ?>
+               </div>
+            </div>
+            <?php if($property_count>20){ ?>
+               <nav id="pagination" class="pagination_wrap pagination_pages">
+                  <?php if ($c_pg != 1) { ?>
+                     <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=1' ?>" class="pager_first"></a>
+                  <?php } ?>
+                  <?php if ($c_pg > 3) { ?>
+                     <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=' . ($c_pg - 1) ?>" class="pager_prev"></a>
                   <?php } ?>
                   <?php
-                  $startPage++;
-               }
-            ?>
-            <?php if ($c_pg + 1 < $total_page) { ?>
-               <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=' . ($c_pg + 1) ?>" class="pager_next"></a>
+                     $display_num = $total_page = ceil($property_count / $_per_page_property);
+                     if ($display_num > 7) { $display_num = 7; }
+                     $startPage = $c_pg - 3;
+                     if ($startPage <= 0) $startPage = 1;
+                     for ($i = 1; $i <= $display_num; $i++) {
+                        if ($startPage > $total_page) { break; }
+                        if ($startPage == $c_pg){
+                        ?>
+                           <span class="pager_current active"><?= $startPage ?></span>
+                        <?php } else { ?>
+                           <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=' . $startPage ?>" class=""><?= $startPage ?></a>
+                        <?php } ?>
+                        <?php
+                        $startPage++;
+                     }
+                  ?>
+                  <?php if ($c_pg + 1 < $total_page) { ?>
+                     <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=' . ($c_pg + 1) ?>" class="pager_next"></a>
+                  <?php } ?>
+                  <?php if ($c_pg != $total_page) { ?>
+                     <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=' . $total_page ?>" class="pager_last"></a>
+                  <?php } ?>
+               </nav>
             <?php } ?>
-            <?php if ($c_pg != $total_page) { ?>
-               <a href="<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $order_parameter . '&pg=' . $total_page ?>" class="pager_last"></a>
-            <?php } ?>
-         </nav>
          <?php } ?>
       </div>
       <div class="sidebar widget_area scheme_original">
@@ -389,16 +158,9 @@
                   </select>
                   <select name="loc">
                      <option value="">Property Location</option>
-                     <option value="Upper East Side">Upper East Side</option>
-                     <option value="Upper West Side">Upper West Side</option>
-                     <option value="Midtown East">Midtown East</option>
-                     <option value="Midtown West">Midtown West</option>
-                     <option value="Downtown">Downtown</option>
-                     <option value="Upper Manhattan">Upper Manhattan</option>
-                     <option value="Brooklyn">Brooklyn</option>
-                     <option value="Queens">Queens</option>
-                     <option value="Bronx">Bronx</option>
-                     <option value="Staten Island">Staten Island</option>
+                     <?php foreach($cities_data as $k => $v){ ?>
+                        <option value="<?php echo $v->cities; ?>" <?php if($ps_loc!=''){ if($ps_loc==$v->cities){ echo 'selected'; }} ?>><?php echo $v->cities.' ('.$v->tot_cities.')'; ?></option>
+                     <?php } ?>
                   </select>
                   <select name="pt">
                      <option value="">Property Type</option>
@@ -491,7 +253,7 @@
 <script>
    function sortingproduct(val) {
         var sortingcondition = val;
-        window.location.href = '<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . '&order='; ?>' + sortingcondition;
+        window.location.href = '<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $loc_parameter . '&order='; ?>' + sortingcondition;
     }
 </script>
             

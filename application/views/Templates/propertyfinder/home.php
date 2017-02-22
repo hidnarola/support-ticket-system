@@ -48,13 +48,13 @@
          <div class="page_wrap">
             <header class="top_panel_wrap top_panel_style_1 scheme_original">
                <div class="header-bg">
-                  <div class="top_panel_wrap_inner top_panel_inner_style_1 top_panel_position_over">
+                  <div class="top_panel_wrap_inner top_panel_inner_style_1 top_panel_position_over <?php if($this->uri->segment(2)==''){ echo 'header_shadow'; }else{ echo 'header_shadow2'; } ?>">
                      <div class="content_wrap clearfix">
                         <div class="top_panel_logo">
                            <div class="logo">
                               <a href="<?php echo site_url('property-finder'); ?>">
-                                 <img src="assets/frontend/images/MS-Logo-(1).png" class="logo_main" alt="">
-                                 <!-- <img src="assets/propertyfinder/images/logo-header1.jpg" class="logo_main" alt=""> -->
+                                 <!-- <img src="assets/propertyfinder/images/MS-Logo-(1).png" class="logo_main" alt=""> -->
+                                 <img src="assets/propertyfinder/images/logo-header.png" class="logo_main" alt="">
                               </a>
                            </div>
                         </div>
@@ -69,7 +69,7 @@
                         <div class="top_panel_menu">
                            <a href="#" class="menu_main_responsive_button icon-down">Select menu item</a>
                            <nav class="menu_main_nav_area">
-                              <ul id="menu_main" class="menu_main_nav">
+                              <ul id="menu_main" class="menu_main_nav property_header">
                                  <li class="menu-item <?php if($page=='property-finder' && $current_page==''){ echo 'current-menu-parent'; } ?>">
                                     <a href="<?php echo site_url('property-finder'); ?>">Home</a>
                                  </li> 
@@ -77,6 +77,21 @@
                                  <li class="menu-item"><a href="#">Service</a></li>
                                  <li class="menu-item"><a href="#">Media</a></li>
                                  <li class="menu-item"><a href="#">Contact Us</a></li>
+                                 <li class="menu-item login_dropdown">
+                                 <?php 
+                                    if(!empty($this->session->userdata('user_logged_in'))){
+                                       echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                <img class="acc_preview" src="assets/propertyfinder/images/acc_preview.png">
+                                             </a>
+                                             <ul class="dropdown-menu login_dropdown">
+                                                <li style="padding: 3px 0px;border-bottom: 1px solid #fff;"><a href="property-finder/wishlist">Wishlist</a></li>
+                                                <li style="padding: 3px 0px;border-bottom: 1px solid #fff;"><a href="login/logout">Logout</a></li>
+                                             </ul>';
+                                    }else{
+                                       echo '<a href="login">Login</a>';
+                                    }
+                                 ?>
+                                 </li>
                               </ul>
                            </nav>
                         </div>
@@ -135,5 +150,4 @@
 
 <script>
    //window.addEventListener('load', onVrViewLoad)
-   
 </script>

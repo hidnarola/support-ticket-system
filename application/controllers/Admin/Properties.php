@@ -155,9 +155,12 @@ class Properties extends CI_Controller {
     	$this->template->load('admin', 'Admin/Properties/property_display', $this->data);
     }
 
+    /**
+     * This function is used to ADD new property
+     * @author : pav
+    */
     public function property_add(){
-
-    	$this->data['property_categories'] = $this->Properties_model->get_all_details(TBL_PROP_CAT,array('status'=>'Active','is_delete'=>0),array(array('field'=>'name','type'=>'ASC')))->result_array();
+        $this->data['property_categories'] = $this->Properties_model->get_all_details(TBL_PROP_CAT,array('status'=>'Active','is_delete'=>0),array(array('field'=>'name','type'=>'ASC')))->result_array();
     	$this->data['property_types'] = $this->Properties_model->get_all_details(TBL_PROP_TYPE,array('status'=>'Active','is_delete'=>0),array(array('field'=>'name','type'=>'ASC')))->result_array();
 
     	$this->form_validation->set_rules('title', 'Title', 'trim|required');
@@ -177,7 +180,7 @@ class Properties extends CI_Controller {
         $this->form_validation->set_rules('amenities', 'Amenities', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
-	    	$this->data['icon_class'] = 'icon-ticket';
+	    	$this->data['icon_class'] = 'icon-office';
 	        $this->data['title'] = $this->data['page_header'] = 'Add property';
 	        $this->template->load('admin', 'Admin/Properties/property_add', $this->data);
 	    } else {
@@ -266,6 +269,22 @@ class Properties extends CI_Controller {
 	    		$status = 'Active';
 	    	else
 	    		$status = 'Inctive';
+
+            if($this->input->post('availability')=='on')
+                $availability = 1;
+            else
+                $availability = 0;
+
+            if($this->input->post('is_offer')=='on')
+                $is_offer = 1;
+            else
+                $is_offer = 0;
+
+            if($this->input->post('discount_type')=='on')
+                $discount_type = 'Flat';
+            else
+                $discount_type = 'Percentage';
+
 	    	$data = array(
 	    		'reference_number' => $reference_no,
                 'title' => $this->input->post('title'),
@@ -277,6 +296,8 @@ class Properties extends CI_Controller {
                 'short_description' => $this->input->post('short_description'),
                 'description' => $this->input->post('description'),
                 'address' => $this->input->post('address'),
+                'locality' => $this->input->post('locality'),
+                'country' => $this->input->post('country'),
                 'latitude' => $this->input->post('lat'), 
                 'longitude' => $this->input->post('lng'),
                 'price' => $this->input->post('price'),
@@ -287,15 +308,31 @@ class Properties extends CI_Controller {
                 'images' => $images,
                 'amenities' => $this->input->post('amenities'),
                 'is_featured' => $is_featured,
+                'availability' => $availability,
+                'is_offer' => $is_offer,
                 'status' => $status,
                 'is_delete' => 0
             );
+            if($is_offer==1){
+                $offer_data = array(
+                    'deal_date_from' => date('Y-m-d h:i:s',strtotime(explode('-',$this->input->post('offer_date'))[0])),
+                    'deal_date_to' => date('Y-m-d h:i:s',strtotime(explode('-',$this->input->post('offer_date'))[1])),
+                    'discount_type' => $discount_type,
+                    'discount_value' => $this->input->post('discount_value')
+                );
+                $data = array_merge($data,$offer_data);
+            }
             $this->Admin_model->manage_record(TBL_PROP_LIST, $data);
             $this->session->set_flashdata('success_msg', 'Property added succesfully.');
             redirect('admin/properties/property');
 	    }
     }
 
+    /**
+     * This function is used to EDIT property
+     * @param : $id Integer
+     * @author : pav
+    */
     public function property_edit($id=''){
     	if ($id != '') {
             $record_id = base64_decode($id);
@@ -321,7 +358,7 @@ class Properties extends CI_Controller {
         $this->form_validation->set_rules('amenities', 'Amenities', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
-	    	$this->data['icon_class'] = 'icon-ticket';
+	    	$this->data['icon_class'] = 'icon-office';
 	        $this->data['title'] = $this->data['page_header'] = 'Edit property';
 	        $this->template->load('admin', 'Admin/Properties/property_add', $this->data);
 	    } else {
@@ -407,6 +444,22 @@ class Properties extends CI_Controller {
 	    		$status = 'Active';
 	    	else
 	    		$status = 'Inactive';
+
+            if($this->input->post('availability')=='on')
+                $availability = 1;
+            else
+                $availability = 0;
+            
+            if($this->input->post('is_offer')=='on')
+                $is_offer = 1;
+            else
+                $is_offer = 0;
+
+            if($this->input->post('discount_type')=='on')
+                $discount_type = 'Flat';
+            else
+                $discount_type = 'Percentage';
+            
 	    	$data = array(
                 'title' => $this->input->post('title'),
                 'property_category_id' => $this->input->post('category_id'),
@@ -417,6 +470,8 @@ class Properties extends CI_Controller {
                 'short_description' => $this->input->post('short_description'),
                 'description' => $this->input->post('description'),
                 'address' => $this->input->post('address'),
+                'locality' => $this->input->post('locality'),
+                'country' => $this->input->post('country'),
                 'latitude' => $this->input->post('lat'), 
                 'longitude' => $this->input->post('lng'),
                 'price' => $this->input->post('price'),
@@ -427,9 +482,20 @@ class Properties extends CI_Controller {
                 'images' => $images,
                 'amenities' => $this->input->post('amenities'),
                 'is_featured' => $is_featured,
+                'availability' => $availability,
+                'is_offer' => $is_offer,
                 'status' => $status,
                 'is_delete' => 0
             );
+            if($is_offer==1){
+                $offer_data = array(
+                    'deal_date_from' => date('Y-m-d h:i:s',strtotime(explode('-',$this->input->post('offer_date'))[0])),
+                    'deal_date_to' => date('Y-m-d h:i:s',strtotime(explode('-',$this->input->post('offer_date'))[1])),
+                    'discount_type' => $discount_type,
+                    'discount_value' => $this->input->post('discount_value')
+                );
+                $data = array_merge($data,$offer_data);
+            }
             if($this->Properties_model->common_insert_update('update',TBL_PROP_LIST, $data,array('id'=>$record_id))){
                 $this->session->set_flashdata('success_msg', 'Property updated successfully.');
                 redirect('admin/properties/property');
@@ -440,6 +506,11 @@ class Properties extends CI_Controller {
 	    }
     }
 
+    /**
+     * This function is used to VIEW property
+     * @param : $id Integer
+     * @author : pav
+    */
     public function property_view($id = null) {
         $flag = 1;
         if ($id != '') {
@@ -454,6 +525,170 @@ class Properties extends CI_Controller {
                     $this->template->load('admin', 'Admin/Properties/property_view', $this->data);
                 else
                     $this->template->load('staff', 'Staff/Tickets/view', $this->data);
+            } else {
+                $flag = 0;
+            }
+        } else {
+            $flag = 0;
+        }
+        if ($flag == 0) {
+            $data['view'] = 'admin/404_notfound';
+            $this->load->view('Admin/error/404_notfound', $data);
+        }
+    }
+
+    /**
+     * This function is used to DISPLAY banner list
+     * @author : pav
+    */
+    public function landing_banner_display(){
+        $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = $this->data['record_type'] = 'Landing Banner';
+        $this->data['icon_class'] = 'icon-image3';
+        $this->data['landing_banner_list'] = $this->Properties_model->get_prop_landing_banner()->result_array();
+        $this->template->load('admin', 'Admin/Properties/landing_banner_display', $this->data);
+    }
+
+    /**
+     * This function is used to ADD new banner
+     * @author : pav
+    */
+    public function landing_banner_add(){
+        $this->data['prop_list'] = $this->Properties_model->get_all_details(TBL_PROP_LIST,array('status'=>'Active','is_delete'=>0))->result_array();
+        $this->form_validation->set_rules('property_id', 'Property', 'trim|required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->data['icon_class'] = 'icon-image3';
+            $this->data['title'] = $this->data['page_header'] = 'Add Banner';
+            $this->template->load('admin', 'Admin/Properties/landing_banner_add', $this->data);
+        } else {
+            $images = '';
+            $upload_path = PROPERTY_BANNER;
+            if ($_FILES['txt_image']['name'] != '') {
+                $exts = explode(".", $_FILES['txt_image']['name']);
+                $name = time().".".end($exts);
+                $config['overwrite'] = FALSE;
+                $config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
+                $config['max_size'] = 10000;
+                $config['upload_path'] = './'.$upload_path;
+                $config['file_name'] = $name;
+
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('txt_image')) {
+                    $prop_img = $this->upload->data();
+                    $image = $prop_img['file_name'];
+                    $src = './' . $upload_path . '/' . $image;
+                } else {
+                    $banner_img = $this->upload->display_errors();
+                    $this->session->set_flashdata('error_msg', $banner_img);
+                    redirect('admin/properties/lamding_banner/add');
+                }
+            } else {
+                $image = $this->input->post('hidden_image');
+            }
+
+            if($this->input->post('status')=='on')
+                $status = 'Active';
+            else
+                $status = 'Inctive';
+
+            $data = array(
+                'property_id' => $this->input->post('property_id'),
+                'image' => $image,
+                'status' => $status,
+                'position' => $this->input->post('position'),
+            );
+            $this->Admin_model->manage_record(TBL_PROP_BANNER, $data);
+            $this->session->set_flashdata('success_msg', 'Banner added succesfully.');
+            redirect('admin/properties/landing_banner');
+        }
+    }
+
+    /**
+     * This function is used to EDIT property
+     * @param : $id Integer
+     * @author : pav
+    */
+    public function landing_banner_edit($id=''){
+        if ($id != '') {
+            $record_id = base64_decode($id);
+        }
+        $this->data['prop_list'] = $this->Properties_model->get_all_details(TBL_PROP_LIST,array('status'=>'Active','is_delete'=>0))->result_array();
+        $banner_data = $this->Properties_model->get_all_details(TBL_PROP_BANNER,array('id'=>$record_id))->result();
+        $this->data['banner'] = $banner_data[0];
+        $this->form_validation->set_rules('property_id', 'Property', 'trim|required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->data['icon_class'] = 'icon-image3';
+            $this->data['title'] = $this->data['page_header'] = 'Edit Banner';
+            $this->template->load('admin', 'Admin/Properties/landing_banner_add', $this->data);
+        } else {
+            $images = '';
+            $upload_path = PROPERTY_BANNER;
+            if ($_FILES['txt_image']['name'] != '') {
+                $exts = explode(".", $_FILES['txt_image']['name']);
+                $name = time().".".end($exts);
+                $config['overwrite'] = FALSE;
+                $config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
+                $config['max_size'] = 10000;
+                $config['upload_path'] = './'.$upload_path;
+                $config['file_name'] = $name;
+
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('txt_image')) {
+                    $prop_img = $this->upload->data();
+                    $image = $prop_img['file_name'];
+                    $src = './' . $upload_path . '/' . $image;
+                } else {
+                    $banner_img = $this->upload->display_errors();
+                    $this->session->set_flashdata('error_msg', $banner_img);
+                    redirect('admin/properties/landing_banner/add');
+                }
+            } else {
+                $image = $this->input->post('hidden_image');
+            }
+
+            if($this->input->post('status')=='on')
+                $status = 'Active';
+            else
+                $status = 'Inactive';
+
+           $data = array(
+                'property_id' => $this->input->post('property_id'),
+                'image' => $image,
+                'status' => $status,
+                'position' => $this->input->post('position'),
+            );
+
+            if($this->Properties_model->common_insert_update('update',TBL_PROP_BANNER, $data,array('id'=>$record_id))){
+                $this->session->set_flashdata('success_msg', 'Banner updated successfully.');
+                redirect('admin/properties/landing_banner');
+            } else {
+                $this->session->set_flashdata('error_msg', 'Unable to update banner.');
+                redirect('admin/properties/landing_banner/edit/'.base64_encode($record_id));
+            }
+        }
+    }
+
+    public function update_banner_position(){
+        $record_id = $this->input->post('id');
+        $position = $this->input->post('position');
+        $this->Properties_model->common_insert_update('update',TBL_PROP_BANNER,array('position'=>$position),array('id'=>$record_id));
+        exit;
+    }
+    /**
+     * This function is used to VIEW property
+     * @param : $id Integer
+     * @author : pav
+    */
+    public function landing_banner_view($id = null) {
+        $flag = 1;
+        if ($id != '') {
+            $segment = $this->uri->segment(1);
+            $record_id = base64_decode($id);
+            $banner = $this->Properties_model->get_prop_landing_banner_by_id($record_id)->result();
+            if (!empty($banner)) {
+                $this->data['banner'] = $banner[0];
+                $this->data['title'] = $this->data['page_header'] = 'Property / View Banner';
+                $this->data['icon_class'] = 'icon-image3';
+                $this->template->load('admin', 'Admin/Properties/landing_banner_view', $this->data);
             } else {
                 $flag = 0;
             }

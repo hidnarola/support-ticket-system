@@ -22,12 +22,54 @@
    frameborder="0"
    src="//storage.googleapis.com/vrview/index.html?image=http://dev.supportticket.com/assets/propertyfinder/images/slider/coral.jpg&is_stereo=true">
 </iframe> -->
+
+<?php if(count($landing_banner)>0){ ?>
 <section class="slider_wrap slider_fullwide slider_engine_revo slider_alias_revsliderHome1">
    <!-- REVOLUTION SLIDER -->
    <div id="rev_slider_4_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container">
       <div id="rev_slider_4_1" class="rev_slider fullwidthabanner" data-version="5.1">
          <ul>
-            <li data-index="rs-8" data-transition="fade" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="1000" data-thumb="images/slider1h1-100x50.jpg" data-rotate="0" data-saveperformance="off" data-title="Slide" data-description="">
+            <?php 
+               $slider = 11;
+               foreach($landing_banner as $k => $v){ 
+            ?>
+               <li data-index="<?php if($k==0){ echo 'rs-8'; }else{ echo 'rs-'.$slider; } ?>" data-transition="fade" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="1000" data-thumb="images/slider1h1-100x50.jpg" data-rotate="0" data-saveperformance="off" data-title="Slide" data-description="">
+                  <img src="<?php echo site_url(PROPERTY_BANNER.'/'.$v->image); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+                  <div class="tp-caption Estate tp-resizeme" id="slide-<?php echo $slider; ?>-layer-1" data-x="center" data-hoffset="" data-y="center" data-voffset="" data-width="['auto']" data-height="['auto']" data-transform_idle="o:1;" data-transform_in="opacity:0;s:2000;e:Power2.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="1500" data-splitin="none" data-splitout="none" data-responsive_offset="on">
+                     <div class="sc_property_wrap">
+                        <div class="sc_property sc_property_style_property-6" data-interval="7176" data-slides-min-width="250">
+                           <div class="sc_property_item">
+                              <div class="sc_pr_h1">
+                                 <div class="sc_pr_h2"><?php echo $v->type_name; ?> for <?php echo $v->category_name; ?></div>
+                              </div>
+                              <div class="sc_pr_t1">
+                                 <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->prop_title).'/'.base64_encode($v->prop_id)); ?>"><?php echo substr($v->prop_title,0,30); ?></a> 
+                              </div>
+                              <div class="sc_pr_t2"><?php echo substr($v->prop_address,0,30); ?></div>
+                              <div class="sc_pr_f1">
+                                 <div class="sc_pr_f11">
+                                    <div class="sc_pr_f111"><span><?php echo $v->type_name; ?> for <?php echo $v->category_name; ?></span></div>
+                                 </div>
+                                 <div class="sc_pr_f12">
+                                    <span>AED </span>
+                                    <?php echo number_format($v->prop_price); ?>
+                                    <?php
+                                       if($v->category_name=='Rent'){
+                                          echo '<font style="font-size:12px"> / '.$v->rent_type.'</font>';
+                                       }
+                                    ?>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </li>
+            <?php 
+                  $slider++;
+               } 
+            ?>
+            <!-- <li data-index="rs-8" data-transition="fade" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="1000" data-thumb="images/slider1h1-100x50.jpg" data-rotate="0" data-saveperformance="off" data-title="Slide" data-description="">
                <img src="assets/propertyfinder/images/slider/1.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
                <div class="tp-caption Estate tp-resizeme" id="slide-8-layer-1" data-x="center" data-hoffset="" data-y="center" data-voffset="" data-width="['auto']" data-height="['auto']" data-transform_idle="o:1;" data-transform_in="opacity:0;s:2000;e:Power2.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="1500" data-splitin="none" data-splitout="none" data-responsive_offset="on">
                   <div class="sc_property_wrap">
@@ -98,13 +140,14 @@
                      </div>
                   </div>
                </div>
-            </li>
+            </li> -->
          </ul>
          <div class="tp-bannertimer tp-bottom"></div>
       </div>
    </div>
    <!-- END REVOLUTION SLIDER -->
 </section>
+<?php } ?>
 <div class="ps_header">
    <div class="content_wrap">
       <div class="sc_section scheme_dark">
@@ -122,7 +165,10 @@
                   <div class="sc_ps_location">
                      <select name="loc">
                         <option value="">Property Location</option>
-                        <option value="Upper East Side">Upper East Side</option>
+                        <?php foreach($cities_data as $k => $v){ ?>
+                           <option value="<?php echo $v->cities; ?>"><?php echo $v->cities.' ('.$v->tot_cities.')'; ?></option>
+                        <?php } ?>
+                        <!-- <option value="Upper East Side">Upper East Side</option>
                         <option value="Upper West Side">Upper West Side</option>
                         <option value="Midtown East">Midtown East</option>
                         <option value="Midtown West">Midtown West</option>
@@ -131,7 +177,7 @@
                         <option value="Brooklyn">Brooklyn</option>
                         <option value="Queens">Queens</option>
                         <option value="Bronx">Bronx</option>
-                        <option value="Staten Island">Staten Island</option>
+                        <option value="Staten Island">Staten Island</option> -->
                      </select>
                   </div>
                   <div class="sc_ps_type">
@@ -200,7 +246,7 @@
                         <input type="hidden" class="ps_price_big" name="" value="<?php echo $min_max_price_area['max_price']; ?>">
                      </div>
                   </div>
-                  <div class="sc_ps_submit" style="float:right">
+                  <div class="sc_ps_submit">
                      <input type="submit" class="sc_button sc_button_box sc_button_style_style2" value="Search">
                   </div>
                </form>
@@ -308,13 +354,37 @@
                <div class="sc_columns columns_wrap">
                   <?php foreach($recent_property as $k => $v){ ?>
                      <div class="column-1_3 column_padding_bottom">
+                        <?php if($v->availability==0) { ?>
+                           <div class="sold-text"></div>
+                        <?php } ?>
+                        <?php
+                           if($v->is_offer==1 && (strtotime(date('Y-m-d h:i:s'))>=strtotime($v->deal_date_from) && strtotime(date('Y-m-d h:i:s'))<=strtotime($v->deal_date_to)) ){
+                              if($v->discount_type=='Percentage'){
+                                 $percentage_value = number_format($v->discount_value).'%';
+                              }else{
+                                 $percentage_value = number_format(ceil(($v->discount_value*100)/$v->price)).'%';
+                              }
+                              echo '<span class="discount_tag" style="z-index:1">'. $percentage_value .' <br> OFF</span>';
+                           }
+                        ?>
                         <div class="sc_property_item">
                            <div class="sc_property_image">
                               <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
                                  <div class="property_price_box">
                                     <span class="property_price_box_sign">AED </span>
                                     <span class="property_price_box_price">
-                                       <?php echo number_format($v->price) ?>
+                                       <?php 
+                                          if($v->is_offer==1 && (strtotime(date('Y-m-d h:i:s'))>=strtotime($v->deal_date_from) && strtotime(date('Y-m-d h:i:s'))<=strtotime($v->deal_date_to)) ){
+                                             if($v->discount_type=='Percentage'){
+                                                $price = ceil($v->price - (($v->price*$v->discount_value)/100));
+                                             }else{
+                                                $price = ceil($v->price - $v->discount_value);
+                                             }
+                                          }else{
+                                             $price = ceil($v->price);
+                                          }
+                                          echo number_format($price) ;
+                                       ?>
                                        <?php
                                           if($v->category_name=='Rent'){
                                              echo ' / '.$v->rent_type;
@@ -346,90 +416,6 @@
                         </div>
                      </div>   
                   <?php } ?>
-                  <!-- <div class="column-1_3 column_padding_bottom">
-                     <div class="sc_property_item">
-                        <div class="sc_property_image">
-                           <a href="single-post.html">
-                              <div class="property_price_box"><span class="property_price_box_sign">$</span><span class="property_price_box_price">1,249,000</span></div>
-                              <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                           </a>
-                        </div>
-                        <div class="sc_property_info">
-                           <div class="sc_property_description">House for sale</div>
-                           <div>
-                              <div class="sc_property_icon">
-                                 <span class="icon-location"></span>
-                              </div>
-                              <div class="sc_property_title">
-                                 <div class="sc_property_title_address_1">
-                                    <a href="single-post.html">87 Mishaum Point Rd</a> 
-                                 </div>
-                                 <div class="sc_property_title_address_2">Dartmouth, MA 02748</div>
-                              </div>
-                              <div class="cL"></div>
-                           </div>
-                        </div>
-                        <div class="sc_property_info_list">
-                           <span class="icon-building113">1,286 sqft</span><span class="icon-bed">2</span><span class="icon-bath">3</span><span class="icon-warehouse">2</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="column-1_3 column_padding_bottom">
-                     <div class="sc_property_item">
-                        <div class="sc_property_image">
-                           <a href="single-post.html">
-                              <div class="property_price_box"><span class="property_price_box_sign">$</span><span class="property_price_box_price">2,189,000</span></div>
-                              <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                           </a>
-                        </div>
-                        <div class="sc_property_info">
-                           <div class="sc_property_description">Townhouse for sale</div>
-                           <div>
-                              <div class="sc_property_icon">
-                                 <span class="icon-location"></span>
-                              </div>
-                              <div class="sc_property_title">
-                                 <div class="sc_property_title_address_1">
-                                    <a href="single-post.html">9615 Shore Rd APT BA</a> 
-                                 </div>
-                                 <div class="sc_property_title_address_2">Brooklyn, NY 11209</div>
-                              </div>
-                              <div class="cL"></div>
-                           </div>
-                        </div>
-                        <div class="sc_property_info_list">
-                           <span class="icon-building113">1,286 sqft</span><span class="icon-bed">2</span><span class="icon-bath">3</span><span class="icon-warehouse">3</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="column-1_3 column_padding_bottom">
-                     <div class="sc_property_item">
-                        <div class="sc_property_image">
-                           <a href="single-post.html">
-                              <div class="property_price_box"><span class="property_price_box_sign">$</span><span class="property_price_box_price">3,449</span><span class="property_price_box_per">/year</span></div>
-                              <img alt="" src="assets/propertyfinder/images/770x460.jpg">
-                           </a>
-                        </div>
-                        <div class="sc_property_info">
-                           <div class="sc_property_description">House for rent</div>
-                           <div>
-                              <div class="sc_property_icon">
-                                 <span class="icon-location"></span>
-                              </div>
-                              <div class="sc_property_title">
-                                 <div class="sc_property_title_address_1">
-                                    <a href="single-post.html">80646 Via Pessaro</a> 
-                                 </div>
-                                 <div class="sc_property_title_address_2">La Quinta, CA 32453</div>
-                              </div>
-                              <div class="cL"></div>
-                           </div>
-                        </div>
-                        <div class="sc_property_info_list">
-                           <span class="icon-building113">886 sqft</span><span class="icon-bed">2</span><span class="icon-bath">3</span><span class="icon-warehouse">2</span>
-                        </div>
-                     </div>
-                  </div> -->
                </div>
             </div>
          </div>
@@ -445,13 +431,104 @@
                <div class="sc_columns columns_wrap">
                   <?php foreach($featured_property as $k => $v){ ?>
                      <div class="column-1_3 column_padding_bottom">
+                        <?php if($v->availability==0) { ?>
+                           <div class="sold-text"></div>
+                        <?php } ?>
+                        <?php
+                           if($v->is_offer==1 && (strtotime(date('Y-m-d h:i:s'))>=strtotime($v->deal_date_from) && strtotime(date('Y-m-d h:i:s'))<=strtotime($v->deal_date_to)) ){
+                              if($v->discount_type=='Percentage'){
+                                 $percentage_value = number_format($v->discount_value).'%';
+                              }else{
+                                 $percentage_value = number_format(ceil(($v->discount_value*100)/$v->price)).'%';
+                              }
+                              echo '<span class="discount_tag" style="z-index:1">'. $percentage_value .' <br> OFF</span>';
+                           }
+                        ?>
                         <div class="sc_property_item">
                            <div class="sc_property_image">
                               <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
                                  <div class="property_price_box">
                                     <span class="property_price_box_sign">AED </span>
                                     <span class="property_price_box_price">
-                                       <?php echo number_format($v->price) ?>
+                                       <?php 
+                                          if($v->discount_type=='Percentage'){
+                                             $price = ceil($v->price - (($v->price*$v->discount_value)/100));
+                                          }else{
+                                             $price = ceil($v->price - $v->discount_value);
+                                          }
+                                          echo number_format($price) ;
+                                       ?>
+                                       <?php
+                                          if($v->category_name=='Rent'){
+                                             echo ' / '.$v->rent_type;
+                                          }
+                                       ?>
+                                    </span>
+                                 </div>
+                                 <img alt="<?php echo $v->title ?>" src="<?php echo 'assets/timthumb.php?src='.PROPERTY_IMAGE.'/'.explode(',',$v->images)[0].'&h=460&w=770&q=100' ?>">
+                              </a>
+                           </div>
+                           <div class="sc_property_info">
+                              <div class="sc_property_description"><?php echo $v->type_name.' for '.$v->category_name ?></div>
+                              <div>
+                                 <div class="sc_property_icon">
+                                    <span class="icon-location"></span>
+                                 </div>
+                                 <div class="sc_property_title">
+                                    <div class="sc_property_title_address_1">
+                                       <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
+                                    </div>
+                                    <div class="sc_property_title_address_2"><?php echo $v->address; ?></div>
+                                 </div>
+                                 <div class="cL"></div>
+                              </div>
+                           </div>
+                           <div class="sc_property_info_list">
+                              <span class="icon-building113"><?php echo number_format($v->area) ?> sqft</span><span class="icon-bed"><?php echo $v->bedroom_no ?></span><span class="icon-bath"><?php echo $v->bathroom_no ?></span><!-- <span class="icon-warehouse">2</span>-->
+                           </div>
+                        </div>
+                     </div>   
+                  <?php } ?>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- Featured Properties -->
+   <div class="sc_section overflow_hidden bg_color_1">
+      <div class="content_wrap margin_bottom_medium">
+         <h4 class="sc_title margin_top_null margin_bottom_medium">offer's properties</h4>
+         <div class="sc_property_wrap">
+            <div class="sc_property sc_property_style_property-1">
+               <div class="sc_columns columns_wrap">
+                  <?php foreach($offer_property as $k => $v){ ?>
+                     <div class="column-1_3 column_padding_bottom">
+                        <?php if($v->availability==0) { ?>
+                           <div class="sold-text"></div>
+                        <?php } ?>
+                        <?php
+                           if($v->discount_type=='Percentage'){
+                              $percentage_value = number_format($v->discount_value).'%';
+                           }else{
+                              $percentage_value = number_format(ceil(($v->discount_value*100)/$v->price)).'%';
+                           }
+                        ?>
+                        <span class="discount_tag" style="z-index:1"><?php echo $percentage_value; ?> <br> OFF</span>
+                        <div class="sc_property_item">
+                           <div class="sc_property_image">
+                              <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
+                                 <div class="property_price_box">
+                                    <span class="property_price_box_sign">AED </span>
+                                    <span class="property_price_box_price">
+                                       <?php 
+                                          if($v->discount_type=='Percentage'){
+                                             $price = ceil($v->price - (($v->price*$v->discount_value)/100));
+                                          }else{
+                                             $price = ceil($v->price - $v->discount_value);
+                                          }
+                                          echo number_format($price) ;
+                                       ?>
                                        <?php
                                           if($v->category_name=='Rent'){
                                              echo ' / '.$v->rent_type;
@@ -521,3 +598,4 @@
       </div>
    </div>
 </div>
+

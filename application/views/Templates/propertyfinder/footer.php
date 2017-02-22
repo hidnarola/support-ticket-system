@@ -3,8 +3,8 @@
       <div class="content_wrap">
          <div class="columns_wrap">
             <div class="column-1_4 show_logo_footer">
-               <div class="logo">
-                  <a href="property-finder"><img src="assets/frontend/images/MS-Logo-(1).png" class="logo_main" alt=""></a>
+               <div class="logo" style="width:80%">
+                  <img src="assets/propertyfinder/images/logo-header.png" class="logo_main" alt="">
                   <!-- <a href="index.html"><img src="assets/propertyfinder/images/logo-footer.jpg" alt=""></a> -->
                </div>
             </div>

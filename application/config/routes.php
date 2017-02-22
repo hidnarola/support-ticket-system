@@ -139,6 +139,10 @@ $route['admin/properties/property'] = 'Admin/properties/property_listing';
 $route['admin/properties/property/add'] = 'Admin/properties/property_add';
 $route['admin/properties/property/edit/(:any)'] = 'Admin/properties/property_edit/$1';
 $route['admin/properties/property/view/(:any)'] = 'Admin/properties/property_view/$1';
+$route['admin/properties/landing_banner'] = 'Admin/properties/landing_banner_display';
+$route['admin/properties/landing_banner/add'] = 'Admin/properties/landing_banner_add';
+$route['admin/properties/landing_banner/edit/(:any)'] = 'Admin/properties/landing_banner_edit/$1';
+$route['admin/properties/landing_banner/view/(:any)'] = 'Admin/properties/landing_banner_view/$1';
 
 $route['staff'] = "Staff/Dashboard";
 $route['staff/logout'] = "Login/logout";
@@ -174,3 +178,5 @@ foreach( $result as $row ){
 $route['property-finder'] = "Properties";
 $route['property-finder/single-property/(:any)/(:any)'] = "Properties/property_details/$1/$2";
 $route['property-finder/search'] = "Properties/property_search";
+$route['property-finder/saved-property'] = 'Properties/saved_property';
+$route['property-finder/wishlist'] = 'Properties/saved_property_list';
