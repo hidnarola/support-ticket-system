@@ -182,7 +182,6 @@ class Properties extends CI_Controller {
 		}
 		$where = ' and prop_wish.user_id='.$user_id;
 		$this->data['wishlist_data'] = $this->Properties_model->get_property_wishlist($where)->result();
-		pr($this->data['wishlist_data']); die;
 		$this->template->load('propertyfinder/home','Propertyfinder/Property/wishlist',$this->data);	
 	}
 
