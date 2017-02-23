@@ -700,7 +700,6 @@ class Properties extends CI_Controller {
             $this->load->view('Admin/error/404_notfound', $data);
         }
     }
-
 }
 
 /* End of file Property_category.php */

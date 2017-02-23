@@ -185,6 +185,10 @@ class Properties extends CI_Controller {
 		$this->template->load('propertyfinder/home','Propertyfinder/Property/wishlist',$this->data);	
 	}
 
+	public function test(){
+        $this->load->view('Propertyfinder/test');
+    }
+
 }
 
 /* End of file Properties.php */
