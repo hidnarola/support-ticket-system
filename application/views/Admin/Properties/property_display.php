@@ -24,7 +24,7 @@
         <div class="panel-heading tic-listing">
             <div class="col-md-12"> 
                 <div class="pull-right">
-                    <a onclick="window.location = 'admin/properties/property/add'" class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Property</a>
+                    <a href='admin/properties/property/add' class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Property</a>
                 </div>
             </div>
         </div>
