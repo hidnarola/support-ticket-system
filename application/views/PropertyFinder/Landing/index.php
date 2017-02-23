@@ -2,27 +2,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript" src="assets/propertyfinder/images/slider/jquery.panorama_viewer.js"></script>
 <link href='assets/propertyfinder/images/slider/panorama_viewer.css' rel='stylesheet' type='text/css'>
-<!-- <script>
-   jQuery(document).ready(function($){
-      $(".panorama").panorama_viewer({
-        repeat: true
-    });
-   })
-</script>
-<div class="wrapper">
-   <div class="main">
-      <div class="panorama"> <img src="assets/propertyfinder/images/slider/demo_photo.jpg">
-      </div>
-   </div>
-</div> -->
-<div id="vrview"></div>
-<!-- <iframe width="100%"
-   height="300px"
-   allowfullscreen
-   frameborder="0"
-   src="//storage.googleapis.com/vrview/index.html?image=http://dev.supportticket.com/assets/propertyfinder/images/slider/coral.jpg&is_stereo=true">
-</iframe> -->
-
+<script src="https://rawgit.com/aframevr/aframe/d15650c/dist/aframe-master.min.js"></script>
 <?php if(count($landing_banner)>0){ ?>
 <section class="slider_wrap slider_fullwide slider_engine_revo slider_alias_revsliderHome1">
    <!-- REVOLUTION SLIDER -->
@@ -148,25 +128,8 @@
    <!-- END REVOLUTION SLIDER -->
 </section>
 <?php } ?>
-<!-- <div style="display:inline;">
-   <style>
-      .holder_1487826045576 { 
-         margin:auto; position: relative; width: 100%; border-radius:5px; border: 5px solid #000000; display: block; background-color: rgba(255,255,255,0.0); box-sizing: border-box; } .holder_1487826045576:before{ content: ""; display: block; } .aspectratio_1487826045576:before { padding-top: 33.333333333333336%; } .pano_1487826045576 { position: absolute !important; left:0px; top:0px; bottom:0px; right:0px; width: 100%; height: 100%; display: block; background-color: #000000; border:1px solid #959595; border-radius:0px; box-sizing: border-box; 
-      }
-   </style>
-   <div class="holder_1487826045576 aspectratio_1487826045576" style="width:100%;">
-      <div id="dmd_pano_cTvQfG" dmd_ps="1" class="pano_1487826045576" dmd_fs="1" dmd_cp="1"></div>
-   </div>
-</div>
-<script type="text/javascript">
-   var dmdEmbeds = dmdEmbeds || [];
-   (function(){ 
-      dmdEmbeds.push("cTvQfG");
-   })
-   ();
-</script>
-<script type="text/javascript" src="//static.dermandar.com/js/nembed.js.php?v=107.17.6"></script> -->
-<script src="https://rawgit.com/aframevr/aframe/d15650c/dist/aframe-master.min.js"></script>
+
+
 <div id="a-frame">
    <a-scene>
       <a-sky src="https://davidwalsh.name/demo/3d-image.jpg" rotation="0 -130 0"></a-sky>
