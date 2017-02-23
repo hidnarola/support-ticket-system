@@ -186,7 +186,7 @@ class Properties extends CI_Controller {
 	}
 
 	public function test(){
-		$this->template->load('propertyfinder/home','Propertyfinder/test',$this->data);
+        $this->load->view('Propertyfinder/test.php');
     }
 
 }
