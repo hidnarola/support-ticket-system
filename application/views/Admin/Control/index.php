@@ -92,7 +92,7 @@
         }
 
         $.ajax({
-            url: "<?php site_url() ?>admin/header_footer_control/change_data_status",
+            url: "<?php site_url() ?>Admin/Header_footer_control/change_data_status",
             data: {type: data_type, id: data_id, value: value},
             type: "POST",
             success: function (result) {
@@ -174,7 +174,7 @@
             data = $('#footer_soratable').sortable('toArray');
         }
         $.ajax({
-            url: "<?php site_url() ?>Admin/Header_footer_control/save_arrangement",
+            url: "<?php site_url() ?>admin/header_footer_control/save_arrangement",
             type: "POST",
             data: {type: type, data: data},
             success: function (result1) {
