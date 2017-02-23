@@ -1,7 +1,5 @@
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript" src="assets/propertyfinder/images/slider/jquery.panorama_viewer.js"></script>
-<link href='assets/propertyfinder/images/slider/panorama_viewer.css' rel='stylesheet' type='text/css'>
 
 <?php if(count($landing_banner)>0){ ?>
 <section class="slider_wrap slider_fullwide slider_engine_revo slider_alias_revsliderHome1">
