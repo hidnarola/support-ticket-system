@@ -97,10 +97,10 @@
     </div>
 </div>
 <script type="text/javascript">
-    var base_url = '<?php echo base_url(); ?>admin/';
+    var base_url = '<?php echo base_url(); ?>Admin/';
     $(document).on('click', '.edit', function () {
         var id = $(this).attr('id').replace('edit_', '');
-        var url = base_url + 'properties/get_detail';
+        var url = base_url + 'Properties/get_detail';
         $.ajax({
             type: 'POST',
             url: url,
