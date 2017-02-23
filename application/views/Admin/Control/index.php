@@ -92,7 +92,7 @@
         }
 
         $.ajax({
-            url: "<?php site_url() ?>Admin/Header_footer_control/change_data_status",
+            url: "<?php site_url() ?>admin/header_footer_control/change_data_status",
             data: {type: data_type, id: data_id, value: value},
             type: "POST",
             success: function (result) {
