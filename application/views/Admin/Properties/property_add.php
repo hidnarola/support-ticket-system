@@ -493,15 +493,6 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-body" style="padding:5px !important;padding-bottom:5px !important">
-                <iframe width="100%" height="500px" src="<?php echo str_replace("watch?v=", "v/", " https://www.youtube.com/watch?v=Ll9l0xKkfgc") ?>" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     $('.remove_other_img').click(function () {
         $(this).parents('.div_other_img').remove();
