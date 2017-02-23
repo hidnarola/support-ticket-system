@@ -167,7 +167,7 @@
 </script>
 <script type="text/javascript" src="//static.dermandar.com/js/nembed.js.php?v=107.17.6"></script> -->
 <script src="https://rawgit.com/aframevr/aframe/d15650c/dist/aframe-master.min.js"></script>
-<div>
+<div id="a-frame">
    <a-scene>
       <a-sky src="https://davidwalsh.name/demo/3d-image.jpg" rotation="0 -130 0"></a-sky>
    </a-scene>
