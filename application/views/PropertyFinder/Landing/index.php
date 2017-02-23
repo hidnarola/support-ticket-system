@@ -148,6 +148,30 @@
    <!-- END REVOLUTION SLIDER -->
 </section>
 <?php } ?>
+<!-- <div style="display:inline;">
+   <style>
+      .holder_1487826045576 { 
+         margin:auto; position: relative; width: 100%; border-radius:5px; border: 5px solid #000000; display: block; background-color: rgba(255,255,255,0.0); box-sizing: border-box; } .holder_1487826045576:before{ content: ""; display: block; } .aspectratio_1487826045576:before { padding-top: 33.333333333333336%; } .pano_1487826045576 { position: absolute !important; left:0px; top:0px; bottom:0px; right:0px; width: 100%; height: 100%; display: block; background-color: #000000; border:1px solid #959595; border-radius:0px; box-sizing: border-box; 
+      }
+   </style>
+   <div class="holder_1487826045576 aspectratio_1487826045576" style="width:100%;">
+      <div id="dmd_pano_cTvQfG" dmd_ps="1" class="pano_1487826045576" dmd_fs="1" dmd_cp="1"></div>
+   </div>
+</div>
+<script type="text/javascript">
+   var dmdEmbeds = dmdEmbeds || [];
+   (function(){ 
+      dmdEmbeds.push("cTvQfG");
+   })
+   ();
+</script>
+<script type="text/javascript" src="//static.dermandar.com/js/nembed.js.php?v=107.17.6"></script> -->
+<script src="https://rawgit.com/aframevr/aframe/d15650c/dist/aframe-master.min.js"></script>
+<div>
+   <a-scene>
+      <a-sky src="https://davidwalsh.name/demo/3d-image.jpg" rotation="0 -130 0"></a-sky>
+   </a-scene>
+</div>
 <div class="ps_header">
    <div class="content_wrap">
       <div class="sc_section scheme_dark">
