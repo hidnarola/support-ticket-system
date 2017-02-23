@@ -256,4 +256,3 @@
         window.location.href = '<?php echo current_url() . '?' . $ps_parameter . $pt_parameter . $rs_parameter . $bd_parameter . $bt_parameter . $kw_parameter . $pr_t_parameter . $pr_f_parameter . $at_parameter . $af_parameter . $loc_parameter . '&order='; ?>' + sortingcondition;
     }
 </script>
-            

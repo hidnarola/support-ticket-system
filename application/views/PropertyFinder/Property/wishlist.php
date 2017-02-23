@@ -1,4 +1,3 @@
-
 <div class="page_content_wrap property_wishlist_page">
    <div class="content_wrap">
       <div class="content">
