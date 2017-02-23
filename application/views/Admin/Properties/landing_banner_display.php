@@ -153,7 +153,7 @@
         $('#position_reset-'+id).css('display','none');
         $('#position_loader-'+id).css('display','block');
         $.ajax({
-            url: base_url + "Properties/update_banner_position",
+            url: base_url + "properties/update_banner_position",
             type: "POST",
             data: {id: id,position: $('#txt_position_'+id).val()},
             success: function (response) {

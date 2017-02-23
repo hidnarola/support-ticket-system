@@ -133,16 +133,19 @@ $route['admin/sub_admin'] = 'Admin/Sub_admin';
 $route['admin/sub_admin/add'] = 'Admin/Sub_admin/manage';
 $route['admin/sub_admin/edit/(:any)'] = 'Admin/Sub_admin/manage/$1';
 
-$route['admin/properties/category'] = 'Admin/properties/category_display';
-$route['admin/properties/type'] = 'Admin/properties/type_display';
-$route['admin/properties/property'] = 'Admin/properties/property_listing';
-$route['admin/properties/property/add'] = 'Admin/properties/property_add';
-$route['admin/properties/property/edit/(:any)'] = 'Admin/properties/property_edit/$1';
-$route['admin/properties/property/view/(:any)'] = 'Admin/properties/property_view/$1';
-$route['admin/properties/landing_banner'] = 'Admin/properties/landing_banner_display';
-$route['admin/properties/landing_banner/add'] = 'Admin/properties/landing_banner_add';
-$route['admin/properties/landing_banner/edit/(:any)'] = 'Admin/properties/landing_banner_edit/$1';
-$route['admin/properties/landing_banner/view/(:any)'] = 'Admin/properties/landing_banner_view/$1';
+$route['admin/properties/category'] = 'Admin/Properties/category_display';
+$route['admin/properties/type'] = 'Admin/Properties/type_display';
+
+$route['admin/properties/property'] = 'Admin/Properties/property_listing';
+$route['admin/properties/property/add'] = 'Admin/Properties/property_add';
+$route['admin/properties/property/edit/(:any)'] = 'Admin/Properties/property_edit/$1';
+$route['admin/properties/property/view/(:any)'] = 'Admin/Properties/property_view/$1';
+
+$route['admin/properties/landing_banner'] = 'Admin/Properties/landing_banner_display';
+$route['admin/properties/update_banner_position'] = 'Admin/Properties/update_banner_position';
+$route['admin/properties/landing_banner/add'] = 'Admin/Properties/landing_banner_add';
+$route['admin/properties/landing_banner/edit/(:any)'] = 'Admin/Properties/landing_banner_edit/$1';
+$route['admin/properties/landing_banner/view/(:any)'] = 'Admin/Properties/landing_banner_view/$1';
 
 $route['staff'] = "Staff/Dashboard";
 $route['staff/logout'] = "Login/logout";
