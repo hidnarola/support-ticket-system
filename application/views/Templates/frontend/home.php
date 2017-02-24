@@ -32,7 +32,6 @@
         <!-- Document Title
         ============================================= -->
 
-
     </head>
 
     <body class="stretched">
@@ -176,6 +175,7 @@
         <!-- Footer Scripts
         ============================================= -->
         <script type="text/javascript" src="assets/frontend/js/functions.js"></script>
+
 
     </body>
 </html>

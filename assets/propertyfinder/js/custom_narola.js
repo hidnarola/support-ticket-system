@@ -45,6 +45,8 @@ jQuery(document).ready(function($){
       controls: true
     });
 
+    //$('.fancybox').fancybox();
+
    //  function onVrViewLoad() {
    //    var img = '<?php echo site_url("assets/propertyfinder/images/slider/1.jpg"); ?>';
    //    var vrView = new VRView.setContentInfo('#vrview', {

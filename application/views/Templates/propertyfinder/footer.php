@@ -8,7 +8,7 @@
                   <!-- <a href="index.html"><img src="assets/propertyfinder/images/logo-footer.jpg" alt=""></a> -->
                </div>
             </div>
-            <div class="column-2_4">
+            <div class="column-2_4" style="text-align: justify">
                <h5>about us</h5>
                We are the leading real estate and rental marketplace dedicated to empowering consumers with data, inspiration and knowledge around the place they call home, and connecting them with the best local professionals who can help.
             </div>

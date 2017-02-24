@@ -140,9 +140,12 @@
 }
 .property_header li a{
   text-decoration: none;
+  line-height: 24px;
 }
 .property_wishlist_page{ padding-top:10.000em; }
 .property_header .login_dropdown ul{
-  left:-130px;
-  width:auto !important;
+  left:0px;
+  width:150px !important;
 }
+.menu_main_nav > li > ul { top: 4em; }
+.menu_main_responsive > .login_dropdown ul{ background-color: rgb(55,53,61) !important; }

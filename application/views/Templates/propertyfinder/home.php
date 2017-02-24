@@ -34,6 +34,18 @@
       <link rel='stylesheet' href='assets/propertyfinder/css/custom/_messages.css' type='text/css' media='all' />
       <link rel='stylesheet' href='assets/propertyfinder/css/custom_narola.css' type='text/css' media='all' />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <style type="text/css">
+            .menu_main_responsive > .login_dropdown ul{
+               color: #232a34;
+               background-color: rgba(62, 59, 69, 0.9)
+            }
+            .menu_main_responsive > .login_dropdown ul li{
+               padding: 3px 0px;
+            }
+            border-bottom: 1px solid #fff;
+            }
+        </style>
    </head>
    <?php 
       $class= 'body_style_wide responsive_menu scheme_original top_panel_show top_panel_over sidebar_right'; 
@@ -60,8 +72,8 @@
                         </div>
                         <div class="top_panel_contacts">
                            <div class="top_panel_contacts_left">
-                              <div class="contact_phone">121 King Street, NY, USA</div>
-                              <div class="contact_email">contact@yoursite.com</div>
+                              <div class="contact_phone">MBZ City, Abu Dhabi,</div>
+                              <div class="contact_email">info@manazelspecialists.com</div>
                            </div>
                            <div class="top_panel_contacts_right">call us: <strong><i>800</i> 123 45 67</strong></div>
                            <div class="cL"></div>
@@ -77,7 +89,22 @@
                                  <li class="menu-item"><a href="#">Service</a></li>
                                  <li class="menu-item"><a href="#">Media</a></li>
                                  <li class="menu-item"><a href="#">Contact Us</a></li>
-                                 <li class="menu-item login_dropdown">
+                                 <li class="menu-item login_dropdown <?php if(!empty($this->session->userdata('user_logged_in'))){ echo 'menu-item-has-children'; } ?>" >
+                                    <?php 
+                                       if(!empty($this->session->userdata('user_logged_in'))){
+                                          echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                <img class="acc_preview" src="assets/propertyfinder/images/acc_preview.png">
+                                             </a>
+                                             <ul class="sub-menu">
+                                                <li style="padding: 3px 0px"><a href="property-finder/wishlist">Wishlist</a></li>
+                                                <li style="padding: 3px 0px"><a href="login/logout">Logout</a></li>
+                                             </ul>';
+                                       }else{
+                                          echo '<a href="login">Login</a>';
+                                       }
+                                    ?>
+                                 </li>
+                                 <!-- <li class="menu-item login_dropdown">
                                  <?php 
                                     if(!empty($this->session->userdata('user_logged_in'))){
                                        echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -91,7 +118,7 @@
                                        echo '<a href="login">Login</a>';
                                     }
                                  ?>
-                                 </li>
+                                 </li> -->
                               </ul>
                            </nav>
                         </div>
@@ -144,10 +171,29 @@
       <!-- <script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=false'></script> -->
       <script type='text/javascript' src='assets/propertyfinder/js/custom/_googlemap.js'></script>
       <script src="//storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
+      <script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
       <script type='text/javascript' src='assets/propertyfinder/js/custom_narola.js'></script>
+      <script>
+
+         // $( document ).ready(function() {
+         //    $('.menu_main_responsive > .login_dropdown').click(function(){
+         //       var t_this = $(this);
+         //       if(t_this.find('ul').css('display') == 'none'){
+         //          t_this.find('ul').css({'display':'block','left':'0'});
+         //       }else{
+         //          t_this.find('ul').css('display','none');
+         //       }
+         //    });
+         // });
+         // $(document).click(function(){
+         //   $(".dropdown-menu.login_dropdown").hide();
+         // });      
+      </script>
    </body>
 </html>
 
 <script>
    //window.addEventListener('load', onVrViewLoad)
+
 </script>

@@ -1,5 +1,4 @@
-<link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
-<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
+
 <style> .fancy-title.title-dotted-border {
         background: url(assets/frontend/images/icons/dotted.png) repeat-x center;
     }
@@ -131,7 +130,6 @@
                         }
                      ?>
                   </span>
-
                </div>
                <div class="sc_property_info_list">
                   <?php
@@ -658,9 +656,4 @@
       window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
       return true;
    }
-</script>
-<script>
-    $(function () {
-        $('.fancybox').fancybox();
-    });
 </script>
