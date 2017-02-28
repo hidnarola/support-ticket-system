@@ -179,7 +179,7 @@ foreach( $result as $row ){
   $slug = strtolower(str_replace(' ', '-', $row->navigation_name));   
   $route[ $slug ] = 'Page/index/'.$slug;
 }
-//$route['property-finder'] = "Properties";
+$route['property-finder'] = "Properties";
 $route['property-finder/single-property/(:any)/(:any)'] = "Properties/property_details/$1/$2";
 $route['property-finder/search'] = "Properties/property_search";
 $route['property-finder/saved-property'] = 'Properties/saved_property';
