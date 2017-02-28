@@ -185,9 +185,17 @@ class Properties extends CI_Controller {
 		$this->template->load('propertyfinder/home','Propertyfinder/Property/wishlist',$this->data);	
 	}
 
-	public function test(){
-        $this->load->view('Propertyfinder/Property/test');
-    }
+	/**
+	 * This function used to delete property from wishlist
+	 * @author pav
+    */
+	public function remove_saved_property($id){
+		$record_id = base64_decode($id);
+		$user_id = $this->session->userdata('user_logged_in')['id'];
+		$this->db->where(array('id'=>$record_id,'user_id'=>$user_id));
+  		$this->db->delete(TBL_PROP_WISHLIST);
+  		redirect('property-finder/wishlist');
+	}
 
 }
 

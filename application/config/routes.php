@@ -50,7 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   | Examples:	my-controller/index	-> my_controller/index
   |		my-controller/my-method	-> my_controller/my_method
  */
-$route['default_controller'] = 'Home';
+//$route['default_controller'] = 'Home';
+  $route['default_controller'] = 'Properties';
 $route['404_override'] = 'Login/page_not_found';
 $route['admin/access_denied'] = 'Admin/Dashboard/access_denied';
 $route['translate_uri_dashes'] = FALSE;
@@ -178,8 +179,9 @@ foreach( $result as $row ){
   $slug = strtolower(str_replace(' ', '-', $row->navigation_name));   
   $route[ $slug ] = 'Page/index/'.$slug;
 }
-$route['property-finder'] = "Properties";
+//$route['property-finder'] = "Properties";
 $route['property-finder/single-property/(:any)/(:any)'] = "Properties/property_details/$1/$2";
 $route['property-finder/search'] = "Properties/property_search";
 $route['property-finder/saved-property'] = 'Properties/saved_property';
 $route['property-finder/wishlist'] = 'Properties/saved_property_list';
+$route['property-finder/wishlist/remove/(:any)'] = 'Properties/remove_saved_property/$1';

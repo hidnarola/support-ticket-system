@@ -72,7 +72,7 @@ class Properties_model extends CI_Model {
     }
 
     public function get_property_wishlist($where=''){
-        $select_qry = "SELECT prop_list.*,prop_type.name as type_name,prop_cat.name as category_name FROM ". TBL_PROP_LIST ." prop_list JOIN ". TBL_PROP_CAT ." prop_cat ON prop_list.property_category_id=prop_cat.id JOIN ". TBL_PROP_TYPE . " prop_type ON prop_list.property_type_id=prop_type.id LEFT JOIN ". TBL_PROP_WISHLIST . " prop_wish ON prop_list.id=prop_wish.property_id WHERE prop_list.is_delete=0 and prop_list.status='Active'". $where;
+        $select_qry = "SELECT prop_list.*,prop_wish.id as wish_id,prop_type.name as type_name,prop_cat.name as category_name FROM ". TBL_PROP_LIST ." prop_list JOIN ". TBL_PROP_CAT ." prop_cat ON prop_list.property_category_id=prop_cat.id JOIN ". TBL_PROP_TYPE . " prop_type ON prop_list.property_type_id=prop_type.id LEFT JOIN ". TBL_PROP_WISHLIST . " prop_wish ON prop_list.id=prop_wish.property_id WHERE prop_list.is_delete=0 and prop_list.status='Active'". $where;
         $propertyList = $this->db->query($select_qry);
         return $propertyList;
     }
@@ -160,7 +160,6 @@ class Properties_model extends CI_Model {
         $this->db->group_by('prop_list.locality');
         $this->db->order_by('prop_list.locality','ASC');
         return $this->db->get();
-
     }
     /**
      * This function used to get landing banner

@@ -55,7 +55,7 @@
                                 <table class="table table-striped table-bordered newTickets" data-alert="" data-all="189">
                                     <tbody>
                                         <tr class="alpha-teal">
-                                            <th>Reference No.</th>
+                                            <th style="width:20%">Reference No.</th>
                                             <td><?php echo $property->reference_number; ?></td>
                                         </tr>
                                         <tr>
@@ -67,8 +67,8 @@
                                             <td><?php echo $property->title ?></td>
                                         </tr>
                                         <tr>
-                                            <th>Description</th>
-                                            <td><?php echo $property->description ?></td>
+                                            <th style="vertical-align:top !important">Description</th>
+                                            <td style="text-align:justify"><?php echo $property->short_description ?></td>
                                         </tr>
                                         <tr class="alpha-teal">
                                             <th>Property Category Type</th>
@@ -80,11 +80,11 @@
                                         </tr> 
                                         <tr class="alpha-teal">
                                             <th>Price</th>
-                                            <td><?php echo $property->price.' AED'; ?></td>
+                                            <td><?php echo number_format($property->price).' AED'; ?></td>
                                         </tr>
                                         <tr>
                                             <th>Area (in sq.ft)</th>
-                                            <td><?php echo $property->area.' Sq. ft' ?></td>
+                                            <td><?php echo number_format($property->area).' Sq. ft' ?></td>
                                         </tr>  
                                         <tr class="alpha-teal">
                                             <th>BHK</th>

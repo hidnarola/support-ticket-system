@@ -5,7 +5,7 @@
          <div class="sc_property sc_property_style_property-1">
             <div class="columns_wrap">
                <?php foreach($wishlist_data as $k => $v){ ?>
-                  <div class="column-1_3 column_padding_bottom">
+                  <div class="<?php if(count($wishlist_data)>1){ echo 'column-1_3'; } else{ echo 'column-1_2'; } ?> column_padding_bottom">
                      <?php if($v->availability==0) { ?>
                         <div class="sold-text"></div>
                      <?php } ?>
@@ -62,11 +62,11 @@
                               <div class="cL"></div>
                            </div>
                         </div>
-                        <div class="sc_property_info_list">
+                        <div class="sc_property_info_list" id="info_list_div">
                            <span class="icon-building113"><?php echo number_format($v->area).' sqft' ?></span>
                            <span class="icon-bed"><?php echo $v->bedroom_no ?></span>
-                           <span class="icon-bath"><?php echo $v->bathroom_no ?></span>
-                           <!-- <span class="icon-warehouse">2</span> -->
+                           <span class="icon-bath"><?php echo $v->bathroom_no ?></span>&nbsp;
+                           <a href="property-finder/wishlist/remove/<?php echo base64_encode($v->wish_id) ?>" class="btn btn-danger btn-xs" id="remove_btn" style="border-radius:0px;float:right"><b>REMOVE</b></a>
                         </div>
                      </div>
                   </div>
@@ -76,4 +76,10 @@
       </div>
    </div>
 </div>
+
+<style>
+   #remove_btn{ display: none; }
+   .column_padding_bottom:hover #remove_btn{ display:inline-block; }
+   .column_padding_bottom:hover .sc_property_item{ box-shadow: 0px 0px 8px 0px #ccc; }
+</style>
             

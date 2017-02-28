@@ -1,6 +1,7 @@
 <?php 
    $page = $this->uri->segment(1);
    $current_page = $this->uri->segment(2);
+   $page_url = $this->uri->segment(3);
 ?>
 <!DOCTYPE html>
 <html lang="en-US" class="scheme_original">
@@ -64,7 +65,7 @@
                      <div class="content_wrap clearfix">
                         <div class="top_panel_logo">
                            <div class="logo">
-                              <a href="<?php echo site_url('property-finder'); ?>">
+                              <a href="/">
                                  <!-- <img src="assets/propertyfinder/images/MS-Logo-(1).png" class="logo_main" alt=""> -->
                                  <img src="assets/propertyfinder/images/logo-header.png" class="logo_main" alt="">
                               </a>
@@ -82,10 +83,10 @@
                            <a href="#" class="menu_main_responsive_button icon-down">Select menu item</a>
                            <nav class="menu_main_nav_area">
                               <ul id="menu_main" class="menu_main_nav property_header">
-                                 <li class="menu-item <?php if($page=='property-finder' && $current_page==''){ echo 'current-menu-parent'; } ?>">
-                                    <a href="<?php echo site_url('property-finder'); ?>">Home</a>
+                                 <li class="menu-item <?php if($current_page==''){ echo 'current-menu-parent'; } ?>">
+                                    <a href="/">Home</a>
                                  </li> 
-                                 <li class="menu-item"><a href="#">About Us</a></li>
+                                 <li class="menu-item <?php if($current_page=='pages' && $page_url=='about-us'){ echo 'current-menu-parent'; } ?>"><a href="property-finder/pages/about-us">About Us</a></li>
                                  <li class="menu-item"><a href="#">Service</a></li>
                                  <li class="menu-item"><a href="#">Media</a></li>
                                  <li class="menu-item"><a href="#">Contact Us</a></li>
