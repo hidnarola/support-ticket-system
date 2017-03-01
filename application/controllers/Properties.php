@@ -178,7 +178,7 @@ class Properties extends CI_Controller {
 		$this->data['title'] = 'Properties | Your Wishlist';
 		$user_id = $this->session->userdata('user_logged_in')['id'];
 		if($user_id==''){
-			redirect('property-finder');
+			redirect('property-listing');
 		}
 		$where = ' and prop_wish.user_id='.$user_id;
 		$this->data['wishlist_data'] = $this->Properties_model->get_property_wishlist($where)->result();
@@ -194,7 +194,7 @@ class Properties extends CI_Controller {
 		$user_id = $this->session->userdata('user_logged_in')['id'];
 		$this->db->where(array('id'=>$record_id,'user_id'=>$user_id));
   		$this->db->delete(TBL_PROP_WISHLIST);
-  		redirect('property-finder/wishlist');
+  		redirect('property-listing/wishlist');
 	}
 
 }
