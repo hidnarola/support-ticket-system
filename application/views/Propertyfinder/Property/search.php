@@ -58,7 +58,7 @@
                         ?>
                         <div class="sc_property_item">
                            <div class="sc_property_image">
-                              <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
+                              <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
                                  <div class="property_price_box">
                                     <span class="property_price_box_sign">AED </span>
                                     <span class="property_price_box_price">
@@ -92,7 +92,7 @@
                                  </div>
                                  <div class="sc_property_title">
                                     <div class="sc_property_title_address_1">
-                                       <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
+                                       <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
                                     </div>
                                     <div class="sc_property_title_address_2"><?php echo $v->address; ?></div>
                                  </div>
@@ -148,7 +148,7 @@
       <div class="sidebar widget_area scheme_original">
          <div class="sidebar_inner widget_area_inner">
             <aside class="widget widget_property_search scheme_dark">
-               <form method="get" action="property-finder/search">
+               <form method="get" action="property-listing/search">
                   <input type="text" name="kw" autocomplete="off" placeholder="Keyword" value="<?php echo ($ps_keyword!='') ? $ps_keyword : '' ;?>">
                   <select name="ps">
                      <option value="">Property Status</option>

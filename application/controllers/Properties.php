@@ -24,7 +24,7 @@ class Properties extends CI_Controller {
 	 * @author pav
     */
 	public function index(){
-		$this->data['title'] = 'PropertyFinder';
+		$this->data['title'] = 'Properties';
 		$this->data['landing_banner'] = $landing_banner = $this->Properties_model->get_prop_landing_banner(array('prop_banner.status'=>'Active','prop_list.status'=>'Active'))->result();
 		$main_property = $this->Properties_model->get_recent_property(1)->result();
 		$this->data['main_property'] = $main_property[0];
@@ -93,7 +93,7 @@ class Properties extends CI_Controller {
         } else {
             $qry_str = $curUrl[0] . '?pg=' . $newPage;
         }
-		$this->data['title'] = 'PropertyFinder |';
+		$this->data['title'] = 'Properties';
 		$search_query = '';
 		$this->data['ps_status'] = $ps_status = $this->input->get('ps');
 		$this->data['ps_type'] = $ps_type = $this->input->get('pt');
@@ -175,7 +175,7 @@ class Properties extends CI_Controller {
 	}
 
 	public function saved_property_list(){
-		$this->data['title'] = 'PropertyFinder | Your Wishlist';
+		$this->data['title'] = 'Properties | Your Wishlist';
 		$user_id = $this->session->userdata('user_logged_in')['id'];
 		if($user_id==''){
 			redirect('property-finder');

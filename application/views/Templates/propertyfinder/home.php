@@ -61,7 +61,7 @@
          <div class="page_wrap">
             <header class="top_panel_wrap top_panel_style_1 scheme_original">
                <div class="header-bg">
-                  <div class="top_panel_wrap_inner top_panel_inner_style_1 top_panel_position_over <?php if($this->uri->segment(2)==''){ echo 'header_shadow'; }else{ echo 'header_shadow2'; } ?>">
+                  <div class="top_panel_wrap_inner top_panel_inner_style_1 top_panel_position_over <?php if($this->uri->segment(1)=='' || ($this->uri->segment(1)=='property-listing' && $this->uri->segment(2)=='')){ echo 'header_shadow'; }else{ echo 'header_shadow2'; } ?>">
                      <div class="content_wrap clearfix">
                         <div class="top_panel_logo">
                            <div class="logo">
@@ -83,13 +83,38 @@
                            <a href="#" class="menu_main_responsive_button icon-down">Select menu item</a>
                            <nav class="menu_main_nav_area">
                               <ul id="menu_main" class="menu_main_nav property_header">
-                                 <li class="menu-item <?php if($current_page==''){ echo 'current-menu-parent'; } ?>">
+                                 <li class="menu-item <?php if($page==''){ echo 'current-menu-parent'; } ?>">
                                     <a href="/">Home</a>
                                  </li> 
-                                 <li class="menu-item <?php if($current_page=='pages' && $page_url=='about-us'){ echo 'current-menu-parent'; } ?>"><a href="property-finder/pages/about-us">About Us</a></li>
+                                 <?php 
+                                    $header_links = get_pages('header');
+                                    $header_array = array('property-finder');
+                                    if(count($header_links) > 0){
+                                       foreach ($header_links as $key => $value) {
+                                          if(isset($value['sub_menus'])){
+                                             foreach ($value['sub_menus'] as $key1 => $value1) {
+                                             ?>
+                                                <li class="mega-menu">
+                                                   <a href="<?php echo site_url($value1['url']); ?>"><?php echo $value1['navigation_name']; ?></a>
+                                                </li>
+                                             <?php
+                                             }
+                                          } else {
+                                          ?>
+                                             <li class="mega-menu <?php if($page==$value['url']){ echo 'current-menu-parent'; } ?>">
+                                                <a href="<?php echo site_url($value['url']); ?>" target="<?php if(in_array($value['url'],$header_array)){ echo '_blank'; } ?>">
+                                                   <div><?php echo $value['navigation_name']; ?></div>
+                                                </a>
+                                             </li>
+                                          <?php
+                                          }
+                                       }
+                                    }
+                                 ?>
+                                 <!-- <li class="menu-item <?php if($current_page=='pages' && $page_url=='about-us'){ echo 'current-menu-parent'; } ?>"><a href="property-finder/pages/about-us">About Us</a></li>
                                  <li class="menu-item"><a href="#">Service</a></li>
                                  <li class="menu-item"><a href="#">Media</a></li>
-                                 <li class="menu-item"><a href="#">Contact Us</a></li>
+                                 <li class="menu-item"><a href="#">Contact Us</a></li> -->
                                  <li class="menu-item login_dropdown <?php if(!empty($this->session->userdata('user_logged_in'))){ echo 'menu-item-has-children'; } ?>" >
                                     <?php 
                                        if(!empty($this->session->userdata('user_logged_in'))){
@@ -97,7 +122,7 @@
                                                 <img class="acc_preview" src="assets/propertyfinder/images/acc_preview.png">
                                              </a>
                                              <ul class="sub-menu">
-                                                <li style="padding: 3px 0px"><a href="property-finder/wishlist">Wishlist</a></li>
+                                                <li style="padding: 3px 0px"><a href="property-listing/wishlist">Wishlist</a></li>
                                                 <li style="padding: 3px 0px"><a href="login/logout">Logout</a></li>
                                              </ul>';
                                        }else{
@@ -126,9 +151,18 @@
                         <div class="cL"></div>
                      </div>
                   </div>
+                  <?php if($this->uri->segment(1)=='about-us' || $this->uri->segment(1)=='contact-us'){ ?>
+                  <div class="top_panel_title top_panel_style_1  title_present scheme_original breadcrumbs_image">
+                     <div class="top_panel_title_inner top_panel_inner_style_1 breadcrumbs_present_inner">
+                        <div class="content_wrap">
+                           <h1 class="page_title"><?= $title ?></h1>
+                           <div class="breadcrumbs"><a class="breadcrumbs_item home" href="/">Home</a><span class="breadcrumbs_delimiter"></span><span class="breadcrumbs_item current"><?= $title ?></span></div>
+                        </div>
+                     </div>
+                  </div>
+                  <?php } ?>
                </div>
             </header>
-            
             <?php echo $body; ?>
             <?php $this->load->view('Templates/propertyfinder/footer'); ?>
 

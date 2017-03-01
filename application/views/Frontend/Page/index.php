@@ -1,5 +1,5 @@
 
-
+        <div class="page_content_wrap">
             <div class="content-wrap">
 
                 <div class="container clearfix">
@@ -16,5 +16,11 @@
                 </div>
 
             </div>
+        </div>
 
        <!-- #content end -->
+       <style>
+           .top_panel_over .top_panel_wrap{
+            position:relative !important;
+           }
+       </style>

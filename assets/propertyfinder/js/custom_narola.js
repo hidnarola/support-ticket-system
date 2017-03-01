@@ -58,7 +58,7 @@ jQuery(document).ready(function($){
 });
 function add_to_wishlist(id){
     $.ajax({
-      url: "property-finder/saved-property",
+      url: "property-listing/saved-property",
       type: "POST",
       data: {id: id},
       success: function (response) {

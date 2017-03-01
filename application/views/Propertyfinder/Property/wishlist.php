@@ -21,7 +21,7 @@
                      ?>
                      <div class="sc_property_item">
                         <div class="sc_property_image">
-                           <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
+                           <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
                               <div class="property_price_box">
                                  <span class="property_price_box_sign">AED </span>
                                  <span class="property_price_box_price">
@@ -55,7 +55,7 @@
                               </div>
                               <div class="sc_property_title">
                                  <div class="sc_property_title_address_1">
-                                    <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
+                                    <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
                                  </div>
                                  <div class="sc_property_title_address_2"><?php echo $v->address; ?></div>
                               </div>
@@ -66,7 +66,7 @@
                            <span class="icon-building113"><?php echo number_format($v->area).' sqft' ?></span>
                            <span class="icon-bed"><?php echo $v->bedroom_no ?></span>
                            <span class="icon-bath"><?php echo $v->bathroom_no ?></span>&nbsp;
-                           <a href="property-finder/wishlist/remove/<?php echo base64_encode($v->wish_id) ?>" class="btn btn-danger btn-xs" id="remove_btn" style="border-radius:0px;float:right"><b>REMOVE</b></a>
+                           <a href="property-listing/wishlist/remove/<?php echo base64_encode($v->wish_id) ?>" class="btn btn-danger btn-xs" id="remove_btn" style="border-radius:0px;float:right"><b>REMOVE</b></a>
                         </div>
                      </div>
                   </div>

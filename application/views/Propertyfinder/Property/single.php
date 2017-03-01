@@ -221,7 +221,7 @@
       <div class="sidebar widget_area scheme_original">
          <div class="sidebar_inner widget_area_inner">
             <aside class="widget widget_property_search scheme_dark">
-               <form method="get" action="property-finder/search">
+               <form method="get" action="property-listing/search">
                   <input type="text" name="kw" placeholder="Keyword" value="" autocomplete="off">
                   <select name="ps">
                      <option value="">Property Status</option>

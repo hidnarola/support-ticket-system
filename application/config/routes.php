@@ -179,9 +179,9 @@ foreach( $result as $row ){
   $slug = strtolower(str_replace(' ', '-', $row->navigation_name));   
   $route[ $slug ] = 'Page/index/'.$slug;
 }
-$route['property-finder'] = "Properties";
-$route['property-finder/single-property/(:any)/(:any)'] = "Properties/property_details/$1/$2";
-$route['property-finder/search'] = "Properties/property_search";
-$route['property-finder/saved-property'] = 'Properties/saved_property';
-$route['property-finder/wishlist'] = 'Properties/saved_property_list';
-$route['property-finder/wishlist/remove/(:any)'] = 'Properties/remove_saved_property/$1';
+$route['property-listing'] = "Properties";
+$route['property-listing/single-property/(:any)/(:any)'] = "Properties/property_details/$1/$2";
+$route['property-listing/search'] = "Properties/property_search";
+$route['property-listing/saved-property'] = 'Properties/saved_property';
+$route['property-listing/wishlist'] = 'Properties/saved_property_list';
+$route['property-listing/wishlist/remove/(:any)'] = 'Properties/remove_saved_property/$1';

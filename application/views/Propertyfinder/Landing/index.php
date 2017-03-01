@@ -21,7 +21,7 @@
                                  <div class="sc_pr_h2"><?php echo $v->type_name; ?> for <?php echo $v->category_name; ?></div>
                               </div>
                               <div class="sc_pr_t1">
-                                 <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->prop_title).'/'.base64_encode($v->prop_id)); ?>"><?php echo substr($v->prop_title,0,30); ?></a> 
+                                 <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->prop_title).'/'.base64_encode($v->prop_id)); ?>"><?php echo substr($v->prop_title,0,30); ?></a> 
                               </div>
                               <div class="sc_pr_t2"><?php echo substr($v->prop_address,0,30); ?></div>
                               <div class="sc_pr_f1">
@@ -131,7 +131,7 @@
       <div class="sc_section scheme_dark">
          <div class="sc_section_inner">
             <div class="sc_property_search">
-               <form method="get" action="property-finder/search">
+               <form method="get" action="property-listing/search">
                   <div class="sc_ps_status">
                      <select name="ps" id="ps">
                         <option value="">Property Contract</option>
@@ -244,7 +244,7 @@
                <h2 class="sc_title sc_title_iconed ind2 margin_top_null margin_bottom_xmedium">
                   <span class="sc_title_icon sc_title_icon_left sc_title_icon_small icon-map-pointer18 sc_left"></span>
                   <span class="sc_title_box">
-                  <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$main_property->title).'/'.base64_encode($main_property->id)); ?>"><?php echo $main_property->title; ?>,</a>
+                  <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$main_property->title).'/'.base64_encode($main_property->id)); ?>"><?php echo $main_property->title; ?>,</a>
                   <span class="sc_title_subtitle"><?php echo $main_property->address; ?></span>
                   </span>
                </h2>
@@ -316,7 +316,7 @@
             </div>
             <div class="column-1_2">
                <figure class="sc_image ">
-                  <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$main_property->title).'/'.base64_encode($main_property->id)); ?>"><img src="<?php echo 'assets/timthumb.php?src='.PROPERTY_IMAGE.'/'.explode(',',$main_property->images)[0].'&h=414&w=570&q=100'; ?>" alt="" /></a>
+                  <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$main_property->title).'/'.base64_encode($main_property->id)); ?>"><img src="<?php echo 'assets/timthumb.php?src='.PROPERTY_IMAGE.'/'.explode(',',$main_property->images)[0].'&h=414&w=570&q=100'; ?>" alt="" /></a>
                </figure>
             </div>
          </div>
@@ -347,7 +347,7 @@
                         ?>
                         <div class="sc_property_item">
                            <div class="sc_property_image">
-                              <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
+                              <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
                                  <div class="property_price_box">
                                     <span class="property_price_box_sign">AED </span>
                                     <span class="property_price_box_price">
@@ -381,7 +381,7 @@
                                  </div>
                                  <div class="sc_property_title">
                                     <div class="sc_property_title_address_1">
-                                       <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
+                                       <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
                                     </div>
                                     <div class="sc_property_title_address_2"><?php echo $v->address; ?></div>
                                  </div>
@@ -424,7 +424,7 @@
                         ?>
                         <div class="sc_property_item">
                            <div class="sc_property_image">
-                              <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
+                              <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
                                  <div class="property_price_box">
                                     <span class="property_price_box_sign">AED </span>
                                     <span class="property_price_box_price">
@@ -454,7 +454,7 @@
                                  </div>
                                  <div class="sc_property_title">
                                     <div class="sc_property_title_address_1">
-                                       <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
+                                       <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
                                     </div>
                                     <div class="sc_property_title_address_2"><?php echo $v->address; ?></div>
                                  </div>
@@ -495,7 +495,7 @@
                         <span class="discount_tag" style="z-index:1"><?php echo $percentage_value; ?> <br> OFF</span>
                         <div class="sc_property_item">
                            <div class="sc_property_image">
-                              <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
+                              <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>">
                                  <div class="property_price_box">
                                     <span class="property_price_box_sign">AED </span>
                                     <span class="property_price_box_price">
@@ -525,7 +525,7 @@
                                  </div>
                                  <div class="sc_property_title">
                                     <div class="sc_property_title_address_1">
-                                       <a href="<?php echo site_url('property-finder/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
+                                       <a href="<?php echo site_url('property-listing/single-property/'.str_replace(' ','-',$v->title).'/'.base64_encode($v->id)); ?>"><?php echo substr($v->title,0,25); ?></a> 
                                     </div>
                                     <div class="sc_property_title_address_2"><?php echo $v->address; ?></div>
                                  </div>

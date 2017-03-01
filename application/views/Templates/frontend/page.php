@@ -55,8 +55,8 @@
                         <!-- Logo
                         ============================================= -->
                         <div id="logo">
-                            <a href="home" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
-                            <a href="home" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <a href="/" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <a href="/" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
                         <?php
                         if ($this->session->userdata('user_logged_in')) { ?>
@@ -84,7 +84,7 @@
                         ?>
                         <nav id="primary-menu">
                             <ul>
-                                <li class="<?php echo ($page == 'home') ? 'current' : ''; ?>"><a href="home"><div>Home</div></a></li>
+                                <li class="<?php echo ($page == 'home') ? 'current' : ''; ?>"><a href="/"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
                                    
                                     <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>"><a href="#" class="sf-with-ul"><div>Knowledge Base</div></a>

@@ -23,7 +23,10 @@ class Page extends CI_Controller    {
           $data['icon_class'] = 'icon-question3';
           $data['news_announcements'] = $this->User_model->getlatestnews();
           $data['user'] = $this->User_model->getUserByID($userid);
-        	$this->template->load('frontend/page', 'Frontend/Page/index', $data);
+        	
+          //CHANGES BY PAV
+          //$this->template->load('frontend/page', 'Frontend/Page/index', $data);
+          $this->template->load('propertyfinder/home', 'Frontend/Page/index', $data);
        	} else {
        		show_404();
        	}
