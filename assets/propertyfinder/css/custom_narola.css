@@ -92,12 +92,12 @@
     background-position: 0% -10%;
     background-attachment: fixed;
 }
-/*.breadcrumbs_image{
+.breadcrumbs_image{
   background-image: url(../images/header_banner.jpg) !important;
     background-repeat: no-repeat;
     background-position: 0% -10%;
     background-attachment: fixed;
-}*/
+}
 .header_shadow2::before{ 
   
   top:0;

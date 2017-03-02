@@ -197,6 +197,11 @@ class Properties extends CI_Controller {
   		redirect('property-listing/wishlist');
 	}
 
+	public function portfolio(){
+		$this->data['title'] = 'Portfolio';
+		$this->template->load('propertyfinder/home','Propertyfinder/Property/portfolio',$this->data);
+	} 
+
 }
 
 /* End of file Properties.php */

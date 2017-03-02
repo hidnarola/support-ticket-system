@@ -33,6 +33,7 @@
       <link rel='stylesheet' href='assets/propertyfinder/js/vendor/swiper/swiper.css' type='text/css' media='all' />
       <link rel='stylesheet' href='assets/propertyfinder/js/vendor/magnific-popup/magnific-popup.css' type='text/css' media='all' />
       <link rel='stylesheet' href='assets/propertyfinder/css/custom/_messages.css' type='text/css' media='all' />
+      <link rel='stylesheet' href='assets/propertyfinder/css/custom/_portfolio.css' type='text/css' media='all' />
       <link rel='stylesheet' href='assets/propertyfinder/css/custom_narola.css' type='text/css' media='all' />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -54,6 +55,8 @@
          $class = 'single-post body_filled body_style_wide responsive_menu scheme_original top_panel_show top_panel_above sidebar_show sidebar_right';
       } else if($this->uri->segment(2)=='search'){
          $class = 'page-template-blog-property body_filled body_style_wide responsive_menu scheme_original top_panel_show top_panel_above sidebar_show sidebar_right';
+      } else if ($this->uri->segment(2)=='portfolio'){
+         $class = 'page-template-blog-property body_filled body_style_wide responsive_menu scheme_original top_panel_show top_panel_above';
       }
    ?>
    <body class="<?php echo $class ?>">
@@ -111,6 +114,9 @@
                                        }
                                     }
                                  ?>
+                                 <li class="menu-menu <?php if($page=='portfolio'){ echo 'current-menu-parent'; } ?>">
+                                    <a href="portfolio">PORTFOLIO</a>
+                                 </li>
                                  <!-- <li class="menu-item <?php if($current_page=='pages' && $page_url=='about-us'){ echo 'current-menu-parent'; } ?>"><a href="property-finder/pages/about-us">About Us</a></li>
                                  <li class="menu-item"><a href="#">Service</a></li>
                                  <li class="menu-item"><a href="#">Media</a></li>
@@ -151,7 +157,7 @@
                         <div class="cL"></div>
                      </div>
                   </div>
-                  <?php if($this->uri->segment(1)=='about-us' || $this->uri->segment(1)=='contact-us'){ ?>
+                  <?php if($this->uri->segment(1)=='about-us' || $this->uri->segment(1)=='contact-us' || $this->uri->segment(1)=='portfolio'){ ?>
                   <div class="top_panel_title top_panel_style_1  title_present scheme_original breadcrumbs_image">
                      <div class="top_panel_title_inner top_panel_inner_style_1 breadcrumbs_present_inner">
                         <div class="content_wrap">
@@ -208,6 +214,7 @@
       <script src="//storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
       <link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
       <script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
+      <script type='text/javascript' src='assets/propertyfinder/js/vendor/isotope.min.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/custom_narola.js'></script>
       <script>
 
