@@ -48,11 +48,10 @@ class Page extends CI_Controller    {
     $msg.= '<b>Message : </b>'.$message;
  
     if(mail($to,$subject,$msg)){
-      echo 'success';
+      //echo 'success';
     }else{
       echo $this->email->print_debugger();
     }
-    die;
     redirect('contact-us');
   }
 }
