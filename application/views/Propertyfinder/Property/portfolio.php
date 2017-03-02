@@ -122,7 +122,6 @@
 		</div>
 	</div>
 </div>
-
 <style>
 	.img-size{height: 350px;width: 470px;}
 	.hr_style{ border:1px solid #ccc; }
