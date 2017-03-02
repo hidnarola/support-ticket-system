@@ -47,7 +47,12 @@ class Page extends CI_Controller    {
     $msg.= '<b>Mobile No : </b>'.$mobile_no.'<br>';
     $msg.= '<b>Message : </b>'.$message;
  
-    mail($to,$subject,$msg);
+    if(mail($to,$subject,$msg)){
+      echo 'success';
+    }else{
+      echo $this->email->print_debugger();
+    }
+    die;
     redirect('contact-us');
   }
 }
