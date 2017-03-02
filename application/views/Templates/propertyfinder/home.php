@@ -115,7 +115,7 @@
                                     }
                                  ?>
                                  <li class="menu-menu <?php if($page=='portfolio'){ echo 'current-menu-parent'; } ?>">
-                                    <a href="portfolio">PORTFOLIO</a>
+                                    <a href="portfolio">Portfolio</a>
                                  </li>
                                  <!-- <li class="menu-item <?php if($current_page=='pages' && $page_url=='about-us'){ echo 'current-menu-parent'; } ?>"><a href="property-finder/pages/about-us">About Us</a></li>
                                  <li class="menu-item"><a href="#">Service</a></li>
