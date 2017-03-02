@@ -50,7 +50,6 @@ class Page extends CI_Controller    {
     $msg.= '<b>Mobile No : </b>'.$mobile_no.'<br>';
     $msg.= '<b>Message : </b>'.$message;
     $msg.= '</body></html>';
- 
     if(mail($to, $subject, $msg, $header)){
       //echo 'success';
     }else{
