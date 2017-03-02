@@ -39,13 +39,14 @@ class Page extends CI_Controller    {
     $mobile_no = $this->input->post('txt_mobile_no');
     $subject = $this->input->post('txt_subject');
     $message = $this->input->post('txt_message');
-    
+    echo $to;
     $msg = 'You have recieved a new message from the enquiries from on your website. Following are the deatils of that person.<br><br>';
     $msg.= '<b>Full Name : </b>'.$full_name.'<br>';
     $msg.= '<b>Email Address : </b><a href=mailto:'.$email_address.'>'.$email_address.'</a><br>';
     $msg.= '<b>Phone No : </b>'.$phone_no.'<br>';
     $msg.= '<b>Mobile No : </b>'.$mobile_no.'<br>';
     $msg.= $message;
+    echo $subject.$msg; die;
     mail($to,$subject,$msg);
     redirect('contact-us');
   }
