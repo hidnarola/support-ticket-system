@@ -55,6 +55,7 @@ class Page extends CI_Controller    {
 
     $this->email->subject($subject);
     $this->email->from('info@manazelspecialists.com','');
+    $this->email->reply_to('noreply@gmail.com');
     $this->email->to($to);
     $this->email->message($msg);
 
