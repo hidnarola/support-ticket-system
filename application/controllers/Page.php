@@ -33,18 +33,16 @@ class Page extends CI_Controller    {
   }
 
   public function contact_us(){
-    mail('pav@narola.email','test','test');
-    die;
+    $configs = mail_config();
+    $this->load->library('email', $configs);
+    $this->email->initialize($configs);
+  
     $full_name = $this->input->post('txt_full_name');
     $email_address = $to = $this->input->post('txt_email');
-    $phone_no = $this->input->post('txt_phone_no');
-    $mobile_no = $this->input->post('txt_mobile_no');
+    $phone_no = $this->input->post('txt_phone_number');
+    $mobile_no = $this->input->post('txt_mobile_number');
     $subject = $this->input->post('txt_subject');
     $message = $this->input->post('txt_message');
-
-    $header = "From: ku@narola.email\r\n"; 
-    $header.= "MIME-Version: 1.0\r\n"; 
-    $header.= "Content-Type: text/html; charset=utf-8\r\n";
 
     $msg = '<html><body>';
     $msg.= 'You have recieved a new message from the enquiries from on your website. Following are the deatils of that person.<br><br>';
@@ -55,10 +53,13 @@ class Page extends CI_Controller    {
     $msg.= '<b>Message : </b>'.$message;
     $msg.= '</body></html>';
 
-    if(mail($to, $subject, $msg, $header)){
-      //echo 'success';
-    }else{
-      echo $this->email->print_debugger();
+    $this->email->subject($subject);
+    $this->email->from('info@manazelspecialists.com','');
+    $this->email->to($to);
+    $this->email->message($msg);
+
+    if (!$this->email->send()) {
+        echo $this->email->print_debugger();
     }
     redirect('contact-us');
   }
