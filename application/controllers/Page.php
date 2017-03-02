@@ -38,9 +38,9 @@ class Page extends CI_Controller    {
     $this->email->initialize($configs);
   
     $full_name = $this->input->post('txt_full_name');
-    $email_address = $to = $this->input->post('txt_email');
-    $phone_no = $this->input->post('txt_phone_number');
-    $mobile_no = $this->input->post('txt_mobile_number');
+    $email_address = $from = $this->input->post('txt_email');
+    $phone_no = $this->input->post('txt_phone_no');
+    $mobile_no = $this->input->post('txt_mobile_no');
     $subject = $this->input->post('txt_subject');
     $message = $this->input->post('txt_message');
 
@@ -54,9 +54,9 @@ class Page extends CI_Controller    {
     $msg.= '</body></html>';
 
     $this->email->subject($subject);
-    $this->email->from('info@manazelspecialists.com','');
+    $this->email->from($from,$full_name);
     $this->email->reply_to('noreply@gmail.com');
-    $this->email->to($to);
+    $this->email->to('info@manazelspecialists.com');
     $this->email->message($msg);
 
     if (!$this->email->send()) {
