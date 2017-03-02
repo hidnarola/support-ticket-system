@@ -33,15 +33,19 @@ class Page extends CI_Controller    {
   }
 
   public function contact_us(){
+    mail('pav@narola.email','test','test');
+    die;
     $full_name = $this->input->post('txt_full_name');
     $email_address = $to = $this->input->post('txt_email');
     $phone_no = $this->input->post('txt_phone_no');
     $mobile_no = $this->input->post('txt_mobile_no');
     $subject = $this->input->post('txt_subject');
     $message = $this->input->post('txt_message');
+
     $header = "From: ku@narola.email\r\n"; 
     $header.= "MIME-Version: 1.0\r\n"; 
-    $header.= "Content-Type: text/plain; charset=utf-8\r\n";
+    $header.= "Content-Type: text/html; charset=utf-8\r\n";
+
     $msg = '<html><body>';
     $msg.= 'You have recieved a new message from the enquiries from on your website. Following are the deatils of that person.<br><br>';
     $msg.= '<b>Full Name : </b>'.$full_name.'<br>';
@@ -50,6 +54,7 @@ class Page extends CI_Controller    {
     $msg.= '<b>Mobile No : </b>'.$mobile_no.'<br>';
     $msg.= '<b>Message : </b>'.$message;
     $msg.= '</body></html>';
+
     if(mail($to, $subject, $msg, $header)){
       //echo 'success';
     }else{
