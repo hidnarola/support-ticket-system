@@ -162,6 +162,7 @@ $route['login'] = "Login";
 
 $route['profile'] = "Profile";
 $route['home'] = "Home";
+$route['home2'] = "Properties/home2";
 $route['forgot_password'] = "Home/forgot_password";
 $route['reset_password'] = "Home/reset_password";
 

@@ -64,7 +64,7 @@
          <div class="page_wrap">
             <header class="top_panel_wrap top_panel_style_1 scheme_original">
                <div class="header-bg">
-                  <div class="top_panel_wrap_inner top_panel_inner_style_1 top_panel_position_over <?php if($this->uri->segment(1)=='' || ($this->uri->segment(1)=='property-listing' && $this->uri->segment(2)=='')){ echo 'header_shadow'; }else{ echo 'header_shadow2'; } ?>">
+                  <div class="top_panel_wrap_inner top_panel_inner_style_1 top_panel_position_over <?php if($this->uri->segment(1)=='' || $this->uri->segment(1)=='home2' || ($this->uri->segment(1)=='property-listing' && $this->uri->segment(2)=='')){ echo 'header_shadow'; }else{ echo 'header_shadow2'; } ?>">
                      <div class="content_wrap clearfix">
                         <div class="top_panel_logo">
                            <div class="logo">
@@ -88,6 +88,9 @@
                               <ul id="menu_main" class="menu_main_nav property_header">
                                  <li class="menu-item <?php if($page==''){ echo 'current-menu-parent'; } ?>">
                                     <a href="/">Home</a>
+                                 </li> 
+                                 <li class="menu-item <?php if($page=='home2'){ echo 'current-menu-parent'; } ?>">
+                                    <a href="<?php echo base_url().'home2'; ?>">Home2</a>
                                  </li> 
                                  <?php 
                                     $header_links = get_pages('header');

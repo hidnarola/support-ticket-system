@@ -34,6 +34,17 @@ class Properties extends CI_Controller {
 		$this->template->load('propertyfinder/home','Propertyfinder/Landing/index',$this->data);
 	}
 
+	public function home2(){
+		$this->data['title'] = 'Properties';
+		$this->data['landing_banner'] = $landing_banner = $this->Properties_model->get_prop_landing_banner(array('prop_banner.status'=>'Active','prop_list.status'=>'Active'))->result();
+		$main_property = $this->Properties_model->get_recent_property(1)->result();
+		$this->data['main_property'] = $main_property[0];
+		$this->data['recent_property'] = $recent_property = $this->Properties_model->get_recent_property(3)->result();
+		$this->data['featured_property'] = $featured_property = $this->Properties_model->get_featured_property(3)->result();
+		$this->data['offer_property'] = $offer_property = $this->Properties_model->get_offer_property(3)->result();
+		$this->template->load('propertyfinder/home','Propertyfinder/Landing/index2',$this->data);
+	}
+
 	/**
 	 * This function used to display single property by id
 	 * @author pav
