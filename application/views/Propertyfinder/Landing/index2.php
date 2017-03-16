@@ -256,6 +256,27 @@
       </div>
    </div>
 </div>
+
+<div class="page_content_wrap page_paddings_no">
+   <div class="sc_section">
+      <div class="project_div">
+         <div class="columns_wrap margin_top_xlarge margin_bottom_xmedium">
+            <div class="row">
+               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/manazelamman.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/Alreefcommunity.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/dunes-village.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/al-reef-2-villas.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/DARI.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/manazel-malls.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/banner-1.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/al-reef-retail.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/capital-mall.jpg'?>"></a></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
 <div class="page_content_wrap page_paddings_no">
    <div class="sc_section">
       <div class="content_wrap">
@@ -792,6 +813,6 @@
 .sc_property.sc_property_style_property-6 .sc_property_item{padding:0 !important;}
 .sc_property.sc_property_style_property-6 .sc_pr_h2{padding:50px 45px 10px !important;}
 .tp-leftarrow{left: 38% !important;}
-
+.project_div .col-md-4{ padding:0px !important; }
 
 </style>
