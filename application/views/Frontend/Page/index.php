@@ -3,6 +3,13 @@
             <div class="content-wrap">
 
                 <div class="container clearfix">
+                    <?php
+                      if($this->session->flashdata('fail') != ''){
+                          echo '<div class="row"><div class="error_div">' . $this->session->flashdata('fail') . '</div></div>';
+                      }else{
+                          echo '<div class="row"><div class="success_div">' . $this->session->flashdata('success') . '</div></div>';
+                      }
+                    ?>
                     <?php if($page_data['banner_image']!=''){ 
                         $url = '#'; 
                             if($page_data['ext_url']!=''){
