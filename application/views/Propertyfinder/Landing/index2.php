@@ -1,21 +1,8 @@
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <div class="row about_us_row">
-   <div class="col-md-4">
-      
-         <div class="about_us_bg_li">
-            <ul>
-               <li class="about_us_bg_heading">About Us</li>
-               <li style="margin-bottom:15px">Manazel Specialists is a full service community and property management company that focuses on quality and a unique knowledge of the client's needs. At the heart of the company is a group of service oriented professionals who are dedicated to providing clients with ideas, options and strategies for a variety of market conditions.</li>
-               <li style="margin-bottom:15px">At Manazel Specialists, we provide life-cycle and comprehensive administrative services covering Community Management, Property Management, Sales, Re-Sales and Leasing. We are a turnkey real estate partner that can adapt to any owner's portfolio and needs.</li>
-               <li style="margin-bottom:15px">Our office and operations are built from a successful real estate service platform that has been in business in the UAE and in the region for many years providing evidence of unwavering dedication to customer services.</li>
-               <li style="margin-bottom:15px">Our professional team has established a diversified client base in the UAE and the region as well as relations with master and secondary developers, private and public investors. This positions our company in the forefront with a strong ability to advise and assist clients towards success.</li>
-               <li style="">At Manazel specialists, we work hard to enhance the level of our customers’ satisfaction. We have a strong customer service philosophy and we take great pride in our reputation, integrity, and professionalism.</li>
-            </ul>
-         </div>
-      
-   </div>
-   <div class="col-md-8">
+   
+   <div class="col-md-8 pull-right">
      <?php if(count($landing_banner)>0){ ?>
          <section class="slider_wrap slider_fullwide slider_engine_revo slider_alias_revsliderHome1">
             <!-- REVOLUTION SLIDER -->
@@ -23,7 +10,7 @@
                <div id="rev_slider_4_1" class="rev_slider fullwidthabanner" data-version="5.1" style="width:100% !important">
                   <ul>
                      <?php
-                     $small_imgs = array('Slider6.jpg', 'Slider5.jpg', 'Slider4.jpg', 'Slider3.jpg', 'Slider2.jpg', 'Slider1.jpg');
+                     $small_imgs = array('Slider6.jpg', 'Slider5.jpg', 'Slider4.jpg', 'Slider3.jpg', 'slider2.jpg', 'slider1.jpg');
                         $slider = 11;
                         foreach($landing_banner as $k => $v){ 
                      ?>
@@ -146,6 +133,19 @@
             <!-- END REVOLUTION SLIDER -->
          </section>
       <?php } ?>
+   </div>
+    <div class="col-md-4 pull-left">
+         <div class="about_us_bg_li">
+            <ul>
+               <li class="about_us_bg_heading">About Us</li>
+               <li style="margin-bottom:15px">Manazel Specialists is a full service community and property management company that focuses on quality and a unique knowledge of the client's needs. At the heart of the company is a group of service oriented professionals who are dedicated to providing clients with ideas, options and strategies for a variety of market conditions.</li>
+               <li style="margin-bottom:15px">At Manazel Specialists, we provide life-cycle and comprehensive administrative services covering Community Management, Property Management, Sales, Re-Sales and Leasing. We are a turnkey real estate partner that can adapt to any owner's portfolio and needs.</li>
+               <li style="margin-bottom:15px">Our office and operations are built from a successful real estate service platform that has been in business in the UAE and in the region for many years providing evidence of unwavering dedication to customer services.</li>
+               <li style="margin-bottom:15px">Our professional team has established a diversified client base in the UAE and the region as well as relations with master and secondary developers, private and public investors. This positions our company in the forefront with a strong ability to advise and assist clients towards success.</li>
+               <li style="">At Manazel specialists, we work hard to enhance the level of our customers’ satisfaction. We have a strong customer service philosophy and we take great pride in our reputation, integrity, and professionalism.</li>
+            </ul>
+         </div>
+      
    </div>
 </div>
 
@@ -803,14 +803,14 @@
 .about_us_row > .col-md-4{background:rgba(0, 0, 0, 0.8);color:#000;display:block;left:50px;padding:25px 30px;position: absolute;top:146px;width:34%;z-index:100;max-height:572px;}
 .about_us_row > .col-md-8{width:100%;}
 .about_us_bg_li{text-align:justify;font-size:16px;}
-.sc_property.sc_property_style_property-6{width:456px;float:right;}
-.small-img{position:absolute;top:10px;left:10px;z-index:-1; }
+.sc_property.sc_property_style_property-6{width:456px;float:right;padding:0 !important;}
+.small-img{position:absolute;top:0;left:-10px;z-index:-1; }
 .small-img img {height:264px !important;width:436px !important;}
-.sc_property.sc_property_style_property-6 .sc_pr_h1{display:block; }
+.sc_property.sc_property_style_property-6 .sc_pr_h1{display:block;position:relative;}
 .sc_property.sc_property_style_property-6 .sc_pr_f1{display:block;}
 .sc_property.sc_property_style_property-6 .sc_pr_t1 a {text-transform:uppercase;}
 .sc_property.sc_property_style_property-6 .sc_pr_f12 {color: #9e9c9c;font-size:36px !important;line-height:40px !important;padding:20px 10px !important; }
-.tp-parallax-wrap {left: 35% !important;padding: 0 0 0 35%;top:31.5% !important;transform: translate(-50%, -50%);width:436px !important;}
+
 .sc_property.sc_property_style_property-6 .sc_pr_t1{overflow:hidden;width:436px;padding:25px 0 0 !important;}
 .tp-mask-wrap{position:relative !important; }
 .sc_property.sc_property_style_property-6 .sc_property_item{padding:0 !important;}
@@ -818,4 +818,35 @@
 .tp-leftarrow{left: 38% !important;}
 .project_div .col-md-4{ padding:0px !important; }
 
+@media(min-width:992px){
+.tp-parallax-wrap {left: 35% !important;padding: 0 0 0 35%;top:31.5% !important;transform: translate(-50%, -50%);width:436px !important;}
+}
+@media(min-width:1200px) and (max-width:1540px){
+.about_us_bg_li > ul > li {font-size: 14px;line-height: 16px;margin: 0 0 15px !important;}
+}
+@media(min-width:1025px) and (max-width:1199px){
+.about_us_row > .col-md-4 {left:20px;padding:20px;width:40%;}
+.about_us_bg_li > ul > li{font-size:15px;line-height:17px;margin:0 0 10px !important;}
+.tp-leftarrow{transform: matrix(1, 0, 0, 1, 50, -25) !important;}
+}
+@media(min-width:992px) and (max-width:1024px){
+.about_us_row > .col-md-4 {left: 15px;  max-height: 540px; overflow: scroll;padding:20px;width: 38%;}
+}
+@media(max-width:991px){
+.about_us_row {margin-bottom:0;}
+.about_us_row > .col-md-4 {bottom: 0;left: 0;margin: 0;padding: 30px 40px;position: relative;top: auto;width: 100%;}
+.tp-leftarrow {left:0 !important;}
+.tparrows{display:none !important}
+}
+
+@media(max-width:768px) and (max-width:991px){
+.tp-parallax-wrap{top:30% !important;}
+}
+
+@media(max-width:767px){
+.about_us_row > .col-md-4{max-height:initial;}
+.sc_property.sc_property_style_property-6 {float: none !important;padding: 0 !important;width: 100%;}
+.small-img img {height: 264px !important;width: 103% !important;}
+
+}
 </style>
