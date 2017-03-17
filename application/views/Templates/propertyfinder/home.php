@@ -160,7 +160,7 @@
                         <div class="cL"></div>
                      </div>
                   </div>
-                  <?php if($this->uri->segment(1)=='about-us' || $this->uri->segment(1)=='contact-us' || $this->uri->segment(1)=='portfolio'){ ?>
+                  <?php if($this->uri->segment(1)=='about-us' || $this->uri->segment(1)=='contact-us' || $this->uri->segment(1)=='portfolio' || $this->uri->segment(1)=='career'){ ?>
                   <div class="top_panel_title top_panel_style_1  title_present scheme_original breadcrumbs_image">
                      <div class="top_panel_title_inner top_panel_inner_style_1 breadcrumbs_present_inner">
                         <div class="content_wrap">
