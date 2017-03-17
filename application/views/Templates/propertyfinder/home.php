@@ -86,11 +86,11 @@
                            <a href="#" class="menu_main_responsive_button icon-down">Select menu item</a>
                            <nav class="menu_main_nav_area">
                               <ul id="menu_main" class="menu_main_nav property_header">
-                                 <li class="menu-item <?php if($page=='home'){ echo 'current-menu-parent'; } ?>">
+<!--                                 <li class="menu-item <?php if($page=='home'){ echo 'current-menu-parent'; } ?>">
                                     <a href="<?php echo base_url().'home'; ?>">Home</a>
-                                 </li> 
+                                 </li> -->
                                  <li class="menu-item <?php if($page==''){ echo 'current-menu-parent'; } ?>">
-                                    <a href="<?php echo base_url(); ?>">Home2</a>
+                                    <a href="<?php echo base_url(); ?>">Home</a>
                                  </li> 
                                  <?php 
                                     $header_links = get_pages('header');
