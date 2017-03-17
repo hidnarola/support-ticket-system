@@ -847,6 +847,9 @@
 .about_us_row > .col-md-4{max-height:initial;}
 .sc_property.sc_property_style_property-6 {float: none !important;padding: 0 !important;width: 100%;}
 .small-img img {height: 264px !important;width: 103% !important;}
+}
+@media(max-width:320px){
+.rev_slider .sc_property.sc_property_style_property-6 { padding-top:110px !important;}
 
 }
 </style>
