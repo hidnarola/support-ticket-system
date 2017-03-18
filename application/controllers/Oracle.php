@@ -17,6 +17,7 @@ class Oracle extends CI_Controller {
     }
 
     public function index() {
+        phpinfo();
         $oracle_user = 'apps';
         $oracle_pass = 'mnZ123';
         $oracle_url = '83.111.41.30';
