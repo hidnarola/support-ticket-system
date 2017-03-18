@@ -22,8 +22,8 @@ class Oracle extends CI_Controller {
         $oracle_url = '83.111.41.30';
         $oracle_port = '1536';
         $db= "(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=83.111.41.30)(PORT=1536))(CONNECT_DATA=(SID=TEST)))";
-        echo $db; exit;
         $connect = @oci_connect($oracle_user, $oracle_pass, $db, 'UTF8');
+        echo $connect; exit;
         if (!$connect) {
             die("Could not connect to the database");
         }  else {
