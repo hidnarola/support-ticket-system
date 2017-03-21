@@ -6784,9 +6784,9 @@ h1 b {
 .slider_wrap {
     background: #37353d;
 }
-.slider_engine_revo {
+/*.slider_engine_revo {
     overflow: hidden;
-}
+}*/
 /* animated */
 
 .page_content_wrap .animated.fadeIn,
