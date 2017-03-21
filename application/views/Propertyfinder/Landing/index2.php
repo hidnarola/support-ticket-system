@@ -2,7 +2,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <div class="row about_us_row">
    
-   <div class="col-md-8 pull-right">
+   <div class="col-md-12 pull-right">
      <?php if(count($landing_banner)>0){ ?>
          <section class="slider_wrap slider_fullwide slider_engine_revo slider_alias_revsliderHome1">
             <!-- REVOLUTION SLIDER -->
@@ -134,7 +134,7 @@
          </section>
       <?php } ?>
    </div>
-    <div class="col-md-4 pull-left">
+    <!-- <div class="col-md-4 pull-left">
          <div class="about_us_bg_li">
             <ul>
                <li class="about_us_bg_heading">About Us</li>
@@ -145,8 +145,7 @@
                <li style="">At Manazel specialists, we work hard to enhance the level of our customers’ satisfaction. We have a strong customer service philosophy and we take great pride in our reputation, integrity, and professionalism.</li>
             </ul>
          </div>
-      
-   </div>
+   </div> -->
 </div>
 
 <div class="ps_header">
@@ -265,15 +264,15 @@
                <h1 class="text-center" style="margin-bottom:20px">Residential Projects</h1>
             </div>
             <div class="row">
-               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/manazelamman.jpg'?>"></a></div>
-               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/Alreefcommunity.jpg'?>"></a></div>
-               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/dunes-village.jpg'?>"></a></div>
-               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/al-reef-2-villas.jpg'?>"></a></div>
-               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/DARI.jpg'?>"></a></div>
-               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/manazel-malls.jpg'?>"></a></div>
-               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/banner-1.jpg'?>"></a></div>
-               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/al-reef-retail.jpg'?>"></a></div>
-               <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/capital-mall.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio?project=manazelamman"><img src="<?php echo base_url().'uploads/properties/projects/manazelamman.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio?project=alreefcommunity"><img src="<?php echo base_url().'uploads/properties/projects/Alreefcommunity.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio?project=dunes"><img src="<?php echo base_url().'uploads/properties/projects/dunes-village.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio?project=al-reef-2"><img src="<?php echo base_url().'uploads/properties/projects/al-reef-2-villas.jpg'?>"></a></div>
+               <!-- <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/DARI.jpg'?>"></a></div> -->
+               <!-- <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/manazel-malls.jpg'?>"></a></div> -->
+               <div class="col-md-4"><a href="portfolio?project=prestige-tower"><img src="<?php echo base_url().'uploads/properties/projects/banner-1.jpg'?>"></a></div>
+               <div class="col-md-4"><a href="portfolio?project=al-reef-2"><img src="<?php echo base_url().'uploads/properties/projects/al-reef-retail.jpg'?>"></a></div>
+               <!-- <div class="col-md-4"><a href="portfolio"><img src="<?php echo base_url().'uploads/properties/projects/capital-mall.jpg'?>"></a></div> -->
             </div>
          </div>
       </div>
@@ -812,15 +811,11 @@
 .sc_property.sc_property_style_property-6 .sc_pr_f12 {color: #9e9c9c;font-size:36px !important;line-height:40px !important;padding:20px 10px !important; }
 
 .sc_property.sc_property_style_property-6 .sc_pr_t1{overflow:hidden;width:436px;padding:25px 0 0 !important;}
-.tp-mask-wrap{position:relative !important; }
 .sc_property.sc_property_style_property-6 .sc_property_item{padding:0 !important;}
 .sc_property.sc_property_style_property-6 .sc_pr_h2{padding:50px 45px 10px !important;}
-.tp-leftarrow{left: 38% !important;}
 .project_div .col-md-4{ padding:0px !important; }
+.tp-parallax-wrap{bottom:70% !important;top:auto !important; }
 
-@media(min-width:992px){
-.tp-parallax-wrap {left: 35% !important;padding: 0 0 0 35%;top:31.5% !important;transform: translate(-50%, -50%);width:436px !important;}
-}
 @media(min-width:1200px) and (max-width:1540px){
 .about_us_bg_li > ul > li {font-size: 14px;line-height: 16px;margin: 0 0 15px !important;}
 }

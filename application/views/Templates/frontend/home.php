@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
     <head>
-
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="author" content="SemiColonWeb" />
         <title><?php echo $title; ?></title>
@@ -53,8 +52,8 @@
                         <!-- Logo
                         ============================================= -->
                         <div id="logo">
-                            <a href="home" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
-                            <a href="home" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <a href="<?php echo base_url(); ?>" class="standard-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
+                            <a href="<?php echo base_url(); ?>" class="retina-logo" data-dark-logo="assets/frontend/images/MS-Logo-(1).png"><img src="assets/frontend/images/MS-Logo-(1).png" alt="Canvas Logo"></a>
                         </div><!-- #logo end -->
 
                         <?php
@@ -80,7 +79,7 @@
                         <nav id="primary-menu">
                             <?php $page = $this->uri->segment(1); ?>
                             <ul>
-                                <li class="<?php echo ($page == 'home') ? 'current' : ''; ?>"><a href="home"><div>Home</div></a></li>
+                                <li class="<?php echo ($page == 'home') ? 'current' : ''; ?>"><a href="<?php echo base_url(); ?>"><div>Home</div></a></li>
                                 <?php if ($user['status'] != 0 && $this->session->userdata('user_logged_in')) { ?>
                                     
                                     <li class="<?php echo ($page == 'knowledgebase') ? 'current' : ''; ?>">

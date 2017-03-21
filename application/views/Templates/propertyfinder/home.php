@@ -130,9 +130,16 @@
                                           echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                                 <img class="acc_preview" src="assets/propertyfinder/images/acc_preview.png">
                                              </a>
-                                             <ul class="sub-menu">
-                                                <li style="padding: 3px 0px"><a href="property-listing/wishlist">Wishlist</a></li>
-                                                <li style="padding: 3px 0px"><a href="login/logout">Logout</a></li>
+                                             <ul class="sub-menu">';
+                                                if($this->session->userdata('role_id')==1){
+                                                   echo '<li><a href="profile">Profile</a></li>
+                                                         <li><a href="profile/changepassword">Change Password</a></li>';
+                                                   if($this->session->userdata('user_logged_in')['status']==1){
+                                                      echo '<li><a href="tickets">Tickets</a></li>';
+                                                   }
+                                                }
+                                                echo '<li style="padding: 3px 0px"><a href="property-listing/wishlist">Wishlist</a></li>
+                                                      <li style="padding: 3px 0px"><a href="login/logout">Logout</a></li>
                                              </ul>';
                                        }else{
                                           echo '<a href="login">Login</a>';

@@ -56,7 +56,7 @@
                 </form>
             </div>
 
-            <div class="acctitle acctitle_register"><i class="acc-closed icon-user4"></i><i class="acc-open icon-ok-sign"></i>New Signup? Register for an Account</div>
+            <div class="acctitle acctitle_register"><i class="acc-closed icon-user4"></i><i class="acc-open icon-ok-sign"></i>Register for a new account</div>
             <div class="acc_content clearfix register_accordion"  id="hiddenFields">
                 <form id="register-form" name="register-form" class="nobottommargin" enctype="multipart/form-data" action="login/signup" method="post">
                     <div class="col_full">
@@ -102,6 +102,15 @@
                         <label for="register-form-phone">Address:</label>
                         <textarea rows="5" cols="5" name="address" class="form-control required" required="required" placeholder="Address" aria-required="true" aria-invalid="true"><?php echo set_value('address'); ?></textarea>
                         <?php echo '<label id="address-error" class="validation-error-label" for="address">' . form_error('address') . '</label>'; ?>
+                    </div>
+                    <div class="col_full">
+                        <label for="register-form-phone">Users Type:</label>
+                        <select class="form-control" name="usertype" id="usertype" class="required" required="required">
+                            <option value="">--Select--</option>
+                            <option value="2">Register as a <b>normal user</b></option>
+                            <option value="1">Register as a <b>tenant user</b></option>
+                        </select>
+                        <?php echo '<label id="contactno-error" class="validation-error-label" for="contactno">' . form_error('contactno') . '</label>'; ?>
                     </div>
                     <div class="col_full">
                         <label for="register-form-phone">Contract:</label>
@@ -215,6 +224,9 @@
             },
             contactno: {
                 required: true, digits: true
+            },
+            usertype: {
+                required: true
             }
         },
         messages: {

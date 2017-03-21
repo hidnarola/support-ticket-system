@@ -1,7 +1,7 @@
 <div class="page_content_wrap">
 	<div class="content_wrap">
 		<div class="content">
-			<div class="row content-margin-bottom">
+			<div class="row content-margin-bottom" id="al-reef">
 				<div class="col-md-5">
 					<img alt="" class="img-size" src="uploads/properties/portfolio/1.png">
 				</div>
@@ -21,7 +21,7 @@
 			</div>
 
 			<hr class="hr_style">
-			<div class="row content-margin-bottom">
+			<div class="row content-margin-bottom" id="al-reef-2">
 				<div class="col-md-7">
 					<div style="text-align:justify;font-size:17px">
 						<h4 style="text-align: center">
@@ -41,7 +41,7 @@
 			</div>
 
 			<hr class="hr_style">
-			<div class="row content-margin-bottom">
+			<div class="row content-margin-bottom" id="manazelamman">
 				<div class="col-md-5">
 					<img alt="" class="img-size" src="uploads/properties/portfolio/3.png">
 				</div>
@@ -67,7 +67,7 @@
 			</div>
 
 			<hr class="hr_style">
-			<div class="row content-margin-bottom">
+			<div class="row content-margin-bottom" id="dunes">
 				<div class="col-md-7">
 					<div style="text-align:justify;font-size:17px">
 						<h4 style="text-align: center">
@@ -84,7 +84,7 @@
 			</div>
 
 			<hr class="hr_style">
-			<div class="row content-margin-bottom">
+			<div class="row content-margin-bottom" id="prestige-tower">
 				<div class="col-md-5">
 					<img alt="" class="img-size" src="uploads/properties/portfolio/5.png">
 				</div>
@@ -122,6 +122,13 @@
 		</div>
 	</div>
 </div>
+<script type='text/javascript' src='assets/propertyfinder/js/vendor/jquery.js'></script>
+<script>
+	jQuery(document).ready(function($){
+		var project = '<?php echo $this->input->get('project'); ?>';
+		$('html,body').animate({scrollTop: $("#"+project).offset().top - 50}, 1300);
+	});
+</script>
 <style>
 	.img-size{height: 350px;width: 470px;}
 	.hr_style{ border:1px solid #ccc; }

@@ -49,6 +49,7 @@ class Login extends CI_Controller {
                     //success
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
+                    $this->session->set_userdata('role_id', $result['role_id']);
                     $userdata = $this->session->set_userdata('user_logged_in', $result);
                     $force_redirect = $this->session->userdata('force_redirect');
                     if(!empty($force_redirect)){
@@ -67,6 +68,7 @@ class Login extends CI_Controller {
                 } elseif ($result['role_id'] == 1 && $result['status'] == 0 && $result['is_verified'] == 1 && $user_title == 'Tenant') {
                     // login sucess Give error mesg for unapproved user
                     $userdata = $this->session->set_userdata('user_logged_in', $result);
+                    $this->session->set_userdata('role_id', $result['role_id']);
                     $this->session->set_flashdata('error_msg', 'Your account approval is in progress.');
                     redirect('profile');
                 } elseif ($result['role_id'] == 2 && $result['is_verified'] == 1 && $user_title == 'Support') {
@@ -78,6 +80,7 @@ class Login extends CI_Controller {
 
                     $result['dept_name'] = $dept_name['name'];
                     $this->session->set_userdata('logged_in', true);
+                    $this->session->set_userdata('role_id', $result['role_id']);
                     $userdata = $this->session->set_userdata('staffed_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
@@ -87,7 +90,7 @@ class Login extends CI_Controller {
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
-
+                    $this->session->set_userdata('role_id', $result['role_id']);
 //                    $seg = $this->uri->segment(1);
 //                    echo $seg;exit;
 //                    if ($seg == 'admin')
@@ -100,6 +103,7 @@ class Login extends CI_Controller {
                     $userdata = $this->session->set_userdata('admin_logged_in', $result);
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
+                    $this->session->set_userdata('role_id', $result['role_id']);
                     $this->load->model('Subadmin_Model');
                     $permissions = $this->Subadmin_Model->get_subadmin_modules($result['id']);
                     if ($permissions['module_ids'] != '') {
@@ -141,6 +145,7 @@ class Login extends CI_Controller {
             $data['user'] = $this->User_model->getUserByID($userid);
             $this->template->load('frontend/page', 'Frontend/login_register', $data);
         } else {
+            echo $this->input->post('usertype'); die;
             $start_date = $end_date = '';
             if ($_FILES['contract']['name'] != '') {
                 $type_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG', 'pdf', 'PDF');
@@ -176,14 +181,17 @@ class Login extends CI_Controller {
             } else {
                 $contract = '';
             }
-
+            $role_id = 1;
+            if($this->input->post('usertype')!=''){
+                $role_id = $this->input->post('usertype');
+            }
 
             $password = $this->encrypt->encode($this->input->post('password'));
             $data = array(
                 'fname' => $this->input->post('fname'),
                 'lname' => $this->input->post('lname'),
                 'email' => $useremail,
-                'role_id' => 1,
+                'role_id' => $role_id,
                 'contactno' => $this->input->post('contactno'),
                 'password' => $password,
                 'address' => $this->input->post('address'),
