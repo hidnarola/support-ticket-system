@@ -2,7 +2,7 @@
    $page = $this->uri->segment(1);
    $current_page = $this->uri->segment(2);
    $page_url = $this->uri->segment(3);
-   
+
 ?>
 <!DOCTYPE html>
 <html lang="en-US" class="scheme_original">
@@ -95,7 +95,7 @@
                            <div class="cL"></div>
                         </div>
                         <div class="top_panel_menu">
-                           <!-- <a href="#" class="menu_main_responsive_button icon-down">Select menu item</a> -->
+                           <a href="#" class="menu_main_responsive_button icon-down visible-xs">Select menu item</a>
                            <nav class="menu_main_nav_area">
                               <ul id="menu_main" class="menu_main_nav property_header">
                                  <li class="menu-item <?php if($page==''){ echo 'current-menu-parent'; } ?>">
@@ -273,7 +273,7 @@
         <style>
             
             [class^="icon-"]:before, [class*=" icon-"]:before { font-family: inherit !important; }
-            .scroll_to_top:before{font-family: "fontello" !important;margin:10px !important;}
+            .scroll_to_top:before, .icon-down:before{font-family: "fontello" !important;margin:10px !important;}
         </style>
    </body>
 </html>

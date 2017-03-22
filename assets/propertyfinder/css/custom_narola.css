@@ -201,5 +201,21 @@
 .login-page-content-wrap{ padding-top:15%; }
 
 @media(min-width:992px) and (max-width:1024px){
-.menu_main_nav > li > a {margin-right:2.462em;}
+  .menu_main_nav > li > a {margin-right:2.462em;}
+}
+
+@media all and (min-width: 240px) and (max-width: 320px) {
+  .login-page-content-wrap{ margin-top:125% !important; }
+}
+
+@media screen and (min-device-width: 480px) and (max-device-width: 640px) {
+  .login-page-content-wrap{ margin-top:40% !important; }
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .login-page-content-wrap{ padding-top:40% !important; }
+}
+
+@media (min-width: 769px) {
+  .login-page-content-wrap{ padding-top:20% !important; }
 }
