@@ -62,7 +62,11 @@ class Tickets extends CI_Controller {
         $data["links"] = $this->pagination->create_links();
         $data['tickets'] = $this->User_model->getUserTickets_tenant($userid, $filter, $config['per_page'], $page);
         $data['news_announcements'] = $this->User_model->getlatestnews();
-        $this->template->load('frontend/page', 'Frontend/Tickets/index', $data);
+        if(TEMPLATE_ID==1){
+            $this->template->load('frontend/page', 'Frontend/Tickets/index', $data);
+        }else if(TEMPLATE_ID==2){
+            $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/Tickets/index', $data);
+        }
     }
 
     public function add() {
@@ -85,7 +89,11 @@ class Tickets extends CI_Controller {
             $data['title'] = 'Tickets | Support-Ticket-System';
             $data['header_title'] = 'Add Ticket';
             $data['user'] = $this->User_model->getUserByID($userid);
-            $this->template->load('frontend/page', 'Frontend/Tickets/add', $data);
+            if(TEMPLATE_ID==1){
+                $this->template->load('frontend/page', 'Frontend/Tickets/add', $data);
+            }else if(TEMPLATE_ID==2){
+                $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/Tickets/add', $data);
+            }
         } else {
             $getDeptStaff = $this->Ticket_model->getDeptStaff($this->input->post('dept_id'));
             
@@ -285,8 +293,12 @@ class Tickets extends CI_Controller {
                     }
                     redirect('tickets/view/' . $id);
                 }
+                if(TEMPLATE_ID==1){
+                    $this->template->load('frontend/page', 'Frontend/Tickets/view', $data);
+                }else if(TEMPLATE_ID==2){
+                    $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/Tickets/view', $data);
+                }
 
-                $this->template->load('frontend/page', 'Frontend/Tickets/view', $data);
             } else {
                 $flag = 0;
             }

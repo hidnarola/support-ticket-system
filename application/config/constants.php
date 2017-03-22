@@ -171,3 +171,6 @@ define("FIREBASE_API_KEY", "AAAARwszyOU:APA91bHAPbdDqYKx9thiT8Bya4MglDcqMKiPVWm-
 define("FIREBASE_FCM_URL", "https://fcm.googleapis.com/fcm/send");
 define("SUCCESS", "success");
 define("FAILED", "failed");
+
+
+define('TEMPLATE_ID',2);

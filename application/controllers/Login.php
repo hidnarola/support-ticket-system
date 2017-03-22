@@ -35,7 +35,11 @@ class Login extends CI_Controller {
             $data['user'] = $this->User_model->getUserByID($userid);
             $data['title'] = 'Login | Support-Ticket-System';
             $data['header_title'] = 'Login';
-            $this->template->load('frontend/page', 'Frontend/login_register', $data);
+            if(TEMPLATE_ID==1){
+                $this->template->load('frontend/page', 'Frontend/login_register', $data);
+            }else{
+                $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/login_register', $data);
+            }
         }
         if ($this->input->post()) {
             $email = $this->input->post('email');

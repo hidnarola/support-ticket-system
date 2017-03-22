@@ -20,9 +20,14 @@ class Profile extends CI_Controller {
 //         pr($data['previous_contracts'],1);
 
         $data['title'] = 'User Profile | Support-Ticket-System';
-        $this->template->load('frontend/profile', 'Frontend/User/profile', $data);
+        $data['header_title'] = '';
+        if(TEMPLATE_ID==1){
+           $this->template->load('frontend/profile', 'Frontend/User/profile', $data);
+        }else if(TEMPLATE_ID==2){
+           $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/User/profile', $data);
+        }
+        
         if ($this->input->post('save')) {
-
             $update_data['fname'] = trim($this->input->post('fname'));
             $update_data['lname'] = trim($this->input->post('lname'));
             $update_data['email'] = trim($this->input->post('email'));
@@ -137,7 +142,12 @@ class Profile extends CI_Controller {
         $data['news_announcements'] = $this->User_model->getlatestnews();
         $data['title'] = 'Profile | Support-Ticket-System';
         $data['header_title'] = 'Change Password';
-        $this->template->load('frontend/page', 'Frontend/User/change_password', $data);
+        if(TEMPLATE_ID==1){
+            $this->template->load('frontend/page', 'Frontend/User/change_password', $data);
+        }else{
+            $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/User/change_password', $data);
+        }
+        
         if ($this->input->post('save')) {
             $old_password = $this->input->post('old_password');
             $new_password = $this->input->post('new_password');

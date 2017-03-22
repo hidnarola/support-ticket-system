@@ -26,7 +26,12 @@ class Announcements extends CI_Controller {
         $data['num_rows'] = $this->News_model->get_news_announcements_num($type = 0);
         
 //        pr($data['num_rows'],1);
-        $this->template->load('frontend/page', 'Frontend/News/index', $data);
+        if(TEMPLATE_ID==1){
+            $this->template->load('frontend/page', 'Frontend/News/index', $data);
+        }else if(TEMPLATE_ID==2){
+            $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/News/index', $data);
+        }
+        
     }
 
     public function view($slug) {
@@ -43,7 +48,11 @@ class Announcements extends CI_Controller {
                 $data['user'] = $this->User_model->getUserByID($userid);
                 $data['news_announcements'] = $this->User_model->getlatestnews();
 //                pr($data['article'],1);exit;
-                $this->template->load('frontend/page', 'Frontend/News/view', $data);
+                if(TEMPLATE_ID==1){
+                    $this->template->load('frontend/page', 'Frontend/News/view', $data);
+                }else if(TEMPLATE_ID==2){
+                    $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/News/view', $data);
+                }
             } else {
                 $flag = 0;
             }

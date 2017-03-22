@@ -198,6 +198,8 @@
   position:relative;
 }
 
+.login-page-content-wrap{ padding-top:15%; }
+
 @media(min-width:992px) and (max-width:1024px){
 .menu_main_nav > li > a {margin-right:2.462em;}
 }

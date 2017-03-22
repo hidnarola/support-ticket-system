@@ -13,7 +13,8 @@ label.error::first-letter {text-transform: uppercase;}
 /*#login-form .col_full{margin-bottom: 1px;}*/
 #register-form .validation-error-label p{  margin-bottom: 0;text-transform: lowercase;color: #e42c3e;font-weight: 400;}
 #register-form .validation-error-label p::first-letter{text-transform: uppercase;}
-.list-group-item.active { background-color: #1ABC9C;border-color: #1ABC9C;}
+/*.list-group-item.active { background-color: #1ABC9C;border-color: #1ABC9C;}*/
+.list-group-item.active { background-color: #1d2971;border-color: #1ABC9C;}
 /*.list-group-item.active { background-color: #003473;border-color: #003473;}*/
 
 #datatable1 [class^="icon-trash"]{color: #e42c3e}

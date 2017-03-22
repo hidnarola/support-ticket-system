@@ -495,7 +495,11 @@ class Home extends CI_Controller {
         if ($this->form_validation->run() === FALSE) {
             $data['title'] = 'Forgot Password';
             $data['header_title'] = 'Forgot Password';
-            $this->template->load('frontend/page', 'Frontend/User/forgot_password', $data);
+            if(TEMPLATE_ID==1){
+                $this->template->load('frontend/page', 'Frontend/User/forgot_password', $data);
+            }else{
+                $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/User/forgot_password', $data);
+            }
         } else {
             $email = $this->input->post('email');
             if ($this->User_model->tenant_email_exists($email) == true) {
