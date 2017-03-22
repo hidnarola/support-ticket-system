@@ -271,7 +271,7 @@
             // });
         </script>
         <style>
-            
+            header.top_panel_wrap.top_panel_style_1.scheme_original.menu_show{position: relative;}
             [class^="icon-"]:before, [class*=" icon-"]:before { font-family: inherit !important; }
             .scroll_to_top:before, .icon-down:before{font-family: "fontello" !important;margin:10px !important;}
         </style>
