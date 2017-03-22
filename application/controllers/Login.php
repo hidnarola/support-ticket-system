@@ -38,7 +38,8 @@ class Login extends CI_Controller {
             if(TEMPLATE_ID==1){
                 $this->template->load('frontend/page', 'Frontend/login_register', $data);
             }else{
-                $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/login_register', $data);
+
+                $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/login_register', $data);
             }
         }
         if ($this->input->post()) {
