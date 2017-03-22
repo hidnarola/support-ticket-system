@@ -29,7 +29,7 @@ class Announcements extends CI_Controller {
         if(TEMPLATE_ID==1){
             $this->template->load('frontend/page', 'Frontend/News/index', $data);
         }else if(TEMPLATE_ID==2){
-            $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/News/index', $data);
+            $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/News/index', $data);
         }
         
     }
@@ -51,7 +51,7 @@ class Announcements extends CI_Controller {
                 if(TEMPLATE_ID==1){
                     $this->template->load('frontend/page', 'Frontend/News/view', $data);
                 }else if(TEMPLATE_ID==2){
-                    $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/News/view', $data);
+                    $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/News/view', $data);
                 }
             } else {
                 $flag = 0;

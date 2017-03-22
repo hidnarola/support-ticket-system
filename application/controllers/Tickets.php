@@ -65,7 +65,7 @@ class Tickets extends CI_Controller {
         if(TEMPLATE_ID==1){
             $this->template->load('frontend/page', 'Frontend/Tickets/index', $data);
         }else if(TEMPLATE_ID==2){
-            $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/Tickets/index', $data);
+            $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/Tickets/index', $data);
         }
     }
 
@@ -92,7 +92,7 @@ class Tickets extends CI_Controller {
             if(TEMPLATE_ID==1){
                 $this->template->load('frontend/page', 'Frontend/Tickets/add', $data);
             }else if(TEMPLATE_ID==2){
-                $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/Tickets/add', $data);
+                $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/Tickets/add', $data);
             }
         } else {
             $getDeptStaff = $this->Ticket_model->getDeptStaff($this->input->post('dept_id'));
@@ -296,7 +296,7 @@ class Tickets extends CI_Controller {
                 if(TEMPLATE_ID==1){
                     $this->template->load('frontend/page', 'Frontend/Tickets/view', $data);
                 }else if(TEMPLATE_ID==2){
-                    $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/Tickets/view', $data);
+                    $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/Tickets/view', $data);
                 }
 
             } else {

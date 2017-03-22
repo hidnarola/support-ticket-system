@@ -24,7 +24,7 @@ class Profile extends CI_Controller {
         if(TEMPLATE_ID==1){
            $this->template->load('frontend/profile', 'Frontend/User/profile', $data);
         }else if(TEMPLATE_ID==2){
-           $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/User/profile', $data);
+           $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/User/profile', $data);
         }
         
         if ($this->input->post('save')) {
@@ -145,7 +145,7 @@ class Profile extends CI_Controller {
         if(TEMPLATE_ID==1){
             $this->template->load('frontend/page', 'Frontend/User/change_password', $data);
         }else{
-            $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/User/change_password', $data);
+            $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/User/change_password', $data);
         }
         
         if ($this->input->post('save')) {

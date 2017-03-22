@@ -498,7 +498,7 @@ class Home extends CI_Controller {
             if(TEMPLATE_ID==1){
                 $this->template->load('frontend/page', 'Frontend/User/forgot_password', $data);
             }else{
-                $this->template->load('propertyfinder/frontend/page', 'PropertyFinder/Frontend/User/forgot_password', $data);
+                $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/User/forgot_password', $data);
             }
         } else {
             $email = $this->input->post('email');
