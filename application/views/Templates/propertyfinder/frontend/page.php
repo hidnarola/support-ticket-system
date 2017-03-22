@@ -2,6 +2,7 @@
    $page = $this->uri->segment(1);
    $current_page = $this->uri->segment(2);
    $page_url = $this->uri->segment(3);
+   
 ?>
 <!DOCTYPE html>
 <html lang="en-US" class="scheme_original">
