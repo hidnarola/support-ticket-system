@@ -40,7 +40,7 @@
         <script type="text/javascript" src="assets/admin/js/plugins/pickers/pickadate/picker.time.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/pickers/pickadate/legacy.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/validation/validate.min.js"></script>
-        <script type="text/javascript" src="assets/admin/js/plugins/uploaders/fileinput.min.js"></script>
+        <!-- <script type="text/javascript" src="assets/admin/js/plugins/uploaders/fileinput.min.js"></script> -->
         <script type="text/javascript" src="assets/admin/js/plugins/forms/tags/tagsinput.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/forms/tags/tokenfield.min.js"></script>
         <script type="text/javascript" src="assets/admin/js/plugins/ui/prism.min.js"></script>
@@ -53,7 +53,7 @@
         <script type="text/javascript" src="assets/admin/js/pages/form_layouts.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/form_validation.js"></script>
         <script type="text/javascript" src="assets/admin/js/pages/form_inputs.js"></script>
-        <script type="text/javascript" src="assets/admin/js/pages/uploader_bootstrap.js"></script>
+        <!-- <script type="text/javascript" src="assets/admin/js/pages/uploader_bootstrap.js"></script> -->
         <script type="text/javascript" src="assets/admin/js/pages/picker_date.js"></script>   
 
         <!-- /theme JS files -->
