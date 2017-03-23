@@ -37,7 +37,7 @@
                         <div class="row ">
                             <a class="fancybox" href="<?php echo HOME_IMAGE . '/' . $image['image']; ?>" data-fancybox-group="gallery"><img src="<?php echo HOME_MEDIUM_IMAGE . '/' . $image['image']; ?>" alt="" /></a>
                         </div><div class="row">
-                            <a class="text-danger-600 delete" onClick="return confirm('Are you sure you want to delete?')" href="admin/media/delete/<?php echo base64_encode($image['id']); ?>" data-record=""><i class="icon-trash"></i></a>
+                            <a class="text-danger-600 delete" onClick="return confirm('Are you sure you want to delete?')" href="Admin/Media/delete/<?php echo base64_encode($image['id']); ?>" data-record=""><i class="icon-trash"></i></a>
                         </div>
 
                     </div>
