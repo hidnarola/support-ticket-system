@@ -1,4 +1,6 @@
 <script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="assets/admin/js/plugins/uploaders/fileinput.min.js"></script>
+<script type="text/javascript" src="assets/admin/js/pages/uploader_bootstrap.js"></script>
 <script type="text/javascript" src="assets/admin/js/pages/form_tags_input.js"></script>     
 
 <div class="page-header page-header-default">
