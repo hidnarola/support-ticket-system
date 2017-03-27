@@ -10,20 +10,20 @@
                <div id="rev_slider_4_1" class="rev_slider fullwidthabanner" data-version="5.1" style="width:100% !important">
                   <ul>
                      <?php
-                     $small_imgs = array('Slider6.jpg', 'Slider5.jpg', 'Slider4.jpg', 'Slider3.jpg', 'slider2.jpg', 'slider1.jpg');
+                     //$small_imgs = array('Slider6.jpg', 'Slider5.jpg', 'Slider4.jpg', 'Slider3.jpg', 'slider2.jpg', 'slider1.jpg');
                         $slider = 11;
                         foreach($landing_banner as $k => $v){ 
                      ?>
                         <li data-index="<?php if($k==0){ echo 'rs-8'; }else{ echo 'rs-'.$slider; } ?>" data-transition="fade" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="1000" data-thumb="images/slider1h1-100x50.jpg" data-rotate="0" data-saveperformance="off" data-title="Slide" data-description="">
-                           <img src="<?php echo site_url(PROPERTY_BANNER.'/'.$v->image); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+                           <img src="<?php echo site_url(HOME_IMAGE.'/'.$v->slider_image); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
                            <div class="tp-caption Estate tp-resizeme" id="slide-<?php echo $slider; ?>-layer-1" data-x="center" data-hoffset="" data-y="center" data-voffset="" data-width="['auto']" data-height="['auto']" data-transform_idle="o:1;" data-transform_in="opacity:0;s:2000;e:Power2.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="1500" data-splitin="none" data-splitout="none" data-responsive_offset="on">
                               <div class="sc_property_wrap">
                                  <div class="sc_property sc_property_style_property-6" data-interval="7176" data-slides-min-width="250">
                                     <div class="sc_property_item">
                                        <div class="sc_pr_h1">
                                            <div class="small-img">
-                                               <!--<img src="<?php echo site_url(PROPERTY_BANNER.'/'.$v->image); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>-->
-                                               <img src="<?php echo site_url(PROPERTY_BANNER.'/'.$small_imgs[$k]); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+                                               <img src="<?php echo site_url(PROPERTY_BANNER.'/'.$v->image); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+                                               <!-- <img src="<?php echo site_url(PROPERTY_BANNER.'/'.$small_imgs[$k]); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina> -->
                                            </div>
                                           <div class="sc_pr_h2"><?php echo $v->type_name; ?> for <?php echo $v->category_name; ?></div>
                                        </div>

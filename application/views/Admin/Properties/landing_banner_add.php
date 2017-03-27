@@ -37,6 +37,36 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-12">
+
+                                        <!-- Banner Image -->
+                                        <div class="form-group col-xs-12">
+                                            <label class="col-lg-2 control-label">Banner Image <span class="text-danger">*</span></label>
+                                            <div class="col-lg-10">
+                                                <div class="media no-margin-top">
+                                                    <?php
+                                                        $image = '';
+                                                        $image_req = 'required="required"';
+                                                        if (isset($banner)) {
+                                                            if ($banner->slider_image!= '') {
+                                                                $image = $banner->slider_image;
+                                                                $image_req = '';
+                                                            ?>
+                                                            <div class="media-left">
+                                                                <a href="javascript:void(0);"><img src="<?php echo HOME_IMAGE .'/'. $image; ?>" style="width: 58px; height: 58px;" class="img-rounded" alt=""></a>
+                                                            </div>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <div class="media-body">
+                                                        <input type="file" class="file-styled-primary" name="txt_slider_image" id="txt_slider_image" <?php echo $image_req; ?>>
+                                                        <input type="hidden" name="hidden_slider_image" id="hidden_slider_image" value="<?php echo $image; ?>">
+                                                        <code>Accepted formats: gif, png, jpg.</code>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <!-- Property -->
                                         <div class="form-group col-xs-12">
                                             <label class="col-lg-2 control-label">Property List<font color="red">*</font></label>
@@ -59,7 +89,7 @@
 
                                         <!-- Image -->
                                         <div class="form-group col-xs-12">
-                                            <label class="col-lg-2 control-label">Image <span class="text-danger">*</span></label>
+                                            <label class="col-lg-2 control-label">Property Image <span class="text-danger">*</span></label>
                                             <div class="col-lg-10">
                                                 <div class="media no-margin-top">
                                                     <?php

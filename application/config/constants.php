@@ -165,6 +165,7 @@ define('SOCIAL_IMAGE', 'uploads/social_media');
 define('PROPERTY_IMAGE', 'uploads/properties/original');
 define('PROPERTY_THUMB_IMAGE', 'uploads/properties/thumb');
 define('PROPERTY_MEDIUM_IMAGE', 'uploads/properties/medium');
+
 define('PROPERTY_BANNER', 'uploads/properties/slider');
 
 define("FIREBASE_API_KEY", "AAAARwszyOU:APA91bHAPbdDqYKx9thiT8Bya4MglDcqMKiPVWm-kyRhaQIPjQWbEwsHKs3t434jJvTzDP2b6vclzw4X0i_E3KBv1ScGikxL5mTzm25gjAFK9dQsX2LuHwRPoDWpG89ztQOyqbGM51oAe2BgDvme6z0N9--Lbvaiuw");

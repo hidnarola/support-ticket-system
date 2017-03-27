@@ -561,6 +561,7 @@ class Properties extends CI_Controller {
             $this->template->load('admin', 'Admin/Properties/landing_banner_add', $this->data);
         } else {
             $images = '';
+            $slider_image = '';
             $upload_path = PROPERTY_BANNER;
             if ($_FILES['txt_image']['name'] != '') {
                 $exts = explode(".", $_FILES['txt_image']['name']);
@@ -585,6 +586,34 @@ class Properties extends CI_Controller {
                 $image = $this->input->post('hidden_image');
             }
 
+            $upload_path = HOME_IMAGE;
+            if ($_FILES['txt_slider_image']['name'] != '') {
+                $exts = explode(".", $_FILES['txt_slider_image']['name']);
+                $name = time().".".end($exts);
+                $config['overwrite'] = FALSE;
+                $config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
+                $config['max_size'] = 10000;
+                $config['upload_path'] = './'.$upload_path;
+                $config['file_name'] = $name;
+
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('txt_slider_image')) {
+                    $prop_img = $this->upload->data();
+                    $slider_image = $prop_img['file_name'];
+                    $src = './' . $upload_path . '/' . $image;
+                    $thumb_dest = './' . HOME_THUMB_IMAGE . '/';
+                    $medium_dest = './' . HOME_MEDIUM_IMAGE . '/';
+                    thumbnail_image($src, $thumb_dest);
+                    medium_image_user($src, $medium_dest);
+                } else {
+                    $banner_img = $this->upload->display_errors();
+                    $this->session->set_flashdata('error_msg', $banner_img);
+                    redirect('admin/properties/lamding_banner/add');
+                }
+            } else {
+                $slider_image = $this->input->post('hidden_image');
+            }
+
             if($this->input->post('status')=='on')
                 $status = 'Active';
             else
@@ -593,6 +622,7 @@ class Properties extends CI_Controller {
             $data = array(
                 'property_id' => $this->input->post('property_id'),
                 'image' => $image,
+                'slider_image' => $slider_image,
                 'status' => $status,
                 'position' => $this->input->post('position'),
             );
@@ -621,6 +651,7 @@ class Properties extends CI_Controller {
             $this->template->load('admin', 'Admin/Properties/landing_banner_add', $this->data);
         } else {
             $images = '';
+            $slider_image = '';
             $upload_path = PROPERTY_BANNER;
             if ($_FILES['txt_image']['name'] != '') {
                 $exts = explode(".", $_FILES['txt_image']['name']);
@@ -645,6 +676,34 @@ class Properties extends CI_Controller {
                 $image = $this->input->post('hidden_image');
             }
 
+            $upload_path = HOME_IMAGE;
+            if ($_FILES['txt_slider_image']['name'] != '') {
+                $exts = explode(".", $_FILES['txt_slider_image']['name']);
+                $name = time().".".end($exts);
+                $config['overwrite'] = FALSE;
+                $config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
+                $config['max_size'] = 10000;
+                $config['upload_path'] = './'.$upload_path;
+                $config['file_name'] = $name;
+
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('txt_slider_image')) {
+                    $prop_img = $this->upload->data();
+                    $slider_image = $prop_img['file_name'];
+                    $src = './' . $upload_path . '/' . $image;
+                    $thumb_dest = './' . HOME_THUMB_IMAGE . '/';
+                    $medium_dest = './' . HOME_MEDIUM_IMAGE . '/';
+                    thumbnail_image($src, $thumb_dest);
+                    medium_image_user($src, $medium_dest);
+                } else {
+                    $banner_img = $this->upload->display_errors();
+                    $this->session->set_flashdata('error_msg', $banner_img);
+                    redirect('admin/properties/landing_banner/add');
+                }
+            } else {
+                $slider_image = $this->input->post('hidden_slider_image');
+            }
+
             if($this->input->post('status')=='on')
                 $status = 'Active';
             else
@@ -653,6 +712,7 @@ class Properties extends CI_Controller {
            $data = array(
                 'property_id' => $this->input->post('property_id'),
                 'image' => $image,
+                'slider_image' => $slider_image,
                 'status' => $status,
                 'position' => $this->input->post('position'),
             );
