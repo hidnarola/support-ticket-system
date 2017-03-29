@@ -1,4 +1,6 @@
 <!--<script type="text/javascript" src="assets/admin/js/pages/datatables_basic.js"></script>-->
+<script type="text/javascript" src="assets/admin/js/plugins/uploaders/fileinput.min.js"></script>
+<script type="text/javascript" src="assets/admin/js/pages/uploader_bootstrap.js"></script>
 <script type="text/javascript" src="assets/admin/js/plugins/tables/datatables/datatables.min.js"></script>
 <script type="text/javascript" src="assets/admin/js/plugins/loaders/progressbar.min.js"></script>
 
@@ -19,15 +21,64 @@
 
 <div class="content">
     <?php $this->load->view('Admin/message_view'); ?>
+    <div class="panel panel-flat">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+            <form method="post" id="bulk_upload_form" enctype="multipart/form-data" action="admin/properties/property/bulk_add"> 
+                <div style="background-color:#ddd;border:2px dashed #ccc;padding-bottom:4%">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-4">
+                            <h4><i><b>From Here you can add new properties</b></i></h4>
+                        </div>
+                    </div><br><br>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-1 text-center">
+                            <div class="panel border-right-lg border-right-primary invoice-grid timeline-content">
+                                <div class="panel-body" style="padding:43px">
+                                    <h5><i>From here you can add single property</i></h5>
+                                    <a href='admin/properties/property/add' class="btn btn-primary btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Property</a>                                        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1" style="text-align: center"><span style="font-size: 1.6em;padding: 50px 0px;display: inline-block;"><i>OR</i></span></div>
+                        <div class="col-md-5">
+                            <div class="panel border-left-lg border-left-primary invoice-grid timeline-content">
+                                <div class="panel-body">
+                                    <h5 class="text-center"><i>From here you can do bulk upload</i></h5>
+                                    <input type="file" class="file-styled-primary" name="upload_csv" id="upload_csv"> 
+                                    <code><a href="./uploads/csv/bulk_demo.csv" style="text-align: left">Click Here</a> , to get a CSV format.</code>
+                                    <button type="submit" class="btn btn-primary pull-right" style="margin-top:10px;border-radius: 2px">Upload<i class="icon-arrow-up13 position-right"></i></button>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4 col-md-offset-1 text-center">
+                            <h5><i>From here you can add single property</i></h5>
+                            <a href='admin/properties/property/add' class="btn btn-primary btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Property</a>    
+                        </div>
+                        <div class="col-md-1"><span style="font-size: 1.6em;margin-left:18%"><i>OR</i></span></div>
+                        <div class="col-md-4">
+                            <h5><i>From here you can do bulk upload</i></h5>
+                             <input type="file" class="file-styled-primary" name="upload_csv" id="upload_csv">
+                            <span class="help-block"><code>You can upload here .CSV file.</code></span>
+                        </div>
+                        <div class="col-md-1">
+                            <h5 style="color:#ddd">dfd</h5>
+                            <button type="submit" class="btn btn-primary">Upload<i class="icon-arrow-up13 position-right"></i></button>
+                        </div> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <!-- Table header styling -->
     <div class="panel panel-flat">
-        <div class="panel-heading tic-listing">
+        <!-- <div class="panel-heading tic-listing">
             <div class="col-md-12"> 
                 <div class="pull-right">
                     <a href='admin/properties/property/add' class="btn btn-success btn-labeled"><b><i class="icon-plus-circle2"></i></b> Add New Property</a>
                 </div>
             </div>
-        </div>
+        </div> -->
        
         <div class="panel-body">
             <div class="row">

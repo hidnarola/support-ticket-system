@@ -139,6 +139,7 @@ $route['admin/properties/type'] = 'Admin/Properties/type_display';
 
 $route['admin/properties/property'] = 'Admin/Properties/property_listing';
 $route['admin/properties/property/add'] = 'Admin/Properties/property_add';
+$route['admin/properties/property/bulk_add'] = 'Admin/Properties/property_bulk_add';
 $route['admin/properties/property/edit/(:any)'] = 'Admin/Properties/property_edit/$1';
 $route['admin/properties/property/view/(:any)'] = 'Admin/Properties/property_view/$1';
 

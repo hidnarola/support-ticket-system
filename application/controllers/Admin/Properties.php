@@ -328,6 +328,340 @@ class Properties extends CI_Controller {
 	    }
     }
 
+    public function property_bulk_add(){
+        //header('Content-Type: text/html; charset=UTF-8');
+        $file = $this->input->post('upload_csv');
+        $fileDirectory = './uploads/csv';
+        if (!is_dir($fileDirectory)) {
+            mkdir($fileDirectory, 0777);
+        }
+        $saved_file_name = time();
+        $config['overwrite'] = FALSE;
+        $config['remove_spaces'] = TRUE;
+        $config['upload_path'] = $fileDirectory;
+        $config['allowed_types'] = 'csv';
+        $config['file_name'] = $saved_file_name;
+        $this->upload->initialize($config);
+        if ($this->upload->do_upload('upload_csv')) {
+            $fileDetails = $this->upload->data();
+            $row = 1;
+            $handle = fopen($fileDirectory . "/" . $fileDetails['file_name'], "r");
+            if (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+                $csv_format = array('title' ,'short_description' ,'long_description','contract_type','rent_type','price','category_type','area','no_of_bedrooms','no_of_bathrooms','featured','status','availability','amenities','offer','deal_start_time','deal_end_time','discount_type','discount_value','main_image','other_images','contact_name','contact_no','contact_email','property_address','property_locality','property_country','latitude','longitude');
+                if ($data == $csv_format) {
+                    fclose($handle);
+                    $handle = fopen($fileDirectory . "/" . $fileDetails['file_name'], "r");
+                    while (($csv_data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+                        if ($row == 1) {
+                            $row++;
+                            continue;
+                        }
+
+                        $title              = $csv_data[0];
+                        $short_description  = $csv_data[1];
+                        $long_description   = $csv_data[2];
+                        $contract_type      = strtolower($csv_data[3]);
+                        $rent_type          = ucfirst($csv_data[4]);
+                        $price              = $csv_data[5];
+                        $category_type      = $csv_data[6];
+                        $area               = $csv_data[7];
+                        $no_of_bedrooms     = $csv_data[8];
+                        $no_of_bathrooms    = $csv_data[9];
+                        $featured           = strtolower($csv_data[10]);
+                        $status             = strtolower($csv_data[11]);
+                        $availability       = $csv_data[12];
+                        $amenities          = $csv_data[13];
+                        $offer              = $csv_data[14];
+                        $deal_start_time    = $csv_data[15];
+                        $deal_end_time      = $csv_data[16];
+                        $discount_type      = $csv_data[17];
+                        $discount_value     = $csv_data[18];
+                        $main_image         = $csv_data[19];
+                        $other_images       = $csv_data[20];
+                        $contact_name       = $csv_data[21];
+                        $contact_no         = $csv_data[22];
+                        $contact_email      = $csv_data[23];
+                        $property_address   = $csv_data[24];
+                        $property_locality  = $csv_data[25];
+                        $property_country   = $csv_data[26];
+                        $latitude           = $csv_data[27];
+                        $longitude          = $csv_data[28];
+
+                        if($title=='' || $short_description=='' || $long_description=='' || $contract_type=='' || $price=='' || $area=='' || $no_of_bedrooms=='' || $no_of_bathrooms=='' || $amenities=='' || $main_image=='' || $contact_name=='' || $contact_no=='' || $contact_email=='' || $property_address=='' || $property_locality=='' || $property_country==''){
+                            fclose($handle);
+                            $this->session->set_flashdata('error_msg', 'Some required fields are missing.');
+                            redirect('admin/properties/property');
+                        }else{
+                            $error_msg = '<ul>';
+                            $error_cnt = 0;
+
+                            // Main Image Upload
+                            $main_image_url = $main_image;
+                            $main_img = @getimagesize($main_image_url);
+                            $main_img_data = file_get_contents($main_image_url);
+                            $main_image_url = urldecode($main_image_url);
+                            $main_img_full_name = substr($main_image_url, strrpos($main_image_url, '/') + 1);
+                            $main_img_name_arr = explode('.', $main_img_full_name);
+                            $main_img_name = $main_img_name_arr[0];
+                            $ext = end($main_img_name_arr);
+                            $ext_arr = explode('?', $ext);
+                            $ext = $ext_arr[0];
+                            if (!$ext)
+                                $ext = 'jpg';
+                            $new_name =  time() . '.' . $ext;
+                            $new_img = './uploads/properties/temp_img/' . $new_name;
+                            file_put_contents($new_img, $main_img_data);
+                            $main_image_name = $new_name;
+                            @copy('./uploads/properties/temp_img/' . $main_image_name, './uploads/properties/original/' . $main_image_name);
+                            $src = './uploads/properties/original/' . $main_image_name;
+                            $thumb_dest = './uploads/properties/thumb/';
+                            $medium_dest = './uploads/properties/medium/';
+                            thumbnail_image($src, $thumb_dest);
+                            medium_image_user($src, $medium_dest);
+
+                            // Other Images Upload
+                            $other_images = rtrim($other_images, ",");
+                            $imageurlArr = @explode(',', $other_images);
+                            $other_images_str = '';
+                            foreach ($imageurlArr as $image_url) {
+                            
+                                $img = @getimagesize($image_url);
+                             
+                                if ($img) {
+                                    $other_image_url = $image_url;
+                                    $img_data = file_get_contents($image_url);
+                                    $image_url = urldecode($image_url);
+                                    $img_full_name = substr($image_url, strrpos($image_url, '/') + 1);
+                                    $img_name_arr = explode('.', $img_full_name);
+                                    $img_name = $img_name_arr[0];
+                                    $ext = end($img_name_arr);
+                                    if (!$ext)
+                                        $ext = 'jpg';
+                                    $new_name = time() . '.' . $ext;
+                                    $new_img = './uploads/properties/temp_img/' . $new_name;
+                                    file_put_contents($new_img, $img_data);
+                                    $image_name = $new_name;
+                                    @copy('./uploads/properties/temp_img/' . $image_name, './uploads/properties/original/' . $image_name);
+                                    $src = './uploads/properties/original/' . $image_name;
+                                    $thumb_dest = './uploads/properties/thumb/';
+                                    $medium_dest = './uploads/properties/medium/';
+                                    thumbnail_image($src, $thumb_dest);
+                                    medium_image_user($src, $medium_dest);
+                                    $other_images_str = $other_images_str .','.$image_name;
+                                }
+                            }
+
+                            // Contract Type validation
+                            $contract_type_result = $this->Properties_model->get_all_details(TBL_PROP_CAT,array())->result_array();
+                            $contract_typeArr = array();
+                            foreach($contract_type_result as $k => $v){
+                                $contract_typeArr[] = strtolower($v['name']);
+                            }
+                            if(in_array(strtolower($contract_type), $contract_typeArr)){ 
+                                $properties_cat = $this->Properties_model->get_all_details(TBL_PROP_CAT,array('name'=>$contract_type))->row_array();
+                                $property_category_id = $properties_cat['id'];
+                                if($contract_type=='sale'){
+                                    $rent_type == '';
+                                }else if($contract_type=='rent' && $rent_type==''){ 
+                                    //fclose($handle);
+                                    $error_msg.="<li>RENT_TYPE field is required.</li>";
+                                    $error_cnt = 1;
+                                    //$this->session->set_flashdata('error_msg', 'RENT_TYPE field is required.');
+                                    //redirect('admin/properties/property');
+                                }
+                            }else{
+                                //fclose($handle);
+                                $error_msg.="<li>Please enter correct value for RENT_TYPE.</li>";
+                                $error_cnt = 1;
+                                //$this->session->set_flashdata('error_msg', 'Please enter correct value for RENT_TYPE.');
+                            }
+
+                            // Property Type validation
+                            $property_type_result = $this->Properties_model->get_all_details(TBL_PROP_TYPE,array())->result_array();
+                            $property_typeArr = array();
+                            foreach($property_type_result as $k => $v){
+                                $property_typeArr[] = strtolower($v['name']);
+                            }
+
+                            if(in_array(strtolower($category_type), $property_typeArr)){ 
+                                $property_type_result = $this->Properties_model->get_all_details(TBL_PROP_TYPE,array('name'=>$category_type))->row_array();
+                                $property_type_id = $property_type_result['id'];
+                            }else{
+                                $this->Properties_model->common_insert_update('insert',TBL_PROP_TYPE,array('name'=>ucfirst($category_type),'status'=>'Active'));
+                                $property_type_id = $this->db->insert_id();
+                            }
+
+                            // Price Validation
+                            if(!is_numeric($price) || $price<=0){
+                                $error_msg.="<li>Please enter correct value for PRICE.</li>";
+                                $error_cnt = 1;
+                                //fclose($handle);
+                                //$this->session->set_flashdata('error_msg', 'Please enter correct value for PRICE.');
+                                //redirect('admin/properties/property');
+                            }
+
+                            // Price Validation
+                            if(!is_numeric($area) || $area<=0){
+                                $error_msg.="<li>Please enter correct value for AREA(Sq. ft).</li>";
+                                $error_cnt = 1;
+                                // fclose($handle);
+                                // $this->session->set_flashdata('error_msg', 'Please enter correct value for AREA(Sq. ft).');
+                                // redirect('admin/properties/property');
+                            }  
+
+                            // Bedroom Validation
+                            if(!is_numeric($no_of_bedrooms) || $no_of_bedrooms<=0){
+                                $error_msg.="<li>Please enter correct value for NO_OF_BEDROOMS.</li>";
+                                $error_cnt = 1;
+                                // fclose($handle);
+                                // $this->session->set_flashdata('error_msg', 'Please enter correct value for NO_OF_BEDROOMS.');
+                                // redirect('admin/properties/property');
+                            }  
+
+                            // Bathroom Validation
+                            if(!is_numeric($no_of_bathrooms) || $no_of_bathrooms<=0){
+                                $error_msg.="<li>Please enter correct value for NO_OF_BATHROOMS.</li>";
+                                $error_cnt = 1;
+                                // fclose($handle);
+                                // $this->session->set_flashdata('error_msg', 'Please enter correct value for NO_OF_BATHROOMS.');
+                                // redirect('admin/properties/property');
+                            }      
+
+                            // Featured Validation
+                            if($featured == 'yes'){
+                                $featured=1;
+                            } else if($featured == 'no' || $featured == ''){
+                                $featured=0;
+                            }
+
+                            // Status Validation
+                            if($status == 'active'){
+                                $status='Active';
+                            } else if($status == 'inactive' || $status == ''){
+                                $status='Inactive';
+                            }
+
+                            // Availability Validation
+                            if($availability == 'yes'){
+                                $availability=1;
+                            } else if($availability == 'no' || $availability == ''){
+                                $availability=0;
+                            }
+
+                            // Amenities Validation
+                            $amenities = str_replace(':-:', ',', $amenities);
+                            
+                            //Offer Validation
+                            if($offer == 'yes'){   
+                                $offer = 1;
+                                if($deal_start_time=='' || $deal_end_time==''){
+                                    $error_msg.="<li>Please enter correct value for OFFER_DURATION.</li>";
+                                    $error_cnt = 1;
+                                    // fclose($handle);
+                                    // $this->session->set_flashdata('error_msg', 'Please enter correct value for OFFER_DURATION.');
+                                    // redirect('admin/properties/property');
+                                }
+                                if(is_numeric($discount_value) || $discount_value<=0){
+                                    $error_msg.="<li>Please enter correct value for DISCOUNT_VALUE.</li>";
+                                    $error_cnt = 1;
+                                    // fclose($handle);
+                                    // $this->session->set_flashdata('error_msg', 'Please enter correct value for DISCOUNT_VALUE.');
+                                    // redirect('admin/properties/property');
+                                }
+                                if(strtolower($discount_type)!='percentage' || strtolower($discount_type)!='flat'){
+                                    $error_msg.="<li>Please enter correct value for DISCOUNT_TYPE.</li>";
+                                    $error_cnt = 1;
+                                    // fclose($handle);
+                                    // $this->session->set_flashdata('error_msg', 'Please enter correct value for DISCOUNT_TYPE.');
+                                    // redirect('admin/properties/property');
+                                }
+                            }else if($offer == 'no' || $offer==''){
+                                $offer = 0;
+                                $deal_start_time = '';
+                                $deal_end_time   = '';
+                                $discount_type   = '';
+                                $discount_value  = '';
+                            }
+
+                            // Lat - Long Validation
+                            if($latitude!='' || $longitude!=''){
+                                if(!is_numeric($latitude)){
+                                    $error_msg.="<li>Please enter correct value for LATITUDE.</li>";
+                                    $error_cnt = 1;
+                                    // fclose($handle);
+                                    // $this->session->set_flashdata('error_msg', 'Please enter correct value for LATITUDE.');
+                                    // redirect('admin/properties/property');
+                                }
+                                
+                                if(!is_numeric($longitude)){
+                                    $error_msg.="<li>Please enter correct value for LONGITUDE.</li>";
+                                    $error_cnt = 1;
+                                    // fclose($handle);
+                                    // $this->session->set_flashdata('error_msg', 'Please enter correct value for LONGITUDE.');
+                                    // redirect('admin/properties/property');
+                                }
+                            }else{
+                                $latitude = $longitude = '';
+                            }
+
+                            $random_string = bin2hex( openssl_random_pseudo_bytes(4, $cstrong));
+                            $reference_no = strtoupper(substr($contract_type,0,2)).'-'.strtoupper($random_string);
+
+                            $insertArr[] = array(
+                                'status'            => $status,
+                                'reference_number'  => $reference_no,
+                                'title'             => $title,
+                                'images'            => rtrim($main_image_name.$other_images_str,','),
+                                'short_description' => $short_description,
+                                'description'       => $long_description,
+                                'address'           => $property_address,
+                                'locality'          => $property_locality,
+                                'country'           => $property_country,
+                                'latitude'          => $latitude,
+                                'longitude'         => $longitude,
+                                'amenities'         => $amenities,
+                                'is_featured'       => $featured,
+                                'is_delete'         => 0,
+                                'contact_no'        => $contact_no,
+                                'contact_name'      => $contact_name,
+                                'contact_email'     => $contact_email,
+                                'price'             => $price,
+                                'bedroom_no'        => $no_of_bedrooms,
+                                'bathroom_no'       => $no_of_bathrooms,
+                                'area'              => $area,
+                                'availability'      => $availability,
+                                'is_offer'          => $offer,
+                                'deal_date_from'    => $deal_start_time,
+                                'deal_date_to'      => $deal_end_time,
+                                'discount_type'     => $discount_type,
+                                'discount_value'    => $discount_value,
+                                'property_category_id' => $property_category_id,
+                                'rent_type'         => $rent_type,
+                                'property_type_id'  => $property_type_id
+                            );
+                        }
+                    }
+                    if($error_cnt==1){
+                        $error_msg.="</ul>";
+                        fclose($handle);
+                        $this->session->set_flashdata('error_msg', $error_msg);
+                        redirect('admin/properties/property');
+                    }else{
+                        $this->db->insert_batch(TBL_PROP_LIST,$insertArr);    
+                    }
+                    
+                }else{
+                    fclose($handle);
+                    $this->session->set_flashdata('error_msg', 'The columns in this csv file does not match to the database');
+                }
+                redirect('admin/properties/property');
+            }
+        }else{
+            $this->session->set_flashdata('error_msg', $this->upload->display_errors());
+            redirect('admin/properties/property');
+        }
+    }
+
     /**
      * This function is used to EDIT property
      * @param : $id Integer
