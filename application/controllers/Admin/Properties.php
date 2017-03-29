@@ -561,14 +561,14 @@ class Properties extends CI_Controller {
                                     // $this->session->set_flashdata('error_msg', 'Please enter correct value for OFFER_DURATION.');
                                     // redirect('admin/properties/property');
                                 }
-                                if(is_numeric($discount_value) || $discount_value<=0){
+                                if(!is_numeric($discount_value) || $discount_value<=0){
                                     $error_msg.="<li>Please enter correct value for DISCOUNT_VALUE.</li>";
                                     $error_cnt = 1;
                                     // fclose($handle);
                                     // $this->session->set_flashdata('error_msg', 'Please enter correct value for DISCOUNT_VALUE.');
                                     // redirect('admin/properties/property');
                                 }
-                                if(strtolower($discount_type)!='percentage' || strtolower($discount_type)!='flat'){
+                                if(strtolower($discount_type)!='percentage' && strtolower($discount_type)!='flat'){
                                     $error_msg.="<li>Please enter correct value for DISCOUNT_TYPE.</li>";
                                     $error_cnt = 1;
                                     // fclose($handle);
