@@ -1,5 +1,6 @@
 <?php 
     $this->session->set_userdata('force_redirect','home');
+    die;
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">

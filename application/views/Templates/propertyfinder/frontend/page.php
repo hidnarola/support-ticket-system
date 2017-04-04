@@ -91,7 +91,10 @@
                               <div class="contact_phone">MBZ City, Abu Dhabi,</div>
                               <div class="contact_email">info@manazelspecialists.com</div>
                            </div>
-                           <div class="top_panel_contacts_right">call us: <strong><i>800</i> 123 45 67</strong></div>
+                           <div class="top_panel_contacts_right">
+                              call us: <strong><i>+971</i> 24445050</strong>
+                              <small style="font-size:12px"> ( SUN - THUR : 8am to 4pm ) </small>
+                           </div>
                            <div class="cL"></div>
                         </div>
                         <div class="top_panel_menu">
