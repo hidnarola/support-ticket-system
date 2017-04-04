@@ -52,6 +52,10 @@ class Properties extends CI_Controller {
 	public function property_details($seourl='',$id=''){
 		$record_id = base64_decode($id);
 		$property_data = $this->Properties_model->get_property_details_by_id($record_id)->result();
+		
+		if(empty($property_data)){
+			redirect('/');
+		}
 		if(!empty($this->session->userdata('user_logged_in'))){
 			$user_id = $this->session->userdata('user_logged_in')['id'];
 			$is_in_wishlist = $this->Properties_model->get_property_wishlist_by_id($property_data[0]->id,$user_id)->num_rows();

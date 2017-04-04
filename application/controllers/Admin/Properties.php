@@ -151,7 +151,7 @@ class Properties extends CI_Controller {
     public function property_listing(){
     	$this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = $this->data['record_type'] = 'Property';
     	$this->data['icon_class'] = 'icon-office';
-    	$this->data['property_list'] = $this->Properties_model->get_all_details(TBL_PROP_LIST,array())->result_array();
+    	$this->data['property_list'] = $this->Properties_model->get_all_details(TBL_PROP_LIST,array('is_delete'=>0))->result_array();
     	$this->template->load('admin', 'Admin/Properties/property_display', $this->data);
     }
 

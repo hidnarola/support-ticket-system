@@ -141,10 +141,10 @@
                                         <li class="text-purple-700">
                                             <a href="<?php echo base_url() . 'admin/properties/property/view/' . base64_encode($record['id']); ?>" id="view_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='View Property' class="view"><i class="icon-eye"></i></a>
                                         </li>
-                                        <!-- <li class="text-danger-600">
-                                            <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Ticket' class="delete"><i class="icon-trash"></i></a>
+                                        <li class="text-danger-600">
+                                            <a id="delete_<?php echo base64_encode($record['id']); ?>" data-record="<?php echo base64_encode($record['id']); ?>" title='Delete Property' class="delete"><i class="icon-trash"></i></a>
                                         </li>
-                                        <li class="dropdown">
+                                        <!-- <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                 <i class="icon-menu9"></i>
                                             </a>
@@ -414,7 +414,7 @@
     var type = '<?php echo $this->uri->segment(2); ?>';
     $(document).on('click', '.delete', function () {
         var id = $(this).attr('id').replace('delete_', '');
-        var url = base_url + 'tickets/delete';
+        var url = base_url + 'properties/delete';
         jconfirm("Do you really want to delete this record?", function (r) {
             if (r) {
                 $.ajax({
@@ -422,7 +422,7 @@
                     url: url,
                     async: false,
                     dataType: 'JSON',
-                    data: {id: id, type: type},
+                    data: {id: id, type: 'property_listing'},
                     success: function (data) {
                         console.log("data", data);
                         console.log(data.status);
