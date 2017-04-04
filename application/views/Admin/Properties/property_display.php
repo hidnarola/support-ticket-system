@@ -410,7 +410,7 @@
         };
         bootbox.dialog(options);
     };
-    var base_url = '<?php echo base_url(); ?>admin/';
+    var base_url = '<?php echo base_url(); ?>Admin/';
     var type = '<?php echo $this->uri->segment(2); ?>';
     $(document).on('click', '.delete', function () {
         var id = $(this).attr('id').replace('delete_', '');
