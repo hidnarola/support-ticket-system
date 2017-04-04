@@ -414,7 +414,7 @@
     var type = '<?php echo $this->uri->segment(2); ?>';
     $(document).on('click', '.delete', function () {
         var id = $(this).attr('id').replace('delete_', '');
-        var url = base_url + 'properties/delete';
+        var url = base_url + 'Properties/delete';
         jconfirm("Do you really want to delete this record?", function (r) {
             if (r) {
                 $.ajax({
