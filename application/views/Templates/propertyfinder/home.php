@@ -45,8 +45,48 @@
             .menu_main_responsive > .login_dropdown ul li{
                padding: 3px 0px;
             }
-            border-bottom: 1px solid #fff;
-            }
+            ul.sub-menu.dropdown-menu.animated {
+    left: -221px;
+}
+li.menu-menu > ul.sub-menu {
+    left: -180px !important;
+    background: #222326;
+}
+li.menu-menu  ul.sub-menu{background:#222326 !important;}
+li.menu-menu  ul.sub-menu a{color:#7a7a7a !important;background:transparent !important;}
+li.menu-menu  ul.sub-menu a:hover{color:#fff !important;background:transparent !important;}
+.media-mobile-view{display:none;}
+@media(max-width:991px){
+	li.menu-menu > ul.sub-menu {
+    left: -100px !important;
+	}
+} 
+@media(max-width:640px){
+	li.menu-menu > ul.sub-menu {
+    left: 0px !important;
+	}
+li.menu-menu  ul.sub-menu{	    display: none !important;
+    position: unset !important;
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 0px;
+	    box-shadow: none;
+    border: transparent;
+}
+li.menu-menu ul.sub-menu a {
+    color: #f8f8f8 !important;
+    background: #37353d !important;
+    padding-left: 25px;
+    font-size: 13px;
+    border: none;
+}
+.media-desktop-view{display:none;}
+.media-mobile-view{display:block;}
+body .media-mobile-view ul.sub-menu {
+    width: 100% !important;
+    margin-left: 0px;
+}
+}
         </style>
    </head>
    <?php 
@@ -55,7 +95,7 @@
          $class = 'single-post body_filled body_style_wide responsive_menu scheme_original top_panel_show top_panel_above sidebar_show sidebar_right';
       } else if($this->uri->segment(2)=='search'){
          $class = 'page-template-blog-property body_filled body_style_wide responsive_menu scheme_original top_panel_show top_panel_above sidebar_show sidebar_right';
-      } else if ($this->uri->segment(2)=='portfolio'){
+      } else if ($this->uri->segment(2)=='portfolio' || $this->uri->segment(2)=='gallery'){
          $class = 'page-template-blog-property body_filled body_style_wide responsive_menu scheme_original top_panel_show top_panel_above';
       }
    ?>
@@ -124,9 +164,47 @@
                                     <a href="portfolio">Portfolio</a>
                                  </li>
                                  
-                                 <li class="menu-menu">
-                                    <a href="http://www.virtualdusk.net/MANAZEL/al-reef-2-villa-mockup/">Gallery</a>
+<!--                                 <li class="menu-menu <?php if($page=='gallery'){ echo 'current-menu-parent'; } ?>">
+                                    <a href="gallery">Gallery</a>
+                                 </li>-->
+                                 
+                                <li class="menu-menu dropdown media-desktop-view">
+      <a href="#">Media</a>
+      <ul class="sub-menu dropdown-menu">
+        <li class="dropdown">
+          <a href="#">Gallery</a>
+          <ul class="sub-menu dropdown-menu">
+              <li><a href="#">Al Reef Community</a></li>
+              <li><a href="#">Al Reef 2</a>
+                  <ul class="sub-menu dropdown-menu">
+              <li><a href="#">Al Reef 2 Villa Mockup</a></li>
+              <li><a href="http://www.virtualdusk.com/VR/MANAZEL/Manazel%20VR/3/">Virtual Reality – VR</a></li>
+          </ul>
+                 </li>
+          </ul>
+        </li>
+       </ul>
+    </li>
+	<li class="menu-item login_dropdown menu-item-has-children media-mobile-view" >
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                Media
+                                             </a>
+                                             <ul class="sub-menu">
+                                               <li class="menu-item login_dropdown menu-item-has-children"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gallery</a>
+											   <ul class="sub-menu">
+											   <li><a href="#">Al Reef Community</a></li>
+														<li class="menu-item login_dropdown menu-item-has-children"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Al Reef 2</a>
+														<ul class="sub-menu">
+														<li><a href="#">Al Reef 2 Villa Mockup</a></li>
+														<li><a href="http://www.virtualdusk.com/VR/MANAZEL/Manazel%20VR/3/">Virtual Reality – VR</a></li>
+														</ul>
+														</li>
+											   </ul></li>
+                                                        
+													  </ul>
+                                     
                                  </li>
+	
                                  <!-- <li class="menu-item <?php if($current_page=='pages' && $page_url=='about-us'){ echo 'current-menu-parent'; } ?>"><a href="property-finder/pages/about-us">About Us</a></li>
                                  <li class="menu-item"><a href="#">Service</a></li>
                                  <li class="menu-item"><a href="#">Media</a></li>
@@ -174,7 +252,7 @@
                         <div class="cL"></div>
                      </div>
                   </div>
-                  <?php if($this->uri->segment(1)=='about-us' || $this->uri->segment(1)=='contact-us' || $this->uri->segment(1)=='portfolio' || $this->uri->segment(1)=='career'){ ?>
+                  <?php if($this->uri->segment(1)=='about-us' || $this->uri->segment(1)=='contact-us' || $this->uri->segment(1)=='portfolio' || $this->uri->segment(1)=='gallery' || $this->uri->segment(1)=='career'){ ?>
                   <div class="top_panel_title top_panel_style_1  title_present scheme_original breadcrumbs_image">
                      <div class="top_panel_title_inner top_panel_inner_style_1 breadcrumbs_present_inner">
                         <div class="content_wrap">
@@ -235,7 +313,7 @@
       <script type='text/javascript' src='assets/propertyfinder/js/custom_narola.js'></script>
       <script>
 
-         // $( document ).ready(function() {
+         $( document ).ready(function() {
          //    $('.menu_main_responsive > .login_dropdown').click(function(){
          //       var t_this = $(this);
          //       if(t_this.find('ul').css('display') == 'none'){
@@ -247,7 +325,10 @@
          // });
          // $(document).click(function(){
          //   $(".dropdown-menu.login_dropdown").hide();
-         // });      
+		 $(".menu-menu").click(function(){
+			 $(".sub-menu").addClass("open");
+		 });
+          });      
       </script>
    </body>
 </html>
