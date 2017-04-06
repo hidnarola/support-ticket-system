@@ -52,9 +52,7 @@ li.menu-menu > ul.sub-menu {
     left: -180px !important;
     background: #222326;
 }
-li.menu-menu  ul.sub-menu{background:#222326 !important;}
-li.menu-menu  ul.sub-menu a{color:#7a7a7a !important;background:transparent !important;}
-li.menu-menu  ul.sub-menu a:hover{color:#fff !important;background:transparent !important;}
+
 .media-mobile-view{display:none;}
 @media(max-width:991px){
 	li.menu-menu > ul.sub-menu {
@@ -74,8 +72,7 @@ li.menu-menu  ul.sub-menu{	    display: none !important;
     border: transparent;
 }
 li.menu-menu ul.sub-menu a {
-    color: #f8f8f8 !important;
-    background: #37353d !important;
+    
     padding-left: 25px;
     font-size: 13px;
     border: none;
