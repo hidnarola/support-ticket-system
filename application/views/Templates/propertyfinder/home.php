@@ -168,10 +168,8 @@ body .media-mobile-view ul.sub-menu {
                                     <a href="gallery">Gallery</a>
                                  </li>-->
                                  
-                                <li class="menu-menu dropdown media-desktop-view">
-      <a href="#">Media</a>
-      <ul class="sub-menu dropdown-menu">
-        <li class="dropdown">
+                                
+        <li class="menu-menu dropdown media-desktop-view">
           <a href="#">Gallery</a>
           <ul class="sub-menu dropdown-menu">
               <li><a href="#">Al Reef Community</a></li>
@@ -183,14 +181,9 @@ body .media-mobile-view ul.sub-menu {
                  </li>
           </ul>
         </li>
-       </ul>
-    </li>
-	<li class="menu-item login_dropdown menu-item-has-children media-mobile-view" >
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                Media
-                                             </a>
-                                             <ul class="sub-menu">
-                                               <li class="menu-item login_dropdown menu-item-has-children"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gallery</a>
+     
+
+                                               <li class="menu-item login_dropdown menu-item-has-children media-mobile-view"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gallery</a>
 											   <ul class="sub-menu">
 											   <li><a href="#">Al Reef Community</a></li>
 														<li class="menu-item login_dropdown menu-item-has-children"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Al Reef 2</a>
@@ -200,10 +193,7 @@ body .media-mobile-view ul.sub-menu {
 														</ul>
 														</li>
 											   </ul></li>
-                                                        
-													  </ul>
-                                     
-                                 </li>
+                                   
 	
                                  <!-- <li class="menu-item <?php if($current_page=='pages' && $page_url=='about-us'){ echo 'current-menu-parent'; } ?>"><a href="property-finder/pages/about-us">About Us</a></li>
                                  <li class="menu-item"><a href="#">Service</a></li>
