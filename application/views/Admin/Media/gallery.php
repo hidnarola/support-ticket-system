@@ -12,12 +12,12 @@
     </div>
 </div>
 
-<div class="content">
+<!--<div class="content">
     <?php $this->load->view('Admin/message_view'); ?>
     <div class="form-group">
         <label class="col-lg-2 control-label text-semibold">Upload:</label>
         <div class="col-lg-10">
-            <input type="file" class="file-input-ajax" multiple="multiple">
+            <input type="file" class="file-input-ajax" multiple="multiple" accept="image/*">
         </div>
     </div>
 
@@ -27,10 +27,48 @@
         
     </div>     
     </div>
+</div>-->
+
+<div class="content">
+
+    <?php $this->load->view('Admin/message_view'); ?>
+    <div class="panel panel-flat">
+        <div class="panel-heading"></div>     
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-lg-2 control-label text-semibold text-center">Upload:</label>
+                <div class="col-lg-10">
+                    <input type="file" class="file-input-ajax" multiple="multiple" accept="image/*" >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-flat">
+        <div class="panel-heading"></div>     
+        <div class="panel-body">
+            <div class="col-md-12">
+                <?php //pr($images); ?>
+                <?php foreach ($images as $image) { ?>
+                    <div class="col-md-3 home_image text-center">
+                        <div class="row ">
+                            <a class="fancybox" href="<?php echo GALLERY_IMAGE . '/' . $image['image']; ?>" data-fancybox-group="gallery"><img src="<?php echo GALLERY_MEDIUM_IMAGE . '/' . $image['image']; ?>" alt="" /></a>
+                        </div><div class="row">
+                            <a class="text-danger-600 delete" onClick="return confirm('Are you sure you want to delete?')" href="Admin/Media/delete_gallery_image/<?php echo base64_encode($image['id']); ?>" data-record=""><i class="icon-trash"></i></a>
+                        </div>
+
+                    </div>
+                <?php } ?>
+            </div>     
+        </div>     
+    </div>
 </div>
 <script type="text/javascript" src="assets/admin/js/plugins/uploaders/fileinput.min.js"></script>
+<script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
+<link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
 <script type="text/javascript">
 $(function() {
+    $('.fancybox').fancybox();
     var base_url = "<?php echo base_url(); ?>";
     var controller = '/media';
     var upload_url = base_url + '/admin' +controller + '/file_upload/gallery';

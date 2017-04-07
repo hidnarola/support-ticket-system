@@ -16,6 +16,15 @@ class Media_model extends CI_Model {
         $result = $query->result_array();
         return $result;
     }
+    
+    public function get_gallery_images(){
+        $this->db->where('is_delete', 0);
+        $this->db->where('is_visible', 1);
+        $this->db->where('gallery', 1);
+        $query = $this->db->get(TBL_MEDIA);
+        $result = $query->result_array();
+        return $result;
+    }
 
     public function get_logo_images(){
         $this->db->where('is_delete', 0);

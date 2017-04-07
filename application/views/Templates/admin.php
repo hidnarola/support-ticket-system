@@ -276,7 +276,8 @@
                                     <?php if(in_array('17', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'beacons') ? 'active' : ''; ?>"><a href="admin/beacons"><i class="icon-station"></i> <span>Beacons</span></a></li>
                                     <?php } ?>
-
+                                    <li class="<?php echo ($page == 'gallery') ? 'active' : ''; ?>"><a href="admin/gallery"><i class="icon-images3"></i> <span>Gallery</span></a>
+                                    </li>
                                     <li class="<?php echo (in_array($page, $properties)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-city"></i><span>Properties</span></a>
                                         <ul>
