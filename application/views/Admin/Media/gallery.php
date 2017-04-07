@@ -70,8 +70,8 @@
 $(function() {
     $('.fancybox').fancybox();
     var base_url = "<?php echo base_url(); ?>";
-    var controller = '/media';
-    var upload_url = base_url + '/admin' +controller + '/file_upload/gallery';
+    var controller = '/Media';
+    var upload_url = base_url + '/Admin' +controller + '/file_upload/gallery';
     $(".file-input-ajax").fileinput({
         uploadUrl: upload_url, // server upload action
         uploadAsync: true,
