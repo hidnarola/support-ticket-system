@@ -32,7 +32,7 @@
                         <article class="post_item post_item_portfolio">
                             <div class="post_content isotope_item_content ih-item colored square effect_more left_to_right">
                                 <div class="post_featured img">
-                                    <a href="javascript:void(0)"><img alt="" src="<?php echo GALLERY_IMAGE . '/' . $image['image']; ?>"></a>
+                                    <img alt="" src="<?php echo 'assets/timthumb.php?src='.GALLERY_IMAGE.'/'.$image['image'].'&w=370&h=210&q=100&zc=1'; ?>">
                                 </div>
                                 <div class="post_info_wrap info">
                                     <div class="info-back">
