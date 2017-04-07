@@ -140,6 +140,7 @@ body .media-mobile-view ul.sub-menu {
                                           if(isset($value['sub_menus'])){
                                              foreach ($value['sub_menus'] as $key1 => $value1) {
                                              ?>
+                                 
                                                 <li class="mega-menu">
                                                    <a href="<?php echo site_url($value1['url']); ?>"><?php echo $value1['navigation_name']; ?></a>
                                                 </li>
