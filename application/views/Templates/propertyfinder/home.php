@@ -140,7 +140,6 @@ body .media-mobile-view ul.sub-menu {
                                           if(isset($value['sub_menus'])){
                                              foreach ($value['sub_menus'] as $key1 => $value1) {
                                              ?>
-                                 
                                                 <li class="mega-menu">
                                                    <a href="<?php echo site_url($value1['url']); ?>"><?php echo $value1['navigation_name']; ?></a>
                                                 </li>
@@ -162,9 +161,9 @@ body .media-mobile-view ul.sub-menu {
                                     <a href="portfolio">Portfolio</a>
                                  </li>
                                  
-<!--                                 <li class="menu-menu <?php if($page=='gallery'){ echo 'current-menu-parent'; } ?>">
-                                    <a href="gallery">Gallery</a>
-                                 </li>-->
+                                 <li class="menu-menu <?php if($page=='gallery'){ echo 'current-menu-parent'; } ?>">
+                                    <a href="gallery">Gallery 2</a>
+                                 </li>
                                  
                                 
         <li class="menu-menu dropdown media-desktop-view">
@@ -276,8 +275,11 @@ body .media-mobile-view ul.sub-menu {
       <script type='text/javascript' src='assets/propertyfinder/js/custom/plugins.js'></script>
 	   <script type='text/javascript' src='assets/propertyfinder/js/custom/messages.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/jquery-migrate.min.js'></script>
+      <link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
+      <script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/essgrid/lightbox.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/essgrid/jquery.themepunch.tools.min.js'></script>
+      <script type='text/javascript' src='assets/propertyfinder/js/vendor/essgrid/jquery.themepunch.essential.min.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/revslider/jquery.themepunch.revolution.min.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/modernizr.min.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/ui/jquery-ui.min.js'></script>
@@ -295,8 +297,7 @@ body .media-mobile-view ul.sub-menu {
       <!-- <script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=false'></script> -->
       <script type='text/javascript' src='assets/propertyfinder/js/custom/_googlemap.js'></script>
       <script src="//storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
-      <script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
+      
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/isotope.min.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/custom_narola.js'></script>
       <script>

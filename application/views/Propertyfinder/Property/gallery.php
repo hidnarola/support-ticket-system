@@ -23,24 +23,29 @@
 
 <div class="page_content_wrap">
     <div class="content_wrap">
-        <div class="container clearfix gallery-container">
-            <?php foreach ($images as $image) { ?>
-                <div class="dh-container">
-                    <img src="<?php echo GALLERY_MEDIUM_IMAGE . '/' . $image['image']; ?>" alt="" />
-                    <div class="dh-overlay fancy-div">
-                        <a class="fancybox" id="gallerybox" href="<?php echo GALLERY_IMAGE . '/' . $image['image']; ?>" data-fancybox-group="gallery"><i class="fa fa-search" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-
-                <!--                <div class="col-md-3 home_image text-center">
-                                    <div class="row ">
-                                        <a class="fancybox" href="<?php echo GALLERY_IMAGE . '/' . $image['image']; ?>" data-fancybox-group="gallery"><img src="<?php echo GALLERY_MEDIUM_IMAGE . '/' . $image['image']; ?>" alt="" /></a>
+        <div class="content">
+            <div class="isotope_wrap ">
+                <!-- <div class="container clearfix gallery-container"> -->
+                <?php foreach ($images as $image) { ?>
+                    <span style="color:#fff"><?php echo $image['image']; ?></span>
+                    <div class="isotope_item isotope_item_portfolio isotope_column_3">
+                        <article class="post_item post_item_portfolio">
+                            <div class="post_content isotope_item_content ih-item colored square effect_more left_to_right">
+                                <div class="post_featured img">
+                                    <a href="single-post.html"><img alt="" src="<?php echo GALLERY_IMAGE . '/' . $image['image']; ?>"></a>
+                                </div>
+                                <div class="post_info_wrap info">
+                                    <div class="info-back">
+                                        <div class="post_descr">
+                                            <p class="post_buttons"><a class="fancybox" id="gallerybox" href="<?php echo GALLERY_IMAGE . '/' . $image['image']; ?>" data-fancybox-group="gallery"><i class="fa fa-search" aria-hidden="true"></i></a></p>
+                                        </div>
                                     </div>
-                                </div>-->
-
-            <?php }
-            ?>
-
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     </div>
 </div>
@@ -70,7 +75,13 @@
     .top_panel_over .top_panel_wrap{ position:relative !important;}
     .fancybox-lock .fancybox-overlay{z-index: 11111;}
     #gallerybox {
-    font-size: 25px !important;
-    color: #fff !important;
-}
+        font-size: 20px !important;
+        color: #fff !important;
+    }
+    .post_buttons{
+        text-align: center !important;
+        top: 45% !important;
+        position: absolute !important;
+        width: 95% !important;
+    }
 </style>
