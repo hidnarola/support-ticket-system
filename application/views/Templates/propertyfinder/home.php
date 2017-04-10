@@ -114,11 +114,13 @@ body .media-mobile-view ul.sub-menu {
                         <div class="top_panel_contacts">
                            <div class="top_panel_contacts_left">
                               <div class="contact_phone">MBZ City, Abu Dhabi,</div>
-                              <div class="contact_email">info@manazelspecialists.com</div>
+                              <div class="contact_email">info@manazelspecialists.ae</div>
                            </div>
                            <div class="top_panel_contacts_right">
-                              call us: <strong><i>+971</i> 24445050</strong>
-                              <small style="font-size:12px"> ( SUN - THUR : 8am to 4pm ) </small>
+                              <div class="contact_phone"> 
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <span style="font-size:0.800em !important">+97124445050 (SUN - THUR : 8am to 4pm) </span>
+                              </div>
                            </div>
                            <div class="cL"></div>
                         </div>
