@@ -163,12 +163,12 @@ body .media-mobile-view ul.sub-menu {
                                     <a href="portfolio">Portfolio</a>
                                  </li>
                                  
-                                 <!-- <li class="menu-menu <?php if($page=='gallery'){ echo 'current-menu-parent'; } ?>">
-                                    <a href="gallery">Gallery 2</a>
-                                 </li> -->
+                                 <li class="menu-menu">
+                                    <a href="javascript:void(0);">Payment</a>
+                                 </li>
                                  
                                 
-        <li class="menu-menu dropdown media-desktop-view">
+        <li class="menu-menu dropdown media-desktop-view <?php if($page=='gallery'){ echo 'current-menu-parent'; } ?>">
           <a href="#">Gallery</a>
           <ul class="sub-menu dropdown-menu">
               <li><a href="gallery/Al-Reef-Community">Al Reef Community</a></li>
