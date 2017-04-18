@@ -163,9 +163,9 @@ body .media-mobile-view ul.sub-menu {
                                     <a href="portfolio">Portfolio</a>
                                  </li>
                                  
-                                 <li class="menu-menu <?php if($page=='gallery'){ echo 'current-menu-parent'; } ?>">
+                                 <!-- <li class="menu-menu <?php if($page=='gallery'){ echo 'current-menu-parent'; } ?>">
                                     <a href="gallery">Gallery 2</a>
-                                 </li>
+                                 </li> -->
                                  
                                 
         <li class="menu-menu dropdown media-desktop-view">
