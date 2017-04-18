@@ -40,7 +40,7 @@
                 <div class="col-lg-10">
                     <select class="select" name="section_id" required="" id="section_id">
                         <!-- <option value="">Select Section</option> -->
-                        <option value="1" selected>AL Reef Community</option>
+                        <option value="1">AL Reef Community</option>
                         <option value="2">AL Reef 2 Villa Mockup</option>
                     </select>
                 </div>
@@ -76,33 +76,41 @@
 <script type="text/javascript" src="assets/admin/js/jquery.fancybox.js?v=2.1.5"></script>
 <link rel="stylesheet" type="text/css" href="assets/admin/css/jquery.fancybox.css?v=2.1.5" media="screen" />
 <script type="text/javascript">
+function file_upload(upload_url,section_id){
+        $(".file-input-ajax").fileinput('destroy');
+        $(".file-input-ajax").fileinput({
+            uploadUrl: upload_url, // server upload action
+            uploadAsync: true,
+            maxFileCount: 5,
+            uploadExtraData: {
+                 section_id: section_id
+            },
+            initialPreview: [],
+            fileActionSettings: {
+                removeIcon: '<i class="icon-bin"></i>',
+                removeClass: 'btn btn-link btn-xs btn-icon',
+                uploadIcon: '<i class="icon-upload"></i>',
+                uploadClass: 'btn btn-link btn-xs btn-icon',
+                indicatorNew: '<i class="icon-file-plus text-slate"></i>',
+                indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
+                indicatorError: '<i class="icon-cross2 text-danger"></i>',
+                indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>',
+            }
+        }).on('filebatchpreupload', function(event, data, id, index) {
+            }).on('filebatchuploadsuccess', function(event, data) {
+                console.log(data);
+                // window.location.reload();
+        });
+}
+
 $(function() {
     $('.fancybox').fancybox();
     var base_url = "<?php echo base_url(); ?>";
     var controller = '/Media';
-    var upload_url = base_url + '/Admin' +controller + '/file_upload/gallery?section_id='+$('#section_id').val();
+    var upload_url = base_url + '/Admin' +controller + '/file_upload/gallery';
     $('#section_id').on('change',function(){
-        upload_url = base_url + '/Admin' +controller + '/file_upload/gallery?section_id='+$('#section_id').val();
+        file_upload(upload_url,$('#section_id').val());
     });
-    $(".file-input-ajax").fileinput({
-        uploadUrl: upload_url, // server upload action
-        uploadAsync: true,
-        maxFileCount: 5,
-        initialPreview: [],
-        fileActionSettings: {
-            removeIcon: '<i class="icon-bin"></i>',
-            removeClass: 'btn btn-link btn-xs btn-icon',
-            uploadIcon: '<i class="icon-upload"></i>',
-            uploadClass: 'btn btn-link btn-xs btn-icon',
-            indicatorNew: '<i class="icon-file-plus text-slate"></i>',
-            indicatorSuccess: '<i class="icon-checkmark3 file-icon-large text-success"></i>',
-            indicatorError: '<i class="icon-cross2 text-danger"></i>',
-            indicatorLoading: '<i class="icon-spinner2 spinner text-muted"></i>',
-        }
-    }).on('filebatchpreupload', function(event, data, id, index) {
-        }).on('filebatchuploadsuccess', function(event, data) {
-            console.log(data);
-            // window.location.reload();
-    });
+    file_upload(upload_url,$('#section_id').val());
 });
 </script>

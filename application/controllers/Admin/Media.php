@@ -32,8 +32,7 @@ class Media extends CI_Controller {
 
     public function file_upload($page) {
         $image = '';
-        //pr($_POST); die;
-        $section_id = $this->input->get('section_id');
+        $section_id = $this->input->post('section_id');
         if ($_FILES['file_data']['name'] != '') {
             $img_array = array('png', 'jpeg', 'jpg', 'PNG', 'JPEG', 'JPG');
             $exts = explode(".", $_FILES['file_data']['name']);
