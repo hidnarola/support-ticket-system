@@ -171,10 +171,10 @@ body .media-mobile-view ul.sub-menu {
         <li class="menu-menu dropdown media-desktop-view">
           <a href="#">Gallery</a>
           <ul class="sub-menu dropdown-menu">
-              <li><a href="#">Al Reef Community</a></li>
+              <li><a href="gallery/Al-Reef-Community">Al Reef Community</a></li>
               <li><a href="#">Al Reef 2</a>
                   <ul class="sub-menu dropdown-menu">
-              <li><a href="#">Al Reef 2 Villa Mockup</a></li>
+              <li><a href="gallery/Al-Reef-2-Villa-Mockup">Al Reef 2 Villa Mockup</a></li>
               <li><a href="http://www.virtualdusk.com/VR/MANAZEL/Manazel%20VR/3/">Virtual Reality – VR</a></li>
           </ul>
                  </li>

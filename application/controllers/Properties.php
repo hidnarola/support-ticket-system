@@ -236,9 +236,20 @@ class Properties extends CI_Controller {
         $this->template->load('propertyfinder/home', 'Propertyfinder/Property/portfolio', $this->data);
     }
 
-    public function gallery() {
+    public function gallery($section='') {
         $this->data['title'] = 'Gallery';
-        $images = $this->Media_model->get_gallery_images();
+        if($section=='Al-Reef-Community'){
+            $section_id = 1;
+        }else if($section=='Al-Reef-2-Villa-Mockup'){
+            $section_id = 2;
+        }
+        $condition = array(
+            'gallery' => 1,
+            'section' => $section_id,
+            'is_delete' => 0,
+            'is_visible' => 1
+        );
+        $images = $this->Properties_model->get_all_details(TBL_MEDIA,$condition)->result_array();
         $this->data['images'] = $images;
         $this->template->load('propertyfinder/home', 'Propertyfinder/Property/gallery', $this->data);
     }

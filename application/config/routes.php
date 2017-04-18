@@ -190,4 +190,4 @@ $route['property-listing/saved-property'] = 'Properties/saved_property';
 $route['property-listing/wishlist'] = 'Properties/saved_property_list';
 $route['property-listing/wishlist/remove/(:any)'] = 'Properties/remove_saved_property/$1';
 $route['portfolio'] = "Properties/portfolio";
-$route['gallery'] = "Properties/gallery";
+$route['gallery/(:any)'] = "Properties/gallery/$1";

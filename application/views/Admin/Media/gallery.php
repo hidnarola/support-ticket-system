@@ -36,6 +36,16 @@
         <div class="panel-heading"></div>     
         <div class="panel-body">
             <div class="form-group">
+                <label class="col-lg-2 control-label text-semibold text-center">Select Section:</label>
+                <div class="col-lg-10">
+                    <select class="select" name="section_id" required="" id="section_id">
+                        <!-- <option value="">Select Section</option> -->
+                        <option value="1" selected>AL Reef Community</option>
+                        <option value="2">AL Reef 2 Villa Mockup</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-lg-2 control-label text-semibold text-center">Upload:</label>
                 <div class="col-lg-10">
                     <input type="file" class="file-input-ajax" multiple="multiple" accept="image/*" >
@@ -56,7 +66,6 @@
                         </div><div class="row">
                             <a class="text-danger-600 delete" onClick="return confirm('Are you sure you want to delete?')" href="Admin/Media/delete_gallery_image/<?php echo base64_encode($image['id']); ?>" data-record=""><i class="icon-trash"></i></a>
                         </div>
-
                     </div>
                 <?php } ?>
             </div>     
@@ -71,7 +80,10 @@ $(function() {
     $('.fancybox').fancybox();
     var base_url = "<?php echo base_url(); ?>";
     var controller = '/Media';
-    var upload_url = base_url + '/Admin' +controller + '/file_upload/gallery';
+    var upload_url = base_url + '/Admin' +controller + '/file_upload/gallery?section_id='+$('#section_id').val();
+    $('#section_id').on('change',function(){
+        upload_url = base_url + '/Admin' +controller + '/file_upload/gallery?section_id='+$('#section_id').val();
+    });
     $(".file-input-ajax").fileinput({
         uploadUrl: upload_url, // server upload action
         uploadAsync: true,
