@@ -18,8 +18,7 @@
       <link rel='stylesheet' href='assets/propertyfinder/js/vendor/essgrid/tooltipster.css' type='text/css' media='all' />
       <link rel='stylesheet' href='assets/propertyfinder/js/vendor/essgrid/tooltipster-light.css' type='text/css' media='all' />
       <link rel='stylesheet' href='assets/propertyfinder/js/vendor/booked/styles.css' type='text/css' media='all' />
-      <!-- <link rel='stylesheet' href='assets/propertyfinder/js/vendor/revslider/settings.css' type='text/css' media='all' /> -->
-      <link rel='stylesheet' href='https://exalius.nl/wp-content/plugins/revslider/rs-plugin/css/settings.css?ver=4.6.92' type='text/css' media='all' />
+      <link rel='stylesheet' href='assets/propertyfinder/js/vendor/revslider/settings.css' type='text/css' media='all' />
       <link rel='stylesheet' href='assets/propertyfinder/css/fontello/css/fontello.css' type='text/css' media='all' />
       <link rel='stylesheet' href='assets/propertyfinder/css/style.css' type='text/css' media='all' />
       <link rel='stylesheet' href='assets/propertyfinder/css/custom/_animation.css' type='text/css' media='all' />
@@ -283,14 +282,12 @@ body .media-mobile-view ul.sub-menu {
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/essgrid/lightbox.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/essgrid/jquery.themepunch.tools.min.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/essgrid/jquery.themepunch.essential.min.js'></script>
-      <!-- <script type='text/javascript' src='assets/propertyfinder/js/vendor/revslider/jquery.themepunch.revolution.min.js'></script> -->
-      <script type='text/javascript' src='https://exalius.nl/wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.tools.min.js?ver=4.6.92'></script>
-<script type='text/javascript' src='https://exalius.nl/wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.revolution.min.js?ver=4.6.92'></script>
+      <script type='text/javascript' src='assets/propertyfinder/js/vendor/revslider/jquery.themepunch.revolution.min.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/modernizr.min.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/ui/jquery-ui.min.js'></script>
-      <!-- <script type="text/javascript" src="assets/propertyfinder/js/vendor/revslider/revolution.extension.slideanims.min.js"></script>
+      <script type="text/javascript" src="assets/propertyfinder/js/vendor/revslider/revolution.extension.slideanims.min.js"></script>
       <script type="text/javascript" src="assets/propertyfinder/js/vendor/revslider/revolution.extension.layeranimation.min.js"></script>
-      <script type="text/javascript" src="assets/propertyfinder/js/vendor/revslider/revolution.extension.navigation.min.js"></script> -->
+      <script type="text/javascript" src="assets/propertyfinder/js/vendor/revslider/revolution.extension.navigation.min.js"></script>
       <script type='text/javascript' src='assets/propertyfinder/js/vendor/superfish.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/custom/_utils.js'></script>
       <script type='text/javascript' src='assets/propertyfinder/js/custom/_init.js'></script>
