@@ -387,6 +387,26 @@ body .media-mobile-view ul.sub-menu {
       //   }
       // }
    });
+   var blendModes = ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+ 
+if('CSS' in window && 'supports' in window.CSS) {
+ 
+    jQuery('.rev_slider li[data-mediafilter]').each(function() {
+ 
+        for(var i = 0; i < blendModes.length; i++) {
+ 
+            if(!window.CSS.supports('mix-blend-mode', blendModes[i])) {
+ 
+                this.removeAttribute('data-mediafilter');
+                break;
+ 
+            }
+ 
+        }
+ 
+    });
+ 
+}
 </script>
 <style>
   .rev_slider.fullwidthabanner.revslider-initialised.tp-simpleresponsive,
