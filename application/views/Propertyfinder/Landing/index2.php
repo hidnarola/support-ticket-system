@@ -857,11 +857,3 @@
 
 }*/
 </style>
-<script>
-   $('#rev_slider_4_1').revolution({
-   delay:9000,
-   startwidth:1170,
-   startheight:500,
-   hideThumbs:10
-});
-</script>

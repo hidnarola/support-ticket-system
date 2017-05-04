@@ -325,6 +325,10 @@ body .media-mobile-view ul.sub-menu {
 </html>
 
 <script>
-   //window.addEventListener('load', onVrViewLoad)
-
+   $('#rev_slider_4_1').revolution({
+      delay:9000,
+      startwidth:1170,
+      startheight:500,
+      hideThumbs:10
+   });
 </script>
