@@ -328,7 +328,7 @@ body .media-mobile-view ul.sub-menu {
    $('#rev_slider_4_1').revolution({
       delay:9000,
       startwidth:1170,
-      startheight:500,
+      startheight:728,
       hideThumbs:10
    });
 </script>
