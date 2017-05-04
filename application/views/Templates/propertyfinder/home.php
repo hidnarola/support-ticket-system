@@ -389,7 +389,7 @@ body .media-mobile-view ul.sub-menu {
    });
 </script>
 <style>
-  /*.rev_slider.fullwidthabanner.revslider-initialised.tp-simpleresponsive,
-  .forcefullwidth_wrapper_tp_banner{ height:700px !important; }*/
+  .rev_slider.fullwidthabanner.revslider-initialised.tp-simpleresponsive,
+  .forcefullwidth_wrapper_tp_banner{ -ms-height:700px !important;height:700px !important; }
   .tp-rightarrow.tparrows.uranus.noSwipe{ display: block !important; }
 </style>
