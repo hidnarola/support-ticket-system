@@ -393,4 +393,5 @@ body .media-mobile-view ul.sub-menu {
   .rev_slider.fullwidthabanner.revslider-initialised.tp-simpleresponsive,
   .forcefullwidth_wrapper_tp_banner{ height:700px !important; }
   .tp-rightarrow.tparrows.uranus.noSwipe{ display: block !important; }
+  .forcefullwidth_wrapper_tp_banner .tp-rightarrow.tparrows.uranus.noSwipe{ display: block !important; }
 </style>

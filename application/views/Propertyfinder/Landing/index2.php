@@ -1,13 +1,13 @@
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<div class="row about_us_row" style="min-height: 700px;">
+<div class="row about_us_row">
    
    <div class="">
      <?php if(count($landing_banner)>0){ ?>
          <section class="slider_wrap slider_fullwide slider_engine_revo slider_alias_revsliderHome1">
             <!-- REVOLUTION SLIDER -->
             <div id="rev_slider_4_1_wrapper" class="rev_slider_wrapper custom_revo_slider fullwidthbanner-container">
-               <div id="rev_slider_4_1" class="rev_slider fullwidthabanner" data-version="5.1" style="width:100% !important;min-height: 700px;">
+               <div id="rev_slider_4_1" class="rev_slider fullwidthabanner" data-version="5.1" style="width:100% !important;">
                   <ul>
                      <?php
                      //$small_imgs = array('Slider6.jpg', 'Slider5.jpg', 'Slider4.jpg', 'Slider3.jpg', 'slider2.jpg', 'slider1.jpg');
