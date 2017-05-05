@@ -332,7 +332,7 @@ body .media-mobile-view ul.sub-menu {
       hideThumbs:10,
       fullWidth:"off",
       fullScreen:"on",
-      fullScreenOffsetContainer: ""
+      fullScreenOffsetContainer: "",
       navigation: {
         keyboardNavigation: "on",
         keyboard_direction: "horizontal",
