@@ -278,6 +278,7 @@
                                     <?php } ?>
                                     <li class="<?php echo ($page == 'gallery') ? 'active' : ''; ?>"><a href="admin/gallery"><i class="icon-images3"></i> <span>Gallery</span></a>
                                     </li>
+                                    <?php if(in_array('18', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo (in_array($page, $properties)) ? 'active' : ''; ?>">
                                         <a href="#"><i class="icon-city"></i><span>Properties</span></a>
                                         <ul>
@@ -287,6 +288,7 @@
                                             <li class="<?php echo ($current_page == 'landing_banner') ? 'active' : ''; ?>"><a href="admin/properties/landing_banner"><i class="icon-image3"></i> <span>Landing Banner</span></a></li>
                                         </ul>
                                     </li>
+                                    <?php } ?>
                                     <!-- /page kits -->
 
                                 </ul>

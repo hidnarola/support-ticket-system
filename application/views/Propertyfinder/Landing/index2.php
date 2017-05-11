@@ -2,7 +2,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <div class="row about_us_row">
    
-   <div class="">
+   <div class="col-md-12">
      <?php if(count($landing_banner)>0){ ?>
          <section class="slider_wrap slider_fullwide slider_engine_revo slider_alias_revsliderHome1">
             <!-- REVOLUTION SLIDER -->

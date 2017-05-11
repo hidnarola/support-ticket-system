@@ -173,7 +173,6 @@ class Properties extends CI_Controller {
 
         $this->data['property_count'] = $this->Properties_model->get_search_property_details($search_query)->num_rows();
         $this->data['properties_data'] = $this->Properties_model->get_search_property_details($search_query, $order_query, $limitPaging)->result();
-
         $this->template->load('propertyfinder/home', 'Propertyfinder/Property/search', $this->data);
     }
 
