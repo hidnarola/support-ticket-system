@@ -109,8 +109,8 @@ class Login extends CI_Controller {
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     $this->session->set_userdata('role_id', $result['role_id']);
-                    $this->load->model('Subadmin_Model');
-                    $permissions = $this->Subadmin_Model->get_subadmin_modules($result['id']);
+                    $this->load->model('Subadmin_model');
+                    $permissions = $this->Subadmin_model->get_subadmin_modules($result['id']);
                     if ($permissions['module_ids'] != '') {
                         $this->session->set_userdata('module_ids', $permissions['module_ids']);
                     }
