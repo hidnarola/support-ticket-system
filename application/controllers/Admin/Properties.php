@@ -16,6 +16,8 @@ class Properties extends CI_Controller {
     */
 	public function category_display(){
 		$segment = $this->uri->segment(3);
+        echo $this->session->userdata('module_ids');
+        echo $segment; die;
         check_permissions(1);
         $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = $this->data['record_type'] = 'Property Contract';
         $this->data['icon_class'] = 'icon-grid2';
