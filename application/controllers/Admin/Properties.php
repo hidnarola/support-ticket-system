@@ -16,9 +16,7 @@ class Properties extends CI_Controller {
     */
 	public function category_display(){
 		$segment = $this->uri->segment(3);
-        echo $this->session->userdata('module_ids');
-        echo $segment; die;
-        check_permissions(1);
+        check_permissions(18);
         $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = $this->data['record_type'] = 'Property Contract';
         $this->data['icon_class'] = 'icon-grid2';
         $this->data['categories'] = $this->Admin_model->get_records(TBL_PROP_CAT);
@@ -66,7 +64,7 @@ class Properties extends CI_Controller {
     */
 	public function type_display(){
 		$segment = $this->uri->segment(3);
-        check_permissions(1);
+        check_permissions(18);
         $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = $this->data['record_type'] = 'Property Category';
         $this->data['icon_class'] = 'icon-list';
         $this->data['types'] = $this->Admin_model->get_records(TBL_PROP_TYPE);
@@ -151,6 +149,7 @@ class Properties extends CI_Controller {
 	 * @author : pav
     */
     public function property_listing(){
+        check_permissions(18);
     	$this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = $this->data['record_type'] = 'Property';
     	$this->data['icon_class'] = 'icon-office';
     	$this->data['property_list'] = $this->Properties_model->get_all_details(TBL_PROP_LIST,array('is_delete'=>0))->result_array();
@@ -162,6 +161,7 @@ class Properties extends CI_Controller {
      * @author : pav
     */
     public function property_add(){
+        check_permissions(18);
         $this->data['property_categories'] = $this->Properties_model->get_all_details(TBL_PROP_CAT,array('status'=>'Active','is_delete'=>0),array(array('field'=>'name','type'=>'ASC')))->result_array();
     	$this->data['property_types'] = $this->Properties_model->get_all_details(TBL_PROP_TYPE,array('status'=>'Active','is_delete'=>0),array(array('field'=>'name','type'=>'ASC')))->result_array();
 
@@ -332,6 +332,7 @@ class Properties extends CI_Controller {
 
     public function property_bulk_add(){
         //header('Content-Type: text/html; charset=UTF-8');
+        check_permissions(18);
         $file = $this->input->post('upload_csv');
         $fileDirectory = './uploads/csv';
         if (!is_dir($fileDirectory)) {
@@ -670,6 +671,7 @@ class Properties extends CI_Controller {
      * @author : pav
     */
     public function property_edit($id=''){
+        check_permissions(18);
     	if ($id != '') {
             $record_id = base64_decode($id);
         }
@@ -848,6 +850,7 @@ class Properties extends CI_Controller {
      * @author : pav
     */
     public function property_view($id = null) {
+
         $flag = 1;
         if ($id != '') {
             $segment = $this->uri->segment(1);
@@ -878,6 +881,7 @@ class Properties extends CI_Controller {
      * @author : pav
     */
     public function landing_banner_display(){
+        check_permissions(18);
         $this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = $this->data['record_type'] = 'Landing Banner';
         $this->data['icon_class'] = 'icon-image3';
         $this->data['landing_banner_list'] = $this->Properties_model->get_prop_landing_banner()->result_array();
@@ -889,6 +893,7 @@ class Properties extends CI_Controller {
      * @author : pav
     */
     public function landing_banner_add(){
+        check_permissions(18);
         $this->data['prop_list'] = $this->Properties_model->get_all_details(TBL_PROP_LIST,array('status'=>'Active','is_delete'=>0))->result_array();
         $this->form_validation->set_rules('property_id', 'Property', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
@@ -974,6 +979,7 @@ class Properties extends CI_Controller {
      * @author : pav
     */
     public function landing_banner_edit($id=''){
+        check_permissions(18);
         if ($id != '') {
             $record_id = base64_decode($id);
         }
