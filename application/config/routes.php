@@ -134,6 +134,7 @@ $route['admin/articles/edit/(:any)'] = 'Admin/Articles/edit/$1';
 $route['admin/sub_admin'] = 'Admin/Sub_admin';
 $route['admin/sub_admin/add'] = 'Admin/Sub_admin/manage';
 $route['admin/sub_admin/edit/(:any)'] = 'Admin/Sub_admin/manage/$1';
+$route['admin/sub_admin/delete/(:any)'] = 'Admin/Sub_admin/delete/$1';
 
 $route['admin/properties/category'] = 'Admin/Properties/category_display';
 $route['admin/properties/type'] = 'Admin/Properties/type_display';

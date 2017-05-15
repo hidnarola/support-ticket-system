@@ -52,7 +52,7 @@ $segment = $this->uri->segment(1);
                                         <li class="text-teal-600">
                                             <a href="<?php echo base_url() . 'admin/sub_admin/edit/' . base64_encode($subadmin['id']) ?>" id="edit_<?php echo base64_encode($subadmin['id']); ?>" title='Edit' class="edit"><i class="icon-pencil7"></i></a>
                                         </li>
-                                        <!--<li class="text-danger-600">
+                                        <li class="text-danger-600">
                                             <a href="<?php echo base_url() . 'admin/sub_admin/delete/' . base64_encode($subadmin['id']) ?>" id="delete_<?php echo base64_encode($subadmin['id']); ?>" data-record="<?php echo base64_encode($subadmin['id']); ?>" title='Delete' class="delete"><i class="icon-trash"></i></a>
                                         </li>-->
                                         <li>
