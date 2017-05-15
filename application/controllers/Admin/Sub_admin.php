@@ -97,14 +97,14 @@ class Sub_admin extends CI_Controller {
     }
 
     public function delete($id){
-
-        $record_id = base64_decode($id);
-        if ($this->Admin_model->delete(TBL_USERS, $record_id)) {
-                $this->session->set_flashdata('success_msg', 'Record deleted successfully!');
-            } else {
-                $this->session->set_flashdata('error_msg', 'Unable to delete the record.');
-            }
-            redirect('admin/sub_admin');
+        $this->session->set_flashdata('error_msg', 'Unable to delete the record.');
+        // $record_id = base64_decode($id);
+        // if ($this->Admin_model->delete(TBL_USERS, $record_id)) {
+        //     $this->session->set_flashdata('success_msg', 'Record deleted successfully!');
+        // } else {
+        //     $this->session->set_flashdata('error_msg', 'Unable to delete the record.');
+        // }
+        redirect('admin/sub_admin');
     }
 
     public function get_subadmin_email_notifications(){
