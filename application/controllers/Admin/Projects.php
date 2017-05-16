@@ -14,6 +14,7 @@ class Projects extends CI_Controller {
         $this->load->model('Project_model');
         $this->load->helper('text');
         $this->table = TBL_PROJECTS;
+        redirect(site_url('admin'));
     }
 
     public function index() {

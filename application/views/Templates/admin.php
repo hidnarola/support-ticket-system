@@ -269,9 +269,9 @@
                                     <?php if(in_array('14', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'social_media') ? 'active' : ''; ?>"><a href="admin/social_media"><i class="icon-facebook"></i> <span>Social Media</span></a></li>
                                     <?php } ?>
-                                    <?php if(in_array('15', $permissions) || empty($permissions)){ ?>
+                                    <!-- <?php if(in_array('15', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'projects') ? 'active' : ''; ?>"><a href="admin/projects"><i class="icon-calendar2"></i> <span>Projects</span></a></li>
-                                    <?php } ?>
+                                    <?php } ?> -->
 
                                     <?php if(in_array('17', $permissions) || empty($permissions)){ ?>
                                     <li class="<?php echo ($page == 'beacons') ? 'active' : ''; ?>"><a href="admin/beacons"><i class="icon-station"></i> <span>Beacons</span></a></li>
