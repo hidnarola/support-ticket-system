@@ -291,7 +291,7 @@
                                         </ul>
                                     </li>
                                     <?php } ?>
-                                    <?php if(in_array('19', $permissions) || empty($permissions)){ ?>
+                                    <?php if((in_array('19', $permissions) || empty($permissions)) && isset($this->session->userdata('admin_logged_in')['subadmin_id'])){ ?>
                                     <li class="<?php echo ($current_page == 'property') ? 'active' : ''; ?>"><a href="admin/properties/property"><i class="icon-office"></i> <span>Manage Property</span></a></li>
                                     <?php } ?>
                                     <!-- /page kits -->
