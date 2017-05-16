@@ -688,3 +688,18 @@ function send_mails_to_subadmin($email_notification) {
     $subadmins = $ci->Subadmin_model->get_subadmins_notification_id($email_notification);
     return $subadmins;
 }
+
+function check_permissions_properties($module) {
+    $ci = &get_instance();
+    if (isset($ci->session->userdata('admin_logged_in')['subadmin_id'])) {
+        $module_id = $ci->session->userdata('module_ids');
+        $modules = explode(",", $module_id);
+        if (!in_array($module, $modules)) {
+            return '0';
+        }else{
+            return '1';
+        }
+    }else{
+        return '1';
+    }
+}

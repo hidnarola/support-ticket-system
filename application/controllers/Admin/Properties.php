@@ -149,7 +149,14 @@ class Properties extends CI_Controller {
 	 * @author : pav
     */
     public function property_listing(){
-        check_permissions(18);
+        $permission = check_permissions_properties(18);
+        if($permission==0){
+            $permission = check_permissions_properties(19);
+            if($permission==0){
+                redirect('admin/access_denied');
+            }
+        }
+        //if(check_permissions(18));
     	$this->data['title'] = $this->data['page_header'] = $this->data['user_type'] = $this->data['record_type'] = 'Property';
     	$this->data['icon_class'] = 'icon-office';
     	$this->data['property_list'] = $this->Properties_model->get_all_details(TBL_PROP_LIST,array('is_delete'=>0))->result_array();
@@ -161,7 +168,13 @@ class Properties extends CI_Controller {
      * @author : pav
     */
     public function property_add(){
-        check_permissions(18);
+        $permission = check_permissions_properties(18);
+        if($permission==0){
+            $permission = check_permissions_properties(19);
+            if($permission==0){
+                redirect('admin/access_denied');
+            }
+        }
         $this->data['property_categories'] = $this->Properties_model->get_all_details(TBL_PROP_CAT,array('status'=>'Active','is_delete'=>0),array(array('field'=>'name','type'=>'ASC')))->result_array();
     	$this->data['property_types'] = $this->Properties_model->get_all_details(TBL_PROP_TYPE,array('status'=>'Active','is_delete'=>0),array(array('field'=>'name','type'=>'ASC')))->result_array();
 
@@ -332,7 +345,13 @@ class Properties extends CI_Controller {
 
     public function property_bulk_add(){
         //header('Content-Type: text/html; charset=UTF-8');
-        check_permissions(18);
+        $permission = check_permissions_properties(18);
+        if($permission==0){
+            $permission = check_permissions_properties(19);
+            if($permission==0){
+                redirect('admin/access_denied');
+            }
+        }
         $file = $this->input->post('upload_csv');
         $fileDirectory = './uploads/csv';
         if (!is_dir($fileDirectory)) {
@@ -671,7 +690,13 @@ class Properties extends CI_Controller {
      * @author : pav
     */
     public function property_edit($id=''){
-        check_permissions(18);
+        $permission = check_permissions_properties(18);
+        if($permission==0){
+            $permission = check_permissions_properties(19);
+            if($permission==0){
+                redirect('admin/access_denied');
+            }
+        }
     	if ($id != '') {
             $record_id = base64_decode($id);
         }
@@ -850,7 +875,6 @@ class Properties extends CI_Controller {
      * @author : pav
     */
     public function property_view($id = null) {
-
         $flag = 1;
         if ($id != '') {
             $segment = $this->uri->segment(1);
