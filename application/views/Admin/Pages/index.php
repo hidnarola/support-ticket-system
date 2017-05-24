@@ -38,6 +38,7 @@
                     <tbody>
                         <?php
                         foreach ($pages as $key => $page) {
+                            if($page['is_static'] == 0) {
                             ?>
                             <tr>
                                 <td><?php echo $key + 1; ?></td>
@@ -63,7 +64,8 @@
                                         <?php } ?>
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php }
+                        } ?>
                     </tbody>
                 </table>
             </div>
