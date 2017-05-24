@@ -113,7 +113,8 @@ $page_url = $this->uri->segment(3);
                                     <div class="logo">
                                         <a href="/">
                                            <!-- <img src="assets/propertyfinder/images/MS-Logo-(1).png" class="logo_main" alt=""> -->
-                                            <img src="<?php echo 'assets/timthumb.php?src=' . base_url() . 'assets/propertyfinder/images/logo-header-new.png&w=209&h=104&s=100&q=100&zc=2'; ?>" class="logo_main" alt="">
+                                            <!--<img src="<?php echo 'assets/timthumb.php?src=' . base_url() . 'assets/propertyfinder/images/new-logo.png&w=209&h=104&s=100&q=100&zc=2'; ?>" class="logo_main" alt="">-->
+                                            <img src="assets/propertyfinder/images/new-logo-header.png" class="logo_main" alt="">
                                         </a>
                                     </div>
                                 </div>

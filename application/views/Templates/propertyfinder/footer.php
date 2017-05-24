@@ -4,7 +4,7 @@
          <div class="columns_wrap">
             <div class="column-1_4 show_logo_footer">
                <div class="logo" style="width:80%">
-                  <img src="assets/propertyfinder/images/logo-header-new.png" class="logo_main" alt="">
+                  <img src="assets/propertyfinder/images/new-logo.png" class="logo_main" alt="">
                   <!-- <a href="index.html"><img src="assets/propertyfinder/images/logo-footer.jpg" alt=""></a> -->
                </div>
             </div>
