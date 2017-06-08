@@ -341,6 +341,8 @@
     $(document).on('click', '.delete', function () {
         var id = $(this).attr('id').replace('delete_', '');
         var url = base_url + 'users/delete';
+        console.log(url);
+         return false;
         jconfirm("Do you really want to delete this record?", function (r) {
             if (r) {
                 $.ajax({

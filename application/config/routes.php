@@ -85,6 +85,7 @@ $route['admin/staff'] = "Admin/Users";
 $route['admin/tenants'] = "Admin/Users";
 $route['admin/users/add/(:any)'] = "Admin/Users/add/$1";
 $route['admin/users/edit/(:any)/(:any)'] = "Admin/Users/edit/$1/$2";
+$route['admin/users/delete/(:any)'] = "Admin/Users/delete/$1";
 $route['admin/news_announcements'] = "Admin/News";
 $route['admin/news/add'] = "Admin/News/add";
 $route['admin/news/delete'] = "Admin/News/delete";
