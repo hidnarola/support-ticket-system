@@ -168,12 +168,18 @@ class Properties_model extends CI_Model {
      * @author pav
      * */
     public function get_prop_landing_banner($where=''){
-        $this->db->select('prop_banner.*,prop_list.price as prop_price,prop_list.reference_number,prop_list.title as prop_title,prop_list.address as prop_address,prop_type.name as type_name,prop_cat.name as category_name,prop_list.id as prop_id,prop_list.rent_type');
+        $this->db->select('prop_banner.*');
         $this->db->from(TBL_PROP_BANNER.' as prop_banner');
-        $this->db->join(TBL_PROP_LIST.' as prop_list','prop_banner.property_id=prop_list.id', 'left');
-        $this->db->join(TBL_PROP_CAT.' as prop_cat','prop_list.property_category_id=prop_cat.id', 'left');
-        $this->db->join(TBL_PROP_TYPE.' as prop_type','prop_list.property_type_id=prop_type.id', 'left');
         $this->db->order_by('prop_banner.position','ASC');
+        if($where!=''){
+            $this->db->where($where);
+        }
+        //  $this->db->select('prop_banner.*,prop_list.price as prop_price,prop_list.reference_number,prop_list.title as prop_title,prop_list.address as prop_address,prop_type.name as type_name,prop_cat.name as category_name,prop_list.id as prop_id,prop_list.rent_type');
+        // $this->db->from(TBL_PROP_BANNER.' as prop_banner');
+        // $this->db->join(TBL_PROP_LIST.' as prop_list','prop_banner.property_id=prop_list.id', 'left');
+        // $this->db->join(TBL_PROP_CAT.' as prop_cat','prop_list.property_category_id=prop_cat.id', 'left');
+        // $this->db->join(TBL_PROP_TYPE.' as prop_type','prop_list.property_type_id=prop_type.id', 'left');
+        // $this->db->order_by('prop_banner.position','ASC');
         if($where!=''){
             $this->db->where($where);
         }

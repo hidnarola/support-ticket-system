@@ -39,7 +39,7 @@ class Properties extends CI_Controller {
 
     public function home2() {
         $this->data['title'] = 'Properties';
-        $this->data['landing_banner'] = $landing_banner = $this->Properties_model->get_prop_landing_banner(array('prop_banner.status' => 'Active', 'prop_list.status' => 'Active'))->result();
+        $this->data['landing_banner'] = $landing_banner = $this->Properties_model->get_prop_landing_banner(array('prop_banner.status' => 'Active'))->result();
         $main_property = $this->Properties_model->get_recent_property(1)->result();
         $this->data['main_property'] = $main_property[0];
         $this->data['recent_property'] = $recent_property = $this->Properties_model->get_recent_property(3)->result();
