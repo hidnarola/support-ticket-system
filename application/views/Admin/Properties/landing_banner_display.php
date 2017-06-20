@@ -35,10 +35,10 @@
                 <table class="table datatable-basic" id="ticket_table">
                     <thead>
                         <tr class="bg-teal">
-                            <th>#</th>
-                            <th>Image</th>
-                            <th style="width:15%;">Reference No.</th>
-                            <th style="width:30%;">Property Title</th>
+                            <th style="width:5%;">#</th>
+                            <th style="width:30%;">Image</th>
+<!--                            <th style="width:15%;">Reference No.</th>
+                            <th style="width:30%;">Property Title</th>-->
                             <th style="width:5%;">Status</th>
                             <th style="width:5%;">Position</th>
                             <th style="width:2%;">Created</th>
@@ -51,12 +51,12 @@
                                 <td><?php echo $key + 1; ?></td>
                                 <td>
                                     <?php
-                                        $img = explode(",",$record['image']);
+                                        $img = explode(",",$record['slider_image']);
                                     ?>
-                                    <img src="<?php echo PROPERTY_BANNER.'/'.$img[0]; ?>" class="img-sm">
+                                    <img src="<?php echo HOME_IMAGE.'/'.$img[0]; ?>" style="width: 100px; height: 60px;">
                                 </td>
-                                <td><?php echo $record['reference_number']; ?></td>
-                                <td><?php echo substr($record['prop_title'],0,40); ?></td>
+<!--                                <td><?php echo $record['reference_number']; ?></td>
+                                <td><?php echo substr($record['prop_title'],0,40); ?></td>-->
                                 <td>
                                     <?php 
                                         if($record['status']=='Active'){
@@ -66,7 +66,7 @@
                                         }
                                     ?>
                                 </td>
-                                <td style="display:inline-flex">
+                                <td style="display:inline-flex; margin-top: 12px;">
                                     <input type="text" class="form-control txt_position" id="txt_position_<?php echo $record['id']; ?>" name="txt_position_<?php echo $record['id']; ?>" value="<?php echo $record['position']; ?>" style="text-align: center">
                                     <a href="javascript:void(0)" onclick="update_position(<?php echo $record['id']; ?>)">
                                         <span class="icon-reset position_loader" id="position_reset-<?php echo $record['id']; ?>" onclick="position_edit('<?php echo $record['id']; ?>')"></span>

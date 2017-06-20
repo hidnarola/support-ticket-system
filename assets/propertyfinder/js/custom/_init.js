@@ -1915,14 +1915,14 @@ jQuery(function() {
 			if ( (ui.values[0]==0) && (ui.values[1]==js_price_big) ) {
 				jQuery( ".ps_price_info_value" ).html( 'Any' );
 			} else {
-				jQuery( ".ps_price_info_value" ).html( "$" + ui.values[0] + " - $" + ui.values[1] );
+				jQuery( ".ps_price_info_value" ).html( "AED " + ui.values[0] + " - AED " + ui.values[1] );
 			}
 		}
 	});
 	if ( (js_price_min==0) && (js_price_max==js_price_big) ) {
 		jQuery( ".ps_price_info_value" ).html( 'Any' );
 	} else {
-		jQuery( ".ps_price_info_value" ).html( "$" + js_price_min + " - $" + js_price_max );
+		jQuery( ".ps_price_info_value" ).html( "AED " + js_price_min + " - AED " + js_price_max );
 	}
 });
 
