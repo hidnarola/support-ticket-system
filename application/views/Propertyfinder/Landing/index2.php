@@ -18,12 +18,12 @@
                            <img src="<?php echo site_url(HOME_IMAGE.'/'.$v->slider_image); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
                            <div class="tp-caption Estate tp-resizeme" id="slide-<?php echo $slider; ?>-layer-1" data-x="center" data-hoffset="" data-y="center" data-voffset="" data-width="['auto']" data-height="['auto']" data-transform_idle="o:1;" data-transform_in="opacity:0;s:2000;e:Power2.easeInOut;" data-transform_out="opacity:0;s:300;s:300;" data-start="1500" data-splitin="none" data-splitout="none" data-responsive_offset="on">
                               <div class="sc_property_wrap">
-<!--                                 <div class="sc_property sc_property_style_property-6" data-interval="7176" data-slides-min-width="250">
+                                 <div class="sc_property sc_property_style_property-6" data-interval="7176" data-slides-min-width="250">
                                     <div class="sc_property_item">
                                        <div class="sc_pr_h1">
                                            <div class="small-img">
                                                <img src="<?php echo site_url(PROPERTY_BANNER.'/'.$v->image); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-                                                <img src="<?php echo site_url(PROPERTY_BANNER.'/'.$small_imgs[$k]); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina> 
+                                               <!-- <img src="<?php echo site_url(PROPERTY_BANNER.'/'.$small_imgs[$k]); ?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina> -->
                                            </div>
                                           <div class="sc_pr_h2"><?php echo $v->type_name; ?> for <?php echo $v->category_name; ?></div>
                                        </div>
@@ -46,7 +46,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                 </div>-->
+                                 </div>
                               </div>
                            </div>
                         </li>

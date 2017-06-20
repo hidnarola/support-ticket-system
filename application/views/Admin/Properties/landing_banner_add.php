@@ -68,8 +68,53 @@
                                         </div>
 
                                         <!-- Property -->
+                                        <div class="form-group col-xs-12">
+                                            <label class="col-lg-2 control-label">Property List<font color="red">*</font></label>
+                                            <div class="col-lg-10">
+                                                <select class="select" name="property_id" required="" id="property_id">
+                                                    <option selected="" value="">Select Property</option> 
+                                                    <?php
+                                                    foreach ($prop_list as $row) {
+                                                        if ($banner->property_id == $row['id']) {
+                                                            echo "<option value='" . $row['id'] . "' selected>" . "(<b>Reference No. : </b>". $row['reference_number'] . ") - " . $row['title'] . "</option>";
+                                                        } else {
+                                                            echo "<option value='" . $row['id'] . "' >" . "(<b>Reference No. : </b>". $row['reference_number'] . ") - " . $row['title'] . "</option>"; //                                                
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <?php echo '<label id="property_id-error" class="validation-error-label" for="property_id">' . form_error('property_id') . '</label>'; ?>
+                                            </div>
+                                        </div>
 
                                         <!-- Image -->
+                                        <div class="form-group col-xs-12">
+                                            <label class="col-lg-2 control-label">Property Image <span class="text-danger">*</span></label>
+                                            <div class="col-lg-10">
+                                                <div class="media no-margin-top">
+                                                    <?php
+                                                        $image = '';
+                                                        $image_req = 'required="required"';
+                                                        if (isset($banner)) {
+                                                            if ($banner->image!= '') {
+                                                                $image = $banner->image;
+                                                                $image_req = '';
+                                                            ?>
+                                                            <div class="media-left">
+                                                                <a href="javascript:void(0);"><img src="<?php echo PROPERTY_BANNER .'/'. $image; ?>" style="width: 58px; height: 58px;" class="img-rounded" alt=""></a>
+                                                            </div>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <div class="media-body">
+                                                        <input type="file" class="file-styled-primary" name="txt_image" id="txt_image" <?php echo $image_req; ?>>
+                                                        <input type="hidden" name="hidden_image" id="hidden_image" value="<?php echo $image; ?>">
+                                                        <code>Accepted formats: gif, png, jpg.</code>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <!-- Position -->
                                         <div class="form-group col-xs-12" id="div_position">
