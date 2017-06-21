@@ -288,6 +288,7 @@
                                             <li class="<?php echo ($current_page == 'type') ? 'active' : ''; ?>"><a href="admin/properties/type"><i class="icon-grid2"></i> <span>Catgeory</span></a></li>
                                             <li class="<?php echo ($current_page == 'property') ? 'active' : ''; ?>"><a href="admin/properties/property"><i class="icon-office"></i> <span>Manage Property</span></a></li>
                                             <li class="<?php echo ($current_page == 'landing_banner') ? 'active' : ''; ?>"><a href="admin/properties/landing_banner"><i class="icon-image3"></i> <span>Landing Banner</span></a></li>
+                                            <li class="<?php echo ($current_page == 'portfolio') ? 'active' : ''; ?>"><a href="admin/properties/portfolio"><i class="icon-camera"></i> <span>Portfolio</span></a></li>
                                         </ul>
                                     </li>
                                     <?php } ?>
