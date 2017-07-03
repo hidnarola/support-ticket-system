@@ -15,12 +15,20 @@
             <div class="column-1_4">
                <h5>follow us</h5>
                <div class="sc_socials sc_socials_type_icons sc_socials_size_small">
-                  <div class="sc_socials_item"><a href="#" target="_blank" class="social_icons"><span class="icon-facebook"></span></a></div>
+                  <!-- <div class="sc_socials_item"><a href="#" target="_blank" class="social_icons"><span class="icon-facebook"></span></a></div>
                   <div class="sc_socials_item"><a href="#" target="_blank" class="social_icons"><span class="icon-twitter"></span></a></div>
                   <div class="sc_socials_item"><a href="#" target="_blank" class="social_icons"><span class="icon-instagramm"></span></a></div>
                   <div class="sc_socials_item"><a href="#" target="_blank" class="social_icons"><span class="icon-plus-1"></span></a></div>
                   <div class="sc_socials_item"><a href="#" target="_blank" class="social_icons"><span class="icon-linkedin"></span></a></div>
-                  <div class="sc_socials_item"><a href="#" target="_blank" class="social_icons"><span class="icon-youtube-play"></span></a></div>
+                  <div class="sc_socials_item"><a href="#" target="_blank" class="social_icons"><span class="icon-youtube-play"></span></a></div> -->
+                  <?php $social_medias = get_social_media(); ?>
+                  <div class="sc_socials_item">
+                  <?php foreach ($social_medias as $social_media) { ?>
+                      <a href="<?php echo $social_media['url']; ?>" class="social-icon si-small si-borderless" style="margin-right: 10px;border-radius:0px">
+                          <img style="width:30px;" src="<?php echo SOCIAL_IMAGE . '/' . $social_media['image']; ?>">
+                      </a>
+                  <?php } ?>
+                  </div>
                </div>
             </div>
             <div class="cL"></div>
