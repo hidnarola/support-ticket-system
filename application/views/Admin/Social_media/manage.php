@@ -149,10 +149,10 @@ function ValidateSingleInput(oInput) {
     return true;
 }
     var base_url = '<?php echo base_url(); ?>admin/';
-    var type = 'social_media/';
+    var type = 'social_media';
     $(document).on('click', '.edit', function () {
         var id = $(this).attr('id').replace('edit_', '');
-        var url = base_url + type + 'get_detail';
+        var url = base_url + 'social_media/get_detail';
         $.ajax({
             type: 'POST',
             url: url,
@@ -175,7 +175,7 @@ function ValidateSingleInput(oInput) {
     });
     $(document).on('click', '.delete', function () {
         var id = $(this).attr('id').replace('delete_', '');
-        var url = base_url + type + 'delete';
+        var url = base_url + 'delete';
         $.ajax({
             type: 'POST',
             url: url,
@@ -183,10 +183,6 @@ function ValidateSingleInput(oInput) {
             dataType: 'JSON',
             data: {id: id, type: type},
             success: function (data) {
-                console.log("data", data);
-                console.log(data.status);
-                console.log(data.msg);
-                console.log(data.id);
                 if (data.status == 1) {
                     $("div.div_alert_error").addClass('alert-success');
                     $('a.delete[data-record="' + data.id + '"]').closest('tr').remove();
