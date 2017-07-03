@@ -24,7 +24,7 @@
                   <?php $social_medias = get_social_media(); ?>
                   <div class="sc_socials_item">
                   <?php foreach ($social_medias as $social_media) { ?>
-                      <a href="<?php echo $social_media['url']; ?>" class="social-icon si-small si-borderless" style="margin-right: 10px;border-radius:0px">
+                      <a href="<?php echo $social_media['url']; ?>" target="_blank" class="social-icon si-small si-borderless" style="margin-right: 10px;border-radius:0px">
                           <img style="width:30px;" src="<?php echo SOCIAL_IMAGE . '/' . $social_media['image']; ?>">
                       </a>
                   <?php } ?>
