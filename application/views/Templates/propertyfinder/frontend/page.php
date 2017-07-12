@@ -82,19 +82,21 @@
                         <div class="top_panel_logo">
                            <div class="logo">
                               <a href="/">
-                                 <img src="assets/propertyfinder/images/logo-header.png" class="logo_main" alt="">
+                                 <img src="assets/propertyfinder/images/new-logo-header.png" class="logo_main" alt="">
                               </a>
                            </div>
                         </div>
                         <div class="top_panel_contacts">
                            <div class="top_panel_contacts_left">
                               <div class="contact_phone">MBZ City, Abu Dhabi,</div>
-                              <div class="contact_email">info@manazelspecialists.com</div>
+                              <div class="contact_email">info@manazelspecialists.ae</div>
                            </div>
                            <div class="top_panel_contacts_right">
-                              call us: <strong><i>+971</i> 24445050</strong>
-                              <small style="font-size:12px"> ( SUN - THUR : 8am to 4pm ) </small>
-                           </div>
+                              <div class="contact_phone"> 
+                                  <i class="fa fa-phone" aria-hidden="true"></i>
+                                  <span style="font-size:0.800em !important">+97124445050 (SUN - THUR : 8am to 4pm) </span>
+                              </div>
+                            </div>
                            <div class="cL"></div>
                         </div>
                         <div class="top_panel_menu">
@@ -129,10 +131,10 @@
                                        }
                                     }
                                  ?>
-                                 <li class="menu-menu <?php if($page=='portfolio'){ echo 'current-menu-parent'; } ?>">
+                                 <!-- <li class="menu-menu <?php if($page=='portfolio'){ echo 'current-menu-parent'; } ?>">
                                     <a href="portfolio">Portfolio</a>
-                                 </li>
-                                 <li class="menu-item login_dropdown <?php if(!empty($this->session->userdata('user_logged_in'))){ echo 'menu-item-has-children'; } ?>" >
+                                 </li> -->
+                                 <li class="menu-item current-menu-parent login_dropdown <?php if(!empty($this->session->userdata('user_logged_in'))){ echo 'menu-item-has-children'; } ?>" >
                                     <?php 
                                        if(!empty($this->session->userdata('user_logged_in'))){
                                           echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

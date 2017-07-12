@@ -38,7 +38,6 @@ class Login extends CI_Controller {
             if(TEMPLATE_ID==1){
                 $this->template->load('frontend/page', 'Frontend/login_register', $data);
             }else{
-
                 $this->template->load('propertyfinder/frontend/page', 'Propertyfinder/Frontend/login_register', $data);
             }
         }
@@ -49,7 +48,6 @@ class Login extends CI_Controller {
             $flag = 0;
 
             if ($result) {
-//                p($result);
                 if ($result['role_id'] == 1 && $result['is_verified'] == 1 && $result['status'] == 1 && $user_title == 'Tenant') {
                     //success
                     $settings = $this->User_model->viewAll('settings', "");
@@ -96,11 +94,6 @@ class Login extends CI_Controller {
                     $settings = $this->User_model->viewAll('settings', "");
                     $this->session->set_userdata('settings', $settings);
                     $this->session->set_userdata('role_id', $result['role_id']);
-//                    $seg = $this->uri->segment(1);
-//                    echo $seg;exit;
-//                    if ($seg == 'admin')
-//                        redirect('admin/tickets');
-//                    else
                     redirect('admin');
                 } elseif ($result['role_id'] == 4 && $user_title == 'Support') {
                     $result['subadmin_id'] = $result['id'];
