@@ -1,14 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 $host = 'localhost';
-$username = 'root';
-$password = '234xdf67ghjjl90k';
+$username = 'manazels_admin';
+$password = 'PEiJpEZ2DSTx';
+$database = 'manazels_property';
 
 
 if ($_SERVER['HTTP_HOST'] == 'dev.supportticket.com') {
     $host = '192.168.1.201';
     $username = 'support_ticket';
     $password = '0g672I8AuKV332e';
+    $database = 'support_ticket';
+} else if($_SERVER['HTTP_HOST'] == '35.154.4.76'){
+	$host = 'localhost';
+	$username = 'root';
+	$password = '234xdf67ghjjl90k';	
+	$database = 'support_ticket';
 }
 /*
 | -------------------------------------------------------------------
@@ -93,7 +101,7 @@ $db['default'] = array(
 	'password' => $password,
 
 
-	'database' => 'support_ticket',
+	'database' => $database,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

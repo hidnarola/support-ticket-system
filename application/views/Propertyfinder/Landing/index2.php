@@ -261,7 +261,7 @@
       <div class="project_div">
          <div class="columns_wrap margin_top_xlarge margin_bottom_xmedium">
             <div class="row">
-               <h1 class="text-center" style="margin-bottom:20px">Residential Projects</h1>
+               <h1 class="text-center" style="margin-bottom:20px">Our Projects</h1>
             </div>
             <div class="row">
                <div class="col-md-4"><a href="portfolio?project=manazelamman"><img src="<?php echo base_url().'uploads/properties/projects/manazelamman.jpg'?>"></a></div>

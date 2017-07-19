@@ -20,7 +20,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('Admin_model');
         $this->load->model('User_model');
         $this->data['icon_class'] = 'icon-user-plus';
-        $this->load->library('push_notification');
+        //$this->load->library('push_notification');
     }
 
     public function index($type = NULL) {
