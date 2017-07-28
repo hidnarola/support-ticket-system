@@ -222,16 +222,16 @@ class Dashboard extends CI_Controller {
             } else {
                 $profile_pic = '';
             }
-
             $profile_data = array(
                 'fname' => $this->input->post('fname'),
                 'lname' => $this->input->post('lname'),
+                'email' => $this->input->post('email'),
                 'contactno' => $this->input->post('contact_no'),
                 'address' => $this->input->post('address'),
                 'profile_pic' => $profile_pic
             );
-
             if ($this->User_model->edit($profile_data, TBL_USERS, 'id', $id)) {
+                $this->session->set_userdata('admin_logged_in',$profile);
                 $this->session->set_flashdata('success_msg', 'Profile updated successfully');
             } else {
                 $this->session->set_flashdata('error_msg', 'Unable to update the profile');
@@ -285,6 +285,8 @@ class Dashboard extends CI_Controller {
                 $password = $this->encrypt->encode($new_password);
                 $profile_data = array('password' => $password);
                 if ($this->User_model->edit($profile_data, TBL_USERS, 'id', $id)) {
+                    $profile = $this->Admin_model->get_profile($id);
+                    $this->session->set_userdata('admin_logged_in',$profile);
                     $this->session->set_flashdata('success_msg', 'Password updated successfully');
                 } else {
                     $this->session->set_flashdata('error_msg', 'Unable to update the password');

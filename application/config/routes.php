@@ -78,6 +78,7 @@ $route['admin/manage/ticket_statuses'] = "Admin/Dashboard/manage/ticket_statuses
 $route['admin/manage/ticket_types'] = "Admin/Dashboard/manage/ticket_types";
 $route['admin/manage/company'] = "Admin/Dashboard/company";
 $route['admin/dashboard/get_staff'] = "Admin/Dashboard/get_staff";
+$route['admin/dashboard/change_password'] = "Admin/Dashboard/change_password";
 $route['admin/tickets/changeAction'] = "Admin/Tickets/changeAction";
 $route['admin/get_detail'] = "Admin/Dashboard/get_detail";
 $route['admin/delete'] = "Admin/Dashboard/delete";
